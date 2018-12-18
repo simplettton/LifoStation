@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534E921C8D14200C567D8 /* AppDelegate.m */; };
+		049534ED21C8D14200C567D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534EC21C8D14200C567D8 /* ViewController.m */; };
+		049534F021C8D14200C567D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049534EE21C8D14200C567D8 /* Main.storyboard */; };
+		049534F221C8D14600C567D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049534F121C8D14600C567D8 /* Assets.xcassets */; };
+		049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049534F321C8D14600C567D8 /* LaunchScreen.storyboard */; };
+		049534F821C8D14600C567D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534F721C8D14600C567D8 /* main.m */; };
+		0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350121C8D14600C567D8 /* LifoStationTests.m */; };
+		0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350C21C8D14600C567D8 /* LifoStationUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		049534FE21C8D14600C567D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 049534DD21C8D14200C567D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 049534E421C8D14200C567D8;
+			remoteInfo = LifoStation;
+		};
+		0495350921C8D14600C567D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 049534DD21C8D14200C567D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 049534E421C8D14200C567D8;
+			remoteInfo = LifoStation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		049534E521C8D14200C567D8 /* LifoStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifoStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		049534E821C8D14200C567D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		049534E921C8D14200C567D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		049534EB21C8D14200C567D8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		049534EC21C8D14200C567D8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		049534EF21C8D14200C567D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		049534F121C8D14600C567D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		049534F421C8D14600C567D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		049534F621C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		049534F721C8D14600C567D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		049534FD21C8D14600C567D8 /* LifoStationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifoStationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0495350121C8D14600C567D8 /* LifoStationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationTests.m; sourceTree = "<group>"; };
+		0495350321C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0495350821C8D14600C567D8 /* LifoStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifoStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0495350C21C8D14600C567D8 /* LifoStationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationUITests.m; sourceTree = "<group>"; };
+		0495350E21C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		049534E221C8D14200C567D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		049534FA21C8D14600C567D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0495350521C8D14600C567D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		049534DC21C8D14200C567D8 = {
+			isa = PBXGroup;
+			children = (
+				049534E721C8D14200C567D8 /* LifoStation */,
+				0495350021C8D14600C567D8 /* LifoStationTests */,
+				0495350B21C8D14600C567D8 /* LifoStationUITests */,
+				049534E621C8D14200C567D8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		049534E621C8D14200C567D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				049534E521C8D14200C567D8 /* LifoStation.app */,
+				049534FD21C8D14600C567D8 /* LifoStationTests.xctest */,
+				0495350821C8D14600C567D8 /* LifoStationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		049534E721C8D14200C567D8 /* LifoStation */ = {
+			isa = PBXGroup;
+			children = (
+				049534E821C8D14200C567D8 /* AppDelegate.h */,
+				049534E921C8D14200C567D8 /* AppDelegate.m */,
+				049534EB21C8D14200C567D8 /* ViewController.h */,
+				049534EC21C8D14200C567D8 /* ViewController.m */,
+				049534EE21C8D14200C567D8 /* Main.storyboard */,
+				049534F121C8D14600C567D8 /* Assets.xcassets */,
+				049534F321C8D14600C567D8 /* LaunchScreen.storyboard */,
+				049534F621C8D14600C567D8 /* Info.plist */,
+				049534F721C8D14600C567D8 /* main.m */,
+			);
+			path = LifoStation;
+			sourceTree = "<group>";
+		};
+		0495350021C8D14600C567D8 /* LifoStationTests */ = {
+			isa = PBXGroup;
+			children = (
+				0495350121C8D14600C567D8 /* LifoStationTests.m */,
+				0495350321C8D14600C567D8 /* Info.plist */,
+			);
+			path = LifoStationTests;
+			sourceTree = "<group>";
+		};
+		0495350B21C8D14600C567D8 /* LifoStationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0495350C21C8D14600C567D8 /* LifoStationUITests.m */,
+				0495350E21C8D14600C567D8 /* Info.plist */,
+			);
+			path = LifoStationUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		049534E421C8D14200C567D8 /* LifoStation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0495351121C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStation" */;
+			buildPhases = (
+				049534E121C8D14200C567D8 /* Sources */,
+				049534E221C8D14200C567D8 /* Frameworks */,
+				049534E321C8D14200C567D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LifoStation;
+			productName = LifoStation;
+			productReference = 049534E521C8D14200C567D8 /* LifoStation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		049534FC21C8D14600C567D8 /* LifoStationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0495351421C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStationTests" */;
+			buildPhases = (
+				049534F921C8D14600C567D8 /* Sources */,
+				049534FA21C8D14600C567D8 /* Frameworks */,
+				049534FB21C8D14600C567D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				049534FF21C8D14600C567D8 /* PBXTargetDependency */,
+			);
+			name = LifoStationTests;
+			productName = LifoStationTests;
+			productReference = 049534FD21C8D14600C567D8 /* LifoStationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0495350721C8D14600C567D8 /* LifoStationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0495351721C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStationUITests" */;
+			buildPhases = (
+				0495350421C8D14600C567D8 /* Sources */,
+				0495350521C8D14600C567D8 /* Frameworks */,
+				0495350621C8D14600C567D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0495350A21C8D14600C567D8 /* PBXTargetDependency */,
+			);
+			name = LifoStationUITests;
+			productName = LifoStationUITests;
+			productReference = 0495350821C8D14600C567D8 /* LifoStationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		049534DD21C8D14200C567D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Shenzhen Lifotronic Technology Co.,Ltd.";
+				TargetAttributes = {
+					049534E421C8D14200C567D8 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					049534FC21C8D14600C567D8 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 049534E421C8D14200C567D8;
+					};
+					0495350721C8D14600C567D8 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 049534E421C8D14200C567D8;
+					};
+				};
+			};
+			buildConfigurationList = 049534E021C8D14200C567D8 /* Build configuration list for PBXProject "LifoStation" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 049534DC21C8D14200C567D8;
+			productRefGroup = 049534E621C8D14200C567D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				049534E421C8D14200C567D8 /* LifoStation */,
+				049534FC21C8D14600C567D8 /* LifoStationTests */,
+				0495350721C8D14600C567D8 /* LifoStationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		049534E321C8D14200C567D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
+				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
+				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		049534FB21C8D14600C567D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0495350621C8D14600C567D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		049534E121C8D14200C567D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				049534ED21C8D14200C567D8 /* ViewController.m in Sources */,
+				049534F821C8D14600C567D8 /* main.m in Sources */,
+				049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		049534F921C8D14600C567D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0495350421C8D14600C567D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		049534FF21C8D14600C567D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 049534E421C8D14200C567D8 /* LifoStation */;
+			targetProxy = 049534FE21C8D14600C567D8 /* PBXContainerItemProxy */;
+		};
+		0495350A21C8D14600C567D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 049534E421C8D14200C567D8 /* LifoStation */;
+			targetProxy = 0495350921C8D14600C567D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		049534EE21C8D14200C567D8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				049534EF21C8D14200C567D8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		049534F321C8D14600C567D8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				049534F421C8D14600C567D8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0495350F21C8D14600C567D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0495351021C8D14600C567D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0495351221C8D14600C567D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0495351321C8D14600C567D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0495351521C8D14600C567D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LifoStation.app/LifoStation";
+			};
+			name = Debug;
+		};
+		0495351621C8D14600C567D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LifoStation.app/LifoStation";
+			};
+			name = Release;
+		};
+		0495351821C8D14600C567D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LifoStation;
+			};
+			name = Debug;
+		};
+		0495351921C8D14600C567D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A457Z9M6ER;
+				INFOPLIST_FILE = LifoStationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LifoStation;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		049534E021C8D14200C567D8 /* Build configuration list for PBXProject "LifoStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0495350F21C8D14600C567D8 /* Debug */,
+				0495351021C8D14600C567D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0495351121C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0495351221C8D14600C567D8 /* Debug */,
+				0495351321C8D14600C567D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0495351421C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0495351521C8D14600C567D8 /* Debug */,
+				0495351621C8D14600C567D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0495351721C8D14600C567D8 /* Build configuration list for PBXNativeTarget "LifoStationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0495351821C8D14600C567D8 /* Debug */,
+				0495351921C8D14600C567D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 049534DD21C8D14200C567D8 /* Project object */;
+}
