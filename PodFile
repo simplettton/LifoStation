@@ -1,0 +1,8 @@
+platform :ios,'9.0'
+inhibit_all_warnings! #全局禁止显示警告
+target 'LifoStation' do 
+    pod 'CocoaAsyncSocket'
+    pod 'SVProgressHUD'
+    pod 'MBProgressHUD'
+    pod 'TYAlertController'
+end

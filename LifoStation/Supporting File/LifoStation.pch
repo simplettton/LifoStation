@@ -1,0 +1,20 @@
+////  LifoStation.pch
+//  LifoStation
+//
+//  Created by Binger Zeng on 2018/12/19.
+//  Copyright © 2018年 Shenzhen Lifotronic Technology Co.,Ltd. All rights reserved.
+//
+
+#ifndef LifoStation_pch
+#define LifoStation_pch
+
+/**
+ *  16进制颜色定义
+ */
+#define UIColorFromHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000)>>16))/255.0 green:((float)((rgbValue & 0xFF00)>>8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1]
+#define Token [[NSUserDefaults standardUserDefaults]objectForKey:@"Token"]
+#define UserDefault [NSUserDefaults standardUserDefaults]
+
+#import <SVProgressHUD.h>
+#import "BEProgressHUD.h"
+#endif /* LifoStation_pch */

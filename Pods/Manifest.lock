@@ -1,0 +1,28 @@
+PODS:
+  - CocoaAsyncSocket (7.6.3)
+  - MBProgressHUD (1.1.0)
+  - SVProgressHUD (2.2.5)
+  - TYAlertController (1.2.0)
+
+DEPENDENCIES:
+  - CocoaAsyncSocket
+  - MBProgressHUD
+  - SVProgressHUD
+  - TYAlertController
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CocoaAsyncSocket
+    - MBProgressHUD
+    - SVProgressHUD
+    - TYAlertController
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
+
+PODFILE CHECKSUM: 8dc74c52ae76451dcaac6d98c76d1359ccc1c72c
+
+COCOAPODS: 1.5.3
