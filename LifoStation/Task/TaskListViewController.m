@@ -9,12 +9,25 @@
 #import "TaskListViewController.h"
 #import "TaskDetailView.h"
 #import "DeviceSelectView.h"
+#import "LostRecordView.h"
 #import "TaskCell.h"
 #import "UIView+TYAlertView.h"
+#import <Masonry/Masonry.h>
 @interface TaskListViewController ()
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleOne;
+@property (weak, nonatomic) IBOutlet UILabel *titleTwo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *taillingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lastBeforeContraint;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleThree;
+@property (weak, nonatomic) IBOutlet UILabel *titleFour;
+@property (weak, nonatomic) IBOutlet UILabel *titleFive;
+@property (weak, nonatomic) IBOutlet UILabel *titleSix;
+@property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (nonatomic, assign) int taskTag;
 @end
 
 @implementation TaskListViewController
@@ -31,11 +44,49 @@
     self.searchBar.tintColor = UIColorFromHex(0x5E97FE);//出现光标
     UITextField * searchField = [_searchBar valueForKey:@"_searchField"];
     [searchField setValue:[UIFont systemFontOfSize:15 weight:UIFontWeightLight] forKeyPath:@"_placeholderLabel.font"];
+    self.taskTag = UnfinishedTaskList;
+
+}
+#pragma mark - segmented control action
+
+- (IBAction)segmentedControlAction:(UISegmentedControl *)sender {
+    NSInteger index = sender.selectedSegmentIndex;
+    switch (index) {
+        case 0:
+        {
+            self.taskTag = UnfinishedTaskList;
+            self.titleFour.hidden = NO;
+//            [self.titleSix mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.trailing.equalTo(self.titleView.mas_trailing).offset(-294);
+//
+//            }];
+            self.taillingConstraint.constant = 163;
+            self.lastBeforeContraint.constant = 60;
+        }
+            break;
+        case 1:
+        {
+            self.taskTag = FinishedTaskList;
+            self.titleFour.hidden = YES;
+//            [self.titleSix mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.trailing.equalTo(self.titleView.mas_trailing).offset(-294-77);
+//            }];
+            self.taillingConstraint.constant = 163+58;
+             self.lastBeforeContraint.constant = 60+15;
+        }
+            break;
+        default:
+            break;
+    }
+    //更新约束
+//    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+//    }];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
@@ -60,7 +111,12 @@
     return 56;
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString* CellIdentifier = @"Cell";
+    static NSString* CellIdentifier;
+    if (self.taskTag == UnfinishedTaskList) {
+        CellIdentifier = @"UnfinishedTaskCell";
+    } else {
+        CellIdentifier = @"FinishedTaskCell";
+    }
     TaskCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
         cell = [[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -79,8 +135,30 @@
     [view showInWindow];
     
 }
+#pragma mark - UITableView Edit
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [self.dataArray removeObjectAtIndex:indexPath.row];
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView reloadData];
+}
 
-
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.taskTag == UnfinishedTaskList) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *finishAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"完成", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [tableView setEditing:NO animated:YES];  // 这句很重要，退出编辑模式，隐藏左滑菜单
+        LostRecordView *view = [LostRecordView createViewFromNib];
+        [view showInWindow];
+    }];
+    finishAction.backgroundColor = UIColorFromHex(0x08BF91);
+//    finishAction.backgroundColor = UIColorFromHex(0xFC885D);
+    return @[finishAction];
+}
 
 
 @end

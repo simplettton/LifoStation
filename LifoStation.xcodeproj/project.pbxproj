@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0419232D21D7218B00CE8F91 /* GHDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419232721D7218B00CE8F91 /* GHDropMenu.m */; };
+		0419232E21D7218B00CE8F91 /* NSArray+Bounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419232A21D7218B00CE8F91 /* NSArray+Bounds.m */; };
+		0419232F21D7218B00CE8F91 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419232C21D7218B00CE8F91 /* NSString+Size.m */; };
+		0419233221D75CD400CE8F91 /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419233121D75CD400CE8F91 /* DeviceListViewController.m */; };
+		0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419233521D76E8D00CE8F91 /* DeviceCell.m */; };
 		04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CC721D360F200C848C9 /* TaskListViewController.m */; };
 		04236CCC21D371E800C848C9 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CCB21D371E800C848C9 /* TaskCell.m */; };
 		042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C9E6C21CC9A9E001A3246 /* SetNetWorkView.m */; };
@@ -16,6 +21,9 @@
 		046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D215021D4B29700A0D5AE /* DeviceSelectView.xib */; };
 		046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046D215321D4B47800A0D5AE /* DeviceSelectView.m */; };
 		046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046D215921D4C6E900A0D5AE /* DeviceItemCell.m */; };
+		0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473CEFB21D622AD00E869A3 /* LostRecordView.xib */; };
+		0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CEFE21D6261000E869A3 /* RecordItemCell.m */; };
+		0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CF0121D6283700E869A3 /* LostRecordView.m */; };
 		047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047519D021D0E14D00A30B9E /* SettingsViewController.m */; };
 		0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480064221D1CB42004F7C73 /* EditPasswordController.m */; };
 		0480064621D1D6FA004F7C73 /* PatientListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480064521D1D6FA004F7C73 /* PatientListViewController.m */; };
@@ -55,6 +63,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0419232621D7218B00CE8F91 /* GHDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHDropMenu.h; sourceTree = "<group>"; };
+		0419232721D7218B00CE8F91 /* GHDropMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHDropMenu.m; sourceTree = "<group>"; };
+		0419232821D7218B00CE8F91 /* GHDropMenuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHDropMenuHeader.h; sourceTree = "<group>"; };
+		0419232921D7218B00CE8F91 /* NSArray+Bounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Bounds.h"; sourceTree = "<group>"; };
+		0419232A21D7218B00CE8F91 /* NSArray+Bounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Bounds.m"; sourceTree = "<group>"; };
+		0419232B21D7218B00CE8F91 /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
+		0419232C21D7218B00CE8F91 /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
+		0419233021D75CD400CE8F91 /* DeviceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListViewController.h; sourceTree = "<group>"; };
+		0419233121D75CD400CE8F91 /* DeviceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewController.m; sourceTree = "<group>"; };
+		0419233421D76E8D00CE8F91 /* DeviceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCell.h; sourceTree = "<group>"; };
+		0419233521D76E8D00CE8F91 /* DeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceCell.m; sourceTree = "<group>"; };
 		04236CC621D360F200C848C9 /* TaskListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskListViewController.h; sourceTree = "<group>"; };
 		04236CC721D360F200C848C9 /* TaskListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskListViewController.m; sourceTree = "<group>"; };
 		04236CCA21D371E800C848C9 /* TaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
@@ -70,6 +89,11 @@
 		046D215321D4B47800A0D5AE /* DeviceSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceSelectView.m; sourceTree = "<group>"; };
 		046D215821D4C6E900A0D5AE /* DeviceItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceItemCell.h; sourceTree = "<group>"; };
 		046D215921D4C6E900A0D5AE /* DeviceItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceItemCell.m; sourceTree = "<group>"; };
+		0473CEFB21D622AD00E869A3 /* LostRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LostRecordView.xib; sourceTree = "<group>"; };
+		0473CEFD21D6261000E869A3 /* RecordItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordItemCell.h; sourceTree = "<group>"; };
+		0473CEFE21D6261000E869A3 /* RecordItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordItemCell.m; sourceTree = "<group>"; };
+		0473CF0021D6283700E869A3 /* LostRecordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LostRecordView.h; sourceTree = "<group>"; };
+		0473CF0121D6283700E869A3 /* LostRecordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LostRecordView.m; sourceTree = "<group>"; };
 		047519CF21D0E14D00A30B9E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		047519D021D0E14D00A30B9E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		0480064121D1CB42004F7C73 /* EditPasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPasswordController.h; sourceTree = "<group>"; };
@@ -136,6 +160,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0419232121D71E6900CE8F91 /* Third-party Framework */ = {
+			isa = PBXGroup;
+			children = (
+				0419232521D7218B00CE8F91 /* GHDropMenu */,
+			);
+			path = "Third-party Framework";
+			sourceTree = "<group>";
+		};
+		0419232521D7218B00CE8F91 /* GHDropMenu */ = {
+			isa = PBXGroup;
+			children = (
+				0419232621D7218B00CE8F91 /* GHDropMenu.h */,
+				0419232721D7218B00CE8F91 /* GHDropMenu.m */,
+				0419232821D7218B00CE8F91 /* GHDropMenuHeader.h */,
+				0419232921D7218B00CE8F91 /* NSArray+Bounds.h */,
+				0419232A21D7218B00CE8F91 /* NSArray+Bounds.m */,
+				0419232B21D7218B00CE8F91 /* NSString+Size.h */,
+				0419232C21D7218B00CE8F91 /* NSString+Size.m */,
+			);
+			name = GHDropMenu;
+			path = "../../../../Downloads/GHDropMenuDemo-master/GHDropMenu";
+			sourceTree = "<group>";
+		};
+		0419233321D75CDC00CE8F91 /* DeviceMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				0419233021D75CD400CE8F91 /* DeviceListViewController.h */,
+				0419233121D75CD400CE8F91 /* DeviceListViewController.m */,
+				0419233421D76E8D00CE8F91 /* DeviceCell.h */,
+				0419233521D76E8D00CE8F91 /* DeviceCell.m */,
+			);
+			path = DeviceMonitor;
+			sourceTree = "<group>";
+		};
 		04236CC921D360F900C848C9 /* Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +209,11 @@
 				046D215321D4B47800A0D5AE /* DeviceSelectView.m */,
 				046D215821D4C6E900A0D5AE /* DeviceItemCell.h */,
 				046D215921D4C6E900A0D5AE /* DeviceItemCell.m */,
+				0473CEFB21D622AD00E869A3 /* LostRecordView.xib */,
+				0473CF0021D6283700E869A3 /* LostRecordView.h */,
+				0473CF0121D6283700E869A3 /* LostRecordView.m */,
+				0473CEFD21D6261000E869A3 /* RecordItemCell.h */,
+				0473CEFE21D6261000E869A3 /* RecordItemCell.m */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -244,6 +307,8 @@
 		049534E721C8D14200C567D8 /* LifoStation */ = {
 			isa = PBXGroup;
 			children = (
+				0419233321D75CDC00CE8F91 /* DeviceMonitor */,
+				0419232121D71E6900CE8F91 /* Third-party Framework */,
 				04236CC921D360F900C848C9 /* Task */,
 				0480064721D1D700004F7C73 /* PatientList */,
 				048257E421CC812400ADFB0C /* Login */,
@@ -412,6 +477,7 @@
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
 				0495351B21C8D3DA00C567D8 /* body.dae in Resources */,
+				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
 				04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */,
 			);
@@ -483,15 +549,22 @@
 				04829C3C21CBA01700A42FC0 /* LoginViewController.m in Sources */,
 				04236CCC21D371E800C848C9 /* TaskCell.m in Sources */,
 				04829C3F21CBBBE200A42FC0 /* BEProgressHUD.m in Sources */,
+				0419232E21D7218B00CE8F91 /* NSArray+Bounds.m in Sources */,
 				047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */,
 				046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */,
 				046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */,
 				04DFF16D21D08FF6009EA938 /* MainViewController.m in Sources */,
 				049534ED21C8D14200C567D8 /* ViewController.m in Sources */,
+				0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */,
+				0419232D21D7218B00CE8F91 /* GHDropMenu.m in Sources */,
+				0419232F21D7218B00CE8F91 /* NSString+Size.m in Sources */,
+				0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */,
 				049534F821C8D14600C567D8 /* main.m in Sources */,
+				0419233221D75CD400CE8F91 /* DeviceListViewController.m in Sources */,
 				042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */,
 				0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
+				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,
 				049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */,
 			);

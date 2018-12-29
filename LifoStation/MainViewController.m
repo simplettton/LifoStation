@@ -50,6 +50,9 @@
     [self.taskListView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
     }];
+    [self.deviceManagementView addTapBlock:^(id obj) {
+        [self performSegueWithIdentifier:@"ShowDeviceList" sender:nil];
+    }];
     
 }
 

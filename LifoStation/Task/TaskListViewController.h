@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef enum _TaskListType
+{
+    UnfinishedTaskList = 1,
+    FinishedTaskList = 2
+}TaskListType;
 @interface TaskListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end

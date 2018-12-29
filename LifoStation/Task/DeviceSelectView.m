@@ -11,16 +11,11 @@
 #import "DeviceItemCell.h"
 @interface DeviceSelectView()
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, assign) NSInteger selectedIndex;
 
 @end
 @implementation DeviceSelectView
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 - (IBAction)cancelAction:(id)sender {
     [self hideView];
 }
@@ -51,11 +46,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DeviceItemCell *cell = [[NSBundle mainBundle]loadNibNamed:@"DeviceSelectView" owner:self options:nil].lastObject;
     cell.doctorImageView.hidden = (indexPath.row == 0)?NO:YES;
-    
+    cell.selectionImageView.hidden = indexPath.row == self.selectedIndex? NO:YES;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.selectedIndex = indexPath.row;
+    [tableView reloadData];
 }
 
 @end
