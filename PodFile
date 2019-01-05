@@ -5,5 +5,6 @@ target 'LifoStation' do
     pod 'SVProgressHUD'
     pod 'MBProgressHUD'
     pod 'TYAlertController'
+    pod 'MMPopupView'
     pod 'Masonry'
 end

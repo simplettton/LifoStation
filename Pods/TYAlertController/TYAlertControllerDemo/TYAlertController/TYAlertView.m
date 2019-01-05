@@ -94,7 +94,7 @@
         
         [self addContentViews];
         
-        [self addTextLabels];
+//        [self addTextLabels];
         
     }
     return self;

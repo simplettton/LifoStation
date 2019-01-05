@@ -1,0 +1,14 @@
+//
+//  EditMachineViewController.h
+//  LifoStation
+//
+//  Created by Binger Zeng on 2019/1/4.
+//  Copyright © 2019年 Shenzhen Lifotronic Technology Co.,Ltd. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface EditMachineViewController : UIViewController
+@property (nonatomic, strong) NSString *machineName;
+@property (nonatomic, strong) NSString *department;
+@end

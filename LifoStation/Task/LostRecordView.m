@@ -35,9 +35,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RecordItemCell *cell = [[NSBundle mainBundle]loadNibNamed:@"LostRecordView" owner:self options:nil].lastObject;
-    if (indexPath.row == self.selectedIndex) {
-        cell.selectionImageView.hidden = NO;
-    }
+
     cell.selectionImageView.hidden = (indexPath.row == self.selectedIndex? NO :YES);
     return cell;
 }

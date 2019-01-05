@@ -53,6 +53,9 @@
     [self.deviceManagementView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowDeviceList" sender:nil];
     }];
+    [self.treatmentRecordView addTapBlock:^(id obj) {
+        [self performSegueWithIdentifier:@"ShowRecordList" sender:nil];
+    }];
     
 }
 

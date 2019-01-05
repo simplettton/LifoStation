@@ -7,7 +7,11 @@
 
 #ifndef LifoStation_pch
 #define LifoStation_pch
+#define weakself(self)  __weak __typeof(self) weakSelf = self
 
+// ScreenWidth & kScreenHeight
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 /**
  *  16进制颜色定义
  */

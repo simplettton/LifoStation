@@ -2,6 +2,8 @@ PODS:
   - CocoaAsyncSocket (7.6.3)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
+  - MMPopupView (1.7.2):
+    - Masonry
   - SVProgressHUD (2.2.5)
   - TYAlertController (1.2.0)
 
@@ -9,6 +11,7 @@ DEPENDENCIES:
   - CocoaAsyncSocket
   - Masonry
   - MBProgressHUD
+  - MMPopupView
   - SVProgressHUD
   - TYAlertController
 
@@ -17,6 +20,7 @@ SPEC REPOS:
     - CocoaAsyncSocket
     - Masonry
     - MBProgressHUD
+    - MMPopupView
     - SVProgressHUD
     - TYAlertController
 
@@ -24,9 +28,10 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
 
-PODFILE CHECKSUM: 6704630db29fbd8bb50505887a86a2c6eafe0403
+PODFILE CHECKSUM: 280326231aa12f2f9163bb731923ed82d49ef0b2
 
 COCOAPODS: 1.5.3

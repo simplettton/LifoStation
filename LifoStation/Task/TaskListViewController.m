@@ -41,6 +41,7 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     //searchbar style
     self.searchBar.backgroundImage = [[UIImage alloc]init];//去除边框线
+
     self.searchBar.tintColor = UIColorFromHex(0x5E97FE);//出现光标
     UITextField * searchField = [_searchBar valueForKey:@"_searchField"];
     [searchField setValue:[UIFont systemFontOfSize:15 weight:UIFontWeightLight] forKeyPath:@"_placeholderLabel.font"];
@@ -121,6 +122,7 @@
     if (cell == nil) {
         cell = [[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+
     [cell.sendButton addTarget:self action:@selector(showDeviceSelectView:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -156,7 +158,6 @@
         [view showInWindow];
     }];
     finishAction.backgroundColor = UIColorFromHex(0x08BF91);
-//    finishAction.backgroundColor = UIColorFromHex(0xFC885D);
     return @[finishAction];
 }
 
