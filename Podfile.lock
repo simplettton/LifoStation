@@ -1,37 +1,45 @@
 PODS:
   - CocoaAsyncSocket (7.6.3)
+  - JSONModel (1.8.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MMPopupView (1.7.2):
     - Masonry
+  - SDAutoLayout (2.2.1)
   - SVProgressHUD (2.2.5)
   - TYAlertController (1.2.0)
 
 DEPENDENCIES:
   - CocoaAsyncSocket
+  - JSONModel
   - Masonry
   - MBProgressHUD
   - MMPopupView
+  - SDAutoLayout
   - SVProgressHUD
   - TYAlertController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CocoaAsyncSocket
+    - JSONModel
     - Masonry
     - MBProgressHUD
     - MMPopupView
+    - SDAutoLayout
     - SVProgressHUD
     - TYAlertController
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
+  SDAutoLayout: 8bf6b3bbc8b01f775d4defbb4fda2ace805461be
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
 
-PODFILE CHECKSUM: 280326231aa12f2f9163bb731923ed82d49ef0b2
+PODFILE CHECKSUM: 7ad28265bc49f1d9485776689f4330d438bae427
 
 COCOAPODS: 1.5.3

@@ -10,10 +10,12 @@
 #import "ChooseLanguageView.h"
 #import "UIView+Tap.h"
 #import "UIView+TYAlertView.h"
+#import "LoginViewController.h"
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIView *changePasswordView;
 @property (weak, nonatomic) IBOutlet UIView *contactView;
 @property (weak, nonatomic) IBOutlet UIView *languageView;
+@property (weak, nonatomic) IBOutlet UIView *logoutView;
 
 @end
 
@@ -22,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTap];
-    // Do any additional setup after loading the view.
 }
 - (void)addTap {
     [self.changePasswordView addTapBlock:^(id obj) {
@@ -35,6 +36,41 @@
         ChooseLanguageView *view = [ChooseLanguageView createViewFromNib];
         [view showInWindow];
     }];
+    
+    [self.logoutView addTapBlock:^(id obj) {
+        [self presentLogoutAlert];
+    }];
+}
+- (void)presentLogoutAlert {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号。"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:@"退出登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [UserDefault setBool:NO forKey:@"IsLogined"];
+        [UserDefault synchronize];
+    
+        [[[UIApplication sharedApplication].delegate window].rootViewController removeFromParentViewController];
+        
+        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *vc = (LoginViewController *)[mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [UIView transitionWithView:[[UIApplication sharedApplication].delegate window]
+                          duration:0.25
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [[UIApplication sharedApplication].delegate window].rootViewController = vc;
+                        }
+                        completion:nil];
+        
+        [[[UIApplication sharedApplication].delegate window] makeKeyAndVisible];
+    }];
+    
+    [alert addAction:logoutAction];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+    [alert addAction:cancelAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];

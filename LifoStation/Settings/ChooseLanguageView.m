@@ -44,7 +44,7 @@
     } else {
         cell.titleLabel.text = @"English";
     }
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.selectionImageView.hidden = (indexPath.row == self.selectedIndex? NO :YES);
 
     return cell;

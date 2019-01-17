@@ -13,13 +13,29 @@
 @end
 
 @implementation AppDelegate
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self initRootViewController];
     return YES;
 }
+- (void)initRootViewController {
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    __block UINavigationController *controller;
+    if ([self isUserLogin]) {
+        NSString *role = [UserDefault objectForKey:@"Role"];
+        if ([role isEqualToString:@"Nurse"]) {
+            controller = [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];
+        } else {
+            controller = [mainStoryBoard instantiateViewControllerWithIdentifier:@"AgentNavigation"];
+        }
+    } else {
+        controller = [mainStoryBoard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    }
 
+    [UIView transitionWithView:self.window duration:0.25 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.window.rootViewController = controller;
+    } completion:nil];
+    [self.window makeKeyAndVisible];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -45,6 +61,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+#pragma mark -- LoginCheck
+- (BOOL)isUserLogin {
+    
+    BOOL isLogined = [UserDefault boolForKey:@"IsLogined"];
+    
+    if (isLogined)
+    {
+        //已经登录
+        return YES;
+    }
+    return NO;
 }
 
 

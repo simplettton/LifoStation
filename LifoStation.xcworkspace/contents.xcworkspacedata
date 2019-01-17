@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TwoViewsAirWaveCell.h">
+   </FileRef>
+   <FileRef
+      location = "group:TwoViewsAirWaveCell.m">
+   </FileRef>
+   <FileRef
+      location = "group:TwoViewsAirWaveCell.xib">
+   </FileRef>
+   <FileRef
       location = "group:LifoStation.xcodeproj">
    </FileRef>
    <FileRef

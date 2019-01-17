@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "SetNetWorkView.h"
+#import "AppDelegate.h"
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIView *userView;
 @property (weak, nonatomic) IBOutlet UIView *passwordView;
@@ -60,6 +61,42 @@
     [self hideKeyBoard];
     [UserDefault setBool:[self.remenberNameSwitch isOn] forKey:@"HasRememberName"];
     [UserDefault synchronize];
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    __block UINavigationController *controller;
+    NSString *role;
+    if ([self.userNameTextField.text isEqualToString:@"nurse"]) {
+        role = @"Nurse";
+        controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];
+    } else {
+        role = @"Agent";
+        controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"AgentNavigation"];
+    }
+    if (controller) {
+        //登录成功保存token role
+        [UserDefault setBool:YES forKey:@"IsLogined"];
+        [UserDefault setObject:role forKey:@"Role"];
+        [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
+    }
+}
+- (void)initRootViewController:(UINavigationController *)controller {
+
+    //登录成功后保存账户信息
+    [self saveUserInfo];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AppDelegate *myDelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+        [myDelegate.window.rootViewController removeFromParentViewController];
+        [UIView transitionWithView:myDelegate.window
+                          duration:0.25
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            myDelegate.window.rootViewController = controller;
+                        } completion:nil];
+        [myDelegate.window makeKeyAndVisible];
+        [BEProgressHUD hideHUD];
+    });
+}
+- (void)saveUserInfo {
+    
 }
 #pragma mark - Network configure
 - (IBAction)setNetwork:(id)sender {

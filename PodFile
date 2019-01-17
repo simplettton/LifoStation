@@ -7,4 +7,6 @@ target 'LifoStation' do
     pod 'TYAlertController'
     pod 'MMPopupView'
     pod 'Masonry'
+    pod 'JSONModel'
+    pod 'SDAutoLayout'
 end
