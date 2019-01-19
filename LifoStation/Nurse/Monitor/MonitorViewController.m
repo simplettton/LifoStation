@@ -10,17 +10,26 @@
 
 #import "SingleViewAirWaveCell.h"
 #import "TwoViewsAirWaveCell.h"
+#import "FourViewsAirWaveCell.h"
+#import "NineViewsAirWaveCell.h"
 
+#import "PatientInfoPopupView.h"
+#import "AirWaveSetParameterView.h"
 
 #import "UIView+TYAlertView.h"
+#import "UIView+Tap.h"
 #import "AlertView.h"
 @interface MonitorViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *alertView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewHeight;
 
 @property (nonatomic, assign) NSInteger showViewType;
 @property (weak, nonatomic) IBOutlet UIStackView *typeSwitchView;
+
+@property (weak, nonatomic) IBOutlet UIButton *isShowAlertViewButton;
+@property (nonatomic, assign) BOOL isShowAlertMessage;
 @end
 
 @implementation MonitorViewController
@@ -35,6 +44,7 @@
     [button setTitle:@" 重点关注" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     [button setTitleColor:UIColorFromHex(0x6EA4E2) forState:UIControlStateNormal];
+    
 //    button.frame=CGRectMake(0,0,100,100);//#1#硬编码设置UIButton位置、大小
  UIBarButtonItem* barButtonItem=[[UIBarButtonItem alloc]initWithCustomView:button];
     self.navigationItem.rightBarButtonItem=barButtonItem;
@@ -47,11 +57,18 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TwoViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"TwoViewsAirWaveCell"];
     
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([FourViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"FourViewsAirWaveCell"];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineViewsAirWaveCell"];
+    
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
     self.showViewType = SingleViewType;
     [self changeShowViewType:[self.typeSwitchView viewWithTag:SingleViewType]];
+    
+    /** 默认展示alertview */
+    _isShowAlertMessage = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,7 +98,24 @@
         case SingleViewType:
         {
             CellIdentifier = @"SingleViewAirWaveCell";
-            cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+            SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+
+            if (indexPath.row %3 == 0) {
+                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight];
+            }
+            else if (indexPath.row %3 == 1) {
+                [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree];
+            }
+            else {
+                [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree];
+            }
+            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.parameterView addTapBlock:^(id obj) {
+                AirWaveSetParameterView *view = [AirWaveSetParameterView createViewFromNib];
+                [view showInWindow];
+            }];
+            return cell;
+
         }
 
             break;
@@ -89,30 +123,58 @@
         {
             CellIdentifier = @"TwoViewsAirWaveCell";
             TwoViewsAirWaveCell *cell = (TwoViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.type = AirBagTypeEight;
+            if (indexPath.row %2 == 0){
+                [cell configureWithAirBagType:AirBagTypeEight];
+            }
+            else {
+                [cell configureWithAirBagType:AirBagTypeThree];
+            }
+            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
             return cell;
-
-
             
         }
 
             break;
+            
+        case FourViewsType:
+        {
+            CellIdentifier = @"FourViewsAirWaveCell";
+            FourViewsAirWaveCell *cell = (FourViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+            if (indexPath.row %2 == 0){
+                [cell configureWithAirBagType:AirBagTypeEight];
+            }
+            else {
+                [cell configureWithAirBagType:AirBagTypeThree];
+            }
+            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
+            return cell;
+        }
+             break;
+        case NineViewsType:
+        {
+            CellIdentifier = @"NineViewsAirWaveCell";
+            NineViewsAirWaveCell *cell = (NineViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+            if (indexPath.row %2 == 0){
+                [cell configureWithAirBagType:AirBagTypeEight];
+            }
+            else {
+                [cell configureWithAirBagType:AirBagTypeThree];
+            }
+            
+            return cell;
+        }
+            break;
         default:
             CellIdentifier = @"SingleViewAirWaveCell";
             cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-            if (cell == nil) {
-                cell = [[UINib nibWithNibName:@"SingleViewAirWaveCell" bundle:nil] instantiateWithOwner:self options:nil].firstObject;
-                
-            }
             break;
     }
-    
 
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 2;
+    return 20;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -123,6 +185,12 @@
             break;
         case TwoViewsType:
             return CGSizeMake(700, 352);
+            break;
+        case FourViewsType:
+            return CGSizeMake(342, 306);
+            break;
+        case NineViewsType:
+            return CGSizeMake(232, 206);
             break;
         default:
             break;
@@ -148,7 +216,11 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    if (self.isShowAlertMessage) {
+        return 3;
+    } else {
+        return 0;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -167,7 +239,7 @@
 
 - (IBAction)showAlertView:(id)sender {
     AlertView *alerView = [AlertView createViewFromNib];
-                           [alerView showInWindow];
+    [alerView showInWindow];
 }
 
 - (IBAction)changeShowViewType:(id)sender {
@@ -178,4 +250,25 @@
     }
     [self.collectionView reloadData];
 }
+- (void)showPatientInfoView:(id)sender {
+    NSDictionary *dataDic = @{
+                              @"name":@"谢子琪",
+                              @"gender":@"女"
+                              };
+    PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithDic:dataDic];
+    [view showInWindow];
+}
+- (IBAction)showAndHideAlertView:(id)sender {
+    if (self.isShowAlertMessage) {
+        self.alertViewHeight.constant = 49;
+        [self.isShowAlertViewButton setImage:[UIImage imageNamed:@"RectangleDown"] forState:UIControlStateNormal];
+    } else {
+        self.alertViewHeight.constant = 184;
+        [self.isShowAlertViewButton setImage:[UIImage imageNamed:@"RectangleUp"] forState:UIControlStateNormal];
+    }
+    self.isShowAlertMessage = !self.isShowAlertMessage;
+    [self.tableView reloadData];
+
+}
+
 @end

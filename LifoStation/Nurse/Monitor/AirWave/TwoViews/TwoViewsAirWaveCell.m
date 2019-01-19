@@ -17,11 +17,12 @@
     [super awakeFromNib];
     self.layer.borderWidth = 0.5f;
     self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
-    AirWaveView *bodyView = [[AirWaveView alloc]initWithAirBagType:self.type];
-    bodyView.frame = self.bodyView.bounds;
-    [self.bodyContentView addSubview:bodyView];
-    NSLog(@"self.type:%ld",(long)self.type);
 }
-
+- (void)configureWithAirBagType:(AirBagType)type {
+    AirWaveView *bodyView = [[AirWaveView alloc]initWithAirBagType:type];
+    bodyView.frame = self.bodyView.frame;
+    [self.bodyContentView addSubview:bodyView];
+    self.bodyView = bodyView;
+}
 
 @end

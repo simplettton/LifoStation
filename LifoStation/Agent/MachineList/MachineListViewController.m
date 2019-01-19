@@ -63,8 +63,6 @@
     //获取某个cell的数据
     UIView *contentView = [(UIView *)sender superview];
     MachineCell *cell = (MachineCell* )[contentView superview];
-    NSIndexPath* index = [self.tableView indexPathForCell:cell];
-
     [self performSegueWithIdentifier:@"EditDeviceInformation" sender:cell];
 }
 #pragma mark - Filter drop menu
@@ -173,7 +171,6 @@
         }
     }
     NSLog(@"%@",[NSString stringWithFormat:@"筛选结果 : %@",string]);
-  
 }
 
 - (IBAction)deleteAction:(id)sender {
@@ -183,7 +180,7 @@
         self.deleteButton.titleLabel.text = @"删除";
         [self.deleteButton setTitle:@"删除" forState:UIControlStateNormal];
         
-        NSMutableArray *deleteArray = [NSMutableArray array];
+//        NSMutableArray *deleteArray = [NSMutableArray array];
         
 //        //header跟着tableview 左移
 //        CGRect frame = self.tableView.tableHeaderView.frame;

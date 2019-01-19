@@ -17,6 +17,8 @@
 		04236CCC21D371E800C848C9 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CCB21D371E800C848C9 /* TaskCell.m */; };
 		042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C9E6C21CC9A9E001A3246 /* SetNetWorkView.m */; };
 		042C9E6F21CC9A9E001A3246 /* SetNetWorkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C9E6D21CC9A9E001A3246 /* SetNetWorkView.xib */; };
+		04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */; };
+		04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */; };
 		0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */; };
 		0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */; };
 		0445C7DE21E5D8A800F35353 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DD21E5D8A800F35353 /* MonitorViewController.m */; };
@@ -54,6 +56,12 @@
 		0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CEFE21D6261000E869A3 /* RecordItemCell.m */; };
 		0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CF0121D6283700E869A3 /* LostRecordView.m */; };
 		047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047519D021D0E14D00A30B9E /* SettingsViewController.m */; };
+		047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */; };
+		047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */; };
+		047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */; };
+		047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */; };
+		047D17BC21F1B08400B498E6 /* PatientInfoPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17BB21F1B08400B498E6 /* PatientInfoPopupView.m */; };
+		047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D17BD21F1B0A900B498E6 /* PatientInfoPopupView.xib */; };
 		0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480064221D1CB42004F7C73 /* EditPasswordController.m */; };
 		0480064621D1D6FA004F7C73 /* PatientListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480064521D1D6FA004F7C73 /* PatientListViewController.m */; };
 		0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480064921D21833004F7C73 /* AddPatientViewController.m */; };
@@ -123,6 +131,9 @@
 		042C9E6B21CC9A9E001A3246 /* SetNetWorkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNetWorkView.h; sourceTree = "<group>"; };
 		042C9E6C21CC9A9E001A3246 /* SetNetWorkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNetWorkView.m; sourceTree = "<group>"; };
 		042C9E6D21CC9A9E001A3246 /* SetNetWorkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetNetWorkView.xib; sourceTree = "<group>"; };
+		04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirWaveSetParameterView.xib; sourceTree = "<group>"; };
+		04357DC921F2F23700A5B45C /* AirWaveSetParameterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirWaveSetParameterView.h; sourceTree = "<group>"; };
+		04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirWaveSetParameterView.m; sourceTree = "<group>"; };
 		0445C7D621E5A4AD00F35353 /* PersonalRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalRecordViewController.h; sourceTree = "<group>"; };
 		0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalRecordViewController.m; sourceTree = "<group>"; };
 		0445C7D921E5A53C00F35353 /* BaseSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSearchBar.h; sourceTree = "<group>"; };
@@ -188,6 +199,15 @@
 		0473CF0121D6283700E869A3 /* LostRecordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LostRecordView.m; sourceTree = "<group>"; };
 		047519CF21D0E14D00A30B9E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		047519D021D0E14D00A30B9E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourViewsAirWaveCell.h; sourceTree = "<group>"; };
+		047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FourViewsAirWaveCell.m; sourceTree = "<group>"; };
+		047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FourViewsAirWaveCell.xib; sourceTree = "<group>"; };
+		047D17B421F17A8C00B498E6 /* NineViewsAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NineViewsAirWaveCell.h; sourceTree = "<group>"; };
+		047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineViewsAirWaveCell.m; sourceTree = "<group>"; };
+		047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NineViewsAirWaveCell.xib; sourceTree = "<group>"; };
+		047D17BA21F1B08400B498E6 /* PatientInfoPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatientInfoPopupView.h; sourceTree = "<group>"; };
+		047D17BB21F1B08400B498E6 /* PatientInfoPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatientInfoPopupView.m; sourceTree = "<group>"; };
+		047D17BD21F1B0A900B498E6 /* PatientInfoPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PatientInfoPopupView.xib; sourceTree = "<group>"; };
 		0480064121D1CB42004F7C73 /* EditPasswordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPasswordController.h; sourceTree = "<group>"; };
 		0480064221D1CB42004F7C73 /* EditPasswordController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPasswordController.m; sourceTree = "<group>"; };
 		0480064421D1D6FA004F7C73 /* PatientListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatientListViewController.h; sourceTree = "<group>"; };
@@ -300,10 +320,16 @@
 		0415323421EDE0EF00DDBD78 /* AirWave */ = {
 			isa = PBXGroup;
 			children = (
+				04357DC621F2CE4A00A5B45C /* BodyView */,
 				04709B2A21F07812000D4E12 /* BasicAirWaveCell.h */,
 				04709B2B21F07812000D4E12 /* BasicAirWaveCell.m */,
+				047D17B921F17AA300B498E6 /* NineViews */,
 				041FC44821EED9F800B5408C /* TwoViews */,
+				047D17B321F16F6200B498E6 /* FourViews */,
 				0415323321EDE0D600DDBD78 /* SingleView */,
+				04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */,
+				04357DC921F2F23700A5B45C /* AirWaveSetParameterView.h */,
+				04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */,
 			);
 			path = AirWave;
 			sourceTree = "<group>";
@@ -407,16 +433,24 @@
 			path = ../../../SetNetWorkView;
 			sourceTree = "<group>";
 		};
-		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
+		04357DC621F2CE4A00A5B45C /* BodyView */ = {
 			isa = PBXGroup;
 			children = (
-				0445C7DC21E5D8A800F35353 /* MonitorViewController.h */,
-				0445C7DD21E5D8A800F35353 /* MonitorViewController.m */,
 				04736BAA21E883DD004D60D6 /* AirWaveView.xib */,
 				04709B2221F02D9B000D4E12 /* AirWaveView.h */,
 				04709B2321F02D9B000D4E12 /* AirWaveView.m */,
-				0415323421EDE0EF00DDBD78 /* AirWave */,
+			);
+			path = BodyView;
+			sourceTree = "<group>";
+		};
+		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
 				0415323221EDE0BA00DDBD78 /* AlertView */,
+				047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */,
+				0445C7DC21E5D8A800F35353 /* MonitorViewController.h */,
+				0445C7DD21E5D8A800F35353 /* MonitorViewController.m */,
+				0415323421EDE0EF00DDBD78 /* AirWave */,
 			);
 			path = Monitor;
 			sourceTree = "<group>";
@@ -510,6 +544,36 @@
 				04B51D2721DCC6E300B9DF2D /* LanguageCell.m */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		047D17B321F16F6200B498E6 /* FourViews */ = {
+			isa = PBXGroup;
+			children = (
+				047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */,
+				047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */,
+				047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */,
+			);
+			path = FourViews;
+			sourceTree = "<group>";
+		};
+		047D17B921F17AA300B498E6 /* NineViews */ = {
+			isa = PBXGroup;
+			children = (
+				047D17B421F17A8C00B498E6 /* NineViewsAirWaveCell.h */,
+				047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */,
+				047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */,
+			);
+			path = NineViews;
+			sourceTree = "<group>";
+		};
+		047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				047D17BA21F1B08400B498E6 /* PatientInfoPopupView.h */,
+				047D17BB21F1B08400B498E6 /* PatientInfoPopupView.m */,
+				047D17BD21F1B0A900B498E6 /* PatientInfoPopupView.xib */,
+			);
+			path = PatientInfoPopupView;
 			sourceTree = "<group>";
 		};
 		0480064721D1D700004F7C73 /* PatientList */ = {
@@ -826,6 +890,8 @@
 				04709B2921F03255000D4E12 /* TwoViewsAirWaveCell.xib in Resources */,
 				046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */,
 				046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */,
+				047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */,
+				04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */,
 				042C9E6F21CC9A9E001A3246 /* SetNetWorkView.xib in Resources */,
 				0415322E21EDDD4500DDBD78 /* AlertView.xib in Resources */,
 				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
@@ -837,6 +903,8 @@
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
 				0495351B21C8D3DA00C567D8 /* body.dae in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
+				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
+				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
 				04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */,
 				0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */,
@@ -908,6 +976,7 @@
 				04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */,
 				0419847121DDF1CD00C1713E /* RecordCell.m in Sources */,
 				0480064621D1D6FA004F7C73 /* PatientListViewController.m in Sources */,
+				047D17BC21F1B08400B498E6 /* PatientInfoPopupView.m in Sources */,
 				04736BA921E86A71004D60D6 /* JLImageMagnification.m in Sources */,
 				0465248F21E74D9900362D08 /* BETimeLine.m in Sources */,
 				0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */,
@@ -923,6 +992,7 @@
 				046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */,
 				046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */,
 				0469CC2E21E47DDB00D0302C /* RecordReportViewController.m in Sources */,
+				047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */,
 				04DFF16D21D08FF6009EA938 /* MainViewController.m in Sources */,
 				049534ED21C8D14200C567D8 /* ViewController.m in Sources */,
 				04736BA521E84BD1004D60D6 /* UIImage+Rotate.m in Sources */,
@@ -953,9 +1023,11 @@
 				0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */,
 				04709B2821F03255000D4E12 /* TwoViewsAirWaveCell.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
+				04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,
+				047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */,
 				049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */,
 				04B3976621E303FC00C9C5F5 /* MachineTypeModel.m in Sources */,
 				04B3976B21E339D100C9C5F5 /* DepartmentListViewController.m in Sources */,

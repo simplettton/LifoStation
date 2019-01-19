@@ -81,9 +81,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGU-Ql-NEA">
                                 <rect key="frame" x="578" y="223" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="pause"/>
+                                <state key="normal" image="play"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-Sy-BWB">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-Sy-BWB" customClass="AirWaveView">
                                 <rect key="frame" x="268" y="33" width="165" height="226"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -115,14 +115,16 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
                 <outlet property="bodyContentView" destination="wzl-4T-JqZ" id="Tas-9J-XkO"/>
-                <outlet property="bodyView" destination="xMM-Sy-BWB" id="r3X-rj-qlA"/>
+                <outlet property="bodyView" destination="xMM-Sy-BWB" id="AYd-tY-ngg"/>
+                <outlet property="parameterView" destination="n1R-CY-Rdv" id="not-we-BXR"/>
+                <outlet property="patientButton" destination="hed-W2-jlj" id="1Fw-Ol-z0d"/>
             </connections>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="downButton" width="24" height="24"/>
         <image name="idcard" width="55" height="49"/>
-        <image name="pause" width="70" height="70"/>
+        <image name="play" width="70" height="70"/>
         <image name="wifi_white" width="35" height="26"/>
     </resources>
 </document>

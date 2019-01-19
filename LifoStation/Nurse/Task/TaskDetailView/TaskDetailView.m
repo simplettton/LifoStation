@@ -14,8 +14,6 @@
 
 @end
 @implementation TaskDetailView
-
-
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
         NSString *name = [dic objectForKey:@"name"];

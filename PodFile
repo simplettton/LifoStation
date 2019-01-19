@@ -9,4 +9,5 @@ target 'LifoStation' do
     pod 'Masonry'
     pod 'JSONModel'
     pod 'SDAutoLayout'
+    pod 'PPNumberButton'
 end
