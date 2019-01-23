@@ -23,6 +23,10 @@ static const void* tagValue = &tagValue;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
         [self addGestureRecognizer:tap];
     }
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+        // 继续对子view操作
+        [subview addTapBlock:tapAction];
+    }];
 }
 - (void)tap {
     if (self.tapAction) {

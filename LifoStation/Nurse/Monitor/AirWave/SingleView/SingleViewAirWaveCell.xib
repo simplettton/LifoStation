@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -82,14 +81,33 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="2tn-eI-hk7"/>
+                                    <constraint firstAttribute="width" constant="173" id="p12-xA-t6a"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6F-Kc-goQ" customClass="AirWaveView">
-                                <rect key="frame" x="199" y="72" width="363" height="500"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raO-fq-RvQ">
+                                <rect key="frame" x="260" y="192.66666666666669" width="240" height="260"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warm" translatesAutoresizingMaskIntoConstraints="NO" id="mxc-tg-qkG">
+                                        <rect key="frame" x="0.0" y="20" width="240" height="178"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="178" id="A3O-D9-NlX"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="风扇异常" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqw-iX-egG">
+                                        <rect key="frame" x="0.0" y="207" width="240" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <color key="textColor" red="0.98431372549019602" green="0.6470588235294118" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="363" id="3tz-ac-gkV"/>
-                                    <constraint firstAttribute="width" secondItem="r6F-Kc-goQ" secondAttribute="height" multiplier="363:500" id="u0h-9p-jd5"/>
+                                    <constraint firstItem="mxc-tg-qkG" firstAttribute="top" secondItem="raO-fq-RvQ" secondAttribute="top" constant="20" symbolic="YES" id="QLp-Lv-HLX"/>
+                                    <constraint firstAttribute="width" constant="240" id="YxH-lt-stN"/>
+                                    <constraint firstAttribute="height" constant="260" id="pZW-TG-MsX"/>
+                                    <constraint firstAttribute="trailing" secondItem="mxc-tg-qkG" secondAttribute="trailing" id="quG-zB-Vsa"/>
+                                    <constraint firstItem="mxc-tg-qkG" firstAttribute="leading" secondItem="raO-fq-RvQ" secondAttribute="leading" id="x2k-Gx-vWe"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -97,14 +115,13 @@
                         <constraints>
                             <constraint firstItem="PHo-Wg-cvf" firstAttribute="top" secondItem="T6U-mr-cA8" secondAttribute="top" constant="28" id="4is-6k-0c1"/>
                             <constraint firstItem="sIZ-hV-OQX" firstAttribute="leading" secondItem="T6U-mr-cA8" secondAttribute="leading" constant="30" id="D1c-6L-2Cc"/>
-                            <constraint firstItem="r6F-Kc-goQ" firstAttribute="centerY" secondItem="T6U-mr-cA8" secondAttribute="centerY" id="Ey7-gw-ovj"/>
                             <constraint firstItem="sIZ-hV-OQX" firstAttribute="bottom" secondItem="7ho-S2-LR4" secondAttribute="bottom" id="G2X-Hv-Zf6"/>
                             <constraint firstItem="l4N-bW-qb4" firstAttribute="top" secondItem="T6U-mr-cA8" secondAttribute="top" constant="40.5" id="H4I-Fc-701"/>
+                            <constraint firstItem="raO-fq-RvQ" firstAttribute="centerY" secondItem="T6U-mr-cA8" secondAttribute="centerY" id="Jhl-Il-awC"/>
                             <constraint firstAttribute="trailing" secondItem="l4N-bW-qb4" secondAttribute="trailing" constant="8" id="QGB-nu-wRl"/>
                             <constraint firstAttribute="bottom" secondItem="7ho-S2-LR4" secondAttribute="bottom" constant="60" id="VrG-7c-UFO"/>
+                            <constraint firstItem="raO-fq-RvQ" firstAttribute="centerX" secondItem="T6U-mr-cA8" secondAttribute="centerX" id="Y53-ZA-jHC"/>
                             <constraint firstAttribute="trailing" secondItem="7ho-S2-LR4" secondAttribute="trailing" constant="35" id="Ypa-BC-gZK"/>
-                            <constraint firstItem="l4N-bW-qb4" firstAttribute="leading" secondItem="r6F-Kc-goQ" secondAttribute="trailing" constant="17" id="fs3-Gv-EvS"/>
-                            <constraint firstItem="r6F-Kc-goQ" firstAttribute="centerX" secondItem="T6U-mr-cA8" secondAttribute="centerX" id="ogE-FC-KDS"/>
                             <constraint firstItem="PHo-Wg-cvf" firstAttribute="leading" secondItem="T6U-mr-cA8" secondAttribute="leading" constant="39" id="zPe-Zr-Dxb"/>
                         </constraints>
                     </view>
@@ -121,11 +138,14 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
+                <outlet property="alertMessageLabel" destination="pqw-iX-egG" id="x1p-KE-Uvs"/>
+                <outlet property="alertView" destination="raO-fq-RvQ" id="ajT-Ne-4cI"/>
                 <outlet property="bodyContentView" destination="T6U-mr-cA8" id="U5S-Jy-1lo"/>
-                <outlet property="bodyView" destination="r6F-Kc-goQ" id="5Zd-et-O8Z"/>
-                <outlet property="parameterView" destination="l4N-bW-qb4" id="akp-wg-cDQ"/>
+                <outlet property="parameterView" destination="l4N-bW-qb4" id="56D-04-uqD"/>
                 <outlet property="patientButton" destination="PHo-Wg-cvf" id="Vzf-3j-bec"/>
+                <outlet property="startButton" destination="7ho-S2-LR4" id="MDf-dn-AAq"/>
                 <outlet property="statusImageView" destination="RIi-8M-nLb" id="DVV-HY-ef5"/>
+                <outlet property="timeLabel" destination="sIZ-hV-OQX" id="gUS-dD-A6j"/>
                 <outlet property="titleLabel" destination="Mxc-UK-6zi" id="LXD-qu-uab"/>
                 <outlet property="titleView" destination="lQi-5F-zhV" id="DEp-VN-GXV"/>
             </connections>
@@ -136,6 +156,7 @@
         <image name="idcard" width="55" height="49"/>
         <image name="play" width="70" height="70"/>
         <image name="vedio_white" width="40" height="40"/>
+        <image name="warm" width="150" height="150"/>
         <image name="wifi_white" width="35" height="26"/>
     </resources>
 </document>

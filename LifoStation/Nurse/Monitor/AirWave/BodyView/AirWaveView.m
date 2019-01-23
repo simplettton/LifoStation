@@ -10,14 +10,12 @@
 
 @implementation AirWaveView
 - (instancetype)initWithAirBagType:(AirBagType)type {
-    if ([super init]) {
+    if (self = [super init]) {
         if (type == AirBagTypeThree) {
-            AirWaveView *view = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].lastObject;
-            return view;
+            self = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].lastObject;
         }
         else if (type == AirBagTypeEight) {
-            AirWaveView *view = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].firstObject;
-            return view;
+            self = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].firstObject;
         }
     }
     return self;
@@ -35,4 +33,16 @@
 //        [self addSubview:self.bodyViewEight];
 //    }
 }
+//- (void)configureBodyViewWithType:(AirBagType)type {
+//    if (self.type == AirBagTypeThree) {
+//        self.bodyViewThree = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].lastObject;
+//        self.bodyViewThree.frame = self.bounds;
+//        [self addSubview:self.bodyViewThree];
+//    }
+//    else if (self.type == AirBagTypeEight) {
+//        self.bodyViewEight = [[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].firstObject;
+//        self.bodyViewEight.frame = self.bounds;
+//        [self addSubview:self.bodyViewEight];
+//    }
+//}
 @end

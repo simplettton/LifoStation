@@ -70,6 +70,7 @@
 		0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0484274821DDABD80071C177 /* EditDeviceView.xib */; };
 		0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484274B21DDABF50071C177 /* EditDeviceView.m */; };
 		04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04866CCC21C9F15500855230 /* Default-568h@2x.png */; };
+		04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */; };
 		049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534E921C8D14200C567D8 /* AppDelegate.m */; };
 		049534ED21C8D14200C567D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534EC21C8D14200C567D8 /* ViewController.m */; };
 		049534F021C8D14200C567D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049534EE21C8D14200C567D8 /* Main.storyboard */; };
@@ -79,6 +80,8 @@
 		0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350121C8D14600C567D8 /* LifoStationTests.m */; };
 		0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350C21C8D14600C567D8 /* LifoStationUITests.m */; };
 		0495351B21C8D3DA00C567D8 /* body.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0495351A21C8D3D900C567D8 /* body.dae */; };
+		04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */; };
+		04B0A0DE21F85E6C00960A54 /* FlashingAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */; };
 		04B3976221E2E98200C9C5F5 /* AddMachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976121E2E98200C9C5F5 /* AddMachineCell.m */; };
 		04B3976621E303FC00C9C5F5 /* MachineTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976521E303FC00C9C5F5 /* MachineTypeModel.m */; };
 		04B3976B21E339D100C9C5F5 /* DepartmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976A21E339D100C9C5F5 /* DepartmentListViewController.m */; };
@@ -223,6 +226,8 @@
 		0484274B21DDABF50071C177 /* EditDeviceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditDeviceView.m; sourceTree = "<group>"; };
 		04866CCB21C9DE2900855230 /* LifoStation.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifoStation.pch; sourceTree = "<group>"; };
 		04866CCC21C9F15500855230 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibBorderColor.h"; sourceTree = "<group>"; };
+		04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibBorderColor.m"; sourceTree = "<group>"; };
 		049534E521C8D14200C567D8 /* LifoStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifoStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049534E821C8D14200C567D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049534E921C8D14200C567D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -240,6 +245,9 @@
 		0495350C21C8D14600C567D8 /* LifoStationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationUITests.m; sourceTree = "<group>"; };
 		0495350E21C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0495351A21C8D3D900C567D8 /* body.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = body.dae; sourceTree = "<group>"; };
+		04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlashingAlertView.xib; sourceTree = "<group>"; };
+		04B0A0DC21F85E6C00960A54 /* FlashingAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlashingAlertView.h; sourceTree = "<group>"; };
+		04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlashingAlertView.m; sourceTree = "<group>"; };
 		04B3976021E2E98200C9C5F5 /* AddMachineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMachineCell.h; sourceTree = "<group>"; };
 		04B3976121E2E98200C9C5F5 /* AddMachineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddMachineCell.m; sourceTree = "<group>"; };
 		04B3976421E303FC00C9C5F5 /* MachineTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineTypeModel.h; sourceTree = "<group>"; };
@@ -327,9 +335,7 @@
 				041FC44821EED9F800B5408C /* TwoViews */,
 				047D17B321F16F6200B498E6 /* FourViews */,
 				0415323321EDE0D600DDBD78 /* SingleView */,
-				04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */,
-				04357DC921F2F23700A5B45C /* AirWaveSetParameterView.h */,
-				04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */,
+				04B0A0D921F808A000960A54 /* AirwaveSetParameterView */,
 			);
 			path = AirWave;
 			sourceTree = "<group>";
@@ -446,6 +452,7 @@
 		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
 			isa = PBXGroup;
 			children = (
+				04B0A0DF21F85E7A00960A54 /* FlashingAlertView */,
 				0415323221EDE0BA00DDBD78 /* AlertView */,
 				047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */,
 				0445C7DC21E5D8A800F35353 /* MonitorViewController.h */,
@@ -590,6 +597,8 @@
 		048257E421CC812400ADFB0C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */,
+				04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */,
 				04829C3A21CBA01700A42FC0 /* LoginViewController.h */,
 				04829C3B21CBA01700A42FC0 /* LoginViewController.m */,
 				042C9E6A21CC9A9E001A3246 /* SetNetWorkView */,
@@ -698,6 +707,26 @@
 				0495351A21C8D3D900C567D8 /* body.dae */,
 			);
 			path = 3D;
+			sourceTree = "<group>";
+		};
+		04B0A0D921F808A000960A54 /* AirwaveSetParameterView */ = {
+			isa = PBXGroup;
+			children = (
+				04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */,
+				04357DC921F2F23700A5B45C /* AirWaveSetParameterView.h */,
+				04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */,
+			);
+			path = AirwaveSetParameterView;
+			sourceTree = "<group>";
+		};
+		04B0A0DF21F85E7A00960A54 /* FlashingAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */,
+				04B0A0DC21F85E6C00960A54 /* FlashingAlertView.h */,
+				04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */,
+			);
+			path = FlashingAlertView;
 			sourceTree = "<group>";
 		};
 		04B3976321E303BC00C9C5F5 /* Choose Department View */ = {
@@ -897,6 +926,7 @@
 				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
 				0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */,
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
+				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
@@ -984,6 +1014,7 @@
 				04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */,
 				04829C3C21CBA01700A42FC0 /* LoginViewController.m in Sources */,
 				04709B2421F02D9B000D4E12 /* AirWaveView.m in Sources */,
+				04B0A0DE21F85E6C00960A54 /* FlashingAlertView.m in Sources */,
 				04236CCC21D371E800C848C9 /* TaskCell.m in Sources */,
 				04B3976221E2E98200C9C5F5 /* AddMachineCell.m in Sources */,
 				04829C3F21CBBBE200A42FC0 /* BEProgressHUD.m in Sources */,
@@ -1000,6 +1031,7 @@
 				0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */,
 				0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */,
 				0415323121EDE0A300DDBD78 /* AlertView.m in Sources */,
+				04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */,
 				049534F821C8D14600C567D8 /* main.m in Sources */,
 				0419846E21DDEFEA00C1713E /* RecordListViewController.m in Sources */,
 				04D986A621E0A9DF00DD62F1 /* AddMachineViewController.m in Sources */,

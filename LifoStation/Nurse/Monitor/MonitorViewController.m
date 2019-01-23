@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *isShowAlertViewButton;
 @property (nonatomic, assign) BOOL isShowAlertMessage;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
 @end
 
 @implementation MonitorViewController
@@ -69,6 +70,10 @@
     
     /** 默认展示alertview */
     _isShowAlertMessage = YES;
+    
+    /** 设备添加 longpress 添加手势 可以关注设备 */
+    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
+    [self.collectionView addGestureRecognizer:_longPress];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,8 +94,66 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
+#pragma mark - LongPress Action
+- (void)lonePressMoving:(UILongPressGestureRecognizer *)longPress {
+    switch (longPress.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:[self.longPress locationInView:self.collectionView]];
+            if (selectedIndexPath == nil) {
+                break;
+            }
+            [self focusMachine];
+        }
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)focusMachine {
+    NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:[self.longPress locationInView:self.collectionView]];
+    BOOL isFocus = NO;
+    if (isFocus) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                       message:@"已关注该设备"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             [self.collectionView reloadData];
+                                                            
+                                                         }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"要关注设备吗？"
+                                                                       message:@"关注之后可以在关注设备中查看"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 [self.collectionView reloadData];
+   
+                                                             }];
+        UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"关注" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:focusAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
 #pragma mark - CollectionView
+- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[SingleViewAirWaveCell class]]) {
+        SingleViewAirWaveCell *currentCell = (SingleViewAirWaveCell*)cell;
+        [currentCell.alertView.layer addAnimation:[self opacityForever_Animation:0.5] forKey:nil];
+    }
+}
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *CellIdentifier;
     UICollectionViewCell *cell;
@@ -101,13 +164,13 @@
             SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
             if (indexPath.row %3 == 0) {
-                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight];
-            }
-            else if (indexPath.row %3 == 1) {
-                [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree];
+                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight message:nil];
+                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeThree message:nil];
+            } else if (indexPath.row %3 == 1) {
+                [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree message:@"运行中不可切换气囊"];
             }
             else {
-                [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree];
+                [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree message:nil];
             }
             [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
             [cell.parameterView addTapBlock:^(id obj) {
@@ -177,7 +240,7 @@
     return 20;
 }
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     /** 一宫格 */
     switch (self.showViewType) {
         case SingleViewType:
@@ -203,8 +266,6 @@
 {
     return 5;
 }
-
-
 //设置每个item垂直间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -268,7 +329,20 @@
     }
     self.isShowAlertMessage = !self.isShowAlertMessage;
     [self.tableView reloadData];
-
 }
-
+#pragma mark === 永久闪烁的动画 ======
+-(CABasicAnimation *)opacityForever_Animation:(float)time
+{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];//必须写opacity才行。
+    animation.fromValue = [NSNumber numberWithFloat:1.0f];
+    animation.toValue = [NSNumber numberWithFloat:0.0f];//这是透明度。
+    animation.autoreverses = YES;
+    animation.repeatCount = 10000000000;
+    animation.duration = time;
+    //    animation.repeatCount = 6;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];///没有的话是均匀的动画。
+    return animation;
+}
 @end

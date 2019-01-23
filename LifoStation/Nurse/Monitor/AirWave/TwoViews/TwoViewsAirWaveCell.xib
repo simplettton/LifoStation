@@ -81,7 +81,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGU-Ql-NEA">
                                 <rect key="frame" x="578" y="223" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="play"/>
+                                <state key="normal" image="pause"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-Sy-BWB" customClass="AirWaveView">
                                 <rect key="frame" x="268" y="33" width="165" height="226"/>
@@ -91,6 +91,11 @@
                                     <constraint firstAttribute="height" constant="226" id="noE-8S-URR"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoA-vP-g0Q">
+                                <rect key="frame" x="515" y="223" width="43" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="stop"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -124,7 +129,8 @@
     <resources>
         <image name="downButton" width="24" height="24"/>
         <image name="idcard" width="55" height="49"/>
-        <image name="play" width="70" height="70"/>
+        <image name="pause" width="70" height="70"/>
+        <image name="stop" width="70" height="70"/>
         <image name="wifi_white" width="35" height="26"/>
     </resources>
 </document>
