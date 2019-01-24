@@ -227,7 +227,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="zqp-fI-Zkd"/>
-            <point key="canvasLocation" x="400" y="507"/>
+            <point key="canvasLocation" x="388" y="-797"/>
         </view>
         <view contentMode="scaleToFill" id="fjJ-Jg-WlJ" userLabel="BodyView">
             <rect key="frame" x="0.0" y="0.0" width="363" height="498"/>
@@ -272,13 +272,13 @@
                 <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lefthand_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Zti-1l-ReY" userLabel="rightfoot_grey">
                     <rect key="frame" x="273" y="475" width="15" height="15"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup1_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="FMb-ug-2oy">
+                <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="FMb-ug-2oy">
                     <rect key="frame" x="88" y="98" width="38" height="60"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup2_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="J5i-o2-rHl">
+                <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="J5i-o2-rHl">
                     <rect key="frame" x="68" y="143" width="38" height="49"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup3_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="fXX-40-f5F">
+                <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="fXX-40-f5F">
                     <rect key="frame" x="50" y="166" width="33" height="53"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="qtq-IN-ORY">
@@ -290,7 +290,7 @@
                 <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle4_grey" translatesAutoresizingMaskIntoConstraints="NO" id="bm7-o0-gUF">
                     <rect key="frame" x="136" y="234" width="90" height="9"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_green" translatesAutoresizingMaskIntoConstraints="NO" id="hsB-ci-Cwc" userLabel="lefthand_grey">
+                <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_grey" translatesAutoresizingMaskIntoConstraints="NO" id="hsB-ci-Cwc" userLabel="lefthand_grey">
                     <rect key="frame" x="27" y="218" width="15" height="15"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="wsj-t2-0Hs">
@@ -391,7 +391,6 @@
     </objects>
     <resources>
         <image name="body626d91" width="2362" height="3365"/>
-        <image name="circle_green" width="61" height="61"/>
         <image name="circle_grey" width="61" height="61"/>
         <image name="circle_yellow" width="61" height="61"/>
         <image name="leftdown1_grey" width="151" height="193"/>
@@ -406,11 +405,8 @@
         <image name="leftleg6_yellow" width="178" height="208"/>
         <image name="leftleg7_yellow" width="129" height="174"/>
         <image name="leftup1_grey" width="107" height="196"/>
-        <image name="leftup1_yellow" width="107" height="196"/>
         <image name="leftup2_grey" width="128" height="127"/>
-        <image name="leftup2_yellow" width="128" height="127"/>
         <image name="leftup3_grey" width="107" height="100"/>
-        <image name="leftup3_yellow" width="107" height="100"/>
         <image name="middle1_grey" width="275" height="35"/>
         <image name="middle2_grey" width="275" height="35"/>
         <image name="middle3_grey" width="275" height="35"/>

@@ -10,11 +10,17 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+Tap.h"
 @interface SingleViewAirWaveCell()
+
 /** titleView */
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
+/**  bodyContentView */
+@property (weak, nonatomic) IBOutlet UIView *controllButtonView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *unauthorizedView;
 
+@property (strong, nonatomic) IBOutletCollection(id) NSArray *bodyContents;
 
 
 @property (strong, nonatomic) AirWaveView *bodyView;
@@ -36,18 +42,21 @@
 - (void)layoutSubviews {
     //type属性已经设置好了
     [super layoutSubviews];
-
-}
-- (void)configureWithCellStyle:(CellStyle)style AirBagType:(AirBagType)type message:(NSString *)message {
-    
-    switch (style) {
+    switch (self.style) {
+            /** 在线设备 */
         case CellStyleOnline:
             self.titleView.backgroundColor = UIColorFromHex(0x7DC05E);
             self.titleLabel.textColor = [UIColor whiteColor];
             self.statusImageView.image = [UIImage imageNamed:@"wifi_white"];
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
+            self.bodyView.hidden = NO;
+            self.unauthorizedView.hidden = YES;
+            for (UIView* view in self.bodyContents) {
+                view.hidden = NO;
+            }
             break;
+            /** 离线设备 */
         case CellStyleOffLine:
             self.titleView.backgroundColor = UIColorFromHex(0xfbfbfb);
             self.titleLabel.textColor = UIColorFromHex(0x8a8a8a);
@@ -59,48 +68,92 @@
             self.parameterView.hidden = YES;
             self.timeLabel.hidden = YES;
             self.startButton.hidden = YES;
+            self.bodyView.hidden = NO;
+            self.unauthorizedView.hidden = YES;
+            for (UIView* view in self.bodyContents) {
+                view.hidden = NO;
+            }
             break;
+            /** 有报警信息的设备 */
         case CellStyleAlert:
+            self.titleView.backgroundColor = UIColorFromHex(0x7DC05E);
+            self.titleLabel.textColor = [UIColor whiteColor];
+            self.statusImageView.image = [UIImage imageNamed:@"wifi_white"];
             self.layer.borderWidth = 2.0f;
             self.layer.borderColor = UIColorFromHex(0xFBA526).CGColor;
             self.alertView.hidden = NO;
-            self.alertMessageLabel.text = message;
+            self.bodyView.hidden = NO;
+            self.unauthorizedView.hidden = YES;
+            for (UIView* view in self.bodyContents) {
+                view.hidden = NO;
+            }
+            break;
+        case CellStyleUnauthorized:
+            self.titleView.backgroundColor = UIColorFromHex(0xfbfbfb);
+            self.titleLabel.textColor = UIColorFromHex(0x8a8a8a);
+            self.statusImageView.image = [UIImage imageNamed:@"wifiOff"];
+            self.layer.borderWidth = 0.5f;
+            self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
+            
+            for (UIView* view in self.bodyContents) {
+                view.hidden = YES;
+            }
+            self.alertView.hidden = YES;
+            self.bodyView.hidden = YES;
+            self.unauthorizedView.hidden = NO;
             break;
         default:
             break;
     }
+
+}
+- (void)configureWithCellStyle:(CellStyle)style AirBagType:(AirBagType)type message:(NSString *)message {
+ 
     //配置AirView
-    if(!self.bodyView) {
-        AirWaveView *bodyView = (AirWaveView *)[[AirWaveView alloc]initWithAirBagType:type];
-        bodyView.frame = CGRectMake(199, 72, 363, 500);
-        self.bodyView = bodyView;
-        [self.bodyContentView addSubview:bodyView];
+
+    AirWaveView *bodyView = (AirWaveView *)[[AirWaveView alloc]initWithAirBagType:type];
+    CGFloat width = self.contentView.bounds.size.width;
+    CGFloat height = self.bodyContentView.bounds.size.height;
+    bodyView.frame = CGRectMake((width-363)/2, (height-498)/2, 363, 498);
+    if(self.bodyView){
+        [self.bodyView removeFromSuperview];
     }
+    self.bodyView = bodyView;
+    [self.bodyContentView addSubview:bodyView];
+
     
-    self.bodyView.hidden = NO;
     //报警信息置顶
     if (message != nil) {
-        //报警时隐藏中间的bodyView
-        self.bodyView.hidden = YES;
+        self.alertMessageLabel.text = message;
+        self.alertView.hidden = NO;
         [self.bodyContentView bringSubviewToFront:self.alertView];
-//        [self.alertView.layer addAnimation:[self opacityForever_Animation:0.5] forKey:nil];
+        if(!self.alertTimer) {
+            self.alertTimer = [NSTimer timerWithTimeInterval:0.5
+                                                      target:self
+                                                    selector:@selector(startFlashingAlertView)
+                                                    userInfo:nil
+                                                     repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:self.alertTimer forMode:NSDefaultRunLoopMode];
+        }
+
     } else {
-//        [self.alertView.layer removeAllAnimations];
+        self.alertView.hidden = YES;
+        if (self.alertTimer) {
+            [self.alertTimer invalidate];
+            self.alertTimer = nil;
+        }
+    }
+    
+    if (style == CellStyleUnauthorized) {
+        self.bodyView.hidden = YES;
     }
 }
-#pragma mark === 永久闪烁的动画 ======
--(CABasicAnimation *)opacityForever_Animation:(float)time
-{
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];//必须写opacity才行。
-    animation.fromValue = [NSNumber numberWithFloat:1.0f];
-    animation.toValue = [NSNumber numberWithFloat:0.0f];//这是透明度。
-    animation.autoreverses = YES;
-    animation.repeatCount = 10000000000;
-    animation.duration = time;
-//    animation.repeatCount = 6;
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
-    animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];///没有的话是均匀的动画。
-    return animation;
+- (void)startFlashingAlertView {
+    if (self.alertView.isHidden) {
+        self.alertView.hidden = NO;
+    } else {
+        self.alertView.hidden = YES;
+    }
 }
+
 @end

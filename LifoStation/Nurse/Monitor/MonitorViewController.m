@@ -73,6 +73,7 @@
     
     /** 设备添加 longpress 添加手势 可以关注设备 */
     _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
+    _longPress.minimumPressDuration = 6.0;
     [self.collectionView addGestureRecognizer:_longPress];
 }
 
@@ -147,13 +148,9 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
+
 #pragma mark - CollectionView
-- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[SingleViewAirWaveCell class]]) {
-        SingleViewAirWaveCell *currentCell = (SingleViewAirWaveCell*)cell;
-        [currentCell.alertView.layer addAnimation:[self opacityForever_Animation:0.5] forKey:nil];
-    }
-}
+
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *CellIdentifier;
     UICollectionViewCell *cell;
@@ -163,14 +160,21 @@
             CellIdentifier = @"SingleViewAirWaveCell";
             SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
-            if (indexPath.row %3 == 0) {
+            if (indexPath.row %4 == 0) {
                 [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight message:nil];
-                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeThree message:nil];
-            } else if (indexPath.row %3 == 1) {
-                [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree message:@"运行中不可切换气囊"];
+                cell.style = CellStyleOffLine;
+
+            } else if (indexPath.row %4 == 1) {
+                [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree message:@"运行中不可以切换气囊"];
+                cell.style = CellStyleAlert;
+
+            } else if (indexPath.row %4 == 2) {
+                [cell configureWithCellStyle:CellStyleUnauthorized AirBagType:AirBagTypeThree message:nil];
+                cell.style = CellStyleUnauthorized;
             }
             else {
                 [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree message:nil];
+                cell.style = CellStyleOnline;
             }
             [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
             [cell.parameterView addTapBlock:^(id obj) {
@@ -310,6 +314,8 @@
         button.selected = (button.tag == [sender tag]);
     }
     [self.collectionView reloadData];
+    /** 滑到第一格 */
+//    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
 - (void)showPatientInfoView:(id)sender {
     NSDictionary *dataDic = @{
@@ -330,19 +336,5 @@
     self.isShowAlertMessage = !self.isShowAlertMessage;
     [self.tableView reloadData];
 }
-#pragma mark === 永久闪烁的动画 ======
--(CABasicAnimation *)opacityForever_Animation:(float)time
-{
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];//必须写opacity才行。
-    animation.fromValue = [NSNumber numberWithFloat:1.0f];
-    animation.toValue = [NSNumber numberWithFloat:0.0f];//这是透明度。
-    animation.autoreverses = YES;
-    animation.repeatCount = 10000000000;
-    animation.duration = time;
-    //    animation.repeatCount = 6;
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
-    animation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];///没有的话是均匀的动画。
-    return animation;
-}
+
 @end

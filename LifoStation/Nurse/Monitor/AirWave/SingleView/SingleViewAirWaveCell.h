@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger,CellStyle) {
     CellStyleOnline,
     CellStyleOffLine,
-    CellStyleAlert
+    CellStyleAlert,
+    CellStyleUnauthorized
 };
 @interface SingleViewAirWaveCell : UICollectionViewCell
 @property (nonatomic, assign) CellStyle style;
@@ -20,10 +21,16 @@ typedef NS_ENUM(NSInteger,CellStyle) {
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
 @property (weak, nonatomic) IBOutlet UIView *parameterView;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
 /** alert */
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessageLabel;
+@property (nonatomic,strong)NSTimer *alertTimer;
+-(void)startFlashingAlertView;
+/** controll button */
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+@property (weak, nonatomic) IBOutlet UIButton *stopButton;
+
 - (void)configureWithCellStyle:(CellStyle)style AirBagType:(AirBagType)type message:(NSString *)message;
 @end

@@ -13,7 +13,6 @@ typedef NS_ENUM(NSInteger,AirBagType) {
 };
 @interface AirWaveView : UIView
 @property (nonatomic, assign) AirBagType type;
-- (instancetype)initWithAirBagType:(AirBagType)type;
 @property (strong, nonatomic) UIView *bodyView;
-
+- (instancetype)initWithAirBagType:(AirBagType)type;
 @end
