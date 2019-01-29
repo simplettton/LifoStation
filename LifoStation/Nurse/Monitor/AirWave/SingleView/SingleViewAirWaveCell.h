@@ -32,5 +32,7 @@ typedef NS_ENUM(NSInteger,CellStyle) {
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *unfocusButton;
+
 - (void)configureWithCellStyle:(CellStyle)style AirBagType:(AirBagType)type message:(NSString *)message;
 @end

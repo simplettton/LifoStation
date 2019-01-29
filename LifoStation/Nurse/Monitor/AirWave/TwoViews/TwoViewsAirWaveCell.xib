@@ -83,14 +83,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="pause"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-Sy-BWB" customClass="AirWaveView">
-                                <rect key="frame" x="268" y="33" width="165" height="226"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="165" id="ckV-dE-IVN"/>
-                                    <constraint firstAttribute="height" constant="226" id="noE-8S-URR"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoA-vP-g0Q">
                                 <rect key="frame" x="619" y="223" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -100,8 +92,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="n1R-CY-Rdv" firstAttribute="top" secondItem="wzl-4T-JqZ" secondAttribute="top" constant="23" id="78Y-LH-Goj"/>
-                            <constraint firstItem="xMM-Sy-BWB" firstAttribute="centerY" secondItem="wzl-4T-JqZ" secondAttribute="centerY" id="HXM-ed-0dc"/>
-                            <constraint firstItem="xMM-Sy-BWB" firstAttribute="centerX" secondItem="wzl-4T-JqZ" secondAttribute="centerX" id="rul-Tc-acm"/>
                             <constraint firstItem="n1R-CY-Rdv" firstAttribute="width" secondItem="n1R-CY-Rdv" secondAttribute="height" multiplier="173:48" id="sZP-Of-xTw"/>
                             <constraint firstAttribute="trailing" secondItem="n1R-CY-Rdv" secondAttribute="trailing" constant="25" id="yiO-hX-Q0O"/>
                         </constraints>
@@ -120,7 +110,6 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
                 <outlet property="bodyContentView" destination="wzl-4T-JqZ" id="Tas-9J-XkO"/>
-                <outlet property="bodyView" destination="xMM-Sy-BWB" id="AYd-tY-ngg"/>
                 <outlet property="parameterView" destination="n1R-CY-Rdv" id="not-we-BXR"/>
                 <outlet property="patientButton" destination="hed-W2-jlj" id="1Fw-Ol-z0d"/>
             </connections>

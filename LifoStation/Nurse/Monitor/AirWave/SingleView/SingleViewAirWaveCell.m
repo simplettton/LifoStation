@@ -9,6 +9,8 @@
 #import "SingleViewAirWaveCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+Tap.h"
+#define kBodyViewWidth 363
+#define kBodyViewHeight 498
 @interface SingleViewAirWaveCell()
 
 /** titleView */
@@ -114,14 +116,14 @@
     AirWaveView *bodyView = (AirWaveView *)[[AirWaveView alloc]initWithAirBagType:type];
     CGFloat width = self.contentView.bounds.size.width;
     CGFloat height = self.bodyContentView.bounds.size.height;
-    bodyView.frame = CGRectMake((width-363)/2, (height-498)/2, 363, 498);
+    bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
     if(self.bodyView){
         [self.bodyView removeFromSuperview];
     }
     self.bodyView = bodyView;
     [self.bodyContentView addSubview:bodyView];
 
-    
+    [self.bodyView flashingTest];
     //报警信息置顶
     if (message != nil) {
         self.alertMessageLabel.text = message;

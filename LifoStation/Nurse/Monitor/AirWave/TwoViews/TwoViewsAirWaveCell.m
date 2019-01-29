@@ -6,6 +6,8 @@
 //
 
 #import "TwoViewsAirWaveCell.h"
+#define kBodyViewWidth 165
+#define kBodyViewHeight 226
 @implementation TwoViewsAirWaveCell
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if ([super initWithCoder:aDecoder]) {
@@ -20,9 +22,15 @@
 }
 - (void)configureWithAirBagType:(AirBagType)type {
     AirWaveView *bodyView = [[AirWaveView alloc]initWithAirBagType:type];
-    bodyView.frame = self.bodyView.frame;
-    [self.bodyContentView addSubview:bodyView];
+    CGFloat width = self.contentView.bounds.size.width;
+    CGFloat height = self.bodyContentView.bounds.size.height;
+    bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
+    NSLog(@"width = %f,height = %f",bodyView.frame.size.width,bodyView.frame.size.height);
+    if(self.bodyView){
+        [self.bodyView removeFromSuperview];
+    }
     self.bodyView = bodyView;
+    [self.bodyContentView addSubview:bodyView];
 }
 
 @end

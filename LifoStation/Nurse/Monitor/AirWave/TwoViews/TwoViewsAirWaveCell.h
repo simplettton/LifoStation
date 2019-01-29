@@ -10,12 +10,10 @@
 @interface TwoViewsAirWaveCell : UICollectionViewCell
 @property (nonatomic, assign) AirBagType type;
 
-@property (weak, nonatomic) IBOutlet AirWaveView *bodyView;
-
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
-
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
 @property (weak, nonatomic) IBOutlet UIView *parameterView;
 
+@property (nonatomic, strong) AirWaveView * bodyView;
 - (void)configureWithAirBagType:(AirBagType)type;
 @end

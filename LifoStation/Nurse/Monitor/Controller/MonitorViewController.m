@@ -45,9 +45,10 @@
     [button setTitle:@" 重点关注" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     [button setTitleColor:UIColorFromHex(0x6EA4E2) forState:UIControlStateNormal];
-    
+    [button addTarget:self action:@selector(showFocusMachines) forControlEvents:UIControlEventTouchUpInside];
 //    button.frame=CGRectMake(0,0,100,100);//#1#硬编码设置UIButton位置、大小
  UIBarButtonItem* barButtonItem=[[UIBarButtonItem alloc]initWithCustomView:button];
+    
     self.navigationItem.rightBarButtonItem=barButtonItem;
     
     self.collectionView.delegate = self;
@@ -62,19 +63,23 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineViewsAirWaveCell"];
     
-    self.alertView.layer.borderWidth = 0.5f;
-    self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
+
     
     self.showViewType = SingleViewType;
     [self changeShowViewType:[self.typeSwitchView viewWithTag:SingleViewType]];
     
     /** 默认展示alertview */
     _isShowAlertMessage = YES;
+    self.alertView.layer.borderWidth = 0.5f;
+    self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
     /** 设备添加 longpress 添加手势 可以关注设备 */
     _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
-    _longPress.minimumPressDuration = 6.0;
+//    _longPress.minimumPressDuration = 1.0;
     [self.collectionView addGestureRecognizer:_longPress];
+    
+    /** 下拉刷新控件 */
+    [self initTableHeaderAndFooter];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,6 +99,37 @@
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+}
+#pragma mark - refresh
+-(void)initTableHeaderAndFooter{
+    
+    //下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    [header setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
+    header.stateLabel.textColor =UIColorFromHex(0xABABAB);
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.collectionView.mj_header = header;
+    
+    //    [self.tableView.mj_header beginRefreshing];
+    
+    //上拉加载
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    [footer setTitle:@"" forState:MJRefreshStateRefreshing];
+    [footer setTitle:@"没有更多数据了" forState:MJRefreshStateNoMoreData];
+    self.collectionView.mj_footer = footer;
+}
+- (void)refresh {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 结束刷新
+        [self.collectionView.mj_header endRefreshing];
+    });
+}
+- (void)loadMore {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 结束刷新
+        [self.collectionView.mj_footer endRefreshing];
+    });
 }
 #pragma mark - LongPress Action
 - (void)lonePressMoving:(UILongPressGestureRecognizer *)longPress {
@@ -182,9 +218,8 @@
                 [view showInWindow];
             }];
             return cell;
-
+            
         }
-
             break;
         case TwoViewsType:
         {
@@ -200,7 +235,6 @@
             return cell;
             
         }
-
             break;
             
         case FourViewsType:
@@ -248,7 +282,7 @@
     /** 一宫格 */
     switch (self.showViewType) {
         case SingleViewType:
-            return CGSizeMake(728, 688);
+            return CGSizeMake(728, 680);
             break;
         case TwoViewsType:
             return CGSizeMake(700, 352);
@@ -262,7 +296,7 @@
         default:
             break;
     }
-    return CGSizeMake(728, 688);
+    return CGSizeMake(728, 680);
 }
 
 //设置每个item水平间距
@@ -301,7 +335,9 @@
     return cell;
 }
 #pragma mark - Action
-
+- (void)showFocusMachines {
+    [self performSegueWithIdentifier:@"showFocusMachines" sender:nil];
+}
 - (IBAction)showAlertView:(id)sender {
     AlertView *alerView = [AlertView createViewFromNib];
     [alerView showInWindow];

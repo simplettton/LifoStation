@@ -11,7 +11,44 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AirWaveView"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AirWaveView">
+            <connections>
+                <outlet property="testBodyPart" destination="feH-uA-1N2" id="gSM-WW-lHO"/>
+                <outletCollection property="bodyImages" destination="s6s-Ex-HlZ" id="6Kd-qr-rCH"/>
+                <outletCollection property="bodyImages" destination="0Q7-Nn-4j3" id="GaK-z1-HPr"/>
+                <outletCollection property="bodyImages" destination="0Q7-Nn-4j3" id="lDG-Bs-Etd"/>
+                <outletCollection property="bodyImages" destination="gGe-NJ-XbS" id="SDv-A3-qzy"/>
+                <outletCollection property="bodyImages" destination="fon-CN-ot2" id="Lag-Bu-g5K"/>
+                <outletCollection property="bodyImages" destination="fon-CN-ot2" id="4cG-2m-sOC"/>
+                <outletCollection property="bodyImages" destination="0Q7-Nn-4j3" id="kc4-K8-85T"/>
+                <outletCollection property="bodyImages" destination="dqD-xw-wGy" id="ETH-XU-hZv"/>
+                <outletCollection property="bodyImages" destination="77e-QL-em2" id="nim-IG-nOm"/>
+                <outletCollection property="bodyImages" destination="rec-n9-KAF" id="uWj-AT-RP5"/>
+                <outletCollection property="bodyImages" destination="zxQ-i0-YaO" id="A9d-XD-7we"/>
+                <outletCollection property="bodyImages" destination="Ep1-uP-Urx" id="hBI-1k-KgS"/>
+                <outletCollection property="bodyImages" destination="r4l-bf-ecv" id="n9F-QL-wei"/>
+                <outletCollection property="bodyImages" destination="GgY-kk-1l0" id="NDu-9K-8HM"/>
+                <outletCollection property="bodyImages" destination="S5C-12-0fJ" id="hmz-UF-AQB"/>
+                <outletCollection property="bodyImages" destination="oBj-TE-JaE" id="r1F-g6-cCE"/>
+                <outletCollection property="bodyImages" destination="HjH-qq-NRW" id="sb5-UR-IZu"/>
+                <outletCollection property="bodyImages" destination="QsL-6h-k52" id="lcw-Z5-eI8"/>
+                <outletCollection property="bodyImages" destination="qIL-95-usl" id="V7c-BJ-Q7B"/>
+                <outletCollection property="bodyImages" destination="cAs-Y4-ORf" id="Gbb-WC-FFU"/>
+                <outletCollection property="bodyImages" destination="GKL-45-t1l" id="kAg-ee-Ctc"/>
+                <outletCollection property="bodyImages" destination="hhu-t9-AL7" id="3Ai-xB-enp"/>
+                <outletCollection property="bodyImages" destination="TcG-LZ-twS" id="NP0-jf-ocF"/>
+                <outletCollection property="bodyImages" destination="7VC-fQ-RrT" id="Dtv-Us-ien"/>
+                <outletCollection property="bodyImages" destination="yBJ-In-OWd" id="Swd-sj-1Vq"/>
+                <outletCollection property="bodyImages" destination="2eu-qh-vHB" id="wPr-vM-yl0"/>
+                <outletCollection property="bodyImages" destination="aM1-fE-FjO" id="TXa-DL-nLq"/>
+                <outletCollection property="bodyImages" destination="5el-pM-Xxq" id="eSq-9W-6Wf"/>
+                <outletCollection property="bodyImages" destination="QsL-6h-k52" id="Vm0-9k-F1q"/>
+                <outletCollection property="bodyImages" destination="1Jy-ub-f0p" id="afc-e5-8hk"/>
+                <outletCollection property="bodyImages" destination="YUs-7t-qXj" id="J10-Q7-v0e"/>
+                <outletCollection property="bodyImages" destination="feH-uA-1N2" id="lgR-GR-r7Y"/>
+                <outletCollection property="bodyImages" destination="QsL-6h-k52" id="Dsi-Jd-iFn"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="SRN-ht-V1l" userLabel="BodyView-Eight">
             <rect key="frame" x="0.0" y="0.0" width="363" height="498"/>
@@ -20,89 +57,170 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="body626d91" translatesAutoresizingMaskIntoConstraints="NO" id="cZD-Jm-1oC">
                     <rect key="frame" x="0.0" y="0.0" width="363" height="498"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="57" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg1_green" translatesAutoresizingMaskIntoConstraints="NO" id="feH-uA-1N2" userLabel="57">
+                <imageView userInteractionEnabled="NO" tag="57" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg1_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="feH-uA-1N2" userLabel="57" customClass="BodyImageView">
                     <rect key="frame" x="130" y="280" width="39" height="50"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg1"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="56" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg2_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="YUs-7t-qXj" userLabel="56">
+                <imageView userInteractionEnabled="NO" tag="56" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg2_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="YUs-7t-qXj" userLabel="56" customClass="BodyImageView">
                     <rect key="frame" x="125" y="304" width="34" height="48"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg2"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="55" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg3_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="1Jy-ub-f0p" userLabel="55">
+                <imageView userInteractionEnabled="NO" tag="55" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg3_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="1Jy-ub-f0p" userLabel="55" customClass="BodyImageView">
                     <rect key="frame" x="121" y="326" width="29" height="47"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg3"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="54" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg4_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-6h-k52" userLabel="54">
+                <imageView userInteractionEnabled="NO" tag="54" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg4_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="QsL-6h-k52" userLabel="54" customClass="BodyImageView">
                     <rect key="frame" x="114" y="349" width="28" height="47"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg4"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="53" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg5_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="5el-pM-Xxq" userLabel="53">
+                <imageView userInteractionEnabled="NO" tag="53" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg5_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="5el-pM-Xxq" userLabel="53" customClass="BodyImageView">
                     <rect key="frame" x="104" y="375" width="27" height="39"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg5"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="52" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg6_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="aM1-fE-FjO" userLabel="52">
+                <imageView userInteractionEnabled="NO" tag="52" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg6_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="aM1-fE-FjO" userLabel="52" customClass="BodyImageView">
                     <rect key="frame" x="102" y="396" width="20" height="42"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg6"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="51" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg7_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="2eu-qh-vHB" userLabel="51">
+                <imageView userInteractionEnabled="NO" tag="51" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftleg7_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="2eu-qh-vHB" userLabel="51" customClass="BodyImageView">
                     <rect key="frame" x="99" y="430" width="16" height="27"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftleg7"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="41" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg7_grey" translatesAutoresizingMaskIntoConstraints="NO" id="yBJ-In-OWd" userLabel="41">
+                <imageView userInteractionEnabled="NO" tag="41" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg7_grey" translatesAutoresizingMaskIntoConstraints="NO" id="yBJ-In-OWd" userLabel="41" customClass="BodyImageView">
                     <rect key="frame" x="248" y="430" width="16" height="27"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg7"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="42" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg6_grey" translatesAutoresizingMaskIntoConstraints="NO" id="7VC-fQ-RrT" userLabel="42">
+                <imageView userInteractionEnabled="NO" tag="42" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg6_grey" translatesAutoresizingMaskIntoConstraints="NO" id="7VC-fQ-RrT" userLabel="42" customClass="BodyImageView">
                     <rect key="frame" x="239" y="396" width="20" height="42"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg6"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="43" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg5_grey" translatesAutoresizingMaskIntoConstraints="NO" id="TcG-LZ-twS" userLabel="43">
+                <imageView userInteractionEnabled="NO" tag="43" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg5_grey" translatesAutoresizingMaskIntoConstraints="NO" id="TcG-LZ-twS" userLabel="43" customClass="BodyImageView">
                     <rect key="frame" x="232" y="375" width="27" height="39"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg5"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="44" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg4_grey" translatesAutoresizingMaskIntoConstraints="NO" id="hhu-t9-AL7" userLabel="44">
+                <imageView userInteractionEnabled="NO" tag="44" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg4_grey" translatesAutoresizingMaskIntoConstraints="NO" id="hhu-t9-AL7" userLabel="44" customClass="BodyImageView">
                     <rect key="frame" x="221" y="349" width="28" height="47"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg4"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="45" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="GKL-45-t1l" userLabel="45">
+                <imageView userInteractionEnabled="NO" tag="45" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="GKL-45-t1l" userLabel="45" customClass="BodyImageView">
                     <rect key="frame" x="213" y="326" width="29" height="47"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg3"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="47" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="qIL-95-usl" userLabel="47">
+                <imageView userInteractionEnabled="NO" tag="46" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="cAs-Y4-ORf" userLabel="46" customClass="BodyImageView">
+                    <rect key="frame" x="202" y="308" width="34" height="41"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg2"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="47" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="qIL-95-usl" userLabel="47" customClass="BodyImageView">
                     <rect key="frame" x="196" y="280" width="39" height="50"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightleg1_"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="HjH-qq-NRW" userLabel="leftfoot_grey">
+                <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="HjH-qq-NRW" userLabel="leftfoot_grey" customClass="BodyImageView">
                     <rect key="frame" x="74" y="475" width="15" height="15"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="circle"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="27" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="oBj-TE-JaE">
+                <imageView userInteractionEnabled="NO" tag="27" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="oBj-TE-JaE" customClass="BodyImageView">
                     <rect key="frame" x="237" y="97" width="34" height="59"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightup1"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="26" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="S5C-12-0fJ">
+                <imageView userInteractionEnabled="NO" tag="26" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="S5C-12-0fJ" customClass="BodyImageView">
                     <rect key="frame" x="257" y="143" width="38" height="49"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightup2"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="GgY-kk-1l0">
+                <imageView userInteractionEnabled="NO" tag="25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightup3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="GgY-kk-1l0" customClass="BodyImageView">
                     <rect key="frame" x="280" y="172" width="33" height="40"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="rightup3"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_grey" translatesAutoresizingMaskIntoConstraints="NO" id="r4l-bf-ecv" userLabel="righthand_grey">
+                <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_grey" translatesAutoresizingMaskIntoConstraints="NO" id="r4l-bf-ecv" userLabel="righthand_grey" customClass="BodyImageView">
                     <rect key="frame" x="317" y="214" width="15" height="15"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="circle"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lefthand_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Ep1-uP-Urx" userLabel="rightfoot_grey">
+                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lefthand_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Ep1-uP-Urx" userLabel="rightfoot_grey" customClass="BodyImageView">
                     <rect key="frame" x="273" y="475" width="15" height="15"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="lefthand"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="s6s-Ex-HlZ">
+                <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="s6s-Ex-HlZ" customClass="BodyImageView">
                     <rect key="frame" x="88" y="98" width="38" height="60"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftup1"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="gGe-NJ-XbS">
+                <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="gGe-NJ-XbS" customClass="BodyImageView">
                     <rect key="frame" x="68" y="143" width="38" height="49"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="fon-CN-ot2">
+                <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftup3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="fon-CN-ot2" customClass="BodyImageView">
                     <rect key="frame" x="50" y="166" width="33" height="53"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="leftup3"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="0Q7-Nn-4j3">
+                <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle1_grey" translatesAutoresizingMaskIntoConstraints="NO" id="0Q7-Nn-4j3" customClass="BodyImageView">
                     <rect key="frame" x="145" y="183" width="73" height="9"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="middle1"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="dqD-xw-wGy">
+                <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="dqD-xw-wGy" customClass="BodyImageView">
                     <rect key="frame" x="144" y="200" width="74" height="9"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="middle2"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle4_grey" translatesAutoresizingMaskIntoConstraints="NO" id="rec-n9-KAF">
-                    <rect key="frame" x="136" y="234" width="90" height="9"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_grey" translatesAutoresizingMaskIntoConstraints="NO" id="zxQ-i0-YaO" userLabel="lefthand_grey">
-                    <rect key="frame" x="27" y="218" width="15" height="15"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="77e-QL-em2">
+                <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle3_grey" translatesAutoresizingMaskIntoConstraints="NO" id="77e-QL-em2" customClass="BodyImageView">
                     <rect key="frame" x="141" y="217" width="80" height="9"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="middle3"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" tag="46" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightleg2_grey" translatesAutoresizingMaskIntoConstraints="NO" id="cAs-Y4-ORf" userLabel="46">
-                    <rect key="frame" x="202" y="308" width="34" height="41"/>
+                <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle4_grey" translatesAutoresizingMaskIntoConstraints="NO" id="rec-n9-KAF" customClass="BodyImageView">
+                    <rect key="frame" x="136" y="234" width="90" height="9"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="middle4"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_grey" translatesAutoresizingMaskIntoConstraints="NO" id="zxQ-i0-YaO" userLabel="lefthand_grey" customClass="BodyImageView">
+                    <rect key="frame" x="27" y="218" width="15" height="15"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="bodyName" value="circle"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -227,7 +345,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="zqp-fI-Zkd"/>
-            <point key="canvasLocation" x="388" y="-797"/>
+            <point key="canvasLocation" x="387.5" y="-797"/>
         </view>
         <view contentMode="scaleToFill" id="fjJ-Jg-WlJ" userLabel="BodyView">
             <rect key="frame" x="0.0" y="0.0" width="363" height="498"/>
@@ -397,7 +515,7 @@
         <image name="leftdown2_grey" width="144" height="147"/>
         <image name="leftdown3_grey" width="108" height="182"/>
         <image name="lefthand_grey" width="61" height="61"/>
-        <image name="leftleg1_green" width="292" height="189"/>
+        <image name="leftleg1_yellow" width="292" height="189"/>
         <image name="leftleg2_yellow" width="267" height="194"/>
         <image name="leftleg3_yellow" width="246" height="194"/>
         <image name="leftleg4_yellow" width="242" height="198"/>

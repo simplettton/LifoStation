@@ -53,6 +53,37 @@
     [self.tableView endEditing:YES];
     [self.searchBar resignFirstResponder];
 }
+#pragma mark - refresh
+-(void)initTableHeaderAndFooter{
+    
+    //下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    [header setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
+    header.stateLabel.textColor =UIColorFromHex(0xABABAB);
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
+    //    [self.tableView.mj_header beginRefreshing];
+    
+    //上拉加载
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    [footer setTitle:@"" forState:MJRefreshStateRefreshing];
+    [footer setTitle:@"没有更多数据了" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_footer = footer;
+}
+- (void)refresh {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 结束刷新
+        [self.tableView.mj_header endRefreshing];
+    });
+}
+- (void)loadMore {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 结束刷新
+        [self.tableView.mj_footer endRefreshing];
+    });
+}
 #pragma mark - table view delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

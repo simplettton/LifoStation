@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BodyImageView.h"
 typedef NS_ENUM(NSInteger,AirBagType) {
     AirBagTypeThree,
     AirBagTypeEight
@@ -14,5 +15,7 @@ typedef NS_ENUM(NSInteger,AirBagType) {
 @interface AirWaveView : UIView
 @property (nonatomic, assign) AirBagType type;
 @property (strong, nonatomic) UIView *bodyView;
+@property (strong, nonatomic) IBOutletCollection(BodyImageView) NSArray *bodyImages;
+- (void)flashingTest;
 - (instancetype)initWithAirBagType:(AirBagType)type;
 @end
