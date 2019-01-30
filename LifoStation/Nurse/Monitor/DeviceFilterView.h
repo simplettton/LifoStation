@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DeviceFilterView : UIView
-
+@property (nonatomic, copy) void (^confirmSelect)(NSArray *selction);
 @end

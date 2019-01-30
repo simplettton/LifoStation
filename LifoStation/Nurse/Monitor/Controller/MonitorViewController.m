@@ -63,8 +63,6 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineViewsAirWaveCell"];
     
-
-    
     self.showViewType = SingleViewType;
     [self changeShowViewType:[self.typeSwitchView viewWithTag:SingleViewType]];
     

@@ -32,6 +32,10 @@
 		0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248921E74D9900362D08 /* AlertTimeLineCell.m */; };
 		0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0465248A21E74D9900362D08 /* AlertTimeLineCell.xib */; };
 		0465248F21E74D9900362D08 /* BETimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248C21E74D9900362D08 /* BETimeLine.m */; };
+		0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046815FF22013D9E004F9FBB /* FilterDeviceModel.m */; };
+		0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */; };
+		0468160522014D0B004F9FBB /* devices.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468160422014D0B004F9FBB /* devices.txt */; };
+		0468160B2201A89E004F9FBB /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468160A2201A89E004F9FBB /* UIView+Extension.m */; };
 		0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0469CC2321E4284700D0302C /* AddDepartmentView.xib */; };
 		0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2621E4288200D0302C /* AddDepartmentView.m */; };
 		0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2921E472D800D0302C /* BaseViewController.m */; };
@@ -166,6 +170,13 @@
 		0465248A21E74D9900362D08 /* AlertTimeLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertTimeLineCell.xib; sourceTree = "<group>"; };
 		0465248B21E74D9900362D08 /* BETimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETimeLine.h; sourceTree = "<group>"; };
 		0465248C21E74D9900362D08 /* BETimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETimeLine.m; sourceTree = "<group>"; };
+		046815FE22013D9E004F9FBB /* FilterDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDeviceModel.h; sourceTree = "<group>"; };
+		046815FF22013D9E004F9FBB /* FilterDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDeviceModel.m; sourceTree = "<group>"; };
+		0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepartmentDeviceModel.h; sourceTree = "<group>"; };
+		0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DepartmentDeviceModel.m; sourceTree = "<group>"; };
+		0468160422014D0B004F9FBB /* devices.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devices.txt; sourceTree = "<group>"; };
+		046816092201A89E004F9FBB /* UIView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		0468160A2201A89E004F9FBB /* UIView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		0469CC2321E4284700D0302C /* AddDepartmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDepartmentView.xib; sourceTree = "<group>"; };
 		0469CC2521E4288200D0302C /* AddDepartmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDepartmentView.h; sourceTree = "<group>"; };
 		0469CC2621E4288200D0302C /* AddDepartmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDepartmentView.m; sourceTree = "<group>"; };
@@ -487,6 +498,11 @@
 				04369EBA220054AE008F22E2 /* DeviceFilterView.xib */,
 				04369EBC220054DD008F22E2 /* DeviceFilterView.h */,
 				04369EBD220054DD008F22E2 /* DeviceFilterView.m */,
+				046815FE22013D9E004F9FBB /* FilterDeviceModel.h */,
+				046815FF22013D9E004F9FBB /* FilterDeviceModel.m */,
+				0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */,
+				0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */,
+				0468160422014D0B004F9FBB /* devices.txt */,
 			);
 			path = Monitor;
 			sourceTree = "<group>";
@@ -564,6 +580,8 @@
 				04709B2021F0251F000D4E12 /* UIView+AdaptScreen.m */,
 				04261E2421FAE6050043776D /* UIImage+ImageWithColor.h */,
 				04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */,
+				046816092201A89E004F9FBB /* UIView+Extension.h */,
+				0468160A2201A89E004F9FBB /* UIView+Extension.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -964,6 +982,7 @@
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
 				0495351B21C8D3DA00C567D8 /* body.dae in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
+				0468160522014D0B004F9FBB /* devices.txt in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
@@ -1045,6 +1064,7 @@
 				0465248F21E74D9900362D08 /* BETimeLine.m in Sources */,
 				0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */,
 				04B51D2121DCA28C00B9DF2D /* NSArray+Bounds.m in Sources */,
+				0468160B2201A89E004F9FBB /* UIView+Extension.m in Sources */,
 				04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */,
 				04829C3C21CBA01700A42FC0 /* LoginViewController.m in Sources */,
 				04709B2421F02D9B000D4E12 /* AirWaveView.m in Sources */,
@@ -1088,12 +1108,14 @@
 				0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */,
 				04B51D2321DCA28C00B9DF2D /* UIView+Extension.m in Sources */,
 				0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */,
+				0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */,
 				04709B2821F03255000D4E12 /* TwoViewsAirWaveCell.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
 				04261E2921FAFB1A0043776D /* FocusMachineController.m in Sources */,
 				04261E2321FAE0CE0043776D /* BodyImageView.m in Sources */,
 				04261E2621FAE6050043776D /* UIImage+ImageWithColor.m in Sources */,
 				04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */,
+				0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,
