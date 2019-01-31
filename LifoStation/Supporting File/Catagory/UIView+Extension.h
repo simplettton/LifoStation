@@ -1,26 +1,29 @@
 //
 //  UIView+Extension.h
-//  LifoStation
+//  FrameTest
 //
-//  Created by Binger Zeng on 2019/1/30.
-//  Copyright © 2019年 Shenzhen Lifotronic Technology Co.,Ltd. All rights reserved.
+//  Created by 赵海明 on 2017/2/21.
+//  Copyright © 2017年 赵海明. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
+#define vAlertTag    10086
+
 @interface UIView (Extension)
 
-@property (nonatomic, assign) CGFloat be_x;
-@property (nonatomic, assign) CGFloat be_y;
-@property (nonatomic, assign) CGFloat be_centerX;
-@property (nonatomic, assign) CGFloat be_centerY;
-@property (nonatomic, assign) CGFloat be_width;
-@property (nonatomic, assign) CGFloat be_height;
-@property (nonatomic, assign) CGSize be_size;
-@property (nonatomic, assign) CGPoint be_origin;
+@property (nonatomic, assign) CGFloat hm_x;
+@property (nonatomic, assign) CGFloat hm_y;
+@property (nonatomic, assign) CGFloat hm_centerX;
+@property (nonatomic, assign) CGFloat hm_centerY;
+@property (nonatomic, assign) CGFloat hm_width;
+@property (nonatomic, assign) CGFloat hm_height;
+@property (nonatomic, assign) CGSize hm_size;
+@property (nonatomic, assign) CGPoint hm_origin;
 
-@property (nonatomic, assign) CGFloat be_bottom;
-@property (nonatomic, assign) CGFloat be_right;
+@property (nonatomic, assign) CGFloat hm_bottom;
+@property (nonatomic, assign) CGFloat hm_right;
 
-@property (nonatomic, readonly) UIViewController *be_viewController;   // 获取当前视图的Controller
+@property (nonatomic, readonly) UIViewController *hm_viewController;   // 获取当前视图的Controller
+
 @end
