@@ -35,7 +35,6 @@
 		0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046815FF22013D9E004F9FBB /* FilterDeviceModel.m */; };
 		0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */; };
 		0468160522014D0B004F9FBB /* devices.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468160422014D0B004F9FBB /* devices.txt */; };
-		0468160B2201A89E004F9FBB /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468160A2201A89E004F9FBB /* UIView+Extension.m */; };
 		0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0469CC2321E4284700D0302C /* AddDepartmentView.xib */; };
 		0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2621E4288200D0302C /* AddDepartmentView.m */; };
 		0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2921E472D800D0302C /* BaseViewController.m */; };
@@ -58,6 +57,7 @@
 		04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04709B2B21F07812000D4E12 /* BasicAirWaveCell.m */; };
 		0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472A04021ED75AD007D1252 /* SingleViewAirWaveCell.m */; };
 		0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */; };
+		0473473322029F4D00921205 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473473222029F4D00921205 /* UIView+Extension.m */; };
 		04736BA521E84BD1004D60D6 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04736BA421E84BD1004D60D6 /* UIImage+Rotate.m */; };
 		04736BA921E86A71004D60D6 /* JLImageMagnification.m in Sources */ = {isa = PBXBuildFile; fileRef = 04736BA821E86A70004D60D6 /* JLImageMagnification.m */; };
 		04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04736BAA21E883DD004D60D6 /* AirWaveView.xib */; };
@@ -101,6 +101,8 @@
 		04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B51D2421DCC5FE00B9DF2D /* ChooseLanguageView.xib */; };
 		04B51D2821DCC6E300B9DF2D /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B51D2721DCC6E300B9DF2D /* LanguageCell.m */; };
 		04B51D2E21DCC7B000B9DF2D /* ChooseLanguageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */; };
+		04BFC7C52216728500EF9ADB /* DeviceFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */; };
+		04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */; };
 		04D986A621E0A9DF00DD62F1 /* AddMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D986A521E0A9DF00DD62F1 /* AddMachineViewController.m */; };
 		04DFF16A21D07C4C009EA938 /* UIView+Tap.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFF16921D07C4C009EA938 /* UIView+Tap.m */; };
 		04DFF16D21D08FF6009EA938 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DFF16C21D08FF6009EA938 /* MainViewController.m */; };
@@ -175,8 +177,6 @@
 		0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepartmentDeviceModel.h; sourceTree = "<group>"; };
 		0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DepartmentDeviceModel.m; sourceTree = "<group>"; };
 		0468160422014D0B004F9FBB /* devices.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devices.txt; sourceTree = "<group>"; };
-		046816092201A89E004F9FBB /* UIView+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		0468160A2201A89E004F9FBB /* UIView+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		0469CC2321E4284700D0302C /* AddDepartmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDepartmentView.xib; sourceTree = "<group>"; };
 		0469CC2521E4288200D0302C /* AddDepartmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddDepartmentView.h; sourceTree = "<group>"; };
 		0469CC2621E4288200D0302C /* AddDepartmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDepartmentView.m; sourceTree = "<group>"; };
@@ -215,6 +215,8 @@
 		0472A03F21ED75AD007D1252 /* SingleViewAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleViewAirWaveCell.h; sourceTree = "<group>"; };
 		0472A04021ED75AD007D1252 /* SingleViewAirWaveCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleViewAirWaveCell.m; sourceTree = "<group>"; };
 		0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleViewAirWaveCell.xib; sourceTree = "<group>"; };
+		0473473122029F4D00921205 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		0473473222029F4D00921205 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		04736BA321E84BD1004D60D6 /* UIImage+Rotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		04736BA421E84BD1004D60D6 /* UIImage+Rotate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		04736BA721E86A70004D60D6 /* JLImageMagnification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLImageMagnification.h; sourceTree = "<group>"; };
@@ -293,6 +295,9 @@
 		04B51D2721DCC6E300B9DF2D /* LanguageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageCell.m; sourceTree = "<group>"; };
 		04B51D2C21DCC7B000B9DF2D /* ChooseLanguageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageView.h; sourceTree = "<group>"; };
 		04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageView.m; sourceTree = "<group>"; };
+		04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DeviceFilterCell.h; path = AirWave/DeviceFilterCell.h; sourceTree = "<group>"; };
+		04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DeviceFilterCell.m; path = AirWave/DeviceFilterCell.m; sourceTree = "<group>"; };
+		04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DeviceFilterCell.xib; path = AirWave/DeviceFilterCell.xib; sourceTree = "<group>"; };
 		04D986A421E0A9DF00DD62F1 /* AddMachineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMachineViewController.h; sourceTree = "<group>"; };
 		04D986A521E0A9DF00DD62F1 /* AddMachineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddMachineViewController.m; sourceTree = "<group>"; };
 		04DFF16821D07C4C009EA938 /* UIView+Tap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Tap.h"; sourceTree = "<group>"; };
@@ -502,6 +507,9 @@
 				046815FF22013D9E004F9FBB /* FilterDeviceModel.m */,
 				0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */,
 				0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */,
+				04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */,
+				04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */,
+				04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */,
 				0468160422014D0B004F9FBB /* devices.txt */,
 			);
 			path = Monitor;
@@ -580,8 +588,8 @@
 				04709B2021F0251F000D4E12 /* UIView+AdaptScreen.m */,
 				04261E2421FAE6050043776D /* UIImage+ImageWithColor.h */,
 				04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */,
-				046816092201A89E004F9FBB /* UIView+Extension.h */,
-				0468160A2201A89E004F9FBB /* UIView+Extension.m */,
+				0473473122029F4D00921205 /* UIView+Extension.h */,
+				0473473222029F4D00921205 /* UIView+Extension.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -975,6 +983,7 @@
 				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
 				0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */,
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
+				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
 				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
@@ -1064,7 +1073,7 @@
 				0465248F21E74D9900362D08 /* BETimeLine.m in Sources */,
 				0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */,
 				04B51D2121DCA28C00B9DF2D /* NSArray+Bounds.m in Sources */,
-				0468160B2201A89E004F9FBB /* UIView+Extension.m in Sources */,
+				0473473322029F4D00921205 /* UIView+Extension.m in Sources */,
 				04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */,
 				04829C3C21CBA01700A42FC0 /* LoginViewController.m in Sources */,
 				04709B2421F02D9B000D4E12 /* AirWaveView.m in Sources */,
@@ -1121,6 +1130,7 @@
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,
 				047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */,
 				049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */,
+				04BFC7C52216728500EF9ADB /* DeviceFilterCell.m in Sources */,
 				04B3976621E303FC00C9C5F5 /* MachineTypeModel.m in Sources */,
 				04B3976B21E339D100C9C5F5 /* DepartmentListViewController.m in Sources */,
 				0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */,

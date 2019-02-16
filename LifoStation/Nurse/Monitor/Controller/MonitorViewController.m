@@ -8,6 +8,8 @@
 
 #import "MonitorViewController.h"
 
+#import "DeviceFilterView.h"
+
 #import "SingleViewAirWaveCell.h"
 #import "TwoViewsAirWaveCell.h"
 #import "FourViewsAirWaveCell.h"
@@ -31,9 +33,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *isShowAlertViewButton;
 @property (nonatomic, assign) BOOL isShowAlertMessage;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+
+@property (nonatomic, strong) NSArray *selectedDevices;
 @end
 
 @implementation MonitorViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -333,6 +338,24 @@
     return cell;
 }
 #pragma mark - Action
+
+- (IBAction)showDeviceFilter:(id)sender {
+    if ([_selectedDevices count] == 0) {
+        _selectedDevices = @[@"空气波1",@"空气波8",@"空气波10",@"空气波12",@"红外设备7",@"红外设备11",@"光子7",
+                             @"光子8",
+                             @"光子9",
+                             @"光子10",
+                             @"光子11",
+                             @"光子12",
+                             @"光子13"];
+    }
+    weakself(self);
+    DeviceFilterView *deviceFilterView = [[DeviceFilterView alloc]initWithLastContent:_selectedDevices commitBlock:^(NSArray *selections) {
+        weakSelf.selectedDevices = selections;
+        
+    }];
+    [deviceFilterView show];
+}
 - (void)showFocusMachines {
     [self performSegueWithIdentifier:@"showFocusMachines" sender:nil];
 }
@@ -370,5 +393,11 @@
     self.isShowAlertMessage = !self.isShowAlertMessage;
     [self.tableView reloadData];
 }
-
+#pragma mark - getter
+- (NSArray *)selectedDevices {
+    if (!_selectedDevices) {
+        _selectedDevices = [NSArray array];
+    }
+    return _selectedDevices;
+}
 @end

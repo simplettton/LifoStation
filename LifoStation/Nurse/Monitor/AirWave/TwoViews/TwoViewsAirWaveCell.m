@@ -25,7 +25,6 @@
     CGFloat width = self.contentView.bounds.size.width;
     CGFloat height = self.bodyContentView.bounds.size.height;
     bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
-    NSLog(@"width = %f,height = %f",bodyView.frame.size.width,bodyView.frame.size.height);
     if(self.bodyView){
         [self.bodyView removeFromSuperview];
     }

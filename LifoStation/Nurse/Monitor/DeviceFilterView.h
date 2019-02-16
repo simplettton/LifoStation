@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface DeviceFilterView : UIView
 @property (nonatomic, copy) void (^confirmSelect)(NSArray *selction);
+- (instancetype)initWithLastContent:(NSArray *)selectedArray commitBlock:(void(^)(NSArray *selections))commitBlock;
+- (void)show;
 @end

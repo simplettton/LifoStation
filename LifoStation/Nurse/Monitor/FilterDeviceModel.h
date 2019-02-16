@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
+@protocol FilterDeviceModel <NSObject>
 
-@interface FilterDeviceModel : NSObject
+@end
 
+@interface FilterDeviceModel : JSONModel
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSArray *name;
 @end

@@ -2828,6 +2828,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dg3-g7-Sdz">
                                         <rect key="frame" x="18" y="15" width="27" height="27"/>
                                         <state key="normal" image="menu_monitor"/>
+                                        <connections>
+                                            <action selector="showDeviceFilter:" destination="dUe-bP-lgF" eventType="touchUpInside" id="7D2-Cm-88H"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8YY-TJ-KlD">
                                         <rect key="frame" x="592" y="16" width="145" height="25"/>

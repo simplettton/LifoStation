@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface DepartmentDeviceModel : NSObject
-
+#import <JSONModel/JSONModel.h>
+#import "FilterDeviceModel.h"
+@interface DepartmentDeviceModel : JSONModel
+@property (nonatomic, strong) NSString *department;
+@property (nonatomic, strong) NSArray <FilterDeviceModel> *devices;
 @end
