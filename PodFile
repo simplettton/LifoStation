@@ -12,4 +12,5 @@ target 'LifoStation' do
     pod 'PPNumberButton'
     pod 'MJRefresh'
     pod 'AFNetworking'
+    pod 'PGDatePicker'
 end

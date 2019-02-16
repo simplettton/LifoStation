@@ -45,6 +45,8 @@
 		046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CD37E21DF60870067BCB0 /* ChooseDepartmentView.xib */; };
 		046CD38221DF632C0067BCB0 /* DepartmentItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD38121DF632C0067BCB0 /* DepartmentItemCell.m */; };
 		046CD38521DF635C0067BCB0 /* ChooseDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD38421DF635C0067BCB0 /* ChooseDepartmentView.m */; };
+		046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CE1B82217F4DE00ED6BF1 /* SelectDateView.xib */; };
+		046CE1BC2217F66A00ED6BF1 /* SelectDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CE1BB2217F66A00ED6BF1 /* SelectDateView.m */; };
 		046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D214B21D4767000A0D5AE /* TaskDetailView.xib */; };
 		046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046D214E21D47BCB00A0D5AE /* TaskDetailView.m */; };
 		046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046D215021D4B29700A0D5AE /* DeviceSelectView.xib */; };
@@ -195,6 +197,9 @@
 		046CD38121DF632C0067BCB0 /* DepartmentItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DepartmentItemCell.m; sourceTree = "<group>"; };
 		046CD38321DF635C0067BCB0 /* ChooseDepartmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseDepartmentView.h; sourceTree = "<group>"; };
 		046CD38421DF635C0067BCB0 /* ChooseDepartmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseDepartmentView.m; sourceTree = "<group>"; };
+		046CE1B82217F4DE00ED6BF1 /* SelectDateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectDateView.xib; sourceTree = "<group>"; };
+		046CE1BA2217F66A00ED6BF1 /* SelectDateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectDateView.h; sourceTree = "<group>"; };
+		046CE1BB2217F66A00ED6BF1 /* SelectDateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectDateView.m; sourceTree = "<group>"; };
 		046D214B21D4767000A0D5AE /* TaskDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailView.xib; sourceTree = "<group>"; };
 		046D214D21D47BCB00A0D5AE /* TaskDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskDetailView.h; sourceTree = "<group>"; };
 		046D214E21D47BCB00A0D5AE /* TaskDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskDetailView.m; sourceTree = "<group>"; };
@@ -295,9 +300,9 @@
 		04B51D2721DCC6E300B9DF2D /* LanguageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageCell.m; sourceTree = "<group>"; };
 		04B51D2C21DCC7B000B9DF2D /* ChooseLanguageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageView.h; sourceTree = "<group>"; };
 		04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageView.m; sourceTree = "<group>"; };
-		04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DeviceFilterCell.h; path = AirWave/DeviceFilterCell.h; sourceTree = "<group>"; };
-		04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DeviceFilterCell.m; path = AirWave/DeviceFilterCell.m; sourceTree = "<group>"; };
-		04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DeviceFilterCell.xib; path = AirWave/DeviceFilterCell.xib; sourceTree = "<group>"; };
+		04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceFilterCell.h; sourceTree = "<group>"; };
+		04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceFilterCell.m; sourceTree = "<group>"; };
+		04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceFilterCell.xib; sourceTree = "<group>"; };
 		04D986A421E0A9DF00DD62F1 /* AddMachineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMachineViewController.h; sourceTree = "<group>"; };
 		04D986A521E0A9DF00DD62F1 /* AddMachineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddMachineViewController.m; sourceTree = "<group>"; };
 		04DFF16821D07C4C009EA938 /* UIView+Tap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Tap.h"; sourceTree = "<group>"; };
@@ -495,21 +500,12 @@
 		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
 			isa = PBXGroup;
 			children = (
+				046CE1B72217EF2B00ED6BF1 /* Device Filter View */,
 				04B0A0DF21F85E7A00960A54 /* FlashingAlertView */,
 				0415323221EDE0BA00DDBD78 /* AlertView */,
 				047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */,
 				04261E2A21FAFB2E0043776D /* Controller */,
 				0415323421EDE0EF00DDBD78 /* AirWave */,
-				04369EBA220054AE008F22E2 /* DeviceFilterView.xib */,
-				04369EBC220054DD008F22E2 /* DeviceFilterView.h */,
-				04369EBD220054DD008F22E2 /* DeviceFilterView.m */,
-				046815FE22013D9E004F9FBB /* FilterDeviceModel.h */,
-				046815FF22013D9E004F9FBB /* FilterDeviceModel.m */,
-				0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */,
-				0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */,
-				04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */,
-				04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */,
-				04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */,
 				0468160422014D0B004F9FBB /* devices.txt */,
 			);
 			path = Monitor;
@@ -573,6 +569,23 @@
 				04B3976321E303BC00C9C5F5 /* Choose Department View */,
 			);
 			path = Agent;
+			sourceTree = "<group>";
+		};
+		046CE1B72217EF2B00ED6BF1 /* Device Filter View */ = {
+			isa = PBXGroup;
+			children = (
+				04369EBA220054AE008F22E2 /* DeviceFilterView.xib */,
+				04369EBC220054DD008F22E2 /* DeviceFilterView.h */,
+				04369EBD220054DD008F22E2 /* DeviceFilterView.m */,
+				046815FE22013D9E004F9FBB /* FilterDeviceModel.h */,
+				046815FF22013D9E004F9FBB /* FilterDeviceModel.m */,
+				0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */,
+				0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */,
+				04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */,
+				04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */,
+				04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */,
+			);
+			path = "Device Filter View";
 			sourceTree = "<group>";
 		};
 		04736BA621E84BDA004D60D6 /* Catagory */ = {
@@ -669,6 +682,9 @@
 			children = (
 				0419846C21DDEFEA00C1713E /* RecordListViewController.h */,
 				0419846D21DDEFEA00C1713E /* RecordListViewController.m */,
+				046CE1B82217F4DE00ED6BF1 /* SelectDateView.xib */,
+				046CE1BA2217F66A00ED6BF1 /* SelectDateView.h */,
+				046CE1BB2217F66A00ED6BF1 /* SelectDateView.m */,
 				0445C7D621E5A4AD00F35353 /* PersonalRecordViewController.h */,
 				0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */,
 				0419846F21DDF1CD00C1713E /* RecordCell.h */,
@@ -993,6 +1009,7 @@
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
 				0468160522014D0B004F9FBB /* devices.txt in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
+				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
 				04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */,
@@ -1044,11 +1061,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LifoStation/Pods-LifoStation-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/PGDatePicker/PGDatePicker/PGDatePicker.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PGDatePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1131,6 +1150,7 @@
 				047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */,
 				049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */,
 				04BFC7C52216728500EF9ADB /* DeviceFilterCell.m in Sources */,
+				046CE1BC2217F66A00ED6BF1 /* SelectDateView.m in Sources */,
 				04B3976621E303FC00C9C5F5 /* MachineTypeModel.m in Sources */,
 				04B3976B21E339D100C9C5F5 /* DepartmentListViewController.m in Sources */,
 				0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */,

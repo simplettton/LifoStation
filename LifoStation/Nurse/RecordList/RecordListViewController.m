@@ -9,6 +9,7 @@
 #import "RecordListViewController.h"
 #import "RecordReportViewController.h"
 #import "RecordCell.h"
+#import "SelectDateView.h"
 //dropdata
 #import "GHDropMenu.h"
 #import "UIView+Extension.h"
@@ -97,6 +98,10 @@
     dropMenu.delegate = self;
     dropMenu.durationTime = 0.5;
     [dropMenu show];
+}
+- (IBAction)showTimeFilter:(id)sender {
+    SelectDateView *view = [SelectDateView createViewFromNib];
+    [view showInWindow];
 }
 - (NSArray *)creaFilterDropMenuData {
     

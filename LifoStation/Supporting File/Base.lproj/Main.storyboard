@@ -2019,6 +2019,9 @@
                                         <rect key="frame" x="320" y="21" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="calendar"/>
+                                        <connections>
+                                            <action selector="showTimeFilter:" destination="93g-AV-V8a" eventType="touchUpInside" id="n12-gm-x6j"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

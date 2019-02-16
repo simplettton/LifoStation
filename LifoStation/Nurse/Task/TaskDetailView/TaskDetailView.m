@@ -20,7 +20,6 @@
         TaskDetailView *view = [TaskDetailView createViewFromNib];
         view.nameLabel.text = [NSString stringWithFormat:@"姓名：%@",name];
         return view;
-        
     }
     return self;
 }
