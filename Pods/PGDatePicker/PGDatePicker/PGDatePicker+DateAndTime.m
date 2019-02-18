@@ -37,6 +37,7 @@
     
     self.selectedComponents.hour = [hourString integerValue];
     self.selectedComponents.minute = [minuteString integerValue];
+    
 }
 
 - (void)dateAndTime_setDateWithComponents:(NSDateComponents *)components animated:(BOOL)animated {
