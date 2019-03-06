@@ -68,8 +68,8 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineViewsAirWaveCell"];
     
-    self.showViewType = SingleViewType;
-    [self changeShowViewType:[self.typeSwitchView viewWithTag:SingleViewType]];
+    self.showViewType = FourViewsType;
+    [self changeShowViewType:[self.typeSwitchView viewWithTag:FourViewsType]];
     
     /** 默认展示alertview */
     _isShowAlertMessage = YES;
@@ -200,7 +200,7 @@
             SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
             if (indexPath.row %4 == 0) {
-                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight message:nil];
+                [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeThree message:nil];
                 cell.style = CellStyleOffLine;
 
             } else if (indexPath.row %4 == 1) {
@@ -212,7 +212,7 @@
                 cell.style = CellStyleUnauthorized;
             }
             else {
-                [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree message:nil];
+                [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeEight message:nil];
                 cell.style = CellStyleOnline;
             }
             [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];

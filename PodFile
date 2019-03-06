@@ -13,4 +13,7 @@ target 'LifoStation' do
     pod 'MJRefresh'
     pod 'AFNetworking'
     pod 'PGDatePicker'
+    pod 'ZFPlayer'
+    pod 'ZFPlayer/AVPlayer'
+    pod 'ZFPlayer/ControlView'
 end

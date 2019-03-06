@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIView *deviceMonitorView;
 @property (weak, nonatomic) IBOutlet UIView *taskListView;
 @property (weak, nonatomic) IBOutlet UIView *patientListView;
+@property (weak, nonatomic) IBOutlet UIView *videoView;
+
 
 @property (weak, nonatomic) IBOutlet UIView *treatmentRecordView;
 
@@ -83,6 +85,9 @@
     }];
     [self.deviceMonitorView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowDeviceMonitor" sender:nil];
+    }];
+    [self.videoView addTapBlock:^(id obj) {
+        [self performSegueWithIdentifier:@"ShowVideo" sender:nil];
     }];
     
 }

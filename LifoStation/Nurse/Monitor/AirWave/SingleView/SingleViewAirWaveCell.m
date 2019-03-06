@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
 /**  bodyContentView */
-@property (weak, nonatomic) IBOutlet UIView *controllButtonView;
+@property (weak, nonatomic) IBOutlet UIView *controlButtonView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *unauthorizedView;
 
@@ -57,6 +57,9 @@
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
             }
+            /** 第二版 */
+            self.controlButtonView.hidden = YES;
+            self.startButton.hidden = YES;
             break;
             /** 离线设备 */
         case CellStyleOffLine:
@@ -75,6 +78,9 @@
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
             }
+            /** 第二版 */
+            self.controlButtonView.hidden = YES;
+            self.startButton.hidden = YES;
             break;
             /** 有报警信息的设备 */
         case CellStyleAlert:
@@ -89,6 +95,9 @@
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
             }
+            /** 第二版 */
+            self.controlButtonView.hidden = YES;
+            self.startButton.hidden = YES;
             break;
         case CellStyleUnauthorized:
             self.titleView.backgroundColor = UIColorFromHex(0xfbfbfb);

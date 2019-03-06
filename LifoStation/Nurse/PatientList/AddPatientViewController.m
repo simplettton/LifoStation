@@ -43,7 +43,6 @@
         view.layer.borderWidth = 0.5f;
         view.layer.cornerRadius = 5.0f;
         view.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
-        
     }
 }
 

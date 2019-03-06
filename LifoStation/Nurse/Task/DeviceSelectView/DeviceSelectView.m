@@ -45,7 +45,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DeviceItemCell *cell = [[NSBundle mainBundle]loadNibNamed:@"DeviceSelectView" owner:self options:nil].lastObject;
-    cell.doctorImageView.hidden = (indexPath.row == 0)?NO:YES;
+//    cell.doctorImageView.hidden = (indexPath.row == 0)?NO:YES;
+    cell.doctorImageView.hidden = YES;
     cell.selectionImageView.hidden = indexPath.row == self.selectedIndex? NO:YES;
     return cell;
 }

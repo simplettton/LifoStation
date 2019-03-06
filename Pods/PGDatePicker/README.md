@@ -1,5 +1,5 @@
 # PGDatePicker
-日期选择器，支持年、年月、年月日、年月日时、年月日时分、年月日时分秒、月日、月日时、月日时分、月日时分秒、时分、时分秒、分秒、月日周 时分等，内置了3种样式。
+日期选择器，支持年、年月、年月日、年月日时、年月日时分、年月日时分秒、月日、月日时、月日时分、月日时分秒、时、时分、时分秒、分秒、月日周 时分等，内置了3种样式。
 
 > 由于使用UIPickerView的话，列表会有个弧度，所以这里用了[PGPickerView](https://github.com/xiaozhuxiong121/PGPickerView)  
 
@@ -113,7 +113,15 @@ datePicker.selectedDate = ^(NSDateComponents *dateComponents) {
 
 > 语言跟着手机系统语言走，默认有英文，中文，繁体中文，如果是模拟器的话，将模拟器的系统语言改成中文即显示中文
 
-如果想要弧度的话可以设置`datePicker.isHiddenWheels = false;`目前弧度还是不太好，待优化中。
+设置弧度(目前还是不太好，待优化)
+```
+datePicker.isHiddenWheels = false;
+```
+
+设置循环滚动
+```
+datePicker.isCycleScroll = true;
+```
 
 # 设置样式
 ```
@@ -165,8 +173,8 @@ typedef NS_ENUM(NSUInteger, PGShowUnitType) {
 };
 ````
 非常感谢[sujiewen](https://github.com/sujiewen)添加的如下功能   
-1、增加一个只显示时的方案   
-2、增加对时分间隔自定义支持
+1、只显示时的功能   
+2、对时分间隔自定义支持
 ```
 //在时分的时候，只显示时
 @property (nonatomic) BOOL isOnlyHourFlag;
@@ -178,15 +186,20 @@ typedef NS_ENUM(NSUInteger, PGShowUnitType) {
 @property (nonatomic) NSInteger secondInterval;
 ```
 
+非常感谢[Graphicooooone](https://github.com/Graphicooooone)添加的自定义收起动画接口的功能
+```
+/**
+ custom dismiss controller animation, return the total duration of the custom animation, default is nil
+ */
+@property (nonatomic, copy) NSTimeInterval(^customDismissAnimation)(UIView* dismissView, UIView* contentView ); 
+```
+
 # 最新版本
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/PGDatePicker.svg?style=for-the-badge)]()
 
 # 想说的话
-1，大家有好的idea欢迎随时提交PR，共同维护。   
-2、如果有人想共同维护的话，可以发我邮箱(piggybear_net@163.com)，我帮你加进去，共同去维护它。
-
+大家有好的idea欢迎随时提交PR，共同维护。   
 # 许可证
 
 PGDatePicker 使用 MIT 许可证，详情见 [LICENSE](LICENSE) 文件。
-
 

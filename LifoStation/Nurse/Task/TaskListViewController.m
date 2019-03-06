@@ -7,13 +7,14 @@
 //
 
 #import "TaskListViewController.h"
+#import "PopoverTreatwayController.h"
 #import "TaskDetailView.h"
 #import "DeviceSelectView.h"
 #import "LostRecordView.h"
 #import "TaskCell.h"
 #import "UIView+TYAlertView.h"
 #import <Masonry/Masonry.h>
-@interface TaskListViewController ()
+@interface TaskListViewController ()<UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -30,7 +31,9 @@
 @property (nonatomic, assign) int taskTag;
 @end
 
-@implementation TaskListViewController
+@implementation TaskListViewController {
+    NSMutableArray *datas;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -142,6 +145,7 @@
     }
 
     [cell.sendButton addTarget:self action:@selector(showDeviceSelectView:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.treatmentButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 - (void)showDeviceSelectView:(id)sender {
@@ -154,6 +158,35 @@
     TaskDetailView *view = [[TaskDetailView alloc]initWithDic:dataDic];
     [view showInWindow];
     
+}
+-(void)showPopover:(UIButton *)sender {
+//    if ([datas count]>0) {
+        [self performSegueWithIdentifier:@"ShowPopover" sender:sender];
+//    }
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowPopover"]) {
+        PopoverTreatwayController *destination = (PopoverTreatwayController *)segue.destinationViewController;
+        UIPopoverPresentationController *popover = destination.popoverPresentationController;
+        popover.delegate = self;
+        
+//        if ([datas count]>0) {
+            //获取某个cell的数据
+            UIView *contentView = [(UIView *)sender superview];
+            
+            TaskCell *cell = (TaskCell*)[contentView superview];
+            
+            NSIndexPath* index = [self.tableView indexPathForCell:cell];
+            
+//            TaskModel *task = [datas objectAtIndex:index.row];
+//
+//            destination.treatParamDic = task.treatParam;
+//            destination.treatmentScheduleName = task.treatmentScheduleName;
+            UIButton *button = sender;
+            popover.sourceView = button;
+            popover.sourceRect = button.bounds;
+//        }
+    }
 }
 #pragma mark - UITableView Edit
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -34,7 +34,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wifi_white" translatesAutoresizingMaskIntoConstraints="NO" id="RIi-8M-nLb">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wifi_white" translatesAutoresizingMaskIntoConstraints="NO" id="RIi-8M-nLb">
                                 <rect key="frame" x="677" y="20" width="29" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -58,7 +58,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6U-mr-cA8">
                         <rect key="frame" x="0.0" y="65" width="728" height="615"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ho-S2-LR4">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ho-S2-LR4">
                                 <rect key="frame" x="623" y="485" width="70" height="70"/>
                                 <state key="normal" image="play"/>
                             </button>
@@ -183,7 +183,7 @@
                 <outlet property="alertMessageLabel" destination="pqw-iX-egG" id="x1p-KE-Uvs"/>
                 <outlet property="alertView" destination="raO-fq-RvQ" id="ajT-Ne-4cI"/>
                 <outlet property="bodyContentView" destination="T6U-mr-cA8" id="U5S-Jy-1lo"/>
-                <outlet property="controllButtonView" destination="b1K-Z8-0h5" id="602-j8-5Nz"/>
+                <outlet property="controlButtonView" destination="b1K-Z8-0h5" id="QsT-Nc-OIl"/>
                 <outlet property="parameterView" destination="l4N-bW-qb4" id="56D-04-uqD"/>
                 <outlet property="patientButton" destination="PHo-Wg-cvf" id="Vzf-3j-bec"/>
                 <outlet property="pauseButton" destination="97h-NV-5Qy" id="rbC-rT-JCx"/>

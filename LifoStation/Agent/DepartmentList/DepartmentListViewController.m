@@ -32,10 +32,6 @@
     datas = [NSMutableArray arrayWithObjects:@"疼痛科",@"神经科",@"中医科",@"肿瘤科",@"康复科",@"呼吸内科",@"营养科",nil];
     self.navigationItem.hidesBackButton = YES;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)backToMachineList:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
@@ -87,6 +83,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:NSLocalizedString(@"删除", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [tableView setEditing:NO animated:YES];  // 这句很重要，退出编辑模式，隐藏左滑菜单
+        
+    }];
+//    deleteAction.backgroundColor = UIColorFromHex(0x08BF91);
+        deleteAction.backgroundColor = [UIColor redColor];
+    return @[deleteAction];
 }
 #pragma mark - Action
 - (IBAction)AddAction:(id)sender {
