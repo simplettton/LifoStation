@@ -13,7 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usageLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *doctorImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *bellButton;
+
 @property (weak, nonatomic) IBOutlet UIImageView *selectionImageView;
 
 @end

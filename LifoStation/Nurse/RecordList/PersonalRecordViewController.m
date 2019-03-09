@@ -82,6 +82,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:@"personalToReport" sender:nil];
 }
 #pragma mark - Filter
 - (IBAction)filterDropMenu:(id)sender {

@@ -7,6 +7,7 @@
 //
 
 #import "PatientListViewController.h"
+#import "PatientCell.h"
 #import "UIView+TYAlertView.h"
 #import <MMAlertView.h>
 //dropdata
@@ -93,44 +94,59 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    PatientCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[PatientCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-//    cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-//    cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+    cell.editButton.tag = indexPath.row;
+    [cell.editButton addTarget:self action:@selector(editPatientInfomation:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.treatRecordButton addTarget:self action:@selector(showTreatRecord:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//    //点击事件
+//    MMPopupItemHandler block = ^(NSInteger index){
+//        switch (index) {
+//            case 0:
+//                [self performSegueWithIdentifier:@"AddNewPatient" sender:nil];
+//                break;
+//            case 1:
+//                [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:nil];
+//                break;
+//            default:
+//                break;
+//        }
+//    };
+//
+//    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+//
+//    };
+//
+//    NSArray *items =
+//    @[MMItemMake(@"修改信息", MMItemTypeNormal, block),
+//      MMItemMake(@"查看治疗记录", MMItemTypeNormal, block),
+//      MMItemMake(@"取消", MMItemTypeNormal, block)];
+//
+//    [[[MMAlertView alloc] initWithTitle:@""
+//                                 detail:@""
+//                                  items:items]
+//     showWithBlock:completeBlock];
+}
+#pragma mark - Action
+- (void)editPatientInfomation:(UIButton *)sender {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    
+//    PatientModel *patientInfo = datas[indexPath.row];
+//    [self performSegueWithIdentifier:@"AddNewPatient" sender:patientInfo];
+        [self performSegueWithIdentifier:@"AddNewPatient" sender:nil];
 
-    //点击事件
-    MMPopupItemHandler block = ^(NSInteger index){
-        switch (index) {
-            case 0:
-                [self performSegueWithIdentifier:@"AddNewPatient" sender:nil];
-                break;
-            case 1:
-                [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:nil];
-                break;
-            default:
-                break;
-        }
-    };
-
-    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
-
-    };
-
-    NSArray *items =
-    @[MMItemMake(@"修改信息", MMItemTypeNormal, block),
-      MMItemMake(@"查看治疗记录", MMItemTypeNormal, block),
-      MMItemMake(@"取消", MMItemTypeNormal, block)];
-
-    [[[MMAlertView alloc] initWithTitle:@""
-                                 detail:@""
-                                  items:items]
-     showWithBlock:completeBlock];
+}
+- (void)showTreatRecord:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:nil];
 }
 #pragma mark - filter drop menu
 - (IBAction)filterDropMenu:(id)sender {

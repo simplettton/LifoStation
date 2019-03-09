@@ -16,4 +16,8 @@ target 'LifoStation' do
     pod 'ZFPlayer'
     pod 'ZFPlayer/AVPlayer'
     pod 'ZFPlayer/ControlView'
+    pod 'JTMaterialSwitch'
+    pod 'SPPageMenu'
+    pod 'Popover.OC'
+    pod 'BRPickerView'
 end

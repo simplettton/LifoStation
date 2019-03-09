@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
 @property (weak, nonatomic) IBOutlet UIView *parameterView;
+@property (weak, nonatomic) IBOutlet UIView *focusView;
 
 @property (nonatomic, strong) AirWaveView * bodyView;
 - (void)configureWithAirBagType:(AirBagType)type;

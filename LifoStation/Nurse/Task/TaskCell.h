@@ -11,5 +11,9 @@
 @interface TaskCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *treatmentButton;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
+
 
 @end

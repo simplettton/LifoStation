@@ -69,6 +69,11 @@
 		0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0473CEFB21D622AD00E869A3 /* LostRecordView.xib */; };
 		0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CEFE21D6261000E869A3 /* RecordItemCell.m */; };
 		0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473CF0121D6283700E869A3 /* LostRecordView.m */; };
+		0474945E2230CC9A00E8C8AA /* AlertSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474945D2230CC9A00E8C8AA /* AlertSettingViewController.m */; };
+		047494612231093500E8C8AA /* TaskParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494602231093500E8C8AA /* TaskParentViewController.m */; };
+		047494642231129C00E8C8AA /* WaitingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494632231129C00E8C8AA /* WaitingTaskViewController.m */; };
+		047494672231150100E8C8AA /* ProcessingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494662231150100E8C8AA /* ProcessingTaskViewController.m */; };
+		0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494692231151800E8C8AA /* FinishedTaskViewController.m */; };
 		047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047519D021D0E14D00A30B9E /* SettingsViewController.m */; };
 		047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */; };
 		047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */; };
@@ -83,7 +88,6 @@
 		04829C3F21CBBBE200A42FC0 /* BEProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04829C3D21CBBBE200A42FC0 /* BEProgressHUD.m */; };
 		0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0484274821DDABD80071C177 /* EditDeviceView.xib */; };
 		0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484274B21DDABF50071C177 /* EditDeviceView.m */; };
-		04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04866CCC21C9F15500855230 /* Default-568h@2x.png */; };
 		04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */; };
 		049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534E921C8D14200C567D8 /* AppDelegate.m */; };
 		049534ED21C8D14200C567D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534EC21C8D14200C567D8 /* ViewController.m */; };
@@ -94,6 +98,15 @@
 		0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350121C8D14600C567D8 /* LifoStationTests.m */; };
 		0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350C21C8D14600C567D8 /* LifoStationUITests.m */; };
 		0495351B21C8D3DA00C567D8 /* body.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0495351A21C8D3D900C567D8 /* body.dae */; };
+		04A86184223350E500475A01 /* EditTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A86183223350E500475A01 /* EditTaskView.xib */; };
+		04A861872233543600475A01 /* EditTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861862233543600475A01 /* EditTaskView.m */; };
+		04A8618A223354C900475A01 /* EditTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A86189223354C900475A01 /* EditTaskCell.m */; };
+		04A861982233607F00475A01 /* AddAdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861972233607F00475A01 /* AddAdviceView.m */; };
+		04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A861992233645000475A01 /* AddAdviceView.xib */; };
+		04A8619C22336DE800475A01 /* AddLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A8619B22336DE800475A01 /* AddLocationView.xib */; };
+		04A8619F22336E5C00475A01 /* AddLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8619E22336E5C00475A01 /* AddLocationView.m */; };
+		04A861A32233AE9000475A01 /* PatientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861A22233AE9000475A01 /* PatientCell.m */; };
+		04A861A62233B3E700475A01 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861A52233B3E700475A01 /* NSDate+BRAdd.m */; };
 		04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */; };
 		04B0A0DE21F85E6C00960A54 /* FlashingAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */; };
 		04B3976221E2E98200C9C5F5 /* AddMachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976121E2E98200C9C5F5 /* AddMachineCell.m */; };
@@ -241,6 +254,16 @@
 		0473CEFE21D6261000E869A3 /* RecordItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordItemCell.m; sourceTree = "<group>"; };
 		0473CF0021D6283700E869A3 /* LostRecordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LostRecordView.h; sourceTree = "<group>"; };
 		0473CF0121D6283700E869A3 /* LostRecordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LostRecordView.m; sourceTree = "<group>"; };
+		0474945C2230CC9A00E8C8AA /* AlertSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertSettingViewController.h; sourceTree = "<group>"; };
+		0474945D2230CC9A00E8C8AA /* AlertSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertSettingViewController.m; sourceTree = "<group>"; };
+		0474945F2231093500E8C8AA /* TaskParentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskParentViewController.h; sourceTree = "<group>"; };
+		047494602231093500E8C8AA /* TaskParentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskParentViewController.m; sourceTree = "<group>"; };
+		047494622231129C00E8C8AA /* WaitingTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitingTaskViewController.h; sourceTree = "<group>"; };
+		047494632231129C00E8C8AA /* WaitingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitingTaskViewController.m; sourceTree = "<group>"; };
+		047494652231150100E8C8AA /* ProcessingTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessingTaskViewController.h; sourceTree = "<group>"; };
+		047494662231150100E8C8AA /* ProcessingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingTaskViewController.m; sourceTree = "<group>"; };
+		047494682231151800E8C8AA /* FinishedTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinishedTaskViewController.h; sourceTree = "<group>"; };
+		047494692231151800E8C8AA /* FinishedTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinishedTaskViewController.m; sourceTree = "<group>"; };
 		047519CF21D0E14D00A30B9E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		047519D021D0E14D00A30B9E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourViewsAirWaveCell.h; sourceTree = "<group>"; };
@@ -266,7 +289,6 @@
 		0484274A21DDABF50071C177 /* EditDeviceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditDeviceView.h; sourceTree = "<group>"; };
 		0484274B21DDABF50071C177 /* EditDeviceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditDeviceView.m; sourceTree = "<group>"; };
 		04866CCB21C9DE2900855230 /* LifoStation.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifoStation.pch; sourceTree = "<group>"; };
-		04866CCC21C9F15500855230 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibBorderColor.h"; sourceTree = "<group>"; };
 		04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibBorderColor.m"; sourceTree = "<group>"; };
 		049534E521C8D14200C567D8 /* LifoStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifoStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -286,6 +308,21 @@
 		0495350C21C8D14600C567D8 /* LifoStationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationUITests.m; sourceTree = "<group>"; };
 		0495350E21C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0495351A21C8D3D900C567D8 /* body.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = body.dae; sourceTree = "<group>"; };
+		04A86183223350E500475A01 /* EditTaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTaskView.xib; sourceTree = "<group>"; };
+		04A861852233543600475A01 /* EditTaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskView.h; sourceTree = "<group>"; };
+		04A861862233543600475A01 /* EditTaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskView.m; sourceTree = "<group>"; };
+		04A86188223354C900475A01 /* EditTaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskCell.h; sourceTree = "<group>"; };
+		04A86189223354C900475A01 /* EditTaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskCell.m; sourceTree = "<group>"; };
+		04A861962233607F00475A01 /* AddAdviceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAdviceView.h; sourceTree = "<group>"; };
+		04A861972233607F00475A01 /* AddAdviceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAdviceView.m; sourceTree = "<group>"; };
+		04A861992233645000475A01 /* AddAdviceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAdviceView.xib; sourceTree = "<group>"; };
+		04A8619B22336DE800475A01 /* AddLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddLocationView.xib; sourceTree = "<group>"; };
+		04A8619D22336E5C00475A01 /* AddLocationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddLocationView.h; sourceTree = "<group>"; };
+		04A8619E22336E5C00475A01 /* AddLocationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddLocationView.m; sourceTree = "<group>"; };
+		04A861A12233AE9000475A01 /* PatientCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatientCell.h; sourceTree = "<group>"; };
+		04A861A22233AE9000475A01 /* PatientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatientCell.m; sourceTree = "<group>"; };
+		04A861A42233B3E600475A01 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
+		04A861A52233B3E700475A01 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
 		04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlashingAlertView.xib; sourceTree = "<group>"; };
 		04B0A0DC21F85E6C00960A54 /* FlashingAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlashingAlertView.h; sourceTree = "<group>"; };
 		04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlashingAlertView.m; sourceTree = "<group>"; };
@@ -463,12 +500,23 @@
 			children = (
 				04236CC621D360F200C848C9 /* TaskListViewController.h */,
 				04236CC721D360F200C848C9 /* TaskListViewController.m */,
+				0474945F2231093500E8C8AA /* TaskParentViewController.h */,
+				047494602231093500E8C8AA /* TaskParentViewController.m */,
+				047494622231129C00E8C8AA /* WaitingTaskViewController.h */,
+				047494632231129C00E8C8AA /* WaitingTaskViewController.m */,
+				047494652231150100E8C8AA /* ProcessingTaskViewController.h */,
+				047494662231150100E8C8AA /* ProcessingTaskViewController.m */,
+				047494682231151800E8C8AA /* FinishedTaskViewController.h */,
+				047494692231151800E8C8AA /* FinishedTaskViewController.m */,
 				04236CCA21D371E800C848C9 /* TaskCell.h */,
 				04236CCB21D371E800C848C9 /* TaskCell.m */,
 				0470788F2226440500A0C9F7 /* PopoverTreatwayController.h */,
 				0470788E2226440200A0C9F7 /* PopoverTreatwayController.m */,
 				047078912226638D00A0C9F7 /* TreatParameterCell.h */,
 				047078922226638D00A0C9F7 /* TreatParameterCell.m */,
+				04A861A0223372B700475A01 /* AddLocationView */,
+				04A8619522335FB500475A01 /* AddAdviceView */,
+				04A8618B223358B800475A01 /* EditTaskView */,
 				0415323621EDE11800DDBD78 /* TaskDetailView */,
 				0415323721EDE12500DDBD78 /* DeviceSelectView */,
 				0415323821EDE13800DDBD78 /* LostRecordView */,
@@ -527,6 +575,7 @@
 		0445C7E021E5D8E900F35353 /* Nurse */ = {
 			isa = PBXGroup;
 			children = (
+				048852A3222FB4EB005283B0 /* video */,
 				0465248321E7444400362D08 /* Model */,
 				0465248721E74D9900362D08 /* TimeLineView */,
 				0445C7DF21E5D8AF00F35353 /* Monitor */,
@@ -616,6 +665,8 @@
 				04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */,
 				0473473122029F4D00921205 /* UIView+Extension.h */,
 				0473473222029F4D00921205 /* UIView+Extension.m */,
+				04A861A42233B3E600475A01 /* NSDate+BRAdd.h */,
+				04A861A52233B3E700475A01 /* NSDate+BRAdd.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -632,6 +683,8 @@
 				04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */,
 				04B51D2621DCC6E300B9DF2D /* LanguageCell.h */,
 				04B51D2721DCC6E300B9DF2D /* LanguageCell.m */,
+				0474945C2230CC9A00E8C8AA /* AlertSettingViewController.h */,
+				0474945D2230CC9A00E8C8AA /* AlertSettingViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -671,6 +724,8 @@
 			children = (
 				0480064421D1D6FA004F7C73 /* PatientListViewController.h */,
 				0480064521D1D6FA004F7C73 /* PatientListViewController.m */,
+				04A861A12233AE9000475A01 /* PatientCell.h */,
+				04A861A22233AE9000475A01 /* PatientCell.m */,
 				0480064821D21833004F7C73 /* AddPatientViewController.h */,
 				0480064921D21833004F7C73 /* AddPatientViewController.m */,
 			);
@@ -728,12 +783,18 @@
 			path = "Supporting File";
 			sourceTree = "<group>";
 		};
-		049534DC21C8D14200C567D8 = {
+		048852A3222FB4EB005283B0 /* video */ = {
 			isa = PBXGroup;
 			children = (
 				0422F0DA221D5F4E00673649 /* videoViewController.h */,
 				0422F0DB221D5F4E00673649 /* videoViewController.m */,
-				04866CCC21C9F15500855230 /* Default-568h@2x.png */,
+			);
+			path = video;
+			sourceTree = "<group>";
+		};
+		049534DC21C8D14200C567D8 = {
+			isa = PBXGroup;
+			children = (
 				049534E721C8D14200C567D8 /* LifoStation */,
 				0495350021C8D14600C567D8 /* LifoStationTests */,
 				0495350B21C8D14600C567D8 /* LifoStationUITests */,
@@ -795,6 +856,38 @@
 				0495351A21C8D3D900C567D8 /* body.dae */,
 			);
 			path = 3D;
+			sourceTree = "<group>";
+		};
+		04A8618B223358B800475A01 /* EditTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				04A86183223350E500475A01 /* EditTaskView.xib */,
+				04A861852233543600475A01 /* EditTaskView.h */,
+				04A861862233543600475A01 /* EditTaskView.m */,
+				04A86188223354C900475A01 /* EditTaskCell.h */,
+				04A86189223354C900475A01 /* EditTaskCell.m */,
+			);
+			path = EditTaskView;
+			sourceTree = "<group>";
+		};
+		04A8619522335FB500475A01 /* AddAdviceView */ = {
+			isa = PBXGroup;
+			children = (
+				04A861992233645000475A01 /* AddAdviceView.xib */,
+				04A861962233607F00475A01 /* AddAdviceView.h */,
+				04A861972233607F00475A01 /* AddAdviceView.m */,
+			);
+			path = AddAdviceView;
+			sourceTree = "<group>";
+		};
+		04A861A0223372B700475A01 /* AddLocationView */ = {
+			isa = PBXGroup;
+			children = (
+				04A8619B22336DE800475A01 /* AddLocationView.xib */,
+				04A8619D22336E5C00475A01 /* AddLocationView.h */,
+				04A8619E22336E5C00475A01 /* AddLocationView.m */,
+			);
+			path = AddLocationView;
 			sourceTree = "<group>";
 		};
 		04B0A0D921F808A000960A54 /* AirwaveSetParameterView */ = {
@@ -1017,8 +1110,11 @@
 				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
 				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
+				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
+				04A86184223350E500475A01 /* EditTaskView.xib in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
+				04A8619C22336DE800475A01 /* AddLocationView.xib in Resources */,
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
 				0495351B21C8D3DA00C567D8 /* body.dae in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
@@ -1027,7 +1123,6 @@
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
-				04866CCD21C9F15600855230 /* Default-568h@2x.png in Resources */,
 				04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */,
 				0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */,
 			);
@@ -1075,6 +1170,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LifoStation/Pods-LifoStation-resources.sh",
+				"${PODS_ROOT}/BRPickerView/BRPickerView/AddressPickerView/BRPickerView.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/JTMaterialSwitch/JTMaterialSwitch.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/PGDatePicker/PGDatePicker/PGDatePicker.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
@@ -1082,6 +1179,8 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BRPickerView.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JTMaterialSwitch.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PGDatePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
@@ -1107,6 +1206,7 @@
 				0480064621D1D6FA004F7C73 /* PatientListViewController.m in Sources */,
 				047D17BC21F1B08400B498E6 /* PatientInfoPopupView.m in Sources */,
 				04736BA921E86A71004D60D6 /* JLImageMagnification.m in Sources */,
+				0474945E2230CC9A00E8C8AA /* AlertSettingViewController.m in Sources */,
 				0465248F21E74D9900362D08 /* BETimeLine.m in Sources */,
 				0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */,
 				04B51D2121DCA28C00B9DF2D /* NSArray+Bounds.m in Sources */,
@@ -1122,15 +1222,18 @@
 				047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */,
 				046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */,
 				046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */,
+				04A861A62233B3E700475A01 /* NSDate+BRAdd.m in Sources */,
 				0469CC2E21E47DDB00D0302C /* RecordReportViewController.m in Sources */,
 				047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */,
 				04DFF16D21D08FF6009EA938 /* MainViewController.m in Sources */,
+				04A861A32233AE9000475A01 /* PatientCell.m in Sources */,
 				049534ED21C8D14200C567D8 /* ViewController.m in Sources */,
 				04736BA521E84BD1004D60D6 /* UIImage+Rotate.m in Sources */,
 				0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */,
 				0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */,
 				0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */,
 				0415323121EDE0A300DDBD78 /* AlertView.m in Sources */,
+				04A8619F22336E5C00475A01 /* AddLocationView.m in Sources */,
 				04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */,
 				049534F821C8D14600C567D8 /* main.m in Sources */,
 				0419846E21DDEFEA00C1713E /* RecordListViewController.m in Sources */,
@@ -1140,6 +1243,8 @@
 				0445C7DE21E5D8A800F35353 /* MonitorViewController.m in Sources */,
 				04B51D2E21DCC7B000B9DF2D /* ChooseLanguageView.m in Sources */,
 				047078932226638D00A0C9F7 /* TreatParameterCell.m in Sources */,
+				047494672231150100E8C8AA /* ProcessingTaskViewController.m in Sources */,
+				047494612231093500E8C8AA /* TaskParentViewController.m in Sources */,
 				0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */,
 				046CD37D21DF43340067BCB0 /* EditMachineViewController.m in Sources */,
 				046CD38521DF635C0067BCB0 /* ChooseDepartmentView.m in Sources */,
@@ -1147,7 +1252,9 @@
 				04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */,
 				0422F0DC221D5F4E00673649 /* videoViewController.m in Sources */,
 				04B51D2221DCA28C00B9DF2D /* NSString+Size.m in Sources */,
+				0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */,
 				0465248221E6F1E800362D08 /* ReportTableViewController.m in Sources */,
+				04A861982233607F00475A01 /* AddAdviceView.m in Sources */,
 				04B51D2821DCC6E300B9DF2D /* LanguageCell.m in Sources */,
 				042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */,
 				0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */,
@@ -1159,11 +1266,14 @@
 				0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */,
 				04709B2821F03255000D4E12 /* TwoViewsAirWaveCell.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
+				04A861872233543600475A01 /* EditTaskView.m in Sources */,
 				04261E2921FAFB1A0043776D /* FocusMachineController.m in Sources */,
 				04261E2321FAE0CE0043776D /* BodyImageView.m in Sources */,
 				04261E2621FAE6050043776D /* UIImage+ImageWithColor.m in Sources */,
+				04A8618A223354C900475A01 /* EditTaskCell.m in Sources */,
 				04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */,
 				0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */,
+				047494642231129C00E8C8AA /* WaitingTaskViewController.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,

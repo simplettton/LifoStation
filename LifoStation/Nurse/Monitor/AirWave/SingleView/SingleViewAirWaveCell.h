@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger,CellStyle) {
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
+@property (weak, nonatomic) IBOutlet UIView *focusView;
 
 @property (weak, nonatomic) IBOutlet UIButton *unfocusButton;
 

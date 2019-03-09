@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet AirWaveView *bodyView;
 
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
+@property (weak, nonatomic) IBOutlet UIView *focusView;
 
 - (void)configureWithAirBagType:(AirBagType)type;
 @end

@@ -47,9 +47,8 @@
     switch (self.style) {
             /** 在线设备 */
         case CellStyleOnline:
-            self.titleView.backgroundColor = UIColorFromHex(0x7DC05E);
-            self.titleLabel.textColor = [UIColor whiteColor];
-            self.statusImageView.image = [UIImage imageNamed:@"wifi_white"];
+
+            self.statusImageView.hidden = NO;
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             self.bodyView.hidden = NO;
@@ -63,9 +62,7 @@
             break;
             /** 离线设备 */
         case CellStyleOffLine:
-            self.titleView.backgroundColor = UIColorFromHex(0xfbfbfb);
-            self.titleLabel.textColor = UIColorFromHex(0x8a8a8a);
-            self.statusImageView.image = [UIImage imageNamed:@"wifiOff"];
+            self.statusImageView.hidden = YES;
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             
@@ -84,9 +81,7 @@
             break;
             /** 有报警信息的设备 */
         case CellStyleAlert:
-            self.titleView.backgroundColor = UIColorFromHex(0x7DC05E);
-            self.titleLabel.textColor = [UIColor whiteColor];
-            self.statusImageView.image = [UIImage imageNamed:@"wifi_white"];
+            self.statusImageView.hidden = NO;
             self.layer.borderWidth = 2.0f;
             self.layer.borderColor = UIColorFromHex(0xFBA526).CGColor;
             self.alertView.hidden = NO;
@@ -100,9 +95,7 @@
             self.startButton.hidden = YES;
             break;
         case CellStyleUnauthorized:
-            self.titleView.backgroundColor = UIColorFromHex(0xfbfbfb);
-            self.titleLabel.textColor = UIColorFromHex(0x8a8a8a);
-            self.statusImageView.image = [UIImage imageNamed:@"wifiOff"];
+//            self.statusImageView.hidden = NO;
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             

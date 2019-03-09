@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "TaskParentViewController.h"
 #import "UIView+Tap.h"
 
 @interface MainViewController ()
@@ -21,16 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *treatmentRecordView;
 
-
-@property (weak, nonatomic) IBOutlet UITextField *x;
-@property (weak, nonatomic) IBOutlet UITextField *y;
-@property (weak, nonatomic) IBOutlet UITextField *w;
-@property (weak, nonatomic) IBOutlet UITextField *h;
-
-@property (weak, nonatomic) IBOutlet UILabel *centerx;
-@property (weak, nonatomic) IBOutlet UILabel *centery;
-@property (weak, nonatomic) IBOutlet UILabel *ewidth;
-@property (weak, nonatomic) IBOutlet UILabel *height;
 @end
 
 @implementation MainViewController
@@ -39,21 +30,7 @@
     [super viewDidLoad];
     [self addTap];
 }
-- (IBAction)calculate:(id)sender {
-    
-    _centerx.text = [NSString stringWithFormat:@"centerx %f",((_x.text.floatValue +0.5 * _w.text.floatValue) / 181.5)];
-    
-    _centery.text = [NSString stringWithFormat:@"centery %f",((_y.text.floatValue +0.5 * _h.text.floatValue) / 249)];
-    
-    _ewidth.text = [NSString stringWithFormat:@"equalwidth: %f",(_w.text.floatValue  / 363)];
-    
-    _height.text = [NSString stringWithFormat:@"equalheight: %f",(_h.text.floatValue  / 498)];
-    NSLog(@"%@",[NSString stringWithFormat:@"%@%@%@%@",_centerx.text,_centery.text,_ewidth.text,_height.text]);
-    _x.text = @"";
-    _y.text = @"";
-    _w.text = @"";
-    _h.text = @"";
-}
+
 #pragma mark - hide navigation bar
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -76,6 +53,9 @@
     }];
     [self.taskListView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
+//        TaskParentViewController *parentVc = [[TaskParentViewController alloc]init];
+//    [self.navigationController pushViewController:parentVc animated:YES];
+        
     }];
     [self.deviceManagementView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowDeviceList" sender:nil];

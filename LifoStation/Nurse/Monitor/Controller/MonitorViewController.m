@@ -77,9 +77,8 @@
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
     /** 设备添加 longpress 添加手势 可以关注设备 */
-    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
-//    _longPress.minimumPressDuration = 1.0;
-    [self.collectionView addGestureRecognizer:_longPress];
+//    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
+//    [self.collectionView addGestureRecognizer:_longPress];
     
     /** 下拉刷新控件 */
     [self initTableHeaderAndFooter];
@@ -143,7 +142,7 @@
             if (selectedIndexPath == nil) {
                 break;
             }
-            [self focusMachine];
+//            [self focusMachine];
         }
             
             break;
@@ -152,40 +151,24 @@
             break;
     }
 }
-- (void)focusMachine {
-    NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:[self.longPress locationInView:self.collectionView]];
-    BOOL isFocus = NO;
-    if (isFocus) {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
-                                                                       message:@"已关注该设备"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault
+- (void)focusMachine:(NSIndexPath *)indexPath {
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"要关注设备吗？"
+                                                                   message:@"关注之后可以在关注设备中查看"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
                                                              [self.collectionView reloadData];
-                                                            
-                                                         }];
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:nil];
-        return;
-    } else {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"要关注设备吗？"
-                                                                       message:@"关注之后可以在关注设备中查看"
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                                 [self.collectionView reloadData];
-   
-                                                             }];
-        UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"关注" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
-        }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:focusAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    }
+                                                         }];
+    UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"关注" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:focusAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - CollectionView
@@ -219,6 +202,9 @@
             [cell.parameterView addTapBlock:^(id obj) {
                 AirWaveSetParameterView *view = [AirWaveSetParameterView createViewFromNib];
                 [view showInWindow];
+            }];
+            [cell.focusView addTapBlock:^(id obj) {
+                [self focusMachine:indexPath];
             }];
             return cell;
             

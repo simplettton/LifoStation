@@ -7,7 +7,9 @@
 //
 
 #import "AddPatientViewController.h"
-
+#import "UIView+Tap.h"
+#import <BRPickerView.h>
+#import "NSDate+BRAdd.h"
 @interface AddPatientViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *editViews;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *requiredTextFields;
@@ -19,6 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextFiled;
+@property (weak, nonatomic) IBOutlet UILabel *birthdayLabel;
 
 //@property (weak, nonatomic) IBOutlet BETextField *birthdayTF;
 @property (weak, nonatomic) IBOutlet UILabel *treatDateLabel;
@@ -44,8 +47,48 @@
         view.layer.cornerRadius = 5.0f;
         view.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     }
+    [self initBirthdayPicker];
+
+}
+- (void)initBirthdayPicker {
+    __weak typeof(self) weakSelf = self;
+    [self.birthDayView addTapBlock:^(id obj) {
+        [BRDatePickerView showDatePickerWithTitle:@"出生日期"
+                                         dateType:BRDatePickerModeDate
+                                  defaultSelValue:weakSelf.birthdayLabel.text
+                                          minDate:nil
+                                          maxDate:[NSDate date]
+                                     isAutoSelect:NO
+                                       themeColor:nil
+                                      resultBlock:^(NSString *selectValue) {
+                                          weakSelf.birthdayLabel.text = selectValue;
+                                          NSString *time = [selectValue stringByAppendingString:@" 00:00:00"];
+                                          NSString *timeStamp = [self timeStampFromTimeString:time dataFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                          
+                                          NSLog(@"------send to server ：生日时间戳：%@",timeStamp);
+                                      }
+                                      cancelBlock:nil];
+    }];
 }
 
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
+//日期字符转为时间戳
+-(NSString *)timeStampFromTimeString:(NSString *)timeString dataFormat:(NSString *)dateFormat
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    //    formatter.timeZone = [NSTimeZone localTimeZone];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:dateFormat];
+    
+    //日期转时间戳
+    NSDate *date = [formatter dateFromString:timeString];
+    NSInteger timeSp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] integerValue];
+    NSString* timeStamp = [NSString stringWithFormat:@"%ld",timeSp];
+    return timeStamp;
+}
 
 @end

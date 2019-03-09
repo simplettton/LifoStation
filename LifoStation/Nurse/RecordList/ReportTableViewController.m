@@ -7,12 +7,14 @@
 //
 
 #import "ReportTableViewController.h"
+#import "AddAdviceView.h"
 #import <MMAlertView.h>
 #import "TimeLineModel.h"
 #import "BETimeLine.h"
 
 #import "UIImage+Rotate.h"
 #import "JLImageMagnification.h"
+#import "PopoverView.h"
 @interface ReportTableViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *alertContentView;
 
@@ -20,6 +22,7 @@
 @property (strong,nonatomic)UIImage *image;
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pictureButtonItem;
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printButtonItem;
 
 @property (strong,nonatomic)BETimeLine *timeLine;
@@ -28,6 +31,10 @@
  */
 @property (nonatomic, assign) BOOL hasAlertMessage;
 @property (nonatomic, assign) BOOL hasPicture;
+@property (nonatomic, assign) BOOL hasAdvice;
+@property (weak, nonatomic) IBOutlet UITextView *adviceTextView;
+
+@property (nonatomic, strong) NSString *advice;
 @property (nonatomic, assign) BOOL hasVedio;
 @end
 
@@ -94,6 +101,7 @@
     self.hasAlertMessage = YES;
     self.hasPicture = NO;
     self.hasVedio = YES;
+    self.hasAdvice = NO;
     alertDatas = [NSMutableArray arrayWithCapacity:20];
     [self getAlertInfomationData];
     
@@ -132,15 +140,15 @@
 
     }
     else if (indexPath.row == 3) {
-        if (self.hasPicture) {
-            return UITableViewAutomaticDimension;
+        if (self.hasAdvice) {
+            return 200;
         }
         return 0;
 
     }
     else if (indexPath.row == 4) {
-        if (_hasVedio) {
-            return 300;
+        if (self.hasPicture) {
+            return UITableViewAutomaticDimension;
         }
         return 0;
     }
@@ -148,33 +156,67 @@
 }
 
 #pragma mark - Action
-- (IBAction)printAction:(id)sender {
-    MMPopupItemHandler block = ^(NSInteger index){
-        switch (index) {
-            case 0:
-                
-                break;
-            case 1:
-                
-                break;
-            default:
-                break;
-        }
-    };
-    
-    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+
+- (IBAction)addAction:(id)sender {
+
+    PopoverAction *action1 = [PopoverAction actionWithTitle:@"添加/编辑医嘱" handler:^(PopoverAction *action) {
         
-    };
+        AddAdviceView *view = [[AddAdviceView alloc]initWithContent:self.advice return:^(NSString *newAdvice) {
+            self.advice = newAdvice;
+            self.hasAdvice = YES;
+            self.adviceTextView.text = newAdvice;
+            [self.tableView reloadData];
+        }];
+        [view showInWindow];
+        
+    }];
+    PopoverAction *action2 = [PopoverAction actionWithTitle:@"治疗效果图" handler:^(PopoverAction *action) {
+        [self addPhotoAction:nil];
+    }];
+    PopoverView *popoverView = [PopoverView popoverView];
+    popoverView.style = PopoverViewStyleDefault;
+    [popoverView showToView:sender withActions:@[action1,action2]];
+}
+- (IBAction)printAction:(id)sender {
+//    MMPopupItemHandler block = ^(NSInteger index){
+//        switch (index) {
+//            case 0:
+//
+//                break;
+//            case 1:
+//
+//                break;
+//            default:
+//                break;
+//        }
+//    };
+//
+//    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+//
+//    };
+//
+//    NSArray *items =
+//    @[MMItemMake(@"打印预览", MMItemTypeNormal, block),
+//      MMItemMake(@"打印", MMItemTypeNormal, block),
+//      MMItemMake(@"取消", MMItemTypeNormal, block)];
+//
+//    [[[MMAlertView alloc] initWithTitle:@"连接工作站打印机"
+//                                 detail:@""
+//                                  items:items]
+//     showWithBlock:completeBlock];
     
-    NSArray *items =
-    @[MMItemMake(@"打印预览", MMItemTypeNormal, block),
-      MMItemMake(@"打印", MMItemTypeNormal, block),
-      MMItemMake(@"取消", MMItemTypeNormal, block)];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:@"是否打印治疗报告？"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
     
-    [[[MMAlertView alloc] initWithTitle:@"连接工作站打印机"
-                                 detail:@""
-                                  items:items]
-     showWithBlock:completeBlock];
+    [alert addAction:confirmAction];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {}];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)addPhotoAction:(id)sender {
@@ -261,5 +303,11 @@
     [JLImageMagnification scanBigImageWithImageView:clickedImageView alpha:1];
 }
 
-
+#pragma mark - Setter
+- (NSString *)advice {
+    if (!_advice) {
+        _advice = [[NSString alloc]init];
+    }
+    return _advice;
+}
 @end

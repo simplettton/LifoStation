@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIView *contactView;
 @property (weak, nonatomic) IBOutlet UIView *languageView;
 @property (weak, nonatomic) IBOutlet UIView *logoutView;
+@property (weak, nonatomic) IBOutlet UIView *aboutView;
+@property (weak, nonatomic) IBOutlet UIView *alertSettingView;
 
 @end
 
@@ -39,6 +41,12 @@
     
     [self.logoutView addTapBlock:^(id obj) {
         [self presentLogoutAlert];
+    }];
+    [self.alertSettingView addTapBlock:^(id obj) {
+        [self performSegueWithIdentifier:@"ShowAlertSetting" sender:nil];
+    }];
+    [self.aboutView addTapBlock:^(id obj) {
+        [self performSegueWithIdentifier:@"ShowAboutInfomation" sender:nil];
     }];
 }
 - (void)presentLogoutAlert {
