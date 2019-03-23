@@ -9,6 +9,7 @@
 #import "SingleViewAirWaveCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+Tap.h"
+#import "FLAnimatedImage.h"
 #define kBodyViewWidth 363
 #define kBodyViewHeight 498
 @interface SingleViewAirWaveCell()
@@ -19,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
 /**  bodyContentView */
 @property (weak, nonatomic) IBOutlet UIView *controlButtonView;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *unauthorizedView;
 
 @property (strong, nonatomic) IBOutletCollection(id) NSArray *bodyContents;
@@ -40,6 +40,7 @@
     [super awakeFromNib];
     self.layer.borderWidth = 0.5f;
     self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
+    [self showGifImageWithFLAnimatedImage];
 }
 - (void)layoutSubviews {
     //type属性已经设置好了
@@ -68,7 +69,7 @@
             
             /** 不在线设备隐藏按钮 */
             self.parameterView.hidden = YES;
-            self.timeLabel.hidden = YES;
+            self.focusView.hidden = YES;
             self.startButton.hidden = YES;
             self.bodyView.hidden = NO;
             self.unauthorizedView.hidden = YES;
@@ -159,5 +160,19 @@
         self.alertView.hidden = YES;
     }
 }
-
+-(void)showGifImageWithFLAnimatedImage {
+    //GIF 转 NSData
+    //Gif 路径
+    NSString *pathForFile = [[NSBundle mainBundle] pathForResource: @"sin" ofType:@"gif"];
+    //转成NSData
+    NSData *dataOfGif = [NSData dataWithContentsOfFile: pathForFile];
+    //初始化FLAnimatedImage对象
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:dataOfGif];
+    //初始化FLAnimatedImageView对象
+    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+    //设置GIF图片
+    imageView.animatedImage = image;
+    imageView.frame = CGRectMake(523, 276, 170, 112);
+    [self addSubview:imageView];
+}
 @end

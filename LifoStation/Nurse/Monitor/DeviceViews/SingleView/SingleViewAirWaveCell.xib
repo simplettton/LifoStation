@@ -195,6 +195,7 @@
                 <outletCollection property="bodyContents" destination="b1K-Z8-0h5" id="Xqc-hP-tC8"/>
                 <outletCollection property="bodyContents" destination="mxc-tg-qkG" id="U3l-3v-iuS"/>
                 <outletCollection property="bodyContents" destination="7ho-S2-LR4" id="mAH-sl-ya5"/>
+                <outletCollection property="bodyContents" destination="aoS-ji-T9R" id="SKA-gq-V7b"/>
             </connections>
             <point key="canvasLocation" x="27" y="26"/>
         </collectionViewCell>
