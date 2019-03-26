@@ -8,7 +8,7 @@
 
 #import "TaskParentViewController.h"
 #import "SPPageMenu.h"
-#import "BaseSearchBar.h"
+
 #import "WaitingTaskViewController.h"
 #import "ProcessingTaskViewController.h"
 #import "FinishedTaskViewController.h"
@@ -22,7 +22,7 @@
 @property (nonatomic, weak) SPPageMenu *pageMenu;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *myChildViewControllers;
-@property (weak, nonatomic) IBOutlet BaseSearchBar *searchBar;
+
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
 @end
@@ -103,7 +103,7 @@
     
     UIViewController *targetViewController = self.myChildViewControllers[toIndex];
     // 如果已经加载过，就不再加载
-    if ([targetViewController isViewLoaded]) return;
+//    if ([targetViewController isViewLoaded]) return;
     
     targetViewController.view.frame = CGRectMake(kScreenWidth * toIndex, 0, kScreenWidth, scrollViewHeight);
     [_scrollView addSubview:targetViewController.view];

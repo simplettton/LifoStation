@@ -223,7 +223,6 @@
                     </userDefinedRuntimeAttributes>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="GKL-45-t1l" firstAttribute="centerY" secondItem="cZD-Jm-1oC" secondAttribute="centerY" multiplier="1.40361" id="0Hw-1E-YvL"/>
                 <constraint firstItem="r4l-bf-ecv" firstAttribute="centerX" secondItem="cZD-Jm-1oC" secondAttribute="centerX" multiplier="1.78788" id="0Pc-Wz-ac3"/>
@@ -415,7 +414,6 @@
                     <rect key="frame" x="141" y="217" width="80" height="9"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="FlP-yE-bjM" firstAttribute="width" secondItem="FtO-aX-Qp5" secondAttribute="width" multiplier="0.082645" id="1BE-yL-Q7j"/>
                 <constraint firstItem="Iap-QX-SeB" firstAttribute="width" secondItem="FtO-aX-Qp5" secondAttribute="width" multiplier="0.104683" id="2NS-a8-Prg"/>

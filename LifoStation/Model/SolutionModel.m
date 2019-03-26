@@ -9,5 +9,13 @@
 #import "SolutionModel.h"
 
 @implementation SolutionModel
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
+      @{
+        @"name":@"Name",
+        @"uuid":@"Uid",
+        @"machineType":@"MachineType",
+        @"treatTime":@"TreatTime"
+        }];
+}
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^returnBlock) (NSString *);
 @interface EditTaskView : UIView<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) returnBlock returnEvent;
+- (instancetype)initWithDic:(NSDictionary*)dic return:(returnBlock)returnEvent;
+
 @end

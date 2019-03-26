@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface RecordCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *medicalNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *machineTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *treatmentTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *treatDateLabel;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "PatientListViewController.h"
+#import "AddPatientViewController.h"
 #import "PatientCell.h"
 #import "UIView+TYAlertView.h"
 #import <MMAlertView.h>
@@ -14,19 +15,45 @@
 #import "GHDropMenu.h"
 #import "UIView+Extension.h"
 #import "NSArray+Bounds.h"
-@interface PatientListViewController ()<GHDropMenuDelegate>
+@interface PatientListViewController ()<GHDropMenuDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
 @implementation PatientListViewController
 {
+    int page;
+    int totalPage;  //总页数
+    BOOL isRefreshing; //是否正在下拉刷新或者上拉加载
+    BOOL isFilteredList; //是否筛选
+    NSMutableDictionary *filterparam;//筛选关键字
     NSMutableArray *datas;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (datas) {
+        if (self.patient) {
+            for (PatientModel *patient in datas) {
+                if ([patient.medicalNumber isEqualToString:self.patient.medicalNumber]) {
+                    
+                    NSInteger index = [datas indexOfObject:patient];
+                    
+                    [datas replaceObjectAtIndex:index withObject:self.patient];
+                    
+                    [self.tableView reloadData];
+                    
+                    break;
+                }
+            }
+        } else if (self.hasNewPatient) {
+            [self refresh];
+        }
+    }
 }
 - (void)initAll {
     
@@ -47,6 +74,14 @@
     [self.tableView addGestureRecognizer:tapGestureRecognizer];
     
     datas = [[NSMutableArray alloc]initWithCapacity:20];
+    self.searchBar.delegate = self;
+    [self initTableHeaderAndFooter];
+    
+    self.tableView.estimatedRowHeight = 60;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self hideKeyBoard];
 }
 - (void)hideKeyBoard {
     
@@ -55,7 +90,7 @@
     [self.searchBar resignFirstResponder];
 }
 #pragma mark - refresh
--(void)initTableHeaderAndFooter{
+- (void)initTableHeaderAndFooter {
     
     //下拉刷新
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
@@ -63,8 +98,7 @@
     header.stateLabel.textColor =UIColorFromHex(0xABABAB);
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-    
-    //    [self.tableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
     
     //上拉加载
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
@@ -74,23 +108,171 @@
     self.tableView.mj_footer = footer;
 }
 - (void)refresh {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 结束刷新
-        [self.tableView.mj_header endRefreshing];
-    });
+    [self.searchBar resignFirstResponder];
+    if ([self.searchBar.text length]>0) {
+        [self search:nil];
+    }else{
+        isFilteredList = NO;
+        [self refreshDataWithHeader:YES];
+    }
+
 }
 - (void)loadMore {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 结束刷新
-        [self.tableView.mj_footer endRefreshing];
-    });
+    [self.searchBar resignFirstResponder];
+    [self refreshDataWithHeader:NO];
 }
-#pragma mark - table view delegate
+- (void)endRefresh {
+    if (page == 0) {
+        [self.tableView.mj_header endRefreshing];
+    }
+    [self.tableView.mj_footer endRefreshing];
+}
+- (IBAction)search:(id)sender {
+    if ([self.searchBar.text length] > 0) {
+        isFilteredList = YES;
+        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+        [paramDic setObject:self.searchBar.text forKey:@"Key"];
+        filterparam = paramDic;
+        [self refreshDataWithHeader:YES];
+    } else {
+        isFilteredList = NO;
+        [self.tableView.mj_header beginRefreshing];
+    }
+
+}
+- (void)refreshDataWithHeader:(BOOL)isPullingDown {
+    NSDictionary *params = [[NSDictionary alloc]init];
+    if (isFilteredList) {
+        params = (NSDictionary *)filterparam;
+    }
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/PatientController/List?Action=Count")
+                                  params:params
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result intValue] == 1) {
+                                         NSNumber *count = responseObject.content;
+                                         totalPage = ([count intValue]+10-1)/10;
+                                         
+                                         if (totalPage <= 1) {
+                                             self.tableView.mj_footer.hidden = YES;
+                                         }else{
+                                             self.tableView.mj_footer.hidden = NO;
+                                         }
+                                         
+                                         if([count intValue] > 0)
+                                         {
+                                             self.tableView.tableHeaderView.hidden = NO;
+                                             [self getNetworkDataWithHeader:isPullingDown];
+//                                             [self hideNodataView];
+                                         } else {
+                                             [datas removeAllObjects];
+                                             self.tableView.tableHeaderView.hidden = YES;
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [self.tableView reloadData];
+                                             });
+                                             if (isFilteredList) {
+                                                 [BEProgressHUD showMessage:@"没有找到该病人"];
+                                             }else{
+//                                                 [self showNodataViewWithTitle:@"暂无记录"];
+                                                 [BEProgressHUD showMessage:@"暂无记录"];
+                                             }
+                                             
+                                         }
+                                         
+                                     }else{
+                                         if(isFilteredList){
+                                             if ([self.searchBar.text length]>0) {
+                                                 self.searchBar.text = @"";
+                                             }
+                                         }
+                                     }
+                                     
+                                 } failure:nil];
+    
+}
+- (void)getNetworkDataWithHeader:(BOOL)isPullingDown {
+    if (isPullingDown) {
+        page = 0;
+    } else {
+        page ++;
+    }
+    NSDictionary *params = [[NSDictionary alloc]init];
+    if (isFilteredList) {
+        [filterparam setObject:[NSNumber numberWithInt:page] forKey:@"Page"];
+        params = (NSDictionary *)filterparam;
+    } else {
+        params = @{
+                   @"Page":[NSNumber numberWithInt:page]
+                   };
+    }
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/PatientController/List?Action=List")
+                                  params:params
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     [self endRefresh];
+                                     isRefreshing = NO;
+                                     if (page == 0) {
+                                         [datas removeAllObjects];
+                                     }
+                                     
+                                     if (isRefreshing) {
+                                         if (page >= totalPage) {
+                                             [self endRefresh];
+                                         }
+                                         return;
+                                     }
+                                     isRefreshing = YES;
+                                     
+                                     if (page >= totalPage) {
+                                         [self endRefresh];
+                                         [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                                         return;
+                                     }
+                                     
+                                     if ([responseObject.result intValue] == 1) {
+                                         NSArray *content = responseObject.content;
+                                         
+                                         if (content) {
+                                             for (NSDictionary *dic in content) {
+                                                 PatientModel *patient = [[PatientModel alloc]initWithDictionary:dic error:nil];
+                                                 [datas addObject:patient];
+                                             }
+                                             if (totalPage > 1) {
+                                                 //下拉多刷新一页
+                                                 if (isPullingDown) {
+                                                     [self getNetworkDataWithHeader:NO];
+                                                 }
+                                             }
+
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [self.tableView reloadData];
+                                             });
+                                         }
+                                     }
+                                     
+                                 } failure:nil];
+    
+}
+#pragma mark - SearchBar delegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchBar.text.length == 0) {
+        [self refresh];
+    }
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [self search:nil];
+}
+#pragma mark - Table view delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+//    return 65;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return [datas count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
@@ -98,12 +280,25 @@
     if (cell == nil) {
         cell = [[PatientCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+
+    PatientModel *patient = datas[indexPath.row];
+    cell.medicalNumberLabel.text = patient.medicalNumber;
+    cell.nameLabel.text = patient.personName;
+    cell.treatAddressLabel.text = ((patient.treatAddress == nil)||([patient.treatAddress isEqualToString:@""])) ? @"-" : patient.treatAddress;
+
+    cell.genderLabel.text = (patient.gender == nil) ? @"-" : patient.gender;
+    cell.ageLabel.text = (patient.age == nil) ? @"-" : patient.age;
+    cell.registeredDateLabel.text = [self stringFromTimeIntervalString:patient.registeredDate dateFormat:@"yyyy-MM-dd"];
     cell.editButton.tag = indexPath.row;
     [cell.editButton addTarget:self action:@selector(editPatientInfomation:) forControlEvents:UIControlEventTouchUpInside];
     [cell.treatRecordButton addTarget:self action:@selector(showTreatRecord:) forControlEvents:UIControlEventTouchUpInside];
-    
+
+    cell.treatAddressLabel.numberOfLines=0;  //可多行显示
+    cell.treatAddressLabel.lineBreakMode=NSLineBreakByWordWrapping;//拆行
+
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 //
@@ -139,20 +334,26 @@
 - (void)editPatientInfomation:(UIButton *)sender {
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    
-//    PatientModel *patientInfo = datas[indexPath.row];
-//    [self performSegueWithIdentifier:@"AddNewPatient" sender:patientInfo];
-        [self performSegueWithIdentifier:@"AddNewPatient" sender:nil];
+    PatientModel *patient = datas[indexPath.row];
 
+    [self performSegueWithIdentifier:@"EditPatient" sender:patient];
+    
 }
 - (void)showTreatRecord:(UIButton *)sender {
     [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:nil];
+}
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"EditPatient"]) {
+        AddPatientViewController *controller = (AddPatientViewController *)segue.destinationViewController;
+        controller.patient = sender;
+    }
 }
 #pragma mark - filter drop menu
 - (IBAction)filterDropMenu:(id)sender {
     GHDropMenuModel *configuration = [[GHDropMenuModel alloc]init];
     
-    configuration.titles = [self creaFilterDropMenuData];
+    configuration.titles = [self createFilterDropMenuData];
     /** 配置筛选菜单是否记录用户选中 默认NO */
     configuration.recordSeleted = NO;
     
@@ -166,7 +367,7 @@
     [dropMenu show];
 
 }
-- (NSArray *)creaFilterDropMenuData {
+- (NSArray *)createFilterDropMenuData {
     
     
     /** 构造右侧弹出筛选菜单第一行数据 */
@@ -217,7 +418,7 @@
     }
     return titlesArray;
 }
-#pragma mark - 代理方法;
+#pragma mark - 筛选代理方法
 - (void)dropMenu:(GHDropMenu *)dropMenu dropMenuTitleModel:(GHDropMenuModel *)dropMenuTitleModel {
     self.navigationItem.title = [NSString stringWithFormat:@"筛选结果 : %@",dropMenuTitleModel.title];
 }
@@ -237,5 +438,39 @@
         }
     }
     self.navigationItem.title = [NSString stringWithFormat:@"筛选结果 : %@",string];
+}
+#pragma mark - Private Method
+//时间戳字符串转化为日期或时间
+- (NSString *)stringFromTimeIntervalString:(NSString *)timeString dateFormat:(NSString*)dateFormat
+{
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone: [NSTimeZone timeZoneWithName:@"Asia/Beijing"]];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:dateFormat];
+    
+    // 毫秒值转化为秒
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]];
+    NSString* dateString = [formatter stringFromDate:date];
+    
+    return dateString;
+}
+
+//日期字符转为时间戳
+-(NSString *)timeStampFromTimeString:(NSString *)timeString dataFormat:(NSString *)dateFormat
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    //    formatter.timeZone = [NSTimeZone localTimeZone];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:dateFormat];
+    
+    //日期转时间戳
+    NSDate *date = [formatter dateFromString:timeString];
+    NSInteger timeSp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] integerValue];
+    NSString* timeStamp = [NSString stringWithFormat:@"%ld",timeSp];
+    return timeStamp;
 }
 @end

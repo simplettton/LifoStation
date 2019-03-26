@@ -15,8 +15,11 @@
 #import "UIImage+Rotate.h"
 #import "JLImageMagnification.h"
 #import "PopoverView.h"
+#define LineHeight 52
 @interface ReportTableViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *alertContentView;
+@property (weak, nonatomic) IBOutlet UIView *treatInfoView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *treatInfoViewHeight;
 
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
 @property (strong,nonatomic)UIImage *image;
@@ -51,9 +54,9 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromHex(0x272727)}];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 }
+
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
+    [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -63,12 +66,120 @@
     [super viewDidLoad];
     [self initAll];
 }
+- (void)getTreatInfomationData {
+//    NSMutableArray *paramList = [NSMutableArray arrayWithObjects:
+//                                 @{
+//                                   @"showName":@"治疗模式",@"value":@"标准治疗"
+//                                   },
+//                                 @{
+//                                   @"showName":@"治疗压力",@"value":@"200mmHg"
+//                                   },
+//                                 @{
+//                                   @"showName":@"红光治疗时间",@"value":@"40min"
+//                                   },
+//                                 @{
+//                                   @"showName":@"红光治疗模式",@"value":@"连续"
+//                                   },
+//                                 @{
+//                                   @"showName":@"红光治疗能量",@"value":@"4"
+//                                   },
+//                                 @{
+//                                   @"showName":@"蓝光治疗时间",@"value":@"20min"
+//                                   },
+//                                 @{
+//                                   @"showName":@"蓝光治疗模式",@"value":@"脉冲"
+//                                   },
+//                                 @{
+//                                   @"showName":@"蓝光治疗能量",@"value":@"1"
+//                                   },
+//                                 @{
+//                                   @"showName":@"温度检测开关",@"value":@"开"
+//                                   },
+//                                 @{
+//                                   @"showName":@"温度设定值",@"value":@"38°"
+//                                   },
+//                                 @{
+//                                   @"showName":@"治疗方案",@"value":@"5"
+//                                   },
+//                                 @{
+//                                   @"showName":@"附件类型",@"value":@"耳道"
+//                                   },
+//                                 @{
+//                                   @"showName":@"附件光源",@"value":@"red"
+//                                   },
+//                                 @{
+//                                   @"showName":@"附件时间",@"value":@"20min"
+//                                   }, nil];
+    NSMutableArray *paramList = [NSMutableArray arrayWithObjects:
+                                 @{
+                                   @"showName":@"红光治疗时间",@"value":@"40min"
+                                   },
+                                 @{
+                                   @"showName":@"红光治疗模式",@"value":@"连续"
+                                   },
+                                 @{
+                                   @"showName":@"红光治疗能量",@"value":@"4"
+                                   },
+                                 @{
+                                   @"showName":@"蓝光治疗时间",@"value":@"20min"
+                                   },
+                                 @{
+                                   @"showName":@"蓝光治疗模式",@"value":@"脉冲"
+                                   },
+                                 @{
+                                   @"showName":@"蓝光治疗能量",@"value":@"1"
+                                   },
+
+                                 @{
+                                   @"showName":@"附件光源",@"value":@"red"
+                                   },
+                                 @{
+                                   @"showName":@"附件时间",@"value":@"20min"
+                                   }, nil];
+    [paramList insertObject:@{@"showName":@"主治医生",@"value":@"李医生"} atIndex:0];
+    [paramList insertObject:@{@"showName":@"执行护士",@"value":@"小护士"} atIndex:1];
+    
+    //两列参数一行 计算行数
+    NSInteger numberOfLines =( [paramList count] +1 )/2 ;
+    
+    for (int i = 0; i < numberOfLines ; i++) {
+        
+        UIView *containView = [[UIView alloc]initWithFrame:CGRectMake(0, LineHeight * i + 20, kScreenWidth, 52)];
+        UIView *underLineView = [[UIView alloc]initWithFrame:CGRectMake(25, 51, kScreenWidth - 25*2, 1)];
+        [containView addSubview:underLineView];
+        underLineView.backgroundColor = UIColorFromHex(0xECE8E8);
+        
+        [self.treatInfoView addSubview:containView];
+        NSString *showName = [paramList[i*2] objectForKey:@"showName"];
+        NSString *value = [paramList[i*2] objectForKey:@"value"];
+        UILabel *firstLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, 16, 260, 21)];
+        firstLabel.textColor = UIColorFromHex(0x212121);
+        firstLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
+        firstLabel.text = [NSString stringWithFormat:@"%@:%@",showName,value];
+        [containView addSubview:firstLabel];
+        
+        if ([paramList count] % 2 == 0) {
+            NSString *showName = [paramList[i*2 + 1] objectForKey:@"showName"];
+            NSString *value = [paramList[i*2 + 1] objectForKey:@"value"];
+            UILabel *secondLabel = [[UILabel alloc]initWithFrame:CGRectMake(400, 16, 260, 21)];
+            secondLabel.textColor = UIColorFromHex(0x212121);
+            secondLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
+            secondLabel.text = [NSString stringWithFormat:@"%@:%@",showName,value];
+            [containView addSubview:secondLabel];
+        }
+        
+    }
+    //scollview contentheight 重新计算
+    self.treatInfoViewHeight.constant = numberOfLines * LineHeight + 60;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
 - (void)getAlertInfomationData {
     NSMutableArray *datas = [[NSMutableArray alloc]initWithCapacity:20];
     NSMutableArray *testDatas = [NSMutableArray arrayWithObjects:
-  @{@"title":@"欠压",@"timeStamp":@"1547028360"},
-  @{@"title":@"治疗过程中不可切换",@"timeStamp":@"1547031960"},
-  @{@"title":@"治疗过程中不可切换",@"timeStamp":@"1547035560"},nil];
+  @{@"title":@"风扇异常",@"timeStamp":@"1547028360"},
+  @{@"title":@"温度报警",@"timeStamp":@"1547031960"},nil];
     for (NSDictionary *dataDic in testDatas) {
         NSError *error;
         TimeLineModel *model = [[TimeLineModel alloc]initWithDictionary:dataDic error:&error];
@@ -104,6 +215,7 @@
     self.hasAdvice = NO;
     alertDatas = [NSMutableArray arrayWithCapacity:20];
     [self getAlertInfomationData];
+    [self getTreatInfomationData];
     
     if (self.image) {
         self.resultImageView.image = self.image;
@@ -130,7 +242,8 @@
         return 70;
     }
     else if (indexPath.row == 1) {
-        return 253;
+//        return 253;
+        return UITableViewAutomaticDimension;
     }
     else if (indexPath.row == 2) {
         if (self.hasAlertMessage) {

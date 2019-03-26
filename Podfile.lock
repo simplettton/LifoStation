@@ -16,13 +16,23 @@ PODS:
     - AFNetworking/NSURLSession
   - BRPickerView (2.2.1)
   - CocoaAsyncSocket (7.6.3)
+  - FLAnimatedImage (1.0.12)
   - JSONModel (1.8.0)
   - JTMaterialSwitch (1.1)
+  - LxDBAnything (1.1.0)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.7)
   - MMPopupView (1.7.2):
     - Masonry
+  - MQTTClient (0.15.2):
+    - MQTTClient/Core (= 0.15.2)
+  - MQTTClient/Core (0.15.2):
+    - MQTTClient/Manager
+    - MQTTClient/Min
+  - MQTTClient/Manager (0.15.2):
+    - MQTTClient/Min
+  - MQTTClient/Min (0.15.2)
   - PGDatePicker (2.6.9):
     - PGPickerView
   - PGPickerView (1.3.8)
@@ -44,12 +54,15 @@ DEPENDENCIES:
   - AFNetworking
   - BRPickerView
   - CocoaAsyncSocket
+  - FLAnimatedImage
   - JSONModel
   - JTMaterialSwitch
+  - LxDBAnything
   - Masonry
   - MBProgressHUD
   - MJRefresh
   - MMPopupView
+  - MQTTClient
   - PGDatePicker
   - Popover.OC
   - PPNumberButton
@@ -66,12 +79,15 @@ SPEC REPOS:
     - AFNetworking
     - BRPickerView
     - CocoaAsyncSocket
+    - FLAnimatedImage
     - JSONModel
     - JTMaterialSwitch
+    - LxDBAnything
     - Masonry
     - MBProgressHUD
     - MJRefresh
     - MMPopupView
+    - MQTTClient
     - PGDatePicker
     - PGPickerView
     - Popover.OC
@@ -86,12 +102,15 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BRPickerView: 0590a8c5de9bd98c6b4e4f117a3dff6de287d5b2
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   JTMaterialSwitch: cad8093c3773ff9f6c60005c98d269eb869b5e04
+  LxDBAnything: 154a2ad1ae32e70355d886b5443260543bb60c71
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
+  MQTTClient: 902c7bcac1501595f3d0b15178c7205b40331fb0
   PGDatePicker: 88960f3760edac96219c10320f25536ad31d0f44
   PGPickerView: 037acfb132a4c8054fb43aaa59a5ff50c7f747f5
   Popover.OC: bfcce8307f77593e1e1d7cf58604077f74e114bc
@@ -102,6 +121,6 @@ SPEC CHECKSUMS:
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
   ZFPlayer: 34d9832d40240971af45a27e1227c4fa97325d5a
 
-PODFILE CHECKSUM: 054f80ceead02c82f13f0463f0d6017184e5d347
+PODFILE CHECKSUM: 3969bb9f8b0b4f16681a01f8772e5e63ce7b4cec
 
 COCOAPODS: 1.5.3

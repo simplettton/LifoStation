@@ -15,6 +15,7 @@
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self initRootViewController];
+    [self configureNetWorkSetting];
     return YES;
 }
 - (void)initRootViewController {
@@ -36,7 +37,30 @@
     } completion:nil];
     [self.window makeKeyAndVisible];
 }
-
+- (void)configureNetWorkSetting {
+    NSDictionary *defaultNetworkConfiguration = @{
+                                                  @"HTTPServerIP":@"192.168.2.127",
+                                                  @"HTTPServerPort":@"80",
+                                                  @"MQTTPort":@"18826"
+                                                  };
+    
+    if (![UserDefault objectForKey:@"HTTPServerIP"]) {
+        [UserDefault setObject:defaultNetworkConfiguration[@"HTTPServerIP"] forKey:@"HTTPServerIP"];
+    }
+    if (![UserDefault objectForKey:@"HTTPServerPort"]) {
+        [UserDefault setObject:defaultNetworkConfiguration[@"HTTPServerPort"] forKey:@"HTTPServerPort"];
+    }
+    if (![UserDefault objectForKey:@"MQTTPort"]) {
+        [UserDefault setObject:defaultNetworkConfiguration[@"MQTTPort"] forKey:@"MQTTPort"];
+    }
+    
+    if (![UserDefault objectForKey:@"HTTPServerURLString"]) {
+        [UserDefault setObject:[NSString stringWithFormat:@"http://192.168.2.127:80/"] forKey:@"HTTPServerURLString"];
+    }
+    
+    [UserDefault synchronize];
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

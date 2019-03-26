@@ -42,13 +42,13 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     //获取数据源
-    NSArray *dataArray = self.treatParamDic[@"paramlist"];
-//    datas = [dataArray mutableCopy];
-    NSArray *testData = @[@{@"showname":@"A气囊类型",@"value":@"腿部梯度"},
-                          @{@"showname":@"B气囊类型",@"value":@"腿部梯度"},
-                          @{@"showname":@"治疗模式",@"value":@"标准治疗"},
-                          @{@"showname":@"治疗时间",@"value":@"01:20"}];
-    datas = [testData mutableCopy];
+    NSArray *dataArray = self.paramList;
+    datas = [dataArray mutableCopy];
+//    NSArray *testData = @[@{@"showname":@"A气囊类型",@"value":@"腿部梯度"},
+//                          @{@"showname":@"B气囊类型",@"value":@"腿部梯度"},
+//                          @{@"showname":@"治疗模式",@"value":@"标准治疗"},
+//                          @{@"showname":@"治疗时间",@"value":@"01:20"}];
+//    datas = [testData mutableCopy];
     NSMutableDictionary *noteDic = [[NSMutableDictionary alloc]initWithCapacity:20];
 
     self.type = self.treatParamDic[@"machinetype"];
@@ -87,7 +87,7 @@
             NSString *bport;
             //提取AB气囊
             for (NSDictionary *dic in datas) {
-                NSString *key = dic[@"showname"];
+                NSString *key = dic[@"showName"];
                 NSString *value = dic[@"value"];
                 if ([key isEqualToString:@"A气囊类型"]) {
 
@@ -108,7 +108,7 @@
             leftView.image = [UIImage imageNamed:@"airIcon"];
             //提取模式
             modeDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            [modeDic setObject:@"治疗模式" forKey:@"showname"];
+            [modeDic setObject:@"治疗模式" forKey:@"showName"];
             [modeDic setObject:modeValue forKey:@"value"];
         }
             break;
@@ -120,13 +120,13 @@
 
             //提取模式
             modeDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            [modeDic setObject:@"电流波形" forKey:@"showname"];
+            [modeDic setObject:@"电流波形" forKey:@"showName"];
             [modeDic setObject:modeValue forKey:@"value"];
 
             //提取电疗参数通道数
             NSString *channelNum = [[NSString alloc]init];
             for (NSDictionary *dic in datas) {
-                NSString *key = dic[@"showname"];
+                NSString *key = dic[@"showName"];
                 NSString *value = dic[@"value"];
                 if ([key isEqualToString:@"通道数"]) {
                     channelNum = value;
@@ -147,7 +147,7 @@
             
             //提取模式
             modeDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            [modeDic setObject:@"主模式" forKey:@"showname"];
+            [modeDic setObject:@"主模式" forKey:@"showName"];
             [modeDic setObject:modeValue forKey:@"value"];
             self.infomationView.text = [NSString stringWithFormat:@"\n主模式: %@",modeValue];
             leftView.image = [UIImage imageNamed:@"airIcon"];
@@ -245,7 +245,7 @@
 //    cell.selectionsLabel.numberOfLines = 0;
 //    cell.selectionsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *dic = [datas objectAtIndex:indexPath.row];
-    NSString *key = dic[@"showname"];
+    NSString *key = dic[@"showName"];
     cell.nameLabel.text = key;
     if([dic[@"value"] isEqual:[NSNull null]]){
         cell.valueLabel.text = @"无";

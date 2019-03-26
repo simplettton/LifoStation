@@ -89,6 +89,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="textView" destination="eXm-7C-JAb" id="ANs-ph-igM"/>
+                <outlet property="titleLabel" destination="gWV-0C-5Rn" id="NQA-nX-M4a"/>
             </connections>
             <point key="canvasLocation" x="47" y="24"/>
         </view>

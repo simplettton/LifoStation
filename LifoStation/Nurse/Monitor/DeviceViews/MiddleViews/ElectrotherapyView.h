@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ElectrotherapyView : UIView
+- (instancetype)initWithWaveType:(NSString *)typeName;
 
 @end

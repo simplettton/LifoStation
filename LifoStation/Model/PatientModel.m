@@ -9,5 +9,20 @@
 #import "PatientModel.h"
 
 @implementation PatientModel
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
+            @{
+              @"medicalNumber":@"MedicalNumber",
+              @"uuid":@"Uid",
+              @"personName":@"PersonName",
+              @"treatAddress":@"TreatAddress",
+              @"gender":@"Gender",
+              @"age":@"Age",
+              @"birthday":@"Birthday",
+              @"taskState":@"TaskState",
+              @"registeredDate":@"RegistedTime",
+              @"phoneNumber":@"Phone"
+              }];
+}
 
 @end

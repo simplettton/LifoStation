@@ -10,6 +10,7 @@
 #import "UIView+TYAlertView.h"
 #import "ChooseDepartmentView.h"
 #import "UIView+Tap.h"
+#import "DepartmentModel.h"
 @interface EditMachineViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIView *departmentView;
@@ -29,10 +30,9 @@
     self.nameTextField.text = self.machineName;
     [self.nameTextField setValue:[NSNumber numberWithInt:10] forKey:@"paddingLeft"];
     [self.departmentView addTapBlock:^(id obj) {
-        ChooseDepartmentView  *view = [[ChooseDepartmentView alloc]initWithDic:@{@"department":self.departmentNameLabel.text} return:^(NSString *selectedDepartment) {
-            NSLog(@"选择了%@",selectedDepartment);
-            self.department = selectedDepartment;
-            self.departmentNameLabel.text = selectedDepartment;
+        ChooseDepartmentView  *view = [[ChooseDepartmentView alloc]initWithDic:@{@"department":self.departmentNameLabel.text} return:^(NSString *selectedUuid) {
+
+            self.departmentNameLabel.text = [[Constant sharedInstance]departmentDic][selectedUuid];
         }];
         [view showInWindow];
     }];

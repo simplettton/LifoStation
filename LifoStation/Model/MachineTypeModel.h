@@ -11,4 +11,6 @@
 @interface MachineTypeModel : JSONModel
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) CGFloat titleWidth;
+@property (nonatomic, strong) NSString *typeCode;
+@property (nonatomic, strong) NSNumber *groupCode;
 @end

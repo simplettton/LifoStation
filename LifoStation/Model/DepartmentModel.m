@@ -13,7 +13,7 @@
     return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
             @{
               @"name":@"Name",
-              @"uid":@"Uid"
+              @"uuid":@"Uid"
               }];
 }
 @end

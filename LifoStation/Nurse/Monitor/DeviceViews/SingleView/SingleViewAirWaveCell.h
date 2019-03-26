@@ -8,32 +8,30 @@
 
 #import <UIKit/UIKit.h>
 #import "AirWaveView.h"
-typedef NS_ENUM(NSInteger,CellStyle) {
-    CellStyleOnline,
-    CellStyleOffLine,
-    CellStyleAlert,
-    CellStyleUnauthorized
-};
+
 @interface SingleViewAirWaveCell : UICollectionViewCell
 @property (nonatomic, assign) CellStyle style;
-//@property (nonatomic, assign) AirBagType type;
 
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
+//1 左上
+@property (weak, nonatomic) IBOutlet UIView *patientView;
+@property (weak, nonatomic) IBOutlet UILabel *patientLabel;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
+//2 右上
 @property (weak, nonatomic) IBOutlet UIView *parameterView;
 
-/** alert */
+/** 3 alert */
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessageLabel;
 @property (nonatomic,strong)NSTimer *alertTimer;
 -(void)startFlashingAlertView;
-/** controll button */
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
-@property (weak, nonatomic) IBOutlet UIButton *stopButton;
+
+//4 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *unfocusButton;
 
-- (void)configureWithCellStyle:(CellStyle)style AirBagType:(AirBagType)type message:(NSString *)message;
+@property (strong, nonatomic) AirWaveView *bodyView;
+- (void)configureWithAirBagType:(AirBagType)type message:(NSString *)message;
+- (void)configureWithCellStyle:(CellStyle)style airBagType:(AirBagType)type message:(NSString *)message;
 @end

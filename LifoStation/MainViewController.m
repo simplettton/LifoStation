@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "TaskParentViewController.h"
 #import "UIView+Tap.h"
+#import "MachineTypeModel.h"
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIView *deviceManagementView;
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTap];
+
 }
 
 #pragma mark - hide navigation bar
@@ -69,7 +71,9 @@
     [self.videoView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowVideo" sender:nil];
     }];
+
     
 }
+
 
 @end

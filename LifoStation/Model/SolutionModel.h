@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface SolutionModel : NSObject
-
+#import "JSONModel.h"
+@interface SolutionModel : JSONModel
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString *machineType;
+@property (nonatomic, strong) NSMutableArray <Optional> *paramList;
+@property (nonatomic, strong) NSString *treatTime;
 @end

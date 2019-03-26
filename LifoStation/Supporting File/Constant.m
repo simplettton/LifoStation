@@ -9,5 +9,24 @@
 #import "Constant.h"
 
 @implementation Constant
+@synthesize machineTypeList;
+@synthesize machineTypeDic;
+@synthesize departmentList;
+@synthesize departmentDic;
+@synthesize departmentOppositeDic;
+@synthesize typeDic;
 
++ (Constant *)sharedInstance
+{
+    static Constant *sharedInstance;
+    
+    @synchronized(self)
+    {
+        if (!sharedInstance)
+            sharedInstance = [[Constant alloc] init];
+        
+        
+        return sharedInstance;
+    }
+}
 @end

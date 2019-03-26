@@ -66,24 +66,22 @@
     static NSString *CellIdentifier = @"SingleViewAirWaveCell";
     SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     if (indexPath.row %4 == 0) {
-        [cell configureWithCellStyle:CellStyleOffLine AirBagType:AirBagTypeEight message:nil];
+        [cell configureWithAirBagType:AirBagTypeEight message:nil];
         cell.style = CellStyleOffLine;
         
     } else if (indexPath.row %4 == 1) {
-        [cell configureWithCellStyle:CellStyleAlert AirBagType:AirBagTypeThree message:@"运行中不可以切换气囊"];
+        [cell configureWithAirBagType:AirBagTypeThree message:@"运行中不可以切换气囊"];
         cell.style = CellStyleAlert;
         
     } else if (indexPath.row %4 == 2) {
-        [cell configureWithCellStyle:CellStyleUnauthorized AirBagType:AirBagTypeThree message:nil];
+        [cell configureWithAirBagType:AirBagTypeThree message:nil];
         cell.style = CellStyleUnauthorized;
     }
     else {
-        [cell configureWithCellStyle:CellStyleOnline AirBagType:AirBagTypeThree message:nil];
+        [cell configureWithAirBagType:AirBagTypeThree message:nil];
         cell.style = CellStyleOnline;
     }
     [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
-    cell.unfocusButton.hidden = !self.isEditing;
-    [cell.unfocusButton addTarget:self action:@selector(unfocusMachine) forControlEvents:UIControlEventTouchUpInside];
     [cell.parameterView addTapBlock:^(id obj) {
         AirWaveSetParameterView *view = [AirWaveSetParameterView createViewFromNib];
         [view showInWindow];

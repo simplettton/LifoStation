@@ -9,5 +9,24 @@
 #import "MachineModel.h"
 
 @implementation MachineModel
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
+     @{
+       @"cpuid":@"Cpuid",
+       @"name":@"Name",
+       @"type":@"MachineType",
+       @"state":@"MachineState",
+       @"leftTime":@"LeftTimeToOver",
+       @"hasLicense":@"HasLicense",
+       @"isfocus":@"IsFocus",
+       @"isonline":@"IsOnline",
+       @"departmentId":@"DepartmentId",
+       @"departmentName":@"DepartmentName",
+       @"patient":@"Patient"
+       }];
+}
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

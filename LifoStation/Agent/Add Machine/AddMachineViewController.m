@@ -15,6 +15,7 @@
 #import "UIView+TYAlertView.h"
 
 #import "MachineTypeModel.h"
+#import "DepartmentModel.h"
 
 #define TYPE_ITEM_ORIGIN_X 20
 #define TYPE_ITEM_Height 30
@@ -22,6 +23,9 @@
 @interface AddMachineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) NSString *firstDepartment;
+@property (nonatomic, strong) NSMutableArray *datas;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
 @end
 
 @implementation AddMachineViewController
@@ -33,29 +37,142 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getMachineTypeList];
+    [self getDepartmentList];
+}
+- (void)getMachineTypeList {
+    NSMutableArray *typeList = [[NSMutableArray alloc]init];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/MachineController/GetSupportMachineList")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result integerValue] == 1) {
+                                         if ([responseObject.content count]>0) {
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 MachineTypeModel *machine = [[MachineTypeModel alloc]initWithDictionary:dic error:nil];
+                                                 [typeList addObject:machine];
+
+                                             }
+                                             [Constant sharedInstance].machineTypeList = typeList;
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [self initMachineTypeScrollView];
+                                             });
+                                         }
+                                     }
+                                 }
+                                 failure:nil];
+}
+- (void)getDepartmentList {
+    NSMutableArray *departmentList = [[NSMutableArray alloc]init];
+    //通过department 的uuid查找name的字典
+    NSMutableDictionary *departmentDictionary = [[NSMutableDictionary alloc]init];
+    //通过department 的name查找uuid的字典
+    NSMutableDictionary *oppositeDictionary = [[NSMutableDictionary alloc]init];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DepartmentController/List")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result intValue] == 1) {
+                                         if ([responseObject.content count] > 0) {
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 DepartmentModel *department = [[DepartmentModel alloc]initWithDictionary:dic error:nil];
+                                                 [departmentList addObject:department];
+                                                 [departmentDictionary setObject:department.name forKey:department.uuid];
+                                                 [oppositeDictionary setObject:department.uuid forKey:department.name];
+                                             }
+                                         }
+                                         else {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+
+
+                                                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                                                                message:@"未搜索到科室，请在科室管理中添加"
+                                                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                                                 
+                                                 UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                                                                      handler:^(UIAlertAction * action) {
+                                                                                                          
+                                                                                                          
+                                                                                                      }];
+                                                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                     [self performSegueWithIdentifier:@"ShowDepartmentList" sender:nil];
+                                                 }];
+                                                 
+                                                 [alert addAction:cancelAction];
+                                                 [alert addAction:defaultAction];
+                                                 [self presentViewController:alert animated:YES completion:nil];
+                                             
+                                             });
+
+                                         }
+
+                                         [Constant sharedInstance].departmentList = departmentList;
+                                         [Constant sharedInstance].departmentDic = departmentDictionary;
+                                         LxDBAnyVar(departmentList);
+                                     }
+                                 }
+                                 failure:nil];
 }
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.navigationItem.hidesBackButton = YES;
-    [self initMachineTypeScrollView];
+    
+    [self initTableHeaderAndFooter];
 }
+- (void)initTableHeaderAndFooter {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    [header setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
+    header.stateLabel.textColor =UIColorFromHex(0xABABAB);
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    [self.tableView.mj_header beginRefreshing];
+}
+- (void)refresh {
+//    [self.datas addObject:@{@"Name":@"空气波一号",@"Cpuid":@"5656565656565"}];
+//    [self.datas addObject:@{@"Name":@"空气波二号",@"Cpuid":@"53656523565"}];
+//    [self.datas addObject:@{@"Name":@"空气波三号",@"Cpuid":@"12656565656565"}];
+//    [self.tableView reloadData];
+    NSNumber *type = [NSNumber numberWithInteger:selectedDeviceTag];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ListRegister")
+                                  params:@{@"MachineType":type}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                        if ([responseObject.result integerValue] == 1) {
+                                                if ([responseObject.content count] > 0) {
+                                                    for (NSDictionary *dic in responseObject.content) {
+                                                        [self.datas addObject:dic];
+                                                    }
+                                                    self.noDataView.hidden = YES;
+                                                } else {
+                                                    self.noDataView.hidden = NO;
+                                                }
+                                            [self.tableView reloadData];
+                                            }
+                                    }
+                                 failure:nil];
+}
+
 - (IBAction)backToMachineList:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 #pragma mark - ScrollView
 - (void)initMachineTypeScrollView {
     
-    NSMutableArray *typeList = [NSMutableArray arrayWithObjects:@{@"name":@"空气波治疗仪"},@{@"name":@"光子治疗仪"},@{@"name":@"中频电治疗仪"},@{@"name":@"脉冲磁"},@{@"name":@"红外设备"},@{@"name":@"湿化"},@{@"name":@"负压"},nil];
+//    NSMutableArray *typeList = [NSMutableArray arrayWithObjects:@{@"name":@"空气波治疗仪"},@{@"name":@"光子治疗仪"},@{@"name":@"中频电治疗仪"},@{@"name":@"脉冲磁"},@{@"name":@"红外设备"},@{@"name":@"湿化"},@{@"name":@"负压"},nil];
+    NSMutableArray *typeList = [Constant sharedInstance].machineTypeList;
+    
     typeModelArray = [[NSMutableArray alloc]initWithCapacity:20];
     
     CGFloat contentsizeWidth = TYPE_ITEM_ORIGIN_X;
-    for (NSDictionary *dataDic in typeList) {
-        NSError *error;
-
-        MachineTypeModel *type = [[MachineTypeModel alloc]initWithDictionary:dataDic error:&error];
+    for (MachineTypeModel *type in typeList) {
         [typeModelArray addObject:type];
         contentsizeWidth += type.titleWidth + TYPE_ITEM_ORIGIN_X +TYPE_ITEM_INTERVAL;
     }
+
     self.scrollView.contentSize = CGSizeMake(contentsizeWidth, self.scrollView.bounds.size.height);
     self.scrollView.delegate = self;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -78,23 +195,23 @@
         button.layer.masksToBounds = YES;
         button.layer.cornerRadius = 5.0f;
         
-        button.tag = 1000 + i;
+        button.tag = [type.typeCode integerValue];
         button.frame = CGRectMake(XPostion, YPositon, titleSize.width, titleSize.height);
         [button addTarget:self action:@selector(selectDevice:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button];
         XPostion = CGRectGetMaxX(button.frame) + TYPE_ITEM_INTERVAL;
 
     }
-    UIButton *firstButton = [self.scrollView viewWithTag:1000];
+    MachineTypeModel *firstType = typeModelArray[0];
+    UIButton *firstButton = [self.scrollView viewWithTag:[firstType.typeCode integerValue]];
     [self selectDevice:firstButton];
 
 }
--(void)selectDevice:(UIButton *)sender {
+- (void)selectDevice:(UIButton *)sender {
     
     selectedDeviceTag = [sender tag];
-    
-    for (int i = 1000; i<1000 + [typeModelArray count]; i++) {
-        UIButton *btn = (UIButton *)[self.scrollView viewWithTag:i];
+    for (MachineTypeModel *type in typeModelArray) {
+        UIButton *btn = (UIButton *)[self.scrollView viewWithTag:[type.typeCode integerValue]];
         //配置选中按钮
         if ([btn tag] == [(UIButton *)sender tag]) {
             btn.backgroundColor = UIColorFromHex(0x6DA3E0);
@@ -104,11 +221,13 @@
             [btn setTitleColor:UIColorFromHex(0x212121) forState:UIControlStateNormal];
         }
     }
+    [self refresh];
 }
 #pragma mark - TableView datasource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+//    return 3;
+    return [_datas count];
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString* CellIdentifier = @"Cell";
@@ -117,25 +236,79 @@
     if (cell == nil) {
         cell = [[AddMachineCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    //    cell.editButton.tag = indexPath.row;
-    [cell.ringButton addTarget:self action:@selector(ringAction:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.departmentView addTapBlock:^(id obj) {
-        ChooseDepartmentView  *view = [[ChooseDepartmentView alloc]initWithDic:@{@"department":cell.departmentNameLabel.text} return:^(NSString *selectedDepartment) {
-            NSLog(@"选择了%@",selectedDepartment);
-            
-            cell.departmentNameLabel.text = selectedDepartment;
+    if ([self.datas count] > 0) {
+        NSDictionary *dataDic = [self.datas objectAtIndex:indexPath.row];
+        [cell.ringButton setTitle:[dataDic objectForKey:@"Cpuid"] forState:UIControlStateNormal];
+        [cell.ringButton addTarget:self action:@selector(ringAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.nameTextField.text = dataDic[@"Name"];
+        
+        NSArray *departmentList = [Constant sharedInstance].departmentList;
+        if ([departmentList count]>0) {
+            DepartmentModel *department = departmentList[0];
+            cell.departmentNameLabel.text = department.name ;
+        }
+
+        [cell.departmentView addTapBlock:^(id obj) {
+            ChooseDepartmentView  *view = [[ChooseDepartmentView alloc]initWithDic:@{@"department":cell.departmentNameLabel.text} return:^(NSString *selectedUuid) {
+                cell.departmentNameLabel.text = [[Constant sharedInstance]departmentDic][selectedUuid];
+                
+            }];
+            [view showInWindow];
         }];
-        [view showInWindow];
-    }];
+       
+    }
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
+#pragma mark - Action
 - (void)ringAction :(id)sender {
+    AddMachineCell *cell = (AddMachineCell *)[[sender superview]superview];
+    NSString *cpuid = cell.ringButton.titleLabel.text;
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Beep")
+                                  params:@{
+                                           @"Cpuid":cpuid,
+                                           @"LongBeep":@0
+                                           }
+                                hasToken:YES success:^(HttpResponse *responseObject) {
+                                    
+                                } failure:nil];
+}
+- (IBAction)save:(id)sender {
+    NSArray *cells = self.tableView.visibleCells;
+    NSMutableArray *saveArray = [NSMutableArray array];
     
+    if ([cells count] > 0) {
+        for (AddMachineCell *cell in cells) {
+            if (cell.nameTextField.text.length > 0) {
+                NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:20];
+                [dic setObject:cell.ringButton.titleLabel.text forKey:@"Cpuid"];
+                [dic setObject:cell.nameTextField.text forKey:@"DeviceName"];
+                NSString *departmentName = cell.departmentNameLabel.text;
+                
+                
+                NSString *uuid = [[Constant sharedInstance]departmentOppositeDic][departmentName];
+                [dic setObject:uuid forKey:@"DepartmentId"];
+                [saveArray addObject:dic];
+            }
+        }
+        if ([saveArray count]>0) {
+            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Register")
+                                          params:@{@"ListData":saveArray}
+                                        hasToken:YES
+                                         success:^(HttpResponse *responseObject) {
+                                             if ([responseObject.result integerValue] == 1) {
+                                                 [BEProgressHUD showMessage:@"录入成功"];
+                                                 [self refresh];
+                                             }
+                                         }
+                                         failure:nil];
+        }
+ 
+    }
 }
 #pragma mark - Logout Action
 - (IBAction)logoutAction:(id)sender {
@@ -172,5 +345,10 @@
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
-
+- (NSMutableArray *)datas {
+    if (!_datas) {
+        _datas = [[NSMutableArray alloc]init];
+    }
+    return _datas;
+}
 @end

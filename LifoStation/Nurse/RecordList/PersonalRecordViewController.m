@@ -7,6 +7,7 @@
 //
 
 #import "PersonalRecordViewController.h"
+#import "SelectDateView.h"
 #import "RecordCell.h"
 //dropdata
 #import "GHDropMenu.h"
@@ -85,6 +86,10 @@
     [self performSegueWithIdentifier:@"personalToReport" sender:nil];
 }
 #pragma mark - Filter
+- (IBAction)showTimeFilter:(id)sender {
+    SelectDateView *view = [SelectDateView createViewFromNib];
+    [view showInWindow];
+}
 - (IBAction)filterDropMenu:(id)sender {
     GHDropMenuModel *configuration = [[GHDropMenuModel alloc]init];
     

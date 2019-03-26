@@ -66,16 +66,6 @@
                                     <constraint firstAttribute="width" secondItem="n1R-CY-Rdv" secondAttribute="height" multiplier="173:48" id="uak-lf-fnm"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGU-Ql-NEA">
-                                <rect key="frame" x="545" y="223" width="43" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="pause"/>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoA-vP-g0Q">
-                                <rect key="frame" x="619" y="223" width="43" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="stop"/>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9t-EJ-3Nz">
                                 <rect key="frame" x="11" y="217" width="136" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -132,8 +122,6 @@
     <resources>
         <image name="focus_fill" width="28" height="28"/>
         <image name="idcard" width="55" height="49"/>
-        <image name="pause" width="70" height="70"/>
-        <image name="stop" width="70" height="70"/>
         <image name="wifi_grey" width="35" height="35"/>
     </resources>
 </document>

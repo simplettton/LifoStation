@@ -18,6 +18,7 @@
         AddAdviceView *view = [AddAdviceView createViewFromNib];
         if (content) {
             view.titleLabel.text = @"编辑医嘱";
+            view.textView.text = content;
         } else {
             view.titleLabel.text = @"添加医嘱";
         }

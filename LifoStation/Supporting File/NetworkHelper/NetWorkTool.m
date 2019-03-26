@@ -7,11 +7,9 @@
 //
 
 #import "NetWorkTool.h"
-#import "BELoadingView.h"
 #import "MJRefresh.h"
 #import "AppDelegate.h"
-#import "PhoneLoginViewController.h"
-#import "PasswordLoginViewController.h"
+
 #import <SVProgressHUD.h>
 @interface NetWorkTool()
 
@@ -20,7 +18,7 @@
 @implementation NetWorkTool
 static NetWorkTool *_instance;
 
-+(instancetype)sharedNetWorkTool{
++(instancetype)sharedNetWorkTool {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[NetWorkTool alloc]initWithBaseURL:nil];
@@ -29,7 +27,7 @@ static NetWorkTool *_instance;
 
         //设置请求的超时时间
         [_instance.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-        _instance.requestSerializer.timeoutInterval = 15.f;
+        _instance.requestSerializer.timeoutInterval = 20.f;
         [_instance.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         _instance.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
@@ -43,7 +41,7 @@ static NetWorkTool *_instance;
    hasToken:(bool)hasToken
     success:(HttpResponseObject)responseBlock
     failure:(HttpFailureBlock)failureBlock{
-    
+
     //服务器返回json格式
     _instance.requestSerializer = [AFJSONRequestSerializer serializer];
     _instance.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -51,8 +49,8 @@ static NetWorkTool *_instance;
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDefault objectForKey:@"Token"];
-    
-//    [BELoadingView beginAnimation];
+
+
     //通用token data模板
     if( hasToken )
     {
@@ -61,6 +59,10 @@ static NetWorkTool *_instance;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        if (![self isControllerContainTableView]) {
+            [BEProgressHUD showLoading:@""];
+        }
     });
 
     [self POST:address
@@ -70,35 +72,44 @@ static NetWorkTool *_instance;
       }
        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
            //请求结果出现后关闭风火轮
-//           [BELoadingView stopAnimation];
            dispatch_async(dispatch_get_main_queue(), ^{
                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+               [self endTableViewRefreshing:NO];
+               if (![self isControllerContainTableView]) {
+                   [BEProgressHUD hideHUD];
+               }
            });
  
            NSDictionary *jsonDict = responseObject;
            if (jsonDict != nil) {
 
-               NSString *result = [jsonDict objectForKey:@"result"];
+               NSString *result = [jsonDict objectForKey:@"Result"];
                
                id content;
                //返回null的content
-               if ([[jsonDict objectForKey:@"content"]isEqual:[NSNull null]]) {
+               if ([[jsonDict objectForKey:@"Content"]isEqual:[NSNull null]]) {
                    content = nil;
                }else{
-                   content = [jsonDict objectForKey:@"content"];
+                   content = [jsonDict objectForKey:@"Content"];
                }
-               NSString *errorString = [jsonDict objectForKey:@"msg"];
-               
+               NSString *errorString = [jsonDict objectForKey:@"Msg"];
+               if ([errorString length]>0) {
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [BEProgressHUD showMessage:errorString];
+                   });
+
+               }
+
                //token失效
                if ([errorString isEqualToString:@"无法识别的用户"]) {
                    [UserDefault setBool:NO forKey:@"IsLogined"];
                    [UserDefault synchronize];
                    dispatch_async(dispatch_get_main_queue(), ^{
-                       [SVProgressHUD showErrorWithStatus:BEGetStringWithKeyFromTable(@"账号验证过期，即将重新登录", @"P06A")];
+                       [BEProgressHUD showMessage:@"登录验证过期，即将重新登录"];
                        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
                        [appDelegate performSelector:@selector(initRootViewController) withObject:nil afterDelay:1];
                    });
-               }else{
+               } else {
                    
                    HttpResponse* responseObject = [[HttpResponse alloc]init];
                    responseObject.result = result;
@@ -113,30 +124,36 @@ static NetWorkTool *_instance;
            }
        }
        failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//           [BELoadingView stopAnimation];
            //请求结果出现后关闭风火轮
            dispatch_async(dispatch_get_main_queue(), ^{
                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+               if (![self isControllerContainTableView]) {
+                   [BEProgressHUD hideHUD];
+               }
+               //endrefresh操作
+               [self endTableViewRefreshing:YES];
+               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+               NSLog(@"ERROR = %@",error);
            });
            
            if (failureBlock) {
                failureBlock(error);
            }
 
-           dispatch_async(dispatch_get_main_queue(), ^{
-               
-               if ([error.localizedDescription hasSuffix:@"。"]) {
 
-                   NSString *string = [error.localizedDescription substringToIndex:[error.localizedDescription length] -1];
-                     [SVProgressHUD showErrorWithStatus:string];
-               }
-               else{
-                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                   NSLog(@"ERROR = %@",error);
-               }
-               //endrefresh操作
-               [self endTableViewRefreshing:YES];
-           });
+//           dispatch_async(dispatch_get_main_queue(), ^{
+//
+//               if ([error.localizedDescription hasSuffix:@"。"]) {
+//
+//                   NSString *string = [error.localizedDescription substringToIndex:[error.localizedDescription length] -1];
+//                     [SVProgressHUD showErrorWithStatus:string];
+//               }
+//               else{
+//                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+//                   NSLog(@"ERROR = %@",error);
+//               }
+//
+//           });
        }];
 }
 -(void)POST:(NSString *)address
@@ -149,24 +166,23 @@ static NetWorkTool *_instance;
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     });
-//    [BELoadingView beginAnimation];
 
     NSData *data = UIImageJPEGRepresentation(image, 0.8);
-//        NSData *data = UIImagePNGRepresentation(image);
     [self POST:address
     parameters:data
       progress:^(NSProgress * _Nonnull uploadProgress) {
           
-          [SVProgressHUD showProgress:uploadProgress.fractionCompleted status:BEGetStringWithKeyFromTable(@"正在存储照片中…", @"P06A")];
+          
+          [SVProgressHUD showProgress:uploadProgress.fractionCompleted status:@"正在存储照片中…"];
 //          NSLog(@"%f",uploadProgress.fractionCompleted);
       }
        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //           [BELoadingView stopAnimation];
            
-           //请求结果出现后关闭风火轮
-           
+           //请求结果出现后关闭风火轮 停止刷新tableview
            dispatch_async(dispatch_get_main_queue(), ^{
                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+               [self endTableViewRefreshing:NO];
            });
            
            NSDictionary *jsonDict = responseObject;
@@ -188,7 +204,7 @@ static NetWorkTool *_instance;
                    [UserDefault setBool:NO forKey:@"IsLogined"];
                    [UserDefault synchronize];
                    dispatch_async(dispatch_get_main_queue(), ^{
-                       [SVProgressHUD showErrorWithStatus:BEGetStringWithKeyFromTable(@"正在下载中…", @"P06A")];
+                       [SVProgressHUD showErrorWithStatus:@"正在下载中…"];
                        
                        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
                        [appDelegate performSelector:@selector(initRootViewController) withObject:nil afterDelay:1];
@@ -201,10 +217,6 @@ static NetWorkTool *_instance;
                    responseObject.content = content;
                    responseObject.errorString = errorString;
                    responseBlock(responseObject);
-                   //停止刷新
-                   dispatch_async(dispatch_get_main_queue(), ^{
-                       [self endTableViewRefreshing:NO];
-                   });
                }
            }
        }
@@ -213,6 +225,7 @@ static NetWorkTool *_instance;
            //请求结果出现后关闭风火轮
            dispatch_async(dispatch_get_main_queue(), ^{
                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+               [self endTableViewRefreshing:YES];
            });
            if (failureBlock) {
                failureBlock(error);
@@ -232,8 +245,7 @@ static NetWorkTool *_instance;
                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                    
                }
-               //endrefresh操作
-               [self endTableViewRefreshing:YES];
+
                
            });
        }];
@@ -268,7 +280,7 @@ static NetWorkTool *_instance;
      filePath:最终的文件路径
      */
     NSURLSessionDownloadTask *download = [self downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
-        [SVProgressHUD showProgress:(double)downloadProgress.completedUnitCount / downloadProgress.totalUnitCount status:BEGetStringWithKeyFromTable(@"正在下载中…", @"P06A")];
+        [SVProgressHUD showProgress:(double)downloadProgress.completedUnitCount / downloadProgress.totalUnitCount status:@"正在下载中…"];
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         //保存的文件路径
         NSString *fullPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:fileName];
@@ -280,7 +292,7 @@ static NetWorkTool *_instance;
                 failureBlock(error);
             }
         }else{
-            [SVProgressHUD showSuccessWithStatus:BEGetStringWithKeyFromTable(@"下载成功", @"P06A")];
+            [SVProgressHUD showSuccessWithStatus:@"下载成功"];
             NSLog(@"%@",filePath);
             HttpResponse *responseObject = [[HttpResponse alloc]init];
             responseObject = (HttpResponse *)response;
@@ -294,7 +306,7 @@ static NetWorkTool *_instance;
     [download resume];
     
 }
--(void)endTableViewRefreshing:(BOOL)includeFooter{
+- (void)endTableViewRefreshing:(BOOL)includeFooter {
     
     UIViewController *controller = [self getCurrentVC];
     
@@ -303,14 +315,49 @@ static NetWorkTool *_instance;
         
         UINavigationController *navi = (UINavigationController *)[self getCurrentVC];
         
-        controller = [navi viewControllers][0];
+        //获取当前控制器
+        controller = [navi viewControllers].lastObject;
     }
     
     [self traverseAllSubviews:controller.view includeFooter:includeFooter];
     
     
 }
--(void)traverseAllSubviews:(UIView *)rootView includeFooter:(BOOL)includeFooter {
+- (BOOL)isControllerContainTableView {
+    
+    BOOL isContain = NO;
+    UIViewController *controller = [self getCurrentVC];
+    //当前控制器是导航控制器
+    if ([[self getCurrentVC]isKindOfClass:[UINavigationController class]]) {
+        
+        UINavigationController *navi = (UINavigationController *)[self getCurrentVC];
+        
+        //获取当前控制器
+        controller = [navi viewControllers].lastObject;
+    }
+    for (UIView *subView in [controller.view subviews]) {
+        if ([subView isKindOfClass:[UITableView class]]) {
+            isContain = YES;
+        } else if ([subView isKindOfClass:[UICollectionView class]]) {
+            isContain = YES;
+        }
+    }
+    //子控制器有tableview也算
+    if ([controller.childViewControllers count] > 0) {
+        for (UIViewController *childVc in controller.childViewControllers) {
+            for (UIView *subView in [childVc.view subviews]) {
+                if ([subView isKindOfClass:[UITableView class]]) {
+                    isContain = YES;
+                } else if ([subView isKindOfClass:[UICollectionView class]]) {
+                    isContain = YES;
+                }
+            }
+        }
+    }
+
+    return isContain;
+}
+- (void)traverseAllSubviews:(UIView *)rootView includeFooter:(BOOL)includeFooter {
     for (UIView *subView in [rootView subviews])
     {
         if (!rootView.subviews.count) {
@@ -336,6 +383,7 @@ static NetWorkTool *_instance;
         [self traverseAllSubviews:subView includeFooter:includeFooter];
     }
 }
+
 
 //获取当前窗口控制器
 - (UIViewController *)getCurrentVC

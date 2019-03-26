@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONModel.h"
+@interface PatientModel : JSONModel
 
-@interface PatientModel : NSObject
+@property (nonatomic, strong) NSString *medicalNumber;
+@property (nonatomic, strong) NSString *personName;
+@property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString<Optional>* treatAddress;
+@property (nonatomic, strong) NSString<Optional>* gender;
+@property (nonatomic, strong) NSString<Optional>* age;
+@property (nonatomic, strong) NSString<Optional>* birthday;
+@property (nonatomic, strong) NSString<Optional>* phoneNumber;
+@property (nonatomic, strong) NSString<Optional>* registeredDate;
+@property (nonatomic, strong) NSNumber<Optional>* taskState;
 
 @end

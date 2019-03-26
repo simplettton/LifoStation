@@ -33,9 +33,10 @@
     //        HUD.dimBackground = YES;
     HUD.label.text = text;
 //    HUD.label.textColor = [UIColor whiteColor];
-    [HUD setRemoveFromSuperViewOnHide:YES];
+    [HUD setRemoveFromSuperViewOnHide:NO];
     HUD.label.font = [UIFont boldSystemFontOfSize:TEXT_SIZE];
     [HUD setMinSize:CGSizeMake(BGVIEW_WIDTH, BGVIEW_WIDTH)];
+    [HUD setUserInteractionEnabled:YES];
     [[UIApplication sharedApplication].keyWindow addSubview:HUD];
     
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"YJProgressHUD" ofType:@"bundle"];
@@ -119,6 +120,7 @@
 + (void)showMessage:(NSString *)text {
     
     BEProgressHUD *HUD = [BEProgressHUD sharedHUD];
+    
     //黑色底
 //    HUD.bezelView.color = UIColorFromHex(0X000000);
     [HUD showAnimated:YES];
@@ -129,6 +131,7 @@
     [HUD setMode:MBProgressHUDModeText];
     //    HUD.dimBackground = YES;
     [HUD setRemoveFromSuperViewOnHide:YES];
+    [HUD setUserInteractionEnabled:NO];
     HUD.label.font = [UIFont boldSystemFontOfSize:TEXT_SIZE];
     [[UIApplication sharedApplication].keyWindow addSubview:HUD];
     

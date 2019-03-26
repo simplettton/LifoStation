@@ -94,6 +94,7 @@
                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="nameTextField" destination="TfU-iW-fMc" id="oDq-r9-GgY"/>
                 <outlet property="titleLabel" destination="PnM-8j-pcN" id="BmS-Zr-Ryt"/>
             </connections>
             <point key="canvasLocation" x="25" y="20.5"/>

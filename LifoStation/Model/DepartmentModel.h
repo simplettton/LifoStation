@@ -10,5 +10,5 @@
 #import "JSONModel.h"
 @interface DepartmentModel : JSONModel
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *uid;
+@property (nonatomic, strong) NSString *uuid;
 @end

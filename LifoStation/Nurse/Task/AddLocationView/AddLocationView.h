@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^returnBlock) (NSString *);
 @interface AddLocationView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
+@property (nonatomic, strong) returnBlock returnEvent;
+- (instancetype)initWithDic:(NSDictionary*)dic return:(returnBlock)returnEvent;
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @end

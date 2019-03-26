@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PatientModel.h"
+#import "JSONModel.h"
+#import "MachineModel.h"
+#import "SolutionModel.h"
+@interface TaskModel : JSONModel
+@property (nonatomic, strong) NSString *uuid;
+@property(nonatomic,copy)NSNumber<Optional> *state;
+@property (nonatomic, strong) NSString *creatTime;
+@property (nonatomic, strong) NSString *finishTime;
 
-@interface TaskModel : NSObject
+@property (nonatomic, strong) PatientModel *patient;
+@property (nonatomic, strong) NSString *creatorName;
+@property (nonatomic, strong) NSString *operatorName;
+@property (nonatomic, strong) NSString *suggest;
 
+@property (nonatomic, strong) MachineModel<Optional> *machine;
+@property (nonatomic, strong) NSNumber *leftTime;
+@property (nonatomic, strong) SolutionModel *solution;
 @end

@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *logoutView;
 @property (weak, nonatomic) IBOutlet UIView *aboutView;
 @property (weak, nonatomic) IBOutlet UIView *alertSettingView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hospitalAndDepartmentLabel;
 
 @end
 
@@ -25,6 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSString *hospital = [UserDefault objectForKey:@"Hospital"];
+    NSString *name = [UserDefault objectForKey:@"PersonName"];
+    NSString *department = [NSString stringWithFormat:@" %@",[UserDefault objectForKey:@"Department"]];
+    self.nameLabel.text = name;
+    self.hospitalAndDepartmentLabel.text = AddStr(hospital,department );
     [self addTap];
 }
 - (void)addTap {

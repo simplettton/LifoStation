@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PopoverTreatwayController : UIViewController
+@property (nonatomic, strong) NSArray *paramList;
 @property(nonatomic,strong)NSDictionary *treatParamDic;
 @property(nonatomic,strong)NSString *treatmentScheduleName;
 @end

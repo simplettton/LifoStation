@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void (^returnBlock) (NSString *);
+typedef void (^returnBlock) (NSString*);
 @interface ChooseDepartmentView : UIView<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)returnBlock returnEvent;

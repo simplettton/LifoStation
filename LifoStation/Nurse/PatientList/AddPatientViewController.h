@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PatientModel.h"
 #import "BaseViewController.h"
 @interface AddPatientViewController : BaseViewController
+@property (nonatomic, strong) PatientModel *patient;
 @end

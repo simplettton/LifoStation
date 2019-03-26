@@ -8,22 +8,33 @@
 
 #import "AddDepartmentView.h"
 #import "UIVIEW+TYAlertView.h"
+@interface AddDepartmentView()
+@property (nonatomic, assign) BOOL isAddMode;
+@property (nonatomic, strong) NSDictionary *dataDic;
+@end
 @implementation AddDepartmentView
 #pragma mark - Init
 - (instancetype)initWithDic:(NSDictionary *)dic return:(returnBlock)returnEvent {
     if (self = [super init]) {
         AddDepartmentView *view = [AddDepartmentView createViewFromNib];
+        view.dataDic = dic;
         if (dic) {
             view.titleLabel.text = @"编辑科室";
-            view.nameTextField.text = [dic objectForKey:@"department"];
+            view.isAddMode = NO;
+            view.nameTextField.text = [dic objectForKey:@"Name"];
         }
         else {
             view.titleLabel.text = @"新增科室";
+            view.isAddMode = YES;
         }
         view.returnEvent = returnEvent;
         return view;
     }
     return self;
+}
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self.nameTextField becomeFirstResponder];
 }
 - (IBAction)cancelAction:(id)sender {
     [self hideView];

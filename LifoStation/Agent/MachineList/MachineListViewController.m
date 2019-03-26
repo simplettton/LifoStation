@@ -10,7 +10,8 @@
 #import "MachineCell.h"
 #import "EditMachineViewController.h"
 #import "LoginViewController.h"
-
+#import "MachineTypeModel.h"
+#import "DepartmentModel.h"
 //dropdata
 #import "GHDropMenu.h"
 #import "UIView+Extension.h"
@@ -36,8 +37,50 @@
     UITextField *searchField = [_searchBar valueForKey:@"_searchField"];
     searchField.textColor = UIColorFromHex(0x212121);
     [searchField setValue:[UIFont systemFontOfSize:15 weight:UIFontWeightLight] forKeyPath:@"_placeholderLabel.font"];
-}
+    [self getMachineTypeList];
+    [self getDepartmentList];
 
+}
+- (void)getMachineTypeList {
+    NSMutableArray *typeList = [[NSMutableArray alloc]init];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/MachineController/GetSupportMachineList")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result integerValue] == 1) {
+                                         if ([responseObject.content count]>0) {
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 MachineTypeModel *machine = [[MachineTypeModel alloc]initWithDictionary:dic error:nil];
+                                                 [typeList addObject:machine];
+
+                                             }
+                                             [Constant sharedInstance].machineTypeList = typeList;
+                                         }
+                                     }
+                                 }
+                                 failure:nil];
+}
+- (void)getDepartmentList {
+    NSMutableArray *departmentList = [[NSMutableArray alloc]init];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DepartmentController/List")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result intValue] == 1) {
+                                         if ([responseObject.content count] > 0) {
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 DepartmentModel *department = [[DepartmentModel alloc]initWithDictionary:dic error:nil];
+                                                 [departmentList addObject:department];
+                                                 
+                                             }
+                                         }
+                                         [Constant sharedInstance].departmentList = departmentList;
+                                         LxDBAnyVar(departmentList);
+                                         [self.tableView reloadData];
+                                     }
+                                 }
+                                 failure:nil];
+}
 #pragma mark - TableView datasource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

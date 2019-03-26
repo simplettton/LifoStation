@@ -13,7 +13,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *personNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *machineTypeLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *finishDateLabel;
 
 
 @end

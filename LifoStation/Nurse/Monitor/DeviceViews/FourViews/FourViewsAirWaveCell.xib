@@ -23,11 +23,6 @@
                         <rect key="frame" x="0.0" y="45" width="342" height="261"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Lh-5R-tlZ" customClass="AirWaveView">
-                                <rect key="frame" x="103" y="34" width="137" height="187"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2y-Al-kwn">
                                 <rect key="frame" x="256" y="8" width="78" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -35,27 +30,6 @@
                                 <state key="normal" title="100mmHg">
                                     <color key="titleColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5m-MA-riS">
-                                <rect key="frame" x="21" y="8" width="38" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="idcard"/>
-                                <connections>
-                                    <action selector="showPatientInfoView:" destination="gTV-IL-0wX" eventType="touchUpInside" id="r0j-YB-C3E"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5o-9H-ucz">
-                                <rect key="frame" x="8" y="44" width="78" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="L090820">
-                                    <color key="titleColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCT-hD-1yN">
-                                <rect key="frame" x="286" y="190" width="27" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="play"/>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7eq-N0-20Z">
                                 <rect key="frame" x="8" y="211" width="88" height="42"/>
@@ -82,8 +56,39 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5o-9H-ucz">
+                                <rect key="frame" x="13" y="55" width="78" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="L090820">
+                                    <color key="titleColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tqk-jQ-Ptq" customClass="AirWaveView">
+                                <rect key="frame" x="112" y="55" width="137" height="187"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="75A-ol-Qlp">
+                        <rect key="frame" x="10" y="55" width="198" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvY-Dw-ifD">
+                                <rect key="frame" x="0.0" y="0.0" width="38" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="idcard"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="张三-治疗中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZv-Xq-KvG">
+                                <rect key="frame" x="46" y="7" width="138" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.062745098040000002" green="0.062745098040000002" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                     </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqZ-YC-BHt">
                         <rect key="frame" x="0.0" y="0.0" width="342" height="45"/>
@@ -113,17 +118,17 @@
             <size key="customSize" width="249" height="273"/>
             <connections>
                 <outlet property="bodyContentView" destination="bDQ-Fo-iyH" id="fyz-UT-MJu"/>
-                <outlet property="bodyView" destination="4Lh-5R-tlZ" id="jIg-ef-CBv"/>
+                <outlet property="bodyView" destination="Tqk-jQ-Ptq" id="Nzo-Oh-SsZ"/>
                 <outlet property="focusView" destination="7eq-N0-20Z" id="4Y2-AX-5h5"/>
-                <outlet property="patientButton" destination="f5m-MA-riS" id="n3W-IM-JIr"/>
+                <outlet property="patientView" destination="75A-ol-Qlp" id="cYZ-2e-KQS"/>
+                <outlet property="titleLabel" destination="25Z-qj-4lF" id="ht2-mN-H1J"/>
             </connections>
-            <point key="canvasLocation" x="124" y="163"/>
+            <point key="canvasLocation" x="117" y="266"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="focus_unfill" width="28" height="28"/>
         <image name="idcard" width="55" height="49"/>
-        <image name="play" width="70" height="70"/>
         <image name="wifi_grey" width="35" height="35"/>
         <image name="wifi_white" width="35" height="26"/>
     </resources>

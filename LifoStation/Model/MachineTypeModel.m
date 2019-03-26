@@ -21,5 +21,13 @@
     }
     return self;
 }
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
+            @{
+              @"name":@"Name",
+              @"typeCode":@"Code",
+              @"groupCode":@"GroupCode"
+              
+              }];
+}
 @end

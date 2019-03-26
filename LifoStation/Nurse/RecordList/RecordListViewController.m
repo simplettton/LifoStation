@@ -8,19 +8,27 @@
 
 #import "RecordListViewController.h"
 #import "RecordReportViewController.h"
+#import "TaskModel.h"
 #import "RecordCell.h"
 #import "SelectDateView.h"
 //dropdata
 #import "GHDropMenu.h"
 #import "UIView+Extension.h"
 #import "NSArray+Bounds.h"
-@interface RecordListViewController ()<UITableViewDelegate,UITableViewDataSource,GHDropMenuDelegate>
+@interface RecordListViewController ()<UITableViewDelegate,UITableViewDataSource,GHDropMenuDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
-@implementation RecordListViewController
+@implementation RecordListViewController {
+    int page;
+    int totalPage;  //总页数
+    BOOL isRefreshing; //是否正在下拉刷新或者上拉加载
+    BOOL isFilteredList; //是否筛选
+    NSMutableDictionary *filterparam;//筛选关键字
+    NSMutableArray *datas;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,10 +38,25 @@
 
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.estimatedRowHeight = 56;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:tapGestureRecognizer];
     [self initTableHeaderAndFooter];
+    self.searchBar.delegate = self;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self hideKeyBoard];
+}
+- (void)hideKeyBoard {
+    
+    [self.view endEditing:YES];
+    [self.tableView endEditing:YES];
+    [self.searchBar resignFirstResponder];
 }
 #pragma mark - refresh
--(void)initTableHeaderAndFooter{
+-(void)initTableHeaderAndFooter {
     
     //下拉刷新
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
@@ -41,9 +64,7 @@
     header.stateLabel.textColor =UIColorFromHex(0xABABAB);
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-
-//    [self.tableView.mj_header beginRefreshing];
-    
+    [self refresh];
     //上拉加载
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
     [footer setTitle:@"" forState:MJRefreshStateIdle];
@@ -52,16 +73,180 @@
     self.tableView.mj_footer = footer;
 }
 - (void)refresh {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 结束刷新
+    [self.searchBar resignFirstResponder];
+    if ([self.searchBar.text length]>0) {
+        [self search:nil];
+    }else{
+        isFilteredList = NO;
+        [self refreshDataWithHeader:YES];
+    }
+}
+- (void)endRefresh {
+    if (page == 0) {
         [self.tableView.mj_header endRefreshing];
-    });
+    }
+    [self.tableView.mj_footer endRefreshing];
+}
+- (void)refreshDataWithHeader:(BOOL)isPullingDown {
+    NSMutableDictionary *mutableParams = [[NSMutableDictionary alloc]init];
+    if (isFilteredList) {
+        mutableParams = filterparam;
+    }
+    [mutableParams setObject:@3 forKey:@"State"];
+    
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/List?Action=Count")
+                                  params:mutableParams
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result intValue] == 1) {
+                                         NSNumber *count = responseObject.content;
+                                         totalPage = ([count intValue]+10-1)/10;
+                                         
+                                         if (totalPage <= 1) {
+                                             self.tableView.mj_footer.hidden = YES;
+                                         }else{
+                                             self.tableView.mj_footer.hidden = NO;
+                                         }
+                                         
+                                         if([count intValue] > 0)
+                                         {
+                                             self.tableView.tableHeaderView.hidden = NO;
+                                             [self getNetworkDataWithHeader:isPullingDown];
+                                             //                                             [self hideNodataView];
+                                         }else{
+                                             [datas removeAllObjects];
+                                             self.tableView.tableHeaderView.hidden = YES;
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [self.tableView reloadData];
+                                             });
+                                             if (isFilteredList) {
+                                                 [BEProgressHUD showMessage:@"没有找到该任务"];
+                                             }else{
+                                                 //                                                 [self showNodataViewWithTitle:@"暂无记录"];
+                                                 [BEProgressHUD showMessage:@"暂无记录"];
+                                             }
+                                             
+                                         }
+                                         
+                                     } else {
+                                         if(isFilteredList){
+                                             if ([self.searchBar.text length]>0) {
+                                                 self.searchBar.text = @"";
+                                             }
+                                         }
+                                     }
+                                     
+                                 } failure:nil];
+    
+}
+- (void)getNetworkDataWithHeader:(BOOL)isPullingDown {
+    if (isPullingDown) {
+        page = 0;
+    } else {
+        page ++;
+    }
+    NSDictionary *params = [[NSDictionary alloc]init];
+    if (isFilteredList) {
+        [filterparam setObject:[NSNumber numberWithInt:page] forKey:@"Page"];
+        params = (NSDictionary *)filterparam;
+    } else {
+        params = @{
+                   @"Page":[NSNumber numberWithInt:page],
+                   @"State":@3
+                   };
+    }
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/List?Action=List")
+                                  params:params
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     [self endRefresh];
+                                     isRefreshing = NO;
+                                     if (page == 0) {
+                                         [datas removeAllObjects];
+                                     }
+                                     
+                                     if (isRefreshing) {
+                                         if (page >= totalPage) {
+                                             [self endRefresh];
+                                         }
+                                         return;
+                                     }
+                                     isRefreshing = YES;
+                                     
+                                     if (page >= totalPage) {
+                                         [self endRefresh];
+                                         [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                                         return;
+                                     }
+                                     
+                                     if ([responseObject.result intValue] == 1) {
+                                         NSArray *content = responseObject.content;
+                                         
+                                         if (content) {
+                                             LxDBAnyVar(content);
+                                             for (NSDictionary *dic in content) {
+                                                 TaskModel *task = [[TaskModel alloc]initWithDictionary:dic error:nil];
+                                                 [datas addObject:task];
+                                                 NSInteger index = [datas indexOfObject:task];
+                                                 
+                                                 [self getParamList:task atIndex:index];
+                                             }
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 [self.tableView reloadData];
+                                             });
+                                         }
+                                     }
+                                     
+                                 } failure:nil];
+    
+}
+- (void)getParamList :(TaskModel *)task atIndex:(NSInteger)index {
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
+        if ([responseObject.result integerValue] == 1) {
+            NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainMode"]]}];
+            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
+            
+            NSArray *array = responseObject.content[@"LsEdit"];
+            if ([array count]>0) {
+                for (NSDictionary *dataDic in array) {
+                    [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+                }
+            }
+            task.solution.paramList = paramArray;
+            [datas replaceObjectAtIndex:index withObject:task];
+        }
+    } failure:nil];
+    
 }
 - (void)loadMore {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 结束刷新
         [self.tableView.mj_footer endRefreshing];
     });
+}
+#pragma mark - SearchBar delegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchBar.text.length == 0) {
+        [self refresh];
+    }
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [self search:nil];
+}
+- (IBAction)search:(id)sender {
+    if ([self.searchBar.text length] > 0) {
+        isFilteredList = YES;
+        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+        [paramDic setObject:self.searchBar.text forKey:@"Key"];
+        filterparam = paramDic;
+        [self refreshDataWithHeader:YES];
+    } else {
+        isFilteredList = NO;
+        [self.tableView.mj_header beginRefreshing];
+    }
+    
 }
 #pragma mark - tableview delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

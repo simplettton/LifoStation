@@ -19,6 +19,22 @@
 		04261E2321FAE0CE0043776D /* BodyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2221FAE0CE0043776D /* BodyImageView.m */; };
 		04261E2621FAE6050043776D /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */; };
 		04261E2921FAFB1A0043776D /* FocusMachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2821FAFB1A0043776D /* FocusMachineController.m */; };
+		042C744A224259CF00FCA114 /* 三角波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7441224259CF00FCA114 /* 三角波.gif */; };
+		042C744B224259CF00FCA114 /* 尖波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7442224259CF00FCA114 /* 尖波.gif */; };
+		042C744C224259CF00FCA114 /* 扇形波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7443224259CF00FCA114 /* 扇形波.gif */; };
+		042C744D224259CF00FCA114 /* 指数波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7444224259CF00FCA114 /* 指数波.gif */; };
+		042C744E224259CF00FCA114 /* 方波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7445224259CF00FCA114 /* 方波.gif */; };
+		042C744F224259CF00FCA114 /* 梯形波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7446224259CF00FCA114 /* 梯形波.gif */; };
+		042C7450224259CF00FCA114 /* 正弦波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7447224259CF00FCA114 /* 正弦波.gif */; };
+		042C7451224259CF00FCA114 /* 脉冲波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7448224259CF00FCA114 /* 脉冲波.gif */; };
+		042C7452224259CF00FCA114 /* 锯齿波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7449224259CF00FCA114 /* 锯齿波.gif */; };
+		042C745822425C3300FCA114 /* bguangzi.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745422425C3200FCA114 /* bguangzi.gif */; };
+		042C745922425C3300FCA114 /* dafuya.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745522425C3200FCA114 /* dafuya.gif */; };
+		042C745A22425C3300FCA114 /* gnhw.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745622425C3200FCA114 /* gnhw.gif */; };
+		042C745B22425C3300FCA114 /* rguangzi.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745722425C3200FCA114 /* rguangzi.gif */; };
+		042C745F224262C800FCA114 /* FourElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C745E224262C800FCA114 /* FourElectCell.xib */; };
+		042C74622242630C00FCA114 /* FourElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C74612242630C00FCA114 /* FourElectCell.m */; };
+		042C746422426AA800FCA114 /* shihua.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C746322426AA800FCA114 /* shihua.gif */; };
 		042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C9E6C21CC9A9E001A3246 /* SetNetWorkView.m */; };
 		042C9E6F21CC9A9E001A3246 /* SetNetWorkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C9E6D21CC9A9E001A3246 /* SetNetWorkView.xib */; };
 		04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04357DC721F2F1BF00A5B45C /* AirWaveSetParameterView.xib */; };
@@ -40,6 +56,7 @@
 		0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2621E4288200D0302C /* AddDepartmentView.m */; };
 		0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2921E472D800D0302C /* BaseViewController.m */; };
 		0469CC2E21E47DDB00D0302C /* RecordReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2D21E47DDB00D0302C /* RecordReportViewController.m */; };
+		046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CA20C2244E52C00F61509 /* DeviceItemCell.xib */; };
 		046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37621DEFC450067BCB0 /* MachineListViewController.m */; };
 		046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37921DF32850067BCB0 /* MachineCell.m */; };
 		046CD37D21DF43340067BCB0 /* EditMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37C21DF43340067BCB0 /* EditMachineViewController.m */; };
@@ -62,6 +79,15 @@
 		04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04709B2B21F07812000D4E12 /* BasicAirWaveCell.m */; };
 		0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472A04021ED75AD007D1252 /* SingleViewAirWaveCell.m */; };
 		0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */; };
+		0472F5FC2238B6A600DD2658 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5EF2238B47500DD2658 /* QRCodeReaderViewController.m */; };
+		0472F5FD2238B6C500DD2658 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5E32238B47500DD2658 /* QRCameraSwitchButton.m */; };
+		0472F5FE2238B6C500DD2658 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5E52238B47500DD2658 /* QRCodeReader.m */; };
+		0472F5FF2238B6C500DD2658 /* QRCodeReaderAanimationLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5E92238B47500DD2658 /* QRCodeReaderAanimationLineView.m */; };
+		0472F6002238B6C500DD2658 /* QRCodeReaderMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5EB2238B47500DD2658 /* QRCodeReaderMaskView.m */; };
+		0472F6012238B6C500DD2658 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F5ED2238B47500DD2658 /* QRCodeReaderView.m */; };
+		0472F6042238DF6F00DD2658 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F6032238DF6F00DD2658 /* NSArray+Log.m */; };
+		0472F6072238DF8300DD2658 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F6062238DF8300DD2658 /* NSDictionary+Log.m */; };
+		0472F60A2238E97E00DD2658 /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472F6092238E97E00DD2658 /* TaskModel.m */; };
 		0473473322029F4D00921205 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473473222029F4D00921205 /* UIView+Extension.m */; };
 		04736BA521E84BD1004D60D6 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04736BA421E84BD1004D60D6 /* UIImage+Rotate.m */; };
 		04736BA921E86A71004D60D6 /* JLImageMagnification.m in Sources */ = {isa = PBXBuildFile; fileRef = 04736BA821E86A70004D60D6 /* JLImageMagnification.m */; };
@@ -75,6 +101,8 @@
 		047494672231150100E8C8AA /* ProcessingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494662231150100E8C8AA /* ProcessingTaskViewController.m */; };
 		0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494692231151800E8C8AA /* FinishedTaskViewController.m */; };
 		047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047519D021D0E14D00A30B9E /* SettingsViewController.m */; };
+		047695752239E29A00FDC7DB /* MachineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047695742239E29A00FDC7DB /* MachineModel.m */; };
+		04769578223A03A800FDC7DB /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 04769577223A03A800FDC7DB /* Constant.m */; };
 		047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */; };
 		047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */; };
 		047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */; };
@@ -88,7 +116,12 @@
 		04829C3F21CBBBE200A42FC0 /* BEProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04829C3D21CBBBE200A42FC0 /* BEProgressHUD.m */; };
 		0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0484274821DDABD80071C177 /* EditDeviceView.xib */; };
 		0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484274B21DDABF50071C177 /* EditDeviceView.m */; };
+		048563D7223745D000708DF2 /* DepartmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048563D6223745D000708DF2 /* DepartmentModel.m */; };
+		048563DA22378EDE00708DF2 /* PatientModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048563D922378EDE00708DF2 /* PatientModel.m */; };
+		0485F8322240BA6D0026AFD1 /* ElectrotherapyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0485F8312240BA6D0026AFD1 /* ElectrotherapyView.xib */; };
+		0485F8352240BAF70026AFD1 /* ElectrotherapyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485F8342240BAF70026AFD1 /* ElectrotherapyView.m */; };
 		04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */; };
+		04934775223F33250017EA73 /* SolutionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04934774223F33250017EA73 /* SolutionModel.m */; };
 		049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534E921C8D14200C567D8 /* AppDelegate.m */; };
 		049534ED21C8D14200C567D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534EC21C8D14200C567D8 /* ViewController.m */; };
 		049534F021C8D14200C567D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049534EE21C8D14200C567D8 /* Main.storyboard */; };
@@ -97,7 +130,8 @@
 		049534F821C8D14600C567D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534F721C8D14600C567D8 /* main.m */; };
 		0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350121C8D14600C567D8 /* LifoStationTests.m */; };
 		0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350C21C8D14600C567D8 /* LifoStationUITests.m */; };
-		0495351B21C8D3DA00C567D8 /* body.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0495351A21C8D3D900C567D8 /* body.dae */; };
+		04980F4C2236541E00A69920 /* HttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04980F49223652A400A69920 /* HttpResponse.m */; };
+		04980F4D2236541E00A69920 /* NetWorkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04980F4B223652A400A69920 /* NetWorkTool.m */; };
 		04A86184223350E500475A01 /* EditTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04A86183223350E500475A01 /* EditTaskView.xib */; };
 		04A861872233543600475A01 /* EditTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861862233543600475A01 /* EditTaskView.m */; };
 		04A8618A223354C900475A01 /* EditTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A86189223354C900475A01 /* EditTaskCell.m */; };
@@ -168,6 +202,23 @@
 		04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
 		04261E2721FAFB1A0043776D /* FocusMachineController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FocusMachineController.h; sourceTree = "<group>"; };
 		04261E2821FAFB1A0043776D /* FocusMachineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FocusMachineController.m; sourceTree = "<group>"; };
+		042C7441224259CF00FCA114 /* 三角波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "三角波.gif"; sourceTree = "<group>"; };
+		042C7442224259CF00FCA114 /* 尖波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "尖波.gif"; sourceTree = "<group>"; };
+		042C7443224259CF00FCA114 /* 扇形波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "扇形波.gif"; sourceTree = "<group>"; };
+		042C7444224259CF00FCA114 /* 指数波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "指数波.gif"; sourceTree = "<group>"; };
+		042C7445224259CF00FCA114 /* 方波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "方波.gif"; sourceTree = "<group>"; };
+		042C7446224259CF00FCA114 /* 梯形波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "梯形波.gif"; sourceTree = "<group>"; };
+		042C7447224259CF00FCA114 /* 正弦波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "正弦波.gif"; sourceTree = "<group>"; };
+		042C7448224259CF00FCA114 /* 脉冲波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "脉冲波.gif"; sourceTree = "<group>"; };
+		042C7449224259CF00FCA114 /* 锯齿波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "锯齿波.gif"; sourceTree = "<group>"; };
+		042C745422425C3200FCA114 /* bguangzi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bguangzi.gif; sourceTree = "<group>"; };
+		042C745522425C3200FCA114 /* dafuya.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dafuya.gif; sourceTree = "<group>"; };
+		042C745622425C3200FCA114 /* gnhw.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gnhw.gif; sourceTree = "<group>"; };
+		042C745722425C3200FCA114 /* rguangzi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rguangzi.gif; sourceTree = "<group>"; };
+		042C745E224262C800FCA114 /* FourElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FourElectCell.xib; sourceTree = "<group>"; };
+		042C74602242630C00FCA114 /* FourElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourElectCell.h; sourceTree = "<group>"; };
+		042C74612242630C00FCA114 /* FourElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FourElectCell.m; sourceTree = "<group>"; };
+		042C746322426AA800FCA114 /* shihua.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shihua.gif; sourceTree = "<group>"; };
 		042C9E6B21CC9A9E001A3246 /* SetNetWorkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNetWorkView.h; sourceTree = "<group>"; };
 		042C9E6C21CC9A9E001A3246 /* SetNetWorkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNetWorkView.m; sourceTree = "<group>"; };
 		042C9E6D21CC9A9E001A3246 /* SetNetWorkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetNetWorkView.xib; sourceTree = "<group>"; };
@@ -204,6 +255,7 @@
 		0469CC2921E472D800D0302C /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		0469CC2C21E47DDB00D0302C /* RecordReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordReportViewController.h; sourceTree = "<group>"; };
 		0469CC2D21E47DDB00D0302C /* RecordReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordReportViewController.m; sourceTree = "<group>"; };
+		046CA20C2244E52C00F61509 /* DeviceItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceItemCell.xib; sourceTree = "<group>"; };
 		046CD37521DEFC450067BCB0 /* MachineListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineListViewController.h; sourceTree = "<group>"; };
 		046CD37621DEFC450067BCB0 /* MachineListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MachineListViewController.m; sourceTree = "<group>"; };
 		046CD37821DF32850067BCB0 /* MachineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
@@ -242,6 +294,35 @@
 		0472A03F21ED75AD007D1252 /* SingleViewAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleViewAirWaveCell.h; sourceTree = "<group>"; };
 		0472A04021ED75AD007D1252 /* SingleViewAirWaveCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleViewAirWaveCell.m; sourceTree = "<group>"; };
 		0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleViewAirWaveCell.xib; sourceTree = "<group>"; };
+		0472F5E22238B47500DD2658 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
+		0472F5E32238B47500DD2658 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
+		0472F5E42238B47500DD2658 /* QRCodeReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
+		0472F5E52238B47500DD2658 /* QRCodeReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeReader.m; sourceTree = "<group>"; };
+		0472F5E62238B47500DD2658 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderDelegate.h; sourceTree = "<group>"; };
+		0472F5E82238B47500DD2658 /* QRCodeReaderAanimationLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderAanimationLineView.h; sourceTree = "<group>"; };
+		0472F5E92238B47500DD2658 /* QRCodeReaderAanimationLineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderAanimationLineView.m; sourceTree = "<group>"; };
+		0472F5EA2238B47500DD2658 /* QRCodeReaderMaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderMaskView.h; sourceTree = "<group>"; };
+		0472F5EB2238B47500DD2658 /* QRCodeReaderMaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderMaskView.m; sourceTree = "<group>"; };
+		0472F5EC2238B47500DD2658 /* QRCodeReaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderView.h; sourceTree = "<group>"; };
+		0472F5ED2238B47500DD2658 /* QRCodeReaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderView.m; sourceTree = "<group>"; };
+		0472F5EE2238B47500DD2658 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderViewController.h; sourceTree = "<group>"; };
+		0472F5EF2238B47500DD2658 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderViewController.m; sourceTree = "<group>"; };
+		0472F5F12238B47500DD2658 /* QRCodeBottomLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeBottomLeft@2x.png"; sourceTree = "<group>"; };
+		0472F5F22238B47500DD2658 /* QRCodeBottomLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeBottomLeft@3x.png"; sourceTree = "<group>"; };
+		0472F5F32238B47500DD2658 /* QRCodeBottomRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeBottomRight@2x.png"; sourceTree = "<group>"; };
+		0472F5F42238B47500DD2658 /* QRCodeBottomRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeBottomRight@3x.png"; sourceTree = "<group>"; };
+		0472F5F52238B47500DD2658 /* QRCodeLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLine@2x.png"; sourceTree = "<group>"; };
+		0472F5F62238B47500DD2658 /* QRCodeLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLine@3x.png"; sourceTree = "<group>"; };
+		0472F5F72238B47500DD2658 /* QRCodeTopLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopLeft@2x.png"; sourceTree = "<group>"; };
+		0472F5F82238B47500DD2658 /* QRCodeTopLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopLeft@3x.png"; sourceTree = "<group>"; };
+		0472F5F92238B47500DD2658 /* QRCodeTopRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopRight@2x.png"; sourceTree = "<group>"; };
+		0472F5FA2238B47500DD2658 /* QRCodeTopRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopRight@3x.png"; sourceTree = "<group>"; };
+		0472F6022238DF6F00DD2658 /* NSArray+Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		0472F6032238DF6F00DD2658 /* NSArray+Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		0472F6052238DF8300DD2658 /* NSDictionary+Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
+		0472F6062238DF8300DD2658 /* NSDictionary+Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
+		0472F6082238E97E00DD2658 /* TaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskModel.h; sourceTree = "<group>"; };
+		0472F6092238E97E00DD2658 /* TaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskModel.m; sourceTree = "<group>"; };
 		0473473122029F4D00921205 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		0473473222029F4D00921205 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		04736BA321E84BD1004D60D6 /* UIImage+Rotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
@@ -266,6 +347,10 @@
 		047494692231151800E8C8AA /* FinishedTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinishedTaskViewController.m; sourceTree = "<group>"; };
 		047519CF21D0E14D00A30B9E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		047519D021D0E14D00A30B9E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		047695732239E29A00FDC7DB /* MachineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineModel.h; sourceTree = "<group>"; };
+		047695742239E29A00FDC7DB /* MachineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MachineModel.m; sourceTree = "<group>"; };
+		04769576223A03A800FDC7DB /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		04769577223A03A800FDC7DB /* Constant.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
 		047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourViewsAirWaveCell.h; sourceTree = "<group>"; };
 		047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FourViewsAirWaveCell.m; sourceTree = "<group>"; };
 		047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FourViewsAirWaveCell.xib; sourceTree = "<group>"; };
@@ -288,9 +373,18 @@
 		0484274821DDABD80071C177 /* EditDeviceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditDeviceView.xib; sourceTree = "<group>"; };
 		0484274A21DDABF50071C177 /* EditDeviceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditDeviceView.h; sourceTree = "<group>"; };
 		0484274B21DDABF50071C177 /* EditDeviceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditDeviceView.m; sourceTree = "<group>"; };
+		048563D5223745D000708DF2 /* DepartmentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepartmentModel.h; sourceTree = "<group>"; };
+		048563D6223745D000708DF2 /* DepartmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DepartmentModel.m; sourceTree = "<group>"; };
+		048563D822378EDE00708DF2 /* PatientModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatientModel.h; sourceTree = "<group>"; };
+		048563D922378EDE00708DF2 /* PatientModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatientModel.m; sourceTree = "<group>"; };
+		0485F8312240BA6D0026AFD1 /* ElectrotherapyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ElectrotherapyView.xib; sourceTree = "<group>"; };
+		0485F8332240BAF70026AFD1 /* ElectrotherapyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElectrotherapyView.h; sourceTree = "<group>"; };
+		0485F8342240BAF70026AFD1 /* ElectrotherapyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElectrotherapyView.m; sourceTree = "<group>"; };
 		04866CCB21C9DE2900855230 /* LifoStation.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifoStation.pch; sourceTree = "<group>"; };
 		04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibBorderColor.h"; sourceTree = "<group>"; };
 		04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibBorderColor.m"; sourceTree = "<group>"; };
+		04934773223F33250017EA73 /* SolutionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SolutionModel.h; sourceTree = "<group>"; };
+		04934774223F33250017EA73 /* SolutionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SolutionModel.m; sourceTree = "<group>"; };
 		049534E521C8D14200C567D8 /* LifoStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifoStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		049534E821C8D14200C567D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049534E921C8D14200C567D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -307,7 +401,10 @@
 		0495350821C8D14600C567D8 /* LifoStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifoStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0495350C21C8D14600C567D8 /* LifoStationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationUITests.m; sourceTree = "<group>"; };
 		0495350E21C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0495351A21C8D3D900C567D8 /* body.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = body.dae; sourceTree = "<group>"; };
+		04980F48223652A400A69920 /* HttpResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpResponse.h; sourceTree = "<group>"; };
+		04980F49223652A400A69920 /* HttpResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpResponse.m; sourceTree = "<group>"; };
+		04980F4A223652A400A69920 /* NetWorkTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkTool.h; sourceTree = "<group>"; };
+		04980F4B223652A400A69920 /* NetWorkTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetWorkTool.m; sourceTree = "<group>"; };
 		04A86183223350E500475A01 /* EditTaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTaskView.xib; sourceTree = "<group>"; };
 		04A861852233543600475A01 /* EditTaskView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTaskView.h; sourceTree = "<group>"; };
 		04A861862233543600475A01 /* EditTaskView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTaskView.m; sourceTree = "<group>"; };
@@ -406,10 +503,10 @@
 			path = SingleView;
 			sourceTree = "<group>";
 		};
-		0415323421EDE0EF00DDBD78 /* AirWave */ = {
+		0415323421EDE0EF00DDBD78 /* DeviceViews */ = {
 			isa = PBXGroup;
 			children = (
-				04357DC621F2CE4A00A5B45C /* BodyView */,
+				04357DC621F2CE4A00A5B45C /* MiddleViews */,
 				04709B2A21F07812000D4E12 /* BasicAirWaveCell.h */,
 				04709B2B21F07812000D4E12 /* BasicAirWaveCell.m */,
 				047D17B921F17AA300B498E6 /* NineViews */,
@@ -418,7 +515,7 @@
 				0415323321EDE0D600DDBD78 /* SingleView */,
 				04B0A0D921F808A000960A54 /* AirwaveSetParameterView */,
 			);
-			path = AirWave;
+			path = DeviceViews;
 			sourceTree = "<group>";
 		};
 		0415323521EDE10A00DDBD78 /* EditDeviceCell */ = {
@@ -447,6 +544,7 @@
 				046D215021D4B29700A0D5AE /* DeviceSelectView.xib */,
 				046D215221D4B47800A0D5AE /* DeviceSelectView.h */,
 				046D215321D4B47800A0D5AE /* DeviceSelectView.m */,
+				046CA20C2244E52C00F61509 /* DeviceItemCell.xib */,
 				046D215821D4C6E900A0D5AE /* DeviceItemCell.h */,
 				046D215921D4C6E900A0D5AE /* DeviceItemCell.m */,
 			);
@@ -468,6 +566,7 @@
 		0419232121D71E6900CE8F91 /* Third-party Framework */ = {
 			isa = PBXGroup;
 			children = (
+				0472F5E12238B47500DD2658 /* QRCodeReaderViewController */,
 				04B51D1621DCA28C00B9DF2D /* GHDropMenu */,
 			);
 			path = "Third-party Framework";
@@ -535,6 +634,34 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		042C7440224259CF00FCA114 /* wavegif */ = {
+			isa = PBXGroup;
+			children = (
+				042C7441224259CF00FCA114 /* 三角波.gif */,
+				042C7442224259CF00FCA114 /* 尖波.gif */,
+				042C7443224259CF00FCA114 /* 扇形波.gif */,
+				042C7444224259CF00FCA114 /* 指数波.gif */,
+				042C7445224259CF00FCA114 /* 方波.gif */,
+				042C7446224259CF00FCA114 /* 梯形波.gif */,
+				042C7447224259CF00FCA114 /* 正弦波.gif */,
+				042C7448224259CF00FCA114 /* 脉冲波.gif */,
+				042C7449224259CF00FCA114 /* 锯齿波.gif */,
+			);
+			path = wavegif;
+			sourceTree = "<group>";
+		};
+		042C745322425C3200FCA114 /* deviceGif */ = {
+			isa = PBXGroup;
+			children = (
+				042C746322426AA800FCA114 /* shihua.gif */,
+				042C745422425C3200FCA114 /* bguangzi.gif */,
+				042C745522425C3200FCA114 /* dafuya.gif */,
+				042C745622425C3200FCA114 /* gnhw.gif */,
+				042C745722425C3200FCA114 /* rguangzi.gif */,
+			);
+			path = deviceGif;
+			sourceTree = "<group>";
+		};
 		042C9E6A21CC9A9E001A3246 /* SetNetWorkView */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,7 +673,7 @@
 			path = ../../../SetNetWorkView;
 			sourceTree = "<group>";
 		};
-		04357DC621F2CE4A00A5B45C /* BodyView */ = {
+		04357DC621F2CE4A00A5B45C /* MiddleViews */ = {
 			isa = PBXGroup;
 			children = (
 				04736BAA21E883DD004D60D6 /* AirWaveView.xib */,
@@ -554,8 +681,11 @@
 				04709B2321F02D9B000D4E12 /* AirWaveView.m */,
 				04261E2121FAE0CE0043776D /* BodyImageView.h */,
 				04261E2221FAE0CE0043776D /* BodyImageView.m */,
+				0485F8312240BA6D0026AFD1 /* ElectrotherapyView.xib */,
+				0485F8332240BAF70026AFD1 /* ElectrotherapyView.h */,
+				0485F8342240BAF70026AFD1 /* ElectrotherapyView.m */,
 			);
-			path = BodyView;
+			path = MiddleViews;
 			sourceTree = "<group>";
 		};
 		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
@@ -566,7 +696,7 @@
 				0415323221EDE0BA00DDBD78 /* AlertView */,
 				047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */,
 				04261E2A21FAFB2E0043776D /* Controller */,
-				0415323421EDE0EF00DDBD78 /* AirWave */,
+				0415323421EDE0EF00DDBD78 /* DeviceViews */,
 				0468160422014D0B004F9FBB /* devices.txt */,
 			);
 			path = Monitor;
@@ -576,14 +706,12 @@
 			isa = PBXGroup;
 			children = (
 				048852A3222FB4EB005283B0 /* video */,
-				0465248321E7444400362D08 /* Model */,
 				0465248721E74D9900362D08 /* TimeLineView */,
 				0445C7DF21E5D8AF00F35353 /* Monitor */,
 				0484275021DDDCA40071C177 /* RecordList */,
 				0419233321D75CDC00CE8F91 /* DeviceList */,
 				04236CC921D360F900C848C9 /* Task */,
 				0480064721D1D700004F7C73 /* PatientList */,
-				0495351C21C8D3DF00C567D8 /* 3D */,
 			);
 			path = Nurse;
 			sourceTree = "<group>";
@@ -595,6 +723,16 @@
 				04B3976521E303FC00C9C5F5 /* MachineTypeModel.m */,
 				0465248421E746AE00362D08 /* TimeLineModel.h */,
 				0465248521E746AE00362D08 /* TimeLineModel.m */,
+				048563D5223745D000708DF2 /* DepartmentModel.h */,
+				048563D6223745D000708DF2 /* DepartmentModel.m */,
+				048563D822378EDE00708DF2 /* PatientModel.h */,
+				048563D922378EDE00708DF2 /* PatientModel.m */,
+				0472F6082238E97E00DD2658 /* TaskModel.h */,
+				0472F6092238E97E00DD2658 /* TaskModel.m */,
+				04934773223F33250017EA73 /* SolutionModel.h */,
+				04934774223F33250017EA73 /* SolutionModel.m */,
+				047695732239E29A00FDC7DB /* MachineModel.h */,
+				047695742239E29A00FDC7DB /* MachineModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -650,6 +788,52 @@
 			path = "Device Filter View";
 			sourceTree = "<group>";
 		};
+		0472F5E12238B47500DD2658 /* QRCodeReaderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0472F5E22238B47500DD2658 /* QRCameraSwitchButton.h */,
+				0472F5E32238B47500DD2658 /* QRCameraSwitchButton.m */,
+				0472F5E42238B47500DD2658 /* QRCodeReader.h */,
+				0472F5E52238B47500DD2658 /* QRCodeReader.m */,
+				0472F5E62238B47500DD2658 /* QRCodeReaderDelegate.h */,
+				0472F5E72238B47500DD2658 /* QRCodeReaderView */,
+				0472F5EE2238B47500DD2658 /* QRCodeReaderViewController.h */,
+				0472F5EF2238B47500DD2658 /* QRCodeReaderViewController.m */,
+				0472F5F02238B47500DD2658 /* Resources */,
+			);
+			path = QRCodeReaderViewController;
+			sourceTree = "<group>";
+		};
+		0472F5E72238B47500DD2658 /* QRCodeReaderView */ = {
+			isa = PBXGroup;
+			children = (
+				0472F5E82238B47500DD2658 /* QRCodeReaderAanimationLineView.h */,
+				0472F5E92238B47500DD2658 /* QRCodeReaderAanimationLineView.m */,
+				0472F5EA2238B47500DD2658 /* QRCodeReaderMaskView.h */,
+				0472F5EB2238B47500DD2658 /* QRCodeReaderMaskView.m */,
+				0472F5EC2238B47500DD2658 /* QRCodeReaderView.h */,
+				0472F5ED2238B47500DD2658 /* QRCodeReaderView.m */,
+			);
+			path = QRCodeReaderView;
+			sourceTree = "<group>";
+		};
+		0472F5F02238B47500DD2658 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0472F5F12238B47500DD2658 /* QRCodeBottomLeft@2x.png */,
+				0472F5F22238B47500DD2658 /* QRCodeBottomLeft@3x.png */,
+				0472F5F32238B47500DD2658 /* QRCodeBottomRight@2x.png */,
+				0472F5F42238B47500DD2658 /* QRCodeBottomRight@3x.png */,
+				0472F5F52238B47500DD2658 /* QRCodeLine@2x.png */,
+				0472F5F62238B47500DD2658 /* QRCodeLine@3x.png */,
+				0472F5F72238B47500DD2658 /* QRCodeTopLeft@2x.png */,
+				0472F5F82238B47500DD2658 /* QRCodeTopLeft@3x.png */,
+				0472F5F92238B47500DD2658 /* QRCodeTopRight@2x.png */,
+				0472F5FA2238B47500DD2658 /* QRCodeTopRight@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		04736BA621E84BDA004D60D6 /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +851,10 @@
 				0473473222029F4D00921205 /* UIView+Extension.m */,
 				04A861A42233B3E600475A01 /* NSDate+BRAdd.h */,
 				04A861A52233B3E700475A01 /* NSDate+BRAdd.m */,
+				0472F6022238DF6F00DD2658 /* NSArray+Log.h */,
+				0472F6032238DF6F00DD2658 /* NSArray+Log.m */,
+				0472F6052238DF8300DD2658 /* NSDictionary+Log.h */,
+				0472F6062238DF8300DD2658 /* NSDictionary+Log.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -695,6 +883,9 @@
 				047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */,
 				047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */,
 				047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */,
+				042C745E224262C800FCA114 /* FourElectCell.xib */,
+				042C74602242630C00FCA114 /* FourElectCell.h */,
+				042C74612242630C00FCA114 /* FourElectCell.m */,
 			);
 			path = FourViews;
 			sourceTree = "<group>";
@@ -768,6 +959,10 @@
 		04866CC921C9DBAC00855230 /* Supporting File */ = {
 			isa = PBXGroup;
 			children = (
+				042C745322425C3200FCA114 /* deviceGif */,
+				042C7440224259CF00FCA114 /* wavegif */,
+				04736BA621E84BDA004D60D6 /* Catagory */,
+				04980F47223652A400A69920 /* NetworkHelper */,
 				049534E821C8D14200C567D8 /* AppDelegate.h */,
 				049534E921C8D14200C567D8 /* AppDelegate.m */,
 				049534EE21C8D14200C567D8 /* Main.storyboard */,
@@ -776,7 +971,8 @@
 				049534F621C8D14600C567D8 /* Info.plist */,
 				049534F721C8D14600C567D8 /* main.m */,
 				04866CCB21C9DE2900855230 /* LifoStation.pch */,
-				04736BA621E84BDA004D60D6 /* Catagory */,
+				04769576223A03A800FDC7DB /* Constant.h */,
+				04769577223A03A800FDC7DB /* Constant.m */,
 				04829C3E21CBBBE200A42FC0 /* BEProgressHUD.h */,
 				04829C3D21CBBBE200A42FC0 /* BEProgressHUD.m */,
 			);
@@ -817,6 +1013,7 @@
 		049534E721C8D14200C567D8 /* LifoStation */ = {
 			isa = PBXGroup;
 			children = (
+				0465248321E7444400362D08 /* Model */,
 				0445C7E021E5D8E900F35353 /* Nurse */,
 				046CD37421DEFA180067BCB0 /* Agent */,
 				0419232121D71E6900CE8F91 /* Third-party Framework */,
@@ -850,12 +1047,15 @@
 			path = LifoStationUITests;
 			sourceTree = "<group>";
 		};
-		0495351C21C8D3DF00C567D8 /* 3D */ = {
+		04980F47223652A400A69920 /* NetworkHelper */ = {
 			isa = PBXGroup;
 			children = (
-				0495351A21C8D3D900C567D8 /* body.dae */,
+				04980F48223652A400A69920 /* HttpResponse.h */,
+				04980F49223652A400A69920 /* HttpResponse.m */,
+				04980F4A223652A400A69920 /* NetWorkTool.h */,
+				04980F4B223652A400A69920 /* NetWorkTool.m */,
 			);
-			path = 3D;
+			path = NetworkHelper;
 			sourceTree = "<group>";
 		};
 		04A8618B223358B800475A01 /* EditTaskView */ = {
@@ -1096,31 +1296,47 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042C745A22425C3300FCA114 /* gnhw.gif in Resources */,
+				042C744D224259CF00FCA114 /* 指数波.gif in Resources */,
 				0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */,
 				04709B2921F03255000D4E12 /* TwoViewsAirWaveCell.xib in Resources */,
 				046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */,
 				046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */,
 				047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */,
 				04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */,
+				042C744F224259CF00FCA114 /* 梯形波.gif in Resources */,
+				042C7450224259CF00FCA114 /* 正弦波.gif in Resources */,
+				0485F8322240BA6D0026AFD1 /* ElectrotherapyView.xib in Resources */,
 				042C9E6F21CC9A9E001A3246 /* SetNetWorkView.xib in Resources */,
+				042C744C224259CF00FCA114 /* 扇形波.gif in Resources */,
+				042C744A224259CF00FCA114 /* 三角波.gif in Resources */,
+				042C745F224262C800FCA114 /* FourElectCell.xib in Resources */,
+				042C744B224259CF00FCA114 /* 尖波.gif in Resources */,
 				0415322E21EDDD4500DDBD78 /* AlertView.xib in Resources */,
 				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
 				0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */,
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
+				046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */,
+				042C745822425C3300FCA114 /* bguangzi.gif in Resources */,
 				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
 				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
+				042C7452224259CF00FCA114 /* 锯齿波.gif in Resources */,
+				042C7451224259CF00FCA114 /* 脉冲波.gif in Resources */,
 				04A86184223350E500475A01 /* EditTaskView.xib in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
+				042C744E224259CF00FCA114 /* 方波.gif in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
 				04A8619C22336DE800475A01 /* AddLocationView.xib in Resources */,
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
-				0495351B21C8D3DA00C567D8 /* body.dae in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
+				042C745922425C3300FCA114 /* dafuya.gif in Resources */,
 				0468160522014D0B004F9FBB /* devices.txt in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
+				042C745B22425C3300FCA114 /* rguangzi.gif in Resources */,
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
+				042C746422426AA800FCA114 /* shihua.gif in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
 				04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */,
@@ -1198,13 +1414,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04934775223F33250017EA73 /* SolutionModel.m in Sources */,
+				0472F5FD2238B6C500DD2658 /* QRCameraSwitchButton.m in Sources */,
+				0472F5FE2238B6C500DD2658 /* QRCodeReader.m in Sources */,
+				0472F5FF2238B6C500DD2658 /* QRCodeReaderAanimationLineView.m in Sources */,
+				0485F8352240BAF70026AFD1 /* ElectrotherapyView.m in Sources */,
+				0472F6002238B6C500DD2658 /* QRCodeReaderMaskView.m in Sources */,
+				04769578223A03A800FDC7DB /* Constant.m in Sources */,
+				0472F6012238B6C500DD2658 /* QRCodeReaderView.m in Sources */,
+				0472F5FC2238B6A600DD2658 /* QRCodeReaderViewController.m in Sources */,
+				04980F4C2236541E00A69920 /* HttpResponse.m in Sources */,
+				04980F4D2236541E00A69920 /* NetWorkTool.m in Sources */,
 				04DFF16A21D07C4C009EA938 /* UIView+Tap.m in Sources */,
 				04709B2121F0251F000D4E12 /* UIView+AdaptScreen.m in Sources */,
 				04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */,
+				047695752239E29A00FDC7DB /* MachineModel.m in Sources */,
 				0419847121DDF1CD00C1713E /* RecordCell.m in Sources */,
 				047078902226440600A0C9F7 /* PopoverTreatwayController.m in Sources */,
 				0480064621D1D6FA004F7C73 /* PatientListViewController.m in Sources */,
 				047D17BC21F1B08400B498E6 /* PatientInfoPopupView.m in Sources */,
+				048563D7223745D000708DF2 /* DepartmentModel.m in Sources */,
 				04736BA921E86A71004D60D6 /* JLImageMagnification.m in Sources */,
 				0474945E2230CC9A00E8C8AA /* AlertSettingViewController.m in Sources */,
 				0465248F21E74D9900362D08 /* BETimeLine.m in Sources */,
@@ -1232,6 +1461,7 @@
 				0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */,
 				0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */,
 				0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */,
+				0472F6042238DF6F00DD2658 /* NSArray+Log.m in Sources */,
 				0415323121EDE0A300DDBD78 /* AlertView.m in Sources */,
 				04A8619F22336E5C00475A01 /* AddLocationView.m in Sources */,
 				04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */,
@@ -1250,16 +1480,20 @@
 				046CD38521DF635C0067BCB0 /* ChooseDepartmentView.m in Sources */,
 				0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */,
 				04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */,
+				048563DA22378EDE00708DF2 /* PatientModel.m in Sources */,
 				0422F0DC221D5F4E00673649 /* videoViewController.m in Sources */,
 				04B51D2221DCA28C00B9DF2D /* NSString+Size.m in Sources */,
+				0472F60A2238E97E00DD2658 /* TaskModel.m in Sources */,
 				0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */,
 				0465248221E6F1E800362D08 /* ReportTableViewController.m in Sources */,
 				04A861982233607F00475A01 /* AddAdviceView.m in Sources */,
 				04B51D2821DCC6E300B9DF2D /* LanguageCell.m in Sources */,
 				042C9E6E21CC9A9E001A3246 /* SetNetWorkView.m in Sources */,
+				042C74622242630C00FCA114 /* FourElectCell.m in Sources */,
 				0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */,
 				04B51D2021DCA28C00B9DF2D /* GHDropMenu.m in Sources */,
 				046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */,
+				0472F6072238DF8300DD2658 /* NSDictionary+Log.m in Sources */,
 				0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */,
 				04B51D2321DCA28C00B9DF2D /* UIView+Extension.m in Sources */,
 				0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */,
@@ -1395,6 +1629,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1449,6 +1684,7 @@
 				INFOPLIST_FILE = "LifoStation/Supporting File/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1459,6 +1695,7 @@
 			baseConfigurationReference = 29226F6FD01739BC7DD35649 /* Pods-LifoStation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A457Z9M6ER;
 				INFOPLIST_FILE = "LifoStation/Supporting File/Info.plist";
@@ -1478,6 +1715,7 @@
 			baseConfigurationReference = A80B35B517B6DA1B9AA74872 /* Pods-LifoStation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A457Z9M6ER;
 				INFOPLIST_FILE = "LifoStation/Supporting File/Info.plist";

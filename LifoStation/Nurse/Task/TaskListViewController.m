@@ -155,7 +155,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *dataDic = @{@"name":@"xiaoming",@"gender":@"男",@"department":@"外科"};
-    TaskDetailView *view = [[TaskDetailView alloc]initWithDic:dataDic];
+//    TaskDetailView *view = [[TaskDetailView alloc]initWithDic:dataDic];
+    TaskModel *task = datas[indexPath.row];
+    TaskDetailView *view = [[TaskDetailView alloc]initWithModel:task];
     [view showInWindow];
     
 }

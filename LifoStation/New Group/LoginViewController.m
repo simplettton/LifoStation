@@ -7,8 +7,14 @@
 //
 
 #import "LoginViewController.h"
+#import "MachineTypeModel.h"
+//md5加密头文件
+#import<CommonCrypto/CommonDigest.h>
 #import "SetNetWorkView.h"
 #import "AppDelegate.h"
+#define NurseLicense 1
+#define AdminLicense 8
+#define DoctorAndNurseLicense 3
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIView *userView;
 @property (weak, nonatomic) IBOutlet UIView *passwordView;
@@ -38,45 +44,111 @@
     
     [self hideKeyBoard];
 }
--(void)hideKeyBoard {
+- (void)hideKeyBoard {
     [self.view endEditing:YES];
 }
 #pragma mark - login
 - (IBAction)login:(id)sender {
     
     if (self.userNameTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"用户名或密码不能为空"];
+        [BEProgressHUD showMessage:@"用户名或密码不能为空"];
         return;
-    }else if(self.passwordTextField.text.length <6){
-        [SVProgressHUD showErrorWithStatus:@"密码不小于6位"];
+    } else if (self.passwordTextField.text.length <6) {
+        [BEProgressHUD showMessage:@"密码不小于6位"];
         return;
     }
     [self showLoginIndicator];
     [self loginCheck];
 }
--(void)showLoginIndicator {
+- (void)showLoginIndicator {
     [BEProgressHUD showLoading:@"正在登录中..."];
 }
--(void)loginCheck {
+- (void)loginCheck {
     [self hideKeyBoard];
     [UserDefault setBool:[self.remenberNameSwitch isOn] forKey:@"HasRememberName"];
     [UserDefault synchronize];
+    
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     __block UINavigationController *controller;
-    NSString *role;
-    if ([self.userNameTextField.text isEqualToString:@"nurse"]) {
-        role = @"Nurse";
-        controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];
-    } else {
-        role = @"Agent";
-        controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"AgentNavigation"];
-    }
-    if (controller) {
-        //登录成功保存token role
-        [UserDefault setBool:YES forKey:@"IsLogined"];
-        [UserDefault setObject:role forKey:@"Role"];
-        [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
-    }
+    NSString *userName = self.userNameTextField.text;
+    NSString *pwd = self.passwordTextField.text;
+    __block NSString *roleString = [[NSString alloc]init];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/UserController/Login")
+                                      params:@{
+                                                 @"UserName":userName,
+                                                 @"Pwd":[self md5:pwd]
+                                             }
+                                    hasToken:NO
+                                     success:^(HttpResponse *responseObject) {
+                                         if ([responseObject.result intValue] == 1) {
+                                             NSDictionary *content = responseObject.content;
+                                             [self getMachineTypeList];
+                                             LxDBAnyVar(content);
+
+                                             NSInteger license = [[responseObject.content objectForKey:@"License"]integerValue];
+
+
+                                             if (license == NurseLicense || license == DoctorAndNurseLicense) {
+                                                 roleString = @"Nurse";
+                                                 controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];
+                                             } else if(license == AdminLicense) {
+                                                 roleString = @"Agent";
+                                                 controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"AgentNavigation"];
+                                             } else {
+                                                 [BEProgressHUD showMessage:@"该账号权限无法登陆系统"];
+                                             }
+                                             NSString *token = [responseObject.content objectForKey:@"Token"];
+                                             NSString *department = [responseObject.content objectForKey:@"Department"];
+                                             NSString *personName = [responseObject.content objectForKey:@"PersonName"];
+                                             NSString *hospital = [responseObject.content objectForKey:@"Hospital"];
+                                             
+                                             [UserDefault setObject:hospital forKey:@"Hospital"];
+                                             [UserDefault setObject:token forKey:@"Token"];
+                                             [UserDefault setObject:personName forKey:@"PersonName"];
+                                             [UserDefault setObject:department forKey:@"Department"];
+                                             [UserDefault synchronize];
+                                             if (controller) {
+                                                 //登录成功保存token role
+                                                 [UserDefault setBool:YES forKey:@"IsLogined"];
+                                                 [UserDefault setObject:roleString forKey:@"Role"];
+                                                 [UserDefault setObject:token forKey:@"Token"];
+                                                 [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
+                                             }
+                                         }
+                                     }
+                                     failure:^(NSError *error) {
+                                         [BEProgressHUD hideHUD];
+                                     }];
+
+    });
+
+}
+- (void)getMachineTypeList {
+    NSMutableArray *typeList = [[NSMutableArray alloc]init];
+    NSMutableDictionary *typeDic = [[NSMutableDictionary alloc]init];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/MachineController/GetSupportMachineList")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result integerValue] == 1) {
+                                         if ([responseObject.content count]>0) {
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 MachineTypeModel *machine = [[MachineTypeModel alloc]initWithDictionary:dic error:nil];
+                                                 [typeDic setObject:machine.name forKey:machine.typeCode];
+                                                 [typeList addObject:machine];
+                                                 
+                                             }
+                                             [Constant sharedInstance].machineTypeList = typeList;
+                                             [Constant sharedInstance].machineTypeDic = typeDic;
+                                             NSDictionary *type = [typeDic copy];
+                                             [UserDefault setObject:type forKey:@"MachineTypeDic"];
+                                             [UserDefault synchronize];
+                                             LxDBAnyVar(type);
+                                         }
+                                     }
+                                 }
+                                 failure:nil];
 }
 - (void)initRootViewController:(UINavigationController *)controller {
 
@@ -108,7 +180,23 @@
 }
 
 #pragma mark - Private method
-
+- (NSString *) md5:(NSString *) input {
+    
+    const char *cStr = [input UTF8String];
+    
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        
+        [output appendFormat:@"%02x", digest[i]];
+    LxDBAnyVar(output);
+    return  output;
+    
+}
 - (void)setBorderWithView:(UIView *)view top:(BOOL)top left:(BOOL)left bottom:(BOOL)bottom right:(BOOL)right borderColor:(UIColor *)color borderWidth:(CGFloat)width {
     if (top) {
         CALayer *layer = [CALayer layer];
