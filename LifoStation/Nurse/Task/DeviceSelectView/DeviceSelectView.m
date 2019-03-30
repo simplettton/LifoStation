@@ -370,7 +370,7 @@
                                     
                                 } failure:nil];
 }
-- (NSString *)changeSecondToTimeString:(NSNumber *)second {
+- (NSString *)changeSecondToTimeString:(NSString *)second {
     
     NSInteger minute = [second integerValue]/60;
 

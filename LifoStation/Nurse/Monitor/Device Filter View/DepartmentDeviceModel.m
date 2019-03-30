@@ -9,5 +9,11 @@
 #import "DepartmentDeviceModel.h"
 
 @implementation DepartmentDeviceModel
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:@{
+                                                                 @"department":@"Department",
+                                                                 @"departmentId":@"DepartmentId",
+                                                                 @"devices":@"Group"
+                                                                 }];
+}
 @end

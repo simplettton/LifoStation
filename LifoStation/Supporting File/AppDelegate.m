@@ -41,7 +41,7 @@
     NSDictionary *defaultNetworkConfiguration = @{
                                                   @"HTTPServerIP":@"192.168.2.127",
                                                   @"HTTPServerPort":@"80",
-                                                  @"MQTTPort":@"18826"
+                                                  @"MQTTPort":@"2921"
                                                   };
     
     if (![UserDefault objectForKey:@"HTTPServerIP"]) {

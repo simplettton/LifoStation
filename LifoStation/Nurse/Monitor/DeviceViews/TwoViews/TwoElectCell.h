@@ -1,15 +1,15 @@
 //
-//  FourElectCell.h
+//  TwoElectCell.h
 //  LifoStation
 //
-//  Created by Binger Zeng on 2019/3/20.
+//  Created by Binger Zeng on 2019/3/28.
 //  Copyright © 2019年 Shenzhen Lifotronic Technology Co.,Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImage.h"
 #import "MachineModel.h"
-@interface FourElectCell : UICollectionViewCell
+@interface TwoElectCell : UICollectionViewCell
 @property (nonatomic, assign) CellStyle style;
 //1 左上
 @property (weak, nonatomic) IBOutlet UIView *patientView;

@@ -21,6 +21,8 @@
 @interface WaitingTaskViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) BaseSearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
+
 @end
 
 @implementation WaitingTaskViewController
@@ -124,20 +126,14 @@
                                          {
                                              self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
-                                             //                                             [self hideNodataView];
+                                             self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
                                              self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
-                                             if (isFilteredList) {
-                                                 [BEProgressHUD showMessage:@"没有找到该任务"];
-                                             }
-//                                             else{
-//                                                 //                                                 [self showNodataViewWithTitle:@"暂无记录"];
-//                                                 [BEProgressHUD showMessage:@"暂无记录"];
-//                                             }
+                                             self.noDataView.hidden = NO;
                                              
                                          }
                                          
@@ -219,7 +215,7 @@
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
         if ([responseObject.result integerValue] == 1) {
             NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainMode"]]}];
+            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
             [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
             
             NSArray *array = responseObject.content[@"LsEdit"];
@@ -285,7 +281,14 @@
         cell.locationLabel.hidden = NO;
         [cell.locationLabel addTapBlock:^(id obj) {
             AddLocationView *view = [[AddLocationView alloc]initWithDic:@{@"name":task.patient.treatAddress} return:^(NSString *name) {
-//                [NetWorkTool shra]
+                [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/PatientController/Update")
+                                              params:@{@"PatientId":task.patient.uuid,@"TreatAddress":name}
+                                            hasToken:YES
+                                             success:^(HttpResponse *responseObject) {
+                                                 task.patient.treatAddress = name;
+                                                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                             }
+                                             failure:nil];
             }];
             view.titleLabel.text = @"编辑位置";
             [view showInWindowWithBackgoundTapDismissEnable:YES];
@@ -295,7 +298,14 @@
         cell.locationLabel.hidden = YES;
         [cell.locationImageView addTapBlock:^(id obj) {
             AddLocationView *view = [[AddLocationView alloc]initWithDic:nil return:^(NSString *name) {
-                LxDBAnyVar(name);
+                [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/PatientController/Update")
+                                              params:@{@"PatientId":task.patient.uuid,@"TreatAddress":name}
+                                            hasToken:YES
+                                             success:^(HttpResponse *responseObject) {
+                                                 task.patient.treatAddress = name;
+                                                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                             }
+                                             failure:nil];
             }];
             
             view.titleLabel.text = @"添加位置";

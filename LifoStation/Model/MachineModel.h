@@ -31,8 +31,8 @@ typedef NS_ENUM(NSInteger,machineState) {
 @property (nonatomic, strong) PatientModel<Optional> *patient;
 
 //消息订阅模型
-@property (nonatomic, strong) NSDictionary<Optional> *msg_treatParameter;
-@property (nonatomic, strong) NSDictionary<Optional> *msg_realTimeData;
+@property (nonatomic, strong) NSArray<Optional> *msg_treatParameter;
+@property (nonatomic, strong) NSArray<Optional> *msg_realTimeData;
 
 @property (nonatomic, strong) NSString<Optional> *msg_alertMessage;
 

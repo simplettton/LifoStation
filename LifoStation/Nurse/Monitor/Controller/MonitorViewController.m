@@ -7,14 +7,18 @@
 //
 
 #import "MonitorViewController.h"
-
+#import "FocusMachineController.h"
 #import "DeviceFilterView.h"
 
 #import "SingleViewAirWaveCell.h"
+#import "SingleElectCell.h"
 #import "TwoViewsAirWaveCell.h"
+#import "TwoElectCell.h"
 #import "FourViewsAirWaveCell.h"
 #import "FourElectCell.h"
 #import "NineViewsAirWaveCell.h"
+#import "NineElectCell.h"
+
 
 #import "PatientInfoPopupView.h"
 #import "AirWaveSetParameterView.h"
@@ -31,7 +35,7 @@
 #define USER_NAME @"admin"
 #define PASSWORD @"pwd321"
 #define MQTTIP @"HTTPServerIP"
-#define MQTTPORT @"MQTTPORT"
+#define MQTTPORT @"MQTTPort"
 @interface MonitorViewController ()<MQTTSessionManagerDelegate, MQTTSessionDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,7 +52,10 @@
 /** GPRS */
 @property (strong, nonatomic) MQTTSessionManager *manager;
 @property (strong, nonatomic) NSMutableDictionary *subscriptions;
-@property (nonatomic, strong) NSArray *selectedDevices;
+@property (nonatomic, strong) NSArray *selectedDepartment;
+
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
+
 @end
 
 @implementation MonitorViewController
@@ -59,6 +66,7 @@
     BOOL isFilteredList; //是否筛选
     NSMutableDictionary *filterparam;//筛选关键字
     NSMutableArray *datas;
+    NSMutableArray *alertArray;
     NSMutableArray *cpuids;
 }
 
@@ -72,6 +80,8 @@
     
     datas = [[NSMutableArray alloc]init];
     cpuids = [[NSMutableArray alloc]init];
+    alertArray = [[NSMutableArray alloc]init];
+    filterparam = [[NSMutableDictionary alloc]init];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
@@ -89,13 +99,16 @@
 
     /** 注册新定义cell */
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleViewAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleViewAirWaveCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleElectCell"];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TwoViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"TwoViewsAirWaveCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([TwoElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"TwoElectCell"];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([FourViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"FourViewsAirWaveCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([FourElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"FourElectCell"];
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineViewsAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineViewsAirWaveCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([NineElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"NineElectCell"];
     
     self.showViewType = FourViewsType;
     [self changeShowViewType:[self.typeSwitchView viewWithTag:FourViewsType]];
@@ -105,9 +118,7 @@
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
-    /** 设备添加 longpress 添加手势 可以关注设备 */
-//    _longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(lonePressMoving:)];
-//    [self.collectionView addGestureRecognizer:_longPress];
+    [self connectMQTT];
     
     /** 下拉刷新控件 */
     [self initTableHeaderAndFooter];
@@ -141,16 +152,19 @@
 #pragma mark - MQTT
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"state"]) {
-        LxDBAnyVar(self.manager.state);
+
         switch (self.manager.state) {
             case MQTTSessionManagerStateClosed:
-
+                LxDBAnyVar(@"closed");
                 break;
             case MQTTSessionManagerStateClosing:
+
                 break;
             case MQTTSessionManagerStateConnecting:
+                LxDBAnyVar(@"connecting");
                 break;
             case MQTTSessionManagerStateConnected:
+                LxDBAnyVar(@"connected");
                 
                 break;
             default:
@@ -163,17 +177,18 @@
         self.manager = [[MQTTSessionManager alloc]init];
         self.manager.delegate = self;
         NSString *ip = [UserDefault objectForKey:MQTTIP];
-        //21613
+        //2921
         NSString *port = [UserDefault objectForKey:MQTTPORT];
+        NSInteger portInterger = [port integerValue];
         //连接服务器
         [self.manager connectTo:ip
-                           port:[port integerValue]
+                           port:portInterger
                             tls:false
                       keepalive:60
                           clean:true
                            auth:true
                            user:@"admin"
-                           pass:@"pwd321"
+                           pass:@"lifotronic.com"
                            will:nil
                       willTopic:nil
                         willMsg:nil
@@ -185,36 +200,40 @@
                   protocolLevel:MQTTProtocolVersion31
                  connectHandler:nil];
         
+        [Constant sharedInstance].manager = self.manager;
     } else {
         [self.manager disconnectWithDisconnectHandler:nil];
         [self.manager connectToLast:^(NSError *error) {
             LxDBAnyVar(error);
         }];
+        [Constant sharedInstance].manager = self.manager;
         //订阅主题 controller即将出现的时候订阅
         [self.subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:@"warning/#"];
         self.manager.subscriptions = [self.subscriptions copy];
         
         //若没有订阅设备则订阅设备
 
-        if (datas != nil) {
+        if ([datas count] > 0) {
             for (MachineModel *machine in datas) {
-                [self subcribe:machine.cpuid];
+                [self subcribeMachine:machine];
             }
         }
     }
 }
-- (void)subcribe:(NSString *)cpuid {
-    NSString *newTopic = [NSString stringWithFormat:@"device/%@",cpuid];
-    if (![self.manager.subscriptions.allKeys containsObject:newTopic]){
-        [self.subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:newTopic];
-        self.manager.subscriptions = [self.subscriptions copy];
-    }
+
+- (void)disconnectMQTT {
+    [self.subscriptions removeAllObjects];
+    self.manager.subscriptions = nil;
+    [self.manager disconnectWithDisconnectHandler:nil];
 }
+
 - (void)subcribeMachine:(MachineModel *)machine {
     NSArray *topicArray = @[@"device",machine.type,machine.cpuid];
     NSString *topic = [topicArray componentsJoinedByString:@"/"];
+
     if (![self.manager.subscriptions.allKeys containsObject:topic]) {
         [self.subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:topic];
+        LxDBAnyVar(topic);
         self.manager.subscriptions = [self.subscriptions copy];
     }
 }
@@ -230,15 +249,18 @@
     }
 }
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
+
     NSString *receiveStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     NSData * receiveData = [receiveStr dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableLeaves error:nil];
+    LxDBAnyVar(topic);
+    LxDBAnyVar(jsonDict);
     NSNumber *code = jsonDict[@"Cmdid"];
-    NSDictionary *content = jsonDict[@"Data"];
+    NSArray *content = jsonDict[@"Data"];
     NSArray *topicArray = [topic componentsSeparatedByString:@"/"];
     NSString *cpuid = topicArray[2];
     if ([cpuids containsObject:cpuid]) {
-        NSInteger index = [cpuids indexOfObject:cpuids];
+        NSInteger index = [cpuids indexOfObject:cpuid];
         MachineModel *machine = [datas objectAtIndex:index];
         if ([code integerValue] == 0x91) {
             //等3秒才去除报警信息
@@ -261,7 +283,17 @@
                 });
             }
         } else if ([code integerValue] == 0x95) {
-            machine.msg_alertMessage = content[@"error"];
+            machine.msg_alertMessage =jsonDict[@"Data"][@"ErrMsg"];
+            NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+            
+            
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
+            LxDBAnyVar([self getCurrentTimeString]);
+            [dataDic setObject:errorString forKey:@"error"];
+            [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+            
+            [alertArray addObject:dataDic];
+            [self.tableView reloadData];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadItemAtIndex:index];
@@ -271,7 +303,7 @@
     
 }
 #pragma mark - refresh
--(void)initTableHeaderAndFooter{
+- (void)initTableHeaderAndFooter {
     
     //下拉刷新
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
@@ -280,7 +312,7 @@
     header.lastUpdatedTimeLabel.hidden = YES;
     self.collectionView.mj_header = header;
     
-    [self.tableView.mj_header beginRefreshing];
+    [self.collectionView.mj_header beginRefreshing];
     
     //上拉加载
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
@@ -290,19 +322,9 @@
     self.collectionView.mj_footer = footer;
 }
 - (void)refresh {
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.collectionView reloadData];
-//        // 结束刷新
-//        [self.collectionView.mj_header endRefreshing];
-//    });
     [self refreshDataWithHeader:YES];
 }
 - (void)loadMore {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        // 结束刷新
-//        [self.collectionView.mj_footer endRefreshing];
-//    });
     [self refreshDataWithHeader:NO];
 }
 - (void)refreshDataWithHeader:(BOOL)isPullingDown {
@@ -328,8 +350,9 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             
+                                             self.noDataView.hidden = YES;
                                              [self getNetworkDataWithHeader:isPullingDown];
+                                             
                                              //                                             [self hideNodataView];
                                          }else{
                                              [datas removeAllObjects];
@@ -337,18 +360,14 @@
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.collectionView reloadData];
                                              });
-                                             if (isFilteredList) {
-                                                 [BEProgressHUD showMessage:@"没有找到该设备"];
-                                             }else{
-                                                 
-                                                 [BEProgressHUD showMessage:@"暂无数据"];
-                                             }
-                                             
+                                             self.noDataView.hidden = NO;
+
                                          }
                                          
                                      }
                                      
-                                 } failure:nil];
+                                 }
+                                 failure:nil];
     
 }
 
@@ -398,10 +417,13 @@
                                              for (NSDictionary *dic in content) {
                                                  NSError *error;
                                                  MachineModel *machine = [[MachineModel alloc]initWithDictionary:dic error:&error];
-                                                 
+
                                                  [datas addObject:machine];
                                                  [cpuids addObject:machine.cpuid];
+                                                 [self subcribeMachine:machine];
                                              }
+                                             /** 刷新设备参数 */
+//                                             [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ReflashParam") params:@{} hasToken:YES success:nil failure:nil];
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.collectionView reloadData];
                                              });
@@ -419,41 +441,69 @@
 }
 
 #pragma mark - LongPress Action
-- (void)lonePressMoving:(UILongPressGestureRecognizer *)longPress {
-    switch (longPress.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:[self.longPress locationInView:self.collectionView]];
-            if (selectedIndexPath == nil) {
-                break;
-            }
-//            [self focusMachine];
-        }
+
+- (void)focusMachine:(MachineModel *)machine {
+
+    if (machine.isfocus) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"取消关注"
+                                                                       message:[NSString stringWithFormat:@"确定取消关注%@吗?",machine.name]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 [self.collectionView reloadData];
+                                                                 
+                                                             }];
+        UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            break;
-            
-        default:
-            break;
+            NSInteger index = [datas indexOfObject:machine];
+            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Focus")
+                                          params:@{@"Cpuid":machine.cpuid,@"IsFocus":@0}
+                                        hasToken:YES
+                                         success:^(HttpResponse *responseObject) {
+                                             if ([responseObject.result integerValue] == 1 ) {
+                                                 machine.isfocus = !machine.isfocus;
+                                                 [BEProgressHUD showMessage:@"已取消关注"];
+                                                 [self reloadItemAtIndex:index];
+                                             }
+                                         }
+                                         failure:nil];
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:focusAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"要关注设备吗？"
+                                                                       message:@"关注之后可以在关注设备中查看"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) {
+                                                                 [self.collectionView reloadData];
+                                                                 
+                                                             }];
+        UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"关注" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSInteger index = [datas indexOfObject:machine];
+            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Focus")
+                                          params:@{@"Cpuid":machine.cpuid,@"IsFocus":@1}
+                                        hasToken:YES
+                                         success:^(HttpResponse *responseObject) {
+                                             if ([responseObject.result integerValue] == 1 ) {
+                                                 machine.isfocus = !machine.isfocus;
+                                                 [BEProgressHUD showMessage:@"已关注设备"];
+                                                 [self reloadItemAtIndex:index];
+                                             }
+                                         }
+                                         failure:nil];
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:focusAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-}
-- (void)focusMachine:(NSIndexPath *)indexPath {
-
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"要关注设备吗？"
-                                                                   message:@"关注之后可以在关注设备中查看"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                             [self.collectionView reloadData];
-
-                                                         }];
-    UIAlertAction *focusAction = [UIAlertAction actionWithTitle:@"关注" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-    }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:focusAction];
-    [self presentViewController:alert animated:YES completion:nil];
+  
 }
 
 #pragma mark - CollectionView
@@ -461,117 +511,110 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *CellIdentifier;
     UICollectionViewCell *cell;
+
+    MachineModel *machine = datas[indexPath.row];
     switch (self.showViewType) {
         case SingleViewType:
         {
-            CellIdentifier = @"SingleViewAirWaveCell";
-            SingleViewAirWaveCell * cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
-            if (indexPath.row %4 == 0) {
-//                [cell configureWithAirBagType:AirBagTypeThree message:nil];
-//                cell.style = CellStyleOffLine;
-                [cell configureWithCellStyle:CellStyleOffLine airBagType:AirBagTypeThree message:nil];
+            if ([machine.type integerValue] == 1234) {
 
-            } else if (indexPath.row %4 == 1) {
-                [cell configureWithAirBagType:AirBagTypeEight message:@"运行中不可以切换气囊"];
-                [cell.bodyView flashingTest];
-                cell.style = CellStyleAlert;
-
-            } else if (indexPath.row %4 == 2) {
+                SingleViewAirWaveCell *cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SingleViewAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeThree message:nil];
-                cell.style = CellStyleUnauthorized;
+                return cell;
+            } else {
+                SingleElectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SingleElectCell" forIndexPath:indexPath];
+                [cell configureWithModel:machine];
+                [cell.focusView addTapBlock:^(id obj) {
+                    [self focusMachine:machine];
+                }];
+                return cell;
             }
-            else {
-                [cell configureWithAirBagType:AirBagTypeEight message:nil];
-                cell.style = CellStyleOnline;
-            }
-            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.parameterView addTapBlock:^(id obj) {
-                AirWaveSetParameterView *view = [AirWaveSetParameterView createViewFromNib];
-                [view showInWindow];
-            }];
-            [cell.focusView addTapBlock:^(id obj) {
-                [self focusMachine:indexPath];
-            }];
+//            if (indexPath.row %4 == 0) {
+////                [cell configureWithAirBagType:AirBagTypeThree message:nil];
+////                cell.style = CellStyleOffLine;
+//                [cell configureWithCellStyle:CellStyleOffLine airBagType:AirBagTypeThree message:nil];
+//
+//            } else if (indexPath.row %4 == 1) {
+//                [cell configureWithAirBagType:AirBagTypeEight message:@"运行中不可以切换气囊"];
+//                [cell.bodyView flashingTest];
+//                cell.style = CellStyleAlert;
+//
+//            } else if (indexPath.row %4 == 2) {
+//                [cell configureWithAirBagType:AirBagTypeThree message:nil];
+//                cell.style = CellStyleUnauthorized;
+//            }
+//            else {
+//                [cell configureWithAirBagType:AirBagTypeEight message:nil];
+//                cell.style = CellStyleOnline;
+//            }
+            
+
+//            [cell.parameterView addTapBlock:^(id obj) {
+//                AirWaveSetParameterView *view = [AirWaveSetParameterView createViewFromNib];
+//                [view showInWindow];
+//            }];
+//            [cell.focusView addTapBlock:^(id obj) {
+//                [self focusMachine:indexPath];
+//            }];
             return cell;
             
         }
             break;
         case TwoViewsType:
         {
-            CellIdentifier = @"TwoViewsAirWaveCell";
-            TwoViewsAirWaveCell *cell = (TwoViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-            if (indexPath.row %2 == 0){
+            if ([machine.type integerValue] == 1234) {
+                
+                TwoViewsAirWaveCell *cell = (TwoViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"TwoViewsAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
+                return cell;
+            } else {
+                TwoElectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TwoElectCell" forIndexPath:indexPath];
+                [cell configureWithModel:machine];
+                [cell.focusView addTapBlock:^(id obj) {
+                    
+                    [self focusMachine:machine];
+                }];
+                return cell;
             }
-            else {
-                [cell configureWithAirBagType:AirBagTypeThree];
-            }
-            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
-            return cell;
-            
         }
             break;
             
         case FourViewsType:
         {
-            CellIdentifier = @"FourViewsAirWaveCell";
-            FourViewsAirWaveCell *cell;
-            if (indexPath.row %7 == 0){
-                cell = (FourViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+            if ([machine.type integerValue] == 1234) {
+                CellIdentifier = @"FourViewsAirWaveCell";
+                FourViewsAirWaveCell *cell = (FourViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
+                return cell;
             }
-            else if (indexPath.row %7 == 1) {
+            else {
                 FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"扇形波"} message:nil];
+                [cell configureWithModel:machine];
 
-                
+                [cell.focusView addTapBlock:^(id obj) {
+                    [self focusMachine:machine];
+                }];
                 return cell;
             }
-            else if (indexPath.row %7 == 2) {
-                FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"rguangzi"} message:nil];
 
-                return cell;
-            }
-            else if (indexPath.row %7 == 3) {
-                FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"bguangzi"} message:nil];
-        
-                return cell;
-            }
-            else if (indexPath.row %7 == 4) {
-                FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"gnhw"} message:nil];
- 
-                return cell;
-            }
-            else if (indexPath.row %7 == 5) {
-                FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"shihua"} message:nil];
-        
-                return cell;
-            }
-            else if (indexPath.row %7 == 6) {
-                FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
-                [cell configureWithCellStyle:CellStyleOnline machineType:11111 dataDic:@{@"name":@"dafuya"} message:nil];
-            
-                return cell;
-            }
-            
-            [cell.patientButton addTarget:self action:@selector(showPatientInfoView:) forControlEvents:UIControlEventTouchUpInside];
-            return cell;
         }
              break;
         case NineViewsType:
         {
-            CellIdentifier = @"NineViewsAirWaveCell";
-            NineViewsAirWaveCell *cell = (NineViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-            if (indexPath.row %2 == 0){
+            if ([machine.type integerValue] == 1234) {
+                NineViewsAirWaveCell *cell = (NineViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"NineViewsAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
+                return cell;
             }
             else {
-                [cell configureWithAirBagType:AirBagTypeThree];
+                NineElectCell *cell = (NineElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"NineElectCell" forIndexPath:indexPath];
+                [cell configureWithModel:machine];
+                
+                [cell.focusView addTapBlock:^(id obj) {
+                    [self focusMachine:machine];
+                }];
+                return cell;
             }
             
             return cell;
@@ -587,7 +630,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return [datas count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -622,14 +665,8 @@
     return 40;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    FourElectCell *cell = (FourElectCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if ([cell isKindOfClass:[FourElectCell class]]) {
-        if([cell.deviceView isAnimating]) {
-            [cell.deviceView stopAnimating];
-        } else {
-            [cell.deviceView startAnimating];
-        }
-    }
+    MachineModel *model = datas[indexPath.row];
+    [self performSegueWithIdentifier:@"ShowFocusMachines" sender:model];
 }
 
 #pragma mark - TableView Delegate
@@ -638,18 +675,29 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isShowAlertMessage) {
-        return 3;
+//        return 3;
+        return [alertArray count];
     } else {
         return 0;
+
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    /** 报警信息跳转到设备 */
+    //选中报警信息滚动到设备视图可见
+    NSString *cpuid = alertArray[indexPath.row][@"cpuid"];
+    if ([cpuids containsObject:cpuid]) {
+        NSInteger index = [cpuids indexOfObject:cpuid];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.textLabel.textColor = UIColorFromHex(0x787878);
+    
+    cell.textLabel.text = alertArray[indexPath.row][@"error"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -659,29 +707,38 @@
 #pragma mark - Action
 
 - (IBAction)showDeviceFilter:(id)sender {
-    if ([_selectedDevices count] == 0) {
-        _selectedDevices = @[@"空气波1",@"空气波8",@"空气波10",@"空气波12",@"红外设备7",@"红外设备11",@"光子7",
-                             @"光子8",
-                             @"光子9",
-                             @"光子10",
-                             @"光子11",
-                             @"光子12",
-                             @"光子13"];
-    }
+
     weakself(self);
-    DeviceFilterView *deviceFilterView = [[DeviceFilterView alloc]initWithLastContent:_selectedDevices commitBlock:^(NSArray *selections) {
-        weakSelf.selectedDevices = selections;
+    DeviceFilterView *deviceFilterView = [[DeviceFilterView alloc]initWithLastContent:_selectedDepartment commitBlock:^(NSArray *selections) {
+        weakSelf.selectedDepartment = selections;
+        if ([selections count]>0) {
+            isFilteredList = YES;
+            [filterparam setObject:selections forKey:@"DepartmentId"];
+            [self refresh];
+        } else {
+            isFilteredList = NO;
+        }
+        LxDBAnyVar(selections);
+        
         
     }];
     [deviceFilterView show];
+
 }
 - (void)showFocusMachines {
-    [self performSegueWithIdentifier:@"showFocusMachines" sender:nil];
+    [self performSegueWithIdentifier:@"ShowFocusMachines" sender:nil];
 }
 - (IBAction)showAlertView:(id)sender {
-    AlertView *alerView = [AlertView createViewFromNib];
-    [alerView showInWindowWithBackgoundTapDismissEnable:YES];
+    AlertView *view = [[AlertView alloc]initWithData:alertArray return:^(NSString *cpuid) {
+        if ([cpuids containsObject:cpuid]) {
+            //选中报警信息滚动到设备视图可见
+            NSInteger index = [cpuids indexOfObject:cpuid];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        }
 
+    }] ;
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 
 - (IBAction)changeShowViewType:(id)sender {
@@ -694,14 +751,6 @@
     /** 滑到第一格 */
 //    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
-- (void)showPatientInfoView:(id)sender {
-    NSDictionary *dataDic = @{
-                              @"name":@"谢子琪",
-                              @"gender":@"女"
-                              };
-    PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithDic:dataDic];
-    [view showInWindow];
-}
 - (IBAction)showAndHideAlertView:(id)sender {
     if (self.isShowAlertMessage) {
         self.alertViewHeight.constant = 49;
@@ -713,11 +762,33 @@
     self.isShowAlertMessage = !self.isShowAlertMessage;
     [self.tableView reloadData];
 }
+
 #pragma mark - getter
-- (NSArray *)selectedDevices {
-    if (!_selectedDevices) {
-        _selectedDevices = [NSArray array];
+- (NSArray *)selectedDepartment {
+    if (!_selectedDepartment) {
+        _selectedDepartment = [NSArray array];
     }
-    return _selectedDevices;
+    return _selectedDepartment;
+}
+- (NSMutableDictionary *)subscriptions {
+    if (!_subscriptions) {
+        _subscriptions = [NSMutableDictionary dictionary];
+    }
+    return _subscriptions;
+}
+
+- (NSString *)getCurrentTimeString {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:mm"];
+    NSDate *dateNow = [NSDate date];
+    return [formatter stringFromDate:dateNow];
+}
+
+#pragma mark - segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowFocusMachines"]) {
+        FocusMachineController *controller = (FocusMachineController *)segue.destinationViewController;
+        controller.machine = (MachineModel *)sender;
+    }
 }
 @end

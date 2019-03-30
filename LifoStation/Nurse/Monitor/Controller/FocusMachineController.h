@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MachineModel.h"
 @interface FocusMachineController : UIViewController
-
+@property (nonatomic, strong) MachineModel *machine;
 @end

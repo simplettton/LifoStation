@@ -39,6 +39,8 @@
 /** 快速打印调试 */
 #import "LxDBAnything.h"
 #import "Constant.h"
+/** view点击效果 */
+#import "UIView+Tap.h"
 #endif
 
 #endif /* LifoStation_pch */

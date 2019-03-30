@@ -39,7 +39,12 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([Constant sharedInstance].manager) {
+        [[Constant sharedInstance].manager disconnectWithDisconnectHandler:nil];
+    }
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PatientModel.h"
 @interface PatientInfoPopupView : UIView
 - (instancetype)initWithDic:(NSDictionary *)dic;
+- (instancetype)initWithModel:(PatientModel *)model;
+@property (nonatomic, strong) PatientModel *model;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderLabel;
 @end

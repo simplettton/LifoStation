@@ -41,9 +41,26 @@
 		04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */; };
 		04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04369EBA220054AE008F22E2 /* DeviceFilterView.xib */; };
 		04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04369EBD220054DD008F22E2 /* DeviceFilterView.m */; };
+		043BF5CF224DD10500EE674C /* paitan2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CB224DD10400EE674C /* paitan2.png */; };
+		043BF5D0224DD10500EE674C /* dafuya2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CC224DD10500EE674C /* dafuya2.png */; };
+		043BF5D1224DD10500EE674C /* guangzi.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CD224DD10500EE674C /* guangzi.png */; };
+		043BF5D2224DD10500EE674C /* gnhw2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CE224DD10500EE674C /* gnhw2.png */; };
+		043BF5DD224DD1A300EE674C /* fangbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D4224DD1A300EE674C /* fangbo.png */; };
+		043BF5DE224DD1A300EE674C /* jianbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D5224DD1A300EE674C /* jianbo.png */; };
+		043BF5DF224DD1A300EE674C /* juchibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D6224DD1A300EE674C /* juchibo.png */; };
+		043BF5E0224DD1A300EE674C /* maicongbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D7224DD1A300EE674C /* maicongbo.png */; };
+		043BF5E1224DD1A300EE674C /* sanjiaobo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D8224DD1A300EE674C /* sanjiaobo.png */; };
+		043BF5E2224DD1A300EE674C /* sanxingbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D9224DD1A300EE674C /* sanxingbo.png */; };
+		043BF5E3224DD1A300EE674C /* tixingbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DA224DD1A300EE674C /* tixingbo.png */; };
+		043BF5E4224DD1A300EE674C /* zhengxianbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DB224DD1A300EE674C /* zhengxianbo.png */; };
+		043BF5E5224DD1A300EE674C /* zhishubo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DC224DD1A300EE674C /* zhishubo.png */; };
 		0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */; };
 		0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */; };
 		0445C7DE21E5D8A800F35353 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DD21E5D8A800F35353 /* MonitorViewController.m */; };
+		04626F88224C7E93006B963C /* TwoElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F86224C7E93006B963C /* TwoElectCell.m */; };
+		04626F89224C7E93006B963C /* TwoElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F87224C7E93006B963C /* TwoElectCell.xib */; };
+		04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F8B224C9BD9006B963C /* NineElectCell.m */; };
+		04626F8E224C9BD9006B963C /* NineElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F8C224C9BD9006B963C /* NineElectCell.xib */; };
 		0465248221E6F1E800362D08 /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248121E6F1E800362D08 /* ReportTableViewController.m */; };
 		0465248621E746AE00362D08 /* TimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248521E746AE00362D08 /* TimeLineModel.m */; };
 		0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248921E74D9900362D08 /* AlertTimeLineCell.m */; };
@@ -100,6 +117,12 @@
 		047494642231129C00E8C8AA /* WaitingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494632231129C00E8C8AA /* WaitingTaskViewController.m */; };
 		047494672231150100E8C8AA /* ProcessingTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494662231150100E8C8AA /* ProcessingTaskViewController.m */; };
 		0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047494692231151800E8C8AA /* FinishedTaskViewController.m */; };
+		0474F239224B54D000C40E0E /* SingleElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0474F237224B54D000C40E0E /* SingleElectCell.m */; };
+		0474F23A224B54D000C40E0E /* SingleElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0474F238224B54D000C40E0E /* SingleElectCell.xib */; };
+		0474F23C224B590100C40E0E /* maicongci.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0474F23B224B590100C40E0E /* maicongci.gif */; };
+		0474F23E224B590E00C40E0E /* paitan.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0474F23D224B590E00C40E0E /* paitan.gif */; };
+		0474F241224B9ADD00C40E0E /* maicongci2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0474F23F224B9ADD00C40E0E /* maicongci2.jpg */; };
+		0474F242224B9ADD00C40E0E /* shihua2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0474F240224B9ADD00C40E0E /* shihua2.png */; };
 		047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047519D021D0E14D00A30B9E /* SettingsViewController.m */; };
 		047695752239E29A00FDC7DB /* MachineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047695742239E29A00FDC7DB /* MachineModel.m */; };
 		04769578223A03A800FDC7DB /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = 04769577223A03A800FDC7DB /* Constant.m */; };
@@ -228,12 +251,31 @@
 		04369EBA220054AE008F22E2 /* DeviceFilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceFilterView.xib; sourceTree = "<group>"; };
 		04369EBC220054DD008F22E2 /* DeviceFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceFilterView.h; sourceTree = "<group>"; };
 		04369EBD220054DD008F22E2 /* DeviceFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceFilterView.m; sourceTree = "<group>"; };
+		043BF5CB224DD10400EE674C /* paitan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paitan2.png; sourceTree = "<group>"; };
+		043BF5CC224DD10500EE674C /* dafuya2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dafuya2.png; sourceTree = "<group>"; };
+		043BF5CD224DD10500EE674C /* guangzi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guangzi.png; sourceTree = "<group>"; };
+		043BF5CE224DD10500EE674C /* gnhw2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gnhw2.png; sourceTree = "<group>"; };
+		043BF5D4224DD1A300EE674C /* fangbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fangbo.png; sourceTree = "<group>"; };
+		043BF5D5224DD1A300EE674C /* jianbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jianbo.png; sourceTree = "<group>"; };
+		043BF5D6224DD1A300EE674C /* juchibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = juchibo.png; sourceTree = "<group>"; };
+		043BF5D7224DD1A300EE674C /* maicongbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maicongbo.png; sourceTree = "<group>"; };
+		043BF5D8224DD1A300EE674C /* sanjiaobo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sanjiaobo.png; sourceTree = "<group>"; };
+		043BF5D9224DD1A300EE674C /* sanxingbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sanxingbo.png; sourceTree = "<group>"; };
+		043BF5DA224DD1A300EE674C /* tixingbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tixingbo.png; sourceTree = "<group>"; };
+		043BF5DB224DD1A300EE674C /* zhengxianbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhengxianbo.png; sourceTree = "<group>"; };
+		043BF5DC224DD1A300EE674C /* zhishubo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhishubo.png; sourceTree = "<group>"; };
 		0445C7D621E5A4AD00F35353 /* PersonalRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalRecordViewController.h; sourceTree = "<group>"; };
 		0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalRecordViewController.m; sourceTree = "<group>"; };
 		0445C7D921E5A53C00F35353 /* BaseSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSearchBar.h; sourceTree = "<group>"; };
 		0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseSearchBar.m; sourceTree = "<group>"; };
 		0445C7DC21E5D8A800F35353 /* MonitorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
 		0445C7DD21E5D8A800F35353 /* MonitorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
+		04626F85224C7E93006B963C /* TwoElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoElectCell.h; sourceTree = "<group>"; };
+		04626F86224C7E93006B963C /* TwoElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoElectCell.m; sourceTree = "<group>"; };
+		04626F87224C7E93006B963C /* TwoElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoElectCell.xib; sourceTree = "<group>"; };
+		04626F8A224C9BD9006B963C /* NineElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NineElectCell.h; sourceTree = "<group>"; };
+		04626F8B224C9BD9006B963C /* NineElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineElectCell.m; sourceTree = "<group>"; };
+		04626F8C224C9BD9006B963C /* NineElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NineElectCell.xib; sourceTree = "<group>"; };
 		0465248021E6F1E800362D08 /* ReportTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportTableViewController.h; sourceTree = "<group>"; };
 		0465248121E6F1E800362D08 /* ReportTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewController.m; sourceTree = "<group>"; };
 		0465248421E746AE00362D08 /* TimeLineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineModel.h; sourceTree = "<group>"; };
@@ -345,6 +387,13 @@
 		047494662231150100E8C8AA /* ProcessingTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingTaskViewController.m; sourceTree = "<group>"; };
 		047494682231151800E8C8AA /* FinishedTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinishedTaskViewController.h; sourceTree = "<group>"; };
 		047494692231151800E8C8AA /* FinishedTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinishedTaskViewController.m; sourceTree = "<group>"; };
+		0474F236224B54D000C40E0E /* SingleElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleElectCell.h; sourceTree = "<group>"; };
+		0474F237224B54D000C40E0E /* SingleElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleElectCell.m; sourceTree = "<group>"; };
+		0474F238224B54D000C40E0E /* SingleElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleElectCell.xib; sourceTree = "<group>"; };
+		0474F23B224B590100C40E0E /* maicongci.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = maicongci.gif; sourceTree = "<group>"; };
+		0474F23D224B590E00C40E0E /* paitan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = paitan.gif; sourceTree = "<group>"; };
+		0474F23F224B9ADD00C40E0E /* maicongci2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = maicongci2.jpg; sourceTree = "<group>"; };
+		0474F240224B9ADD00C40E0E /* shihua2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shihua2.png; sourceTree = "<group>"; };
 		047519CF21D0E14D00A30B9E /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		047519D021D0E14D00A30B9E /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		047695732239E29A00FDC7DB /* MachineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineModel.h; sourceTree = "<group>"; };
@@ -496,9 +545,12 @@
 		0415323321EDE0D600DDBD78 /* SingleView */ = {
 			isa = PBXGroup;
 			children = (
+				0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */,
 				0472A03F21ED75AD007D1252 /* SingleViewAirWaveCell.h */,
 				0472A04021ED75AD007D1252 /* SingleViewAirWaveCell.m */,
-				0472A04121ED75AD007D1252 /* SingleViewAirWaveCell.xib */,
+				0474F238224B54D000C40E0E /* SingleElectCell.xib */,
+				0474F236224B54D000C40E0E /* SingleElectCell.h */,
+				0474F237224B54D000C40E0E /* SingleElectCell.m */,
 			);
 			path = SingleView;
 			sourceTree = "<group>";
@@ -590,6 +642,9 @@
 				04709B2521F03254000D4E12 /* TwoViewsAirWaveCell.h */,
 				04709B2621F03254000D4E12 /* TwoViewsAirWaveCell.m */,
 				04709B2721F03255000D4E12 /* TwoViewsAirWaveCell.xib */,
+				04626F85224C7E93006B963C /* TwoElectCell.h */,
+				04626F86224C7E93006B963C /* TwoElectCell.m */,
+				04626F87224C7E93006B963C /* TwoElectCell.xib */,
 			);
 			path = TwoViews;
 			sourceTree = "<group>";
@@ -653,11 +708,19 @@
 		042C745322425C3200FCA114 /* deviceGif */ = {
 			isa = PBXGroup;
 			children = (
+				0474F23F224B9ADD00C40E0E /* maicongci2.jpg */,
+				0474F240224B9ADD00C40E0E /* shihua2.png */,
+				0474F23D224B590E00C40E0E /* paitan.gif */,
+				0474F23B224B590100C40E0E /* maicongci.gif */,
 				042C746322426AA800FCA114 /* shihua.gif */,
 				042C745422425C3200FCA114 /* bguangzi.gif */,
 				042C745522425C3200FCA114 /* dafuya.gif */,
 				042C745622425C3200FCA114 /* gnhw.gif */,
 				042C745722425C3200FCA114 /* rguangzi.gif */,
+				043BF5CC224DD10500EE674C /* dafuya2.png */,
+				043BF5CE224DD10500EE674C /* gnhw2.png */,
+				043BF5CD224DD10500EE674C /* guangzi.png */,
+				043BF5CB224DD10400EE674C /* paitan2.png */,
 			);
 			path = deviceGif;
 			sourceTree = "<group>";
@@ -686,6 +749,22 @@
 				0485F8342240BAF70026AFD1 /* ElectrotherapyView.m */,
 			);
 			path = MiddleViews;
+			sourceTree = "<group>";
+		};
+		043BF5D3224DD1A300EE674C /* wavepng */ = {
+			isa = PBXGroup;
+			children = (
+				043BF5D4224DD1A300EE674C /* fangbo.png */,
+				043BF5D5224DD1A300EE674C /* jianbo.png */,
+				043BF5D6224DD1A300EE674C /* juchibo.png */,
+				043BF5D7224DD1A300EE674C /* maicongbo.png */,
+				043BF5D8224DD1A300EE674C /* sanjiaobo.png */,
+				043BF5D9224DD1A300EE674C /* sanxingbo.png */,
+				043BF5DA224DD1A300EE674C /* tixingbo.png */,
+				043BF5DB224DD1A300EE674C /* zhengxianbo.png */,
+				043BF5DC224DD1A300EE674C /* zhishubo.png */,
+			);
+			path = wavepng;
 			sourceTree = "<group>";
 		};
 		0445C7DF21E5D8AF00F35353 /* Monitor */ = {
@@ -880,9 +959,9 @@
 		047D17B321F16F6200B498E6 /* FourViews */ = {
 			isa = PBXGroup;
 			children = (
+				047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */,
 				047D17AE21F16F5C00B498E6 /* FourViewsAirWaveCell.h */,
 				047D17AF21F16F5C00B498E6 /* FourViewsAirWaveCell.m */,
-				047D17B021F16F5C00B498E6 /* FourViewsAirWaveCell.xib */,
 				042C745E224262C800FCA114 /* FourElectCell.xib */,
 				042C74602242630C00FCA114 /* FourElectCell.h */,
 				042C74612242630C00FCA114 /* FourElectCell.m */,
@@ -896,6 +975,9 @@
 				047D17B421F17A8C00B498E6 /* NineViewsAirWaveCell.h */,
 				047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */,
 				047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */,
+				04626F8A224C9BD9006B963C /* NineElectCell.h */,
+				04626F8B224C9BD9006B963C /* NineElectCell.m */,
+				04626F8C224C9BD9006B963C /* NineElectCell.xib */,
 			);
 			path = NineViews;
 			sourceTree = "<group>";
@@ -959,6 +1041,7 @@
 		04866CC921C9DBAC00855230 /* Supporting File */ = {
 			isa = PBXGroup;
 			children = (
+				043BF5D3224DD1A300EE674C /* wavepng */,
 				042C745322425C3200FCA114 /* deviceGif */,
 				042C7440224259CF00FCA114 /* wavegif */,
 				04736BA621E84BDA004D60D6 /* Catagory */,
@@ -1301,6 +1384,7 @@
 				0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */,
 				04709B2921F03255000D4E12 /* TwoViewsAirWaveCell.xib in Resources */,
 				046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */,
+				0474F23A224B54D000C40E0E /* SingleElectCell.xib in Resources */,
 				046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */,
 				047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */,
 				04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */,
@@ -1311,17 +1395,27 @@
 				042C744C224259CF00FCA114 /* 扇形波.gif in Resources */,
 				042C744A224259CF00FCA114 /* 三角波.gif in Resources */,
 				042C745F224262C800FCA114 /* FourElectCell.xib in Resources */,
+				043BF5E1224DD1A300EE674C /* sanjiaobo.png in Resources */,
 				042C744B224259CF00FCA114 /* 尖波.gif in Resources */,
 				0415322E21EDDD4500DDBD78 /* AlertView.xib in Resources */,
+				043BF5DD224DD1A300EE674C /* fangbo.png in Resources */,
+				043BF5CF224DD10500EE674C /* paitan2.png in Resources */,
 				049534F521C8D14600C567D8 /* LaunchScreen.storyboard in Resources */,
+				043BF5DF224DD1A300EE674C /* juchibo.png in Resources */,
+				04626F89224C7E93006B963C /* TwoElectCell.xib in Resources */,
+				043BF5E0224DD1A300EE674C /* maicongbo.png in Resources */,
 				0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */,
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
+				043BF5E2224DD1A300EE674C /* sanxingbo.png in Resources */,
+				043BF5E5224DD1A300EE674C /* zhishubo.png in Resources */,
 				046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */,
 				042C745822425C3300FCA114 /* bguangzi.gif in Resources */,
 				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
+				043BF5E4224DD1A300EE674C /* zhengxianbo.png in Resources */,
 				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
+				0474F23E224B590E00C40E0E /* paitan.gif in Resources */,
 				042C7452224259CF00FCA114 /* 锯齿波.gif in Resources */,
 				042C7451224259CF00FCA114 /* 脉冲波.gif in Resources */,
 				04A86184223350E500475A01 /* EditTaskView.xib in Resources */,
@@ -1330,16 +1424,25 @@
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
 				04A8619C22336DE800475A01 /* AddLocationView.xib in Resources */,
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
+				043BF5E3224DD1A300EE674C /* tixingbo.png in Resources */,
+				04626F8E224C9BD9006B963C /* NineElectCell.xib in Resources */,
+				043BF5D1224DD10500EE674C /* guangzi.png in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
+				0474F23C224B590100C40E0E /* maicongci.gif in Resources */,
 				042C745922425C3300FCA114 /* dafuya.gif in Resources */,
 				0468160522014D0B004F9FBB /* devices.txt in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
 				042C745B22425C3300FCA114 /* rguangzi.gif in Resources */,
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
+				043BF5D0224DD10500EE674C /* dafuya2.png in Resources */,
 				042C746422426AA800FCA114 /* shihua.gif in Resources */,
+				043BF5DE224DD1A300EE674C /* jianbo.png in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
+				043BF5D2224DD10500EE674C /* gnhw2.png in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
+				0474F242224B9ADD00C40E0E /* shihua2.png in Resources */,
 				04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */,
+				0474F241224B9ADD00C40E0E /* maicongci2.jpg in Resources */,
 				0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1426,6 +1529,7 @@
 				04980F4C2236541E00A69920 /* HttpResponse.m in Sources */,
 				04980F4D2236541E00A69920 /* NetWorkTool.m in Sources */,
 				04DFF16A21D07C4C009EA938 /* UIView+Tap.m in Sources */,
+				0474F239224B54D000C40E0E /* SingleElectCell.m in Sources */,
 				04709B2121F0251F000D4E12 /* UIView+AdaptScreen.m in Sources */,
 				04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */,
 				047695752239E29A00FDC7DB /* MachineModel.m in Sources */,
@@ -1499,6 +1603,7 @@
 				0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */,
 				0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */,
 				04709B2821F03255000D4E12 /* TwoViewsAirWaveCell.m in Sources */,
+				04626F88224C7E93006B963C /* TwoElectCell.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
 				04A861872233543600475A01 /* EditTaskView.m in Sources */,
 				04261E2921FAFB1A0043776D /* FocusMachineController.m in Sources */,
@@ -1508,6 +1613,7 @@
 				04357DCB21F2F23700A5B45C /* AirWaveSetParameterView.m in Sources */,
 				0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */,
 				047494642231129C00E8C8AA /* WaitingTaskViewController.m in Sources */,
+				04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,

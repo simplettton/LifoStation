@@ -22,15 +22,18 @@
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 @interface DeviceFilterView()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSArray *allDataArray;
+//@property (nonatomic, strong) NSArray *allDataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) NSString *currentDepartment;
 @property (nonatomic, strong) NSString *currentType;
+@property (nonatomic, strong) NSMutableArray *selectedDepartmentIds;
 @property (nonatomic, strong) NSMutableArray *selectedDepartments;
 @property (nonatomic, strong) NSMutableArray *selectedTypes;
 @property (nonatomic, strong) NSMutableArray *selectedDevices;
 
 @property (nonatomic, strong) NSMutableArray *departments;
+@property (nonatomic, strong) NSMutableArray *departmentIds;
 @property (nonatomic, strong) NSMutableArray *types;
 @property (nonatomic, strong) NSMutableArray *devices;
 
@@ -43,10 +46,13 @@
 @property (nonatomic, strong) UITableView *deviceTableView;
 @end
 @implementation DeviceFilterView
-- (instancetype)initWithLastContent:(NSArray *)selectedArray commitBlock:(void(^)(NSArray *selections))commitBlock{
+- (instancetype)initWithLastContent:(NSArray *)selectedArray commitBlock:(void(^)(NSArray *selections))commitBlock {
     if ([super init]) {
         self.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-        self.selectedDevices = [NSMutableArray arrayWithArray:selectedArray];
+        if ([selectedArray count]>0) {
+            self.selectedDepartmentIds = [NSMutableArray arrayWithArray:selectedArray];
+        }
+
         [self setupView];
         [self getDeviceData];
         self.confirmSelect = commitBlock;
@@ -56,14 +62,30 @@
 #pragma mark - create UI
 
 - (void)getDeviceData {
-    [self removeAllObjectFromDataArray];
-    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"devices.txt" ofType:nil]];
-    if (!data) {
-        return;
+    //如果有保存在Constant 优先显示保存的数据
+    if ([[Constant sharedInstance].deviceArray count] > 0) {
+        self.dataArray = [Constant sharedInstance].deviceArray;
+        [self calculateDataArray];
     }
-    NSArray *allArray = [DepartmentDeviceModel arrayOfModelsFromData:data error:nil];
-    self.allDataArray = [NSArray arrayWithArray:allArray];
-    [self calculateDataArray];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/MonitorList")
+                                  params:@{}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result integerValue] == 1) {
+                                         if ([responseObject.content count] > 0) {
+                                             [self.dataArray removeAllObjects];
+                                             for (NSDictionary *dic in responseObject.content) {
+                                                 DepartmentDeviceModel *model = [[DepartmentDeviceModel alloc]initWithDictionary:dic error:nil];
+                                                 [self.dataArray addObject:model];
+                                             }
+                                             [Constant sharedInstance].deviceArray = self.dataArray;
+                                             LxDBAnyVar(responseObject.content);
+                                             [self calculateDataArray];
+                                         }
+                                     }
+                                 }
+                                 failure:nil];
+
 }
 //清空当前数据
 - (void)removeAllObjectFromDataArray {
@@ -175,8 +197,14 @@
             cell.rightArrow.hidden = YES;
         }
         //科室是否打钩
-        NSString *departmentName = self.departments[indexPath.row];
-        if ([self.selectedDepartments containsObject:departmentName]) {
+//        NSString *departmentName = self.departments[indexPath.row];
+//        if ([self.selectedDepartments containsObject:departmentName]) {
+//            [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
+//        } else {
+//            [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
+//        }
+        NSString *departmentId = self.departmentIds[indexPath.row];
+        if ([self.selectedDepartmentIds containsObject:departmentId]) {
             [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
         } else {
             [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
@@ -194,23 +222,26 @@
         }
         //类型是否打钩
         NSString *typeName = self.types[indexPath.row];
-        if ([self.selectedTypes containsObject:typeName]) {
-            [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
-        } else {
-            [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
-        }
-
-        [cell.selectButton addTarget:self action:@selector(selectType:) forControlEvents:UIControlEventTouchUpInside];
+        cell.selectButton.hidden = YES;
+//        if ([self.selectedTypes containsObject:typeName]) {
+//            [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
+//        } else {
+//            [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
+//        }
+//
+//        [cell.selectButton addTarget:self action:@selector(selectType:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         //机器是否打钩
         NSString *deviceName = self.devices[indexPath.row];
         cell.centerLabel.text = deviceName;
-        if ([self.selectedDevices containsObject:deviceName]) {
-            [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
-        } else {
-            [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
-        }
-        [cell.selectButton addTarget:self action:@selector(selectDevice:) forControlEvents:UIControlEventTouchUpInside];
+        cell.selectButton.hidden = YES;
+//        if ([self.selectedDevices containsObject:deviceName]) {
+//            [cell.selectButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+//        } else {
+//
+//            [cell.selectButton setImage:[UIImage imageNamed:@"unselected_gray"] forState:UIControlStateNormal];
+//        }
+//        [cell.selectButton addTarget:self action:@selector(selectDevice:) forControlEvents:UIControlEventTouchUpInside];
     }
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
@@ -221,7 +252,7 @@
 - (void)calculateDataArray {
     [self removeAllObjectFromDataArray];
     if (!self.currentDepartment) {
-        self.currentDepartment = ((DepartmentDeviceModel *)self.allDataArray[0]).department;
+        self.currentDepartment = ((DepartmentDeviceModel *)self.dataArray[0]).department;
     }
     if (!self.selectedTypes) {
         self.selectedTypes = [NSMutableArray array];
@@ -229,57 +260,47 @@
     if (!self.selectedDepartments) {
         self.selectedDepartments = [NSMutableArray array];
     }
-    for (DepartmentDeviceModel *model in self.allDataArray) {
+    for (DepartmentDeviceModel *model in self.dataArray) {
         
         //----科室是否打钩----
         NSString *departmentName = model.department;
         //1.科室项
         [self.departments addObject:departmentName];
+        [self.departmentIds addObject:model.departmentId];
         BOOL isSelectedDepartment = YES;
         for (FilterDeviceModel *device in model.devices) {
-            if (![self isArray:_selectedDevices contain:device.name]) {
-                isSelectedDepartment = NO;
-                break;
-            }
+//            if (![self isArray:_selectedDevices contain:device.name]) {
+//                isSelectedDepartment = NO;
+//                break;
+//            }
         }
-        if (isSelectedDepartment) {
-            if (![_selectedDepartments containsObject:departmentName]) {
-                [_selectedDepartments addObject:departmentName];
-            }
-        } else {
-            if ([self.selectedDepartments containsObject:departmentName]) {
-                [self.selectedDepartments removeObject:departmentName];
-            }
-        }
+//        if (isSelectedDepartment) {
+//            if (![_selectedDepartments containsObject:departmentName]) {
+//                [_selectedDepartments addObject:departmentName];
+//            }
+//        } else {
+//            if ([self.selectedDepartments containsObject:departmentName]) {
+//                [self.selectedDepartments removeObject:departmentName];
+//            }
+//        }
         //----科室是否打钩end----
         
         if ([self.currentDepartment isEqualToString:model.department]) {
             if (!self.currentType) {
-                self.currentType = ((FilterDeviceModel *)model.devices[0]).type;
+                if ([model.devices count] > 0) {
+                    self.currentType = ((FilterDeviceModel *)model.devices[0]).groupName;
+                }
             }
             for (FilterDeviceModel *deviceModel in model.devices) {
                 //2.机器种类项
-                [self.types addObject:deviceModel.type];
-                if ([self.currentType isEqualToString:deviceModel.type]) {
-                    for (NSString *deviceName in deviceModel.name) {
+                [self.types addObject:deviceModel.groupName];
+                if ([self.currentType isEqualToString:deviceModel.groupName]) {
+                    for (NSDictionary *deviceDic in deviceModel.nameList) {
                         //3.机器名称项
-                        [self.devices addObject:deviceName];
+                        [self.devices addObject:deviceDic[@"DeviceName"]];
                     }
                 }
                 
-                //----类型是否打钩----
-
-                BOOL isSelectedType = [self isArray:self.selectedDevices contain:deviceModel.name];
-                if (isSelectedType) {
-                    if (![_selectedTypes containsObject:deviceModel.type]) {
-                        [_selectedTypes addObject:deviceModel.type];
-                    }
-                } else {
-                    if ([_selectedTypes containsObject:deviceModel.type]) {
-                        [_selectedTypes removeObject:deviceModel.type];
-                    }
-                }
-                //----类型是否打钩end----
             }
         }
     }
@@ -293,23 +314,16 @@
     
     NSString* departmentName = _departments[indexPath.row];
 
-    DepartmentDeviceModel *model = self.allDataArray[indexPath.row];
-    //科室已经被选中 清除包含的所有机器
-    if ([_selectedDepartments containsObject:departmentName]){
-        for (FilterDeviceModel *deviceModel in model.devices) {
-            for (NSString *deviceName in deviceModel.name) {
-                [_selectedDevices removeObject:deviceName];
-            }
-        }
+    DepartmentDeviceModel *model = self.dataArray[indexPath.row];
+
+    if (![_selectedDepartments containsObject:departmentName]){
+        [_selectedDepartments addObject:departmentName];
+
     }
-    else {
-        for (FilterDeviceModel *deviceModel in model.devices) {
-            for (NSString *deviceName in deviceModel.name) {
-                if (![_selectedDevices containsObject:deviceName]) {
-                    [_selectedDevices addObject:deviceName];
-                }
-            }
-        }
+    if (![_selectedDepartmentIds containsObject:_departmentIds[indexPath.row]]) {
+        [_selectedDepartmentIds addObject:_departmentIds[indexPath.row]];
+    } else {
+        [_selectedDepartmentIds removeObject:_departmentIds[indexPath.row]];
     }
 
     self.currentDepartment = departmentName;
@@ -322,52 +336,52 @@
 
 
     NSString *typeName = _types[indexPath.row];
-    for (DepartmentDeviceModel *model in self.allDataArray) {
-        if ([_currentDepartment isEqualToString:model.department]) {
-            FilterDeviceModel *deviceModel = model.devices[indexPath.row];
-            if ([typeName isEqualToString:deviceModel.type]) {
-                //类型已被选中 清除选中类型和对应的机器们
-                if ([_selectedTypes containsObject:typeName]) {
-                    for (NSString *deviceName in deviceModel.name) {
-                        [_selectedDevices removeObject:deviceName];
-                    }
-                    [_selectedTypes removeObject:typeName];
-                }
-                else {
-                    //类型未被选中 加入选中类型列表中以及对应的机器们
-                    for (NSString *deviceName in deviceModel.name) {
-                        if (![_selectedDevices containsObject:deviceName]) {
-                            [_selectedDevices addObject:deviceName];
-                        }
-                    }
-                    if (![_selectedTypes containsObject:typeName]) {
-                        [_selectedTypes addObject:typeName];
-                    }
-                }
-            }
-            
-            break;
-        }
-    }
+//    for (DepartmentDeviceModel *model in self.allDataArray) {
+//        if ([_currentDepartment isEqualToString:model.department]) {
+//            FilterDeviceModel *deviceModel = model.devices[indexPath.row];
+//            if ([typeName isEqualToString:deviceModel.type]) {
+//                //类型已被选中 清除选中类型和对应的机器们
+//                if ([_selectedTypes containsObject:typeName]) {
+//                    for (NSString *deviceName in deviceModel.name) {
+//                        [_selectedDevices removeObject:deviceName];
+//                    }
+//                    [_selectedTypes removeObject:typeName];
+//                }
+//                else {
+//                    //类型未被选中 加入选中类型列表中以及对应的机器们
+//                    for (NSString *deviceName in deviceModel.name) {
+//                        if (![_selectedDevices containsObject:deviceName]) {
+//                            [_selectedDevices addObject:deviceName];
+//                        }
+//                    }
+//                    if (![_selectedTypes containsObject:typeName]) {
+//                        [_selectedTypes addObject:typeName];
+//                    }
+//                }
+//            }
+//
+//            break;
+//        }
+//    }
 
     self.currentType = typeName;
     //1.选择类型则不清空选择的类型重新计算
     [self calculateDataArray];
 }
 - (void)selectDevice:(id)sender {
-    UIView *cellContainer = [sender superview];
-    DeviceFilterCell *cell = (DeviceFilterCell *)[cellContainer superview];
-    NSIndexPath *indexPath = [_deviceTableView indexPathForCell:cell];
-
-    //与选种设备项同一效果
-    [self.selectedTypes removeAllObjects];   //2.选择设备则清空选择的类型重新计算
-    NSString *deviceName = self.devices[indexPath.row];
-    if ([self.selectedDevices containsObject:deviceName]) {
-        [self.selectedDevices removeObject:deviceName];
-    } else {
-        [self.selectedDevices addObject:deviceName];
-    }
-    [self calculateDataArray];
+//    UIView *cellContainer = [sender superview];
+//    DeviceFilterCell *cell = (DeviceFilterCell *)[cellContainer superview];
+//    NSIndexPath *indexPath = [_deviceTableView indexPathForCell:cell];
+//
+//    //与选种设备项同一效果
+//    [self.selectedTypes removeAllObjects];   //2.选择设备则清空选择的类型重新计算
+//    NSString *deviceName = self.devices[indexPath.row];
+//    if ([self.selectedDevices containsObject:deviceName]) {
+//        [self.selectedDevices removeObject:deviceName];
+//    } else {
+//        [self.selectedDevices addObject:deviceName];
+//    }
+//    [self calculateDataArray];
 }
 - (BOOL)isArray:(NSArray *)array1 contain:(NSArray *)array2 {
     NSSet *set1 = [NSSet setWithArray:array1];
@@ -391,13 +405,13 @@
     } else if ([tableView isEqual:self.typeTableView]) {
         self.currentType = self.types[indexPath.row];
     } else {
-        [self.selectedTypes removeAllObjects];
-        NSString *deviceName = self.devices[indexPath.row];
-        if ([self.selectedDevices containsObject:deviceName]) {
-            [self.selectedDevices removeObject:deviceName];
-        } else {
-            [self.selectedDevices addObject:deviceName];
-        }
+//        [self.selectedTypes removeAllObjects];
+//        NSString *deviceName = self.devices[indexPath.row];
+//        if ([self.selectedDevices containsObject:deviceName]) {
+//            [self.selectedDevices removeObject:deviceName];
+//        } else {
+//            [self.selectedDevices addObject:deviceName];
+//        }
     }
     [self calculateDataArray];
     
@@ -416,7 +430,7 @@
 }
 - (void)sureAction:(id)sender {
     if (self.confirmSelect) {
-        self.confirmSelect(self.selectedDevices);
+        self.confirmSelect(self.selectedDepartmentIds);
     }
     [self removeFromSuperview];
 }
@@ -426,6 +440,12 @@
         _departments = [NSMutableArray array];
     }
     return _departments;
+}
+- (NSMutableArray *)departmentIds {
+    if (!_departmentIds) {
+        _departmentIds = [NSMutableArray array];
+    }
+    return _departmentIds;
 }
 - (NSMutableArray *)types {
     if (!_types) {
@@ -456,5 +476,17 @@
         _selectedTypes = [NSMutableArray array];
     }
     return _selectedTypes;
+}
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
+- (NSMutableArray *)selectedDepartmentIds {
+    if (!_selectedDepartmentIds) {
+        _selectedDepartmentIds = [NSMutableArray array];
+    }
+    return _selectedDepartmentIds;
 }
 @end

@@ -11,5 +11,6 @@
 #import "FilterDeviceModel.h"
 @interface DepartmentDeviceModel : JSONModel
 @property (nonatomic, strong) NSString *department;
+@property (nonatomic, strong) NSString *departmentId;
 @property (nonatomic, strong) NSArray <FilterDeviceModel> *devices;
 @end

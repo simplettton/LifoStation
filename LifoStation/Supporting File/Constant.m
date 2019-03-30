@@ -15,6 +15,8 @@
 @synthesize departmentDic;
 @synthesize departmentOppositeDic;
 @synthesize typeDic;
+@synthesize deviceArray;
+@synthesize manager;
 
 + (Constant *)sharedInstance
 {

@@ -1,16 +1,16 @@
 //
-//  FourElectCell.m
+//  SingleElectCell.m
 //  LifoStation
 //
-//  Created by Binger Zeng on 2019/3/20.
+//  Created by Binger Zeng on 2019/3/27.
 //  Copyright © 2019年 Shenzhen Lifotronic Technology Co.,Ltd. All rights reserved.
 //
 
-#import "FourElectCell.h"
+#import "SingleElectCell.h"
 #import "PatientInfoPopupView.h"
-#define kBodyViewWidth 137
-#define kBodyViewHeight 187
-@interface FourElectCell()
+#define kBodyViewWidth 262
+#define kBodyViewHeight 358
+@interface SingleElectCell()
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
 
 //1 右上
@@ -35,11 +35,9 @@
 /**  5 bodyContents授权除外 */
 @property (strong, nonatomic) IBOutletCollection(id) NSArray *bodyContents;
 
-
-
-
 @end
-@implementation FourElectCell
+@implementation SingleElectCell
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.layer.borderWidth = 0.5f;
@@ -51,8 +49,6 @@
         PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithModel:self.machine.patient];
         [view showInWindowWithBackgoundTapDismissEnable:YES];
     }];
-
-    
 }
 - (void)configureWithModel:(MachineModel *)machine {
     self.machine = machine;
@@ -73,7 +69,7 @@
     }
     [self configureCellStyle];
     
-
+    
     /** gif类型 */
     NSString *machineType = machine.type;
     if (!_deviceView) {
@@ -87,7 +83,17 @@
                 break;
         }
     }
-
+    
+    //静态动态判断
+    if ([machine.state integerValue] == MachineStateRunning) {
+        self.deviceView.hidden = NO;
+        self.staticDeviceView.hidden = YES;
+        
+    } else {
+        self.deviceView.hidden = YES;
+        self.staticDeviceView.hidden = NO;
+    }
+    
     
     NSDictionary *machineStateDic = @{
                                       @"0":@"运行中",
@@ -98,12 +104,28 @@
     //信息展示
     /** 标题 */
     if ([machine.departmentName length] > 0) {
-        self.titleLabel.text = [NSString stringWithFormat:@"%@-%@",machine.departmentName,machine.name];
+        if ([self.machine.patient.treatAddress length] > 0) {
+            self.titleLabel.text = [NSString stringWithFormat:@"%@-%@-%@",machine.departmentName,self.machine.patient.treatAddress,machine.name];
+        } else {
+            self.titleLabel.text = [NSString stringWithFormat:@"%@-%@",machine.departmentName,machine.name];
+        }
     } else {
         self.titleLabel.text = machine.name;
     }
     
-
+    /** 左上 */
+    self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,machineStateDic[machine.state]];
+    self.patientLabel.adjustsFontSizeToFitWidth = YES;
+    self.treatAddressLabel.text = machine.patient.treatAddress;
+    self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
+    
+    /** 左下 */
+    self.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
+    if (machine.isfocus) {
+        self.heartImageView.image = [UIImage imageNamed:@"focus_fill"];
+    } else {
+        self.heartImageView.image = [UIImage imageNamed:@"focus_unfill"];
+    }
     
     //报警信息置顶
     if (machine.msg_alertMessage != nil) {
@@ -127,7 +149,6 @@
         }
     }
     /** 右上 */
-    /** 实时信息 */
     if (machine.msg_realTimeData) {
         NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
         for (NSDictionary *dic in machine.msg_realTimeData) {
@@ -140,60 +161,18 @@
                 [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
             }
         }
-
-        if ([paramArray count] > 0) {
-            [self configureParameterViewWithData:paramArray];
-        }
-    }
-    /** 参数修改信息 修改了state*/
-    if (machine.msg_treatParameter) {
-        NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-        for (NSDictionary *dic in machine.msg_treatParameter) {
-            NSString *key = dic[@"Key"];
-            NSString *value  = dic[@"Value"];
-            if ([key isEqualToString:@"Time"]) {
-                machine.leftTime = value;
-                self.machine.leftTime = value;
-            } else if([key isEqualToString:@"State"]) {
-                machine.state = [NSString stringWithFormat:@"%@",value];
-                self.machine.state = [NSString stringWithFormat:@"%@",value];
-                
-            } else {
-                [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-            }
-        }
         
         if ([paramArray count] > 0) {
             [self configureParameterViewWithData:paramArray];
         }
     }
-    
-    /** 左上 */
-    self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,machineStateDic[machine.state]];
-
-    self.patientLabel.adjustsFontSizeToFitWidth = YES;
-    self.treatAddressLabel.text = machine.patient.treatAddress;
-    self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
-    
-    //静态动态判断
-    if ([machine.state integerValue] == MachineStateRunning) {
-        self.deviceView.hidden = NO;
-        self.staticDeviceView.hidden = YES;
-        
-    } else {
-        self.deviceView.hidden = YES;
-        self.staticDeviceView.hidden = NO;
-    }
-    
     /** 左下 */
-
     self.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
     if (machine.isfocus) {
         self.heartImageView.image = [UIImage imageNamed:@"focus_fill"];
     } else {
         self.heartImageView.image = [UIImage imageNamed:@"focus_unfill"];
     }
-
 }
 //报警视图闪烁效果
 - (void)startFlashingAlertView {
@@ -208,7 +187,7 @@
     switch (self.style) {
             /** 在线设备 */
         case CellStyleOnline:
-
+            
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             for (UIView* view in self.bodyContents) {
@@ -218,7 +197,7 @@
             }
             self.deviceView.hidden = NO;
             self.staticDeviceView.hidden = NO;
-            self.leftTimeLabel.hidden = NO;
+            
             self.statusImageView.hidden = NO;
             self.unauthorizedView.hidden = YES;
             
@@ -248,7 +227,6 @@
             self.layer.borderColor = UIColorFromHex(0xFBA526).CGColor;
             self.deviceView.hidden = NO;
             self.staticDeviceView.hidden = NO;
-            self.leftTimeLabel.hidden = NO;
             self.unauthorizedView.hidden = YES;
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
@@ -281,6 +259,7 @@
         label.hidden = NO;
         label.adjustsFontSizeToFitWidth = YES;
         label.text = dataArray[i];
+        
     }
 }
 //gif波形和静态图
@@ -304,10 +283,10 @@
     //112
     imageView.frame = CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
     
-
+    
     [self.bodyContentView addSubview:imageView];
     self.deviceView = imageView;
-
+    
     UIImageView *imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight)];
     imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
     [imageView2 setContentMode:UIViewContentModeScaleAspectFit];
@@ -321,7 +300,7 @@
     //format of hour
     NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
     NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *formatTime = [NSString stringWithFormat:@"%@:%@",HourString,minuterString];
-    return formatTime;
+    NSString *fomatTime = [NSString stringWithFormat:@"%@:%@",HourString,minuterString];
+    return fomatTime;
 }
 @end

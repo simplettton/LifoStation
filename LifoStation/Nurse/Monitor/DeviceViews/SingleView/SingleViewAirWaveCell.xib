@@ -118,7 +118,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzE-9m-fuq">
-                                <rect key="frame" x="39" y="29" width="198" height="49"/>
+                                <rect key="frame" x="39" y="29" width="273" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHo-Wg-cvf">
@@ -127,7 +127,7 @@
                                         <state key="normal" image="idcard"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="张三-治疗中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajm-Pj-a7J">
-                                        <rect key="frame" x="60" y="14" width="138" height="21"/>
+                                        <rect key="frame" x="63" y="14" width="202" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.062745098039215685" green="0.062745098039215685" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
@@ -169,7 +169,7 @@
                 <outlet property="parameterView" destination="l4N-bW-qb4" id="56D-04-uqD"/>
                 <outlet property="patientButton" destination="PHo-Wg-cvf" id="Vzf-3j-bec"/>
                 <outlet property="patientLabel" destination="ajm-Pj-a7J" id="BF4-p7-cXl"/>
-                <outlet property="patientView" destination="lzE-9m-fuq" id="akg-EK-HvU"/>
+                <outlet property="patientView" destination="lzE-9m-fuq" id="1sb-0r-59E"/>
                 <outlet property="statusImageView" destination="RIi-8M-nLb" id="DVV-HY-ef5"/>
                 <outlet property="titleLabel" destination="Mxc-UK-6zi" id="LXD-qu-uab"/>
                 <outlet property="titleView" destination="lQi-5F-zhV" id="DEp-VN-GXV"/>

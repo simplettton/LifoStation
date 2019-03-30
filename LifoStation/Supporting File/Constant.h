@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MQTTClient/MQTTClient.h>
+#import <MQTTClient/MQTTSessionManager.h>
 typedef NS_ENUM(NSInteger,CellStyle) {
     CellStyleOnline,
     CellStyleOffLine,
@@ -30,4 +32,11 @@ typedef NS_ENUM(NSInteger,MachineState) {
 @property (nonatomic, strong) NSMutableDictionary *typeDic;
 @property (nonatomic, strong) NSMutableDictionary *departmentOppositeDic;
 @property (nonatomic, retain) NSMutableArray *departmentList;
+
+/** 系统监控的设备列表 DeviceFilterView.m */
+@property (nonatomic, strong) NSMutableArray *deviceArray;
+
+/** mqtt */
+@property (strong, nonatomic) MQTTSessionManager *manager;
+
 @end

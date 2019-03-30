@@ -35,7 +35,14 @@
     [self initAll];
     // Do any additional setup after loading the view.
 }
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+}
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.estimatedRowHeight = 56;
@@ -204,7 +211,7 @@
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
         if ([responseObject.result integerValue] == 1) {
             NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainMode"]]}];
+            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
             [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
             
             NSArray *array = responseObject.content[@"LsEdit"];
