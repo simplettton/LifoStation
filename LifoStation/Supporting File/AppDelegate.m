@@ -57,7 +57,13 @@
     if (![UserDefault objectForKey:@"HTTPServerURLString"]) {
         [UserDefault setObject:[NSString stringWithFormat:@"http://192.168.2.127:80/"] forKey:@"HTTPServerURLString"];
     }
-    
+    /** 报警配置 */
+    if (![UserDefault boolForKey:@"IsAlertSwitchOn"]) {
+        [UserDefault setBool:YES forKey:@"IsAlertSwitchOn"];
+    }
+    if (![UserDefault boolForKey:@"IsSoundSwitchOn"]) {
+        [UserDefault setBool:YES forKey:@"IsSoundSwitchOn"];
+    }
     [UserDefault synchronize];
     
 }

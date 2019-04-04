@@ -21,13 +21,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    JTMaterialSwitch *switch1 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:JTMaterialSwitchStateOn];
+    /** 报警提示 */
+    BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
+    JTMaterialSwitchState state;
+    if (isAlertSwitchOn) {
+        state = JTMaterialSwitchStateOn;
+    } else {
+        state = JTMaterialSwitchStateOff;
+    }
+    JTMaterialSwitch *switch1 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:state];
     switch1.center = CGPointMake(720, 20);
     [self.alertSwitchLine addSubview:switch1];
-    JTMaterialSwitch *switch2 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:JTMaterialSwitchStateOn];
+    self.alertSwitch = switch1;
+    
+    
+    /** 报警开关 */
+    BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
+    if (isSoundSwitchOn) {
+        state = JTMaterialSwitchStateOn;
+    } else {
+        state = JTMaterialSwitchStateOff;
+    }
+    JTMaterialSwitch *switch2 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:state];
     switch2.center = CGPointMake(720, 20);
     [self.soundSwitchLine addSubview:switch2];
     self.soundSwitch = switch2;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    BOOL isAlertSwitchOn = [self.alertSwitch getSwitchState];
+    BOOL isSoundSwitchOn = [self.soundSwitch getSwitchState];
+    [UserDefault setBool:isAlertSwitchOn forKey:@"IsAlertSwitchOn"];
+    [UserDefault setBool:isSoundSwitchOn forKey:@"IsSoundSwitchOn"];
+    [UserDefault synchronize];
+    
 }
 #pragma mark - Table view data source
 

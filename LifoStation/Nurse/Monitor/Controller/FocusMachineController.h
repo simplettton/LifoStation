@@ -10,4 +10,5 @@
 #import "MachineModel.h"
 @interface FocusMachineController : UIViewController
 @property (nonatomic, strong) MachineModel *machine;
+@property (strong, nonatomic) MQTTSessionManager *manager;
 @end

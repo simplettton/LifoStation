@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Task/ProcessingTaskViewController.m"
-            timestampString = "575545601.905404"
+            timestampString = "576065528.4949189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-refreshDataWithHeader:"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "575612085.5019701"
+            timestampString = "576065528.494989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "593"
-            endingLineNumber = "593"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -48,16 +48,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/Controller/FocusMachineController.m"
-            timestampString = "575612085.502045"
+            filePath = "LifoStation/Nurse/Monitor/DeviceViews/SingleView/SingleElectCell.m"
+            timestampString = "576065528.49536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "-handleMessage:onTopic:retained:"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "-updateMachineState:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

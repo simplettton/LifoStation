@@ -8,6 +8,7 @@
 
 #import "PatientListViewController.h"
 #import "AddPatientViewController.h"
+#import "PersonalRecordViewController.h"
 #import "PatientCell.h"
 #import "UIView+TYAlertView.h"
 #import <MMAlertView.h>
@@ -340,13 +341,20 @@
     
 }
 - (void)showTreatRecord:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:nil];
+    PatientCell *cell = (PatientCell *)[[sender superview]superview];
+    NSInteger index = [self.tableView indexPathForCell:cell].row;
+    PatientModel *patient = datas[index];
+    [self performSegueWithIdentifier:@"ShowPersonalRecord" sender:patient];
 }
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"EditPatient"]) {
         AddPatientViewController *controller = (AddPatientViewController *)segue.destinationViewController;
         controller.patient = sender;
+    } else if ([segue.identifier isEqualToString:@"ShowPersonalRecord"]) {
+        PersonalRecordViewController *vc = (PersonalRecordViewController *)segue.destinationViewController;
+        PatientModel *patient = (PatientModel *)sender;
+        vc.patient = patient;
     }
 }
 #pragma mark - filter drop menu

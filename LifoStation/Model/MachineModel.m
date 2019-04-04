@@ -15,6 +15,7 @@
        @"cpuid":@"Cpuid",
        @"name":@"Name",
        @"type":@"MachineType",
+       @"groupCode":@"DeviceGroup",
        @"state":@"MachineState",
        @"leftTime":@"LeftTimeToOver",
        @"hasLicense":@"HasLicense",

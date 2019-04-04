@@ -16,6 +16,7 @@
 #import "DeviceSelectView.h"
 #import "UIView+TYAlertView.h"
 #import "TaskCell.h"
+#import "ReportTableViewController.h"
 
 #import "TaskParentViewController.h"
 #import "TaskModel.h"
@@ -38,12 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
-    // Do any additional setup after loading the view.
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
+
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.estimatedRowHeight = 56;
@@ -57,6 +54,14 @@
     datas = [[NSMutableArray alloc]initWithCapacity:20];
     self.searchBar = parentViewController.searchBar;
     [self initTableHeaderAndFooter];
+    
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -110,7 +115,7 @@
     if (isFilteredList) {
         mutableParams = filterparam;
     }
-    [mutableParams setObject:@3 forKey:@"State"];
+    [mutableParams setObject:@4 forKey:@"State"];
     
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/List?Action=Count")
                                   params:mutableParams
@@ -166,7 +171,7 @@
     } else {
         params = @{
                    @"Page":[NSNumber numberWithInt:page],
-                   @"State":@3
+                   @"State":@4
                    };
     }
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/List?Action=List")
@@ -284,7 +289,7 @@
     if ([datas count]>0) {
         TaskModel *task = datas[indexPath.row];
         cell.personNameLabel.text = task.patient.personName;
-        cell.machineTypeLabel.text = ([UserDefault objectForKey:@"MachineTypeDic"])[task.solution.machineType];
+        cell.machineTypeLabel.text = task.solution.machineTypeName;
         if ([task.patient.treatAddress length] > 0) {
             cell.locationLabel.text = task.patient.treatAddress;
             cell.locationImageView.hidden = YES;
@@ -333,7 +338,7 @@
     TaskModel *task = datas[indexPath.row];
 
     TaskDetailView *view = [[TaskDetailView alloc]initWithModel:task];
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
     
 }
 
@@ -386,7 +391,7 @@
 }
 - (void)checkReport:(id)sender {
     TaskModel *task = datas[self.selectedIndex];
-    [self performSegueWithIdentifier:@"TaskToReport" sender:nil];
+    [self performSegueWithIdentifier:@"TaskToReport" sender:task.uuid];
 }
 #pragma mark - 第一响应者 + UIMenuController
 /**
@@ -415,6 +420,9 @@
         UIButton *button = sender;
         popover.sourceView = button;
         popover.sourceRect = button.bounds;
+    } else if ([segue.identifier isEqualToString:@"TaskToReport"]) {
+        ReportTableViewController *vc = (ReportTableViewController *)segue.destinationViewController;
+        vc.taskId = sender;
     }
 }
 #pragma mark - Private Method

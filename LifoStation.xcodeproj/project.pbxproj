@@ -14,7 +14,6 @@
 		0419846E21DDEFEA00C1713E /* RecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419846D21DDEFEA00C1713E /* RecordListViewController.m */; };
 		0419847121DDF1CD00C1713E /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419847021DDF1CD00C1713E /* RecordCell.m */; };
 		0422F0DC221D5F4E00673649 /* videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422F0DB221D5F4E00673649 /* videoViewController.m */; };
-		04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CC721D360F200C848C9 /* TaskListViewController.m */; };
 		04236CCC21D371E800C848C9 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CCB21D371E800C848C9 /* TaskCell.m */; };
 		04261E2321FAE0CE0043776D /* BodyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2221FAE0CE0043776D /* BodyImageView.m */; };
 		04261E2621FAE6050043776D /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */; };
@@ -66,13 +65,15 @@
 		0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248921E74D9900362D08 /* AlertTimeLineCell.m */; };
 		0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0465248A21E74D9900362D08 /* AlertTimeLineCell.xib */; };
 		0465248F21E74D9900362D08 /* BETimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248C21E74D9900362D08 /* BETimeLine.m */; };
+		04670A742252073E005E0BAF /* genhigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04670A712252073E005E0BAF /* genhigh.wav */; };
+		04670A752252073E005E0BAF /* genlow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04670A722252073E005E0BAF /* genlow.wav */; };
+		04670A762252073E005E0BAF /* genmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04670A732252073E005E0BAF /* genmed.wav */; };
 		0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046815FF22013D9E004F9FBB /* FilterDeviceModel.m */; };
 		0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0468160222013E5F004F9FBB /* DepartmentDeviceModel.m */; };
 		0468160522014D0B004F9FBB /* devices.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468160422014D0B004F9FBB /* devices.txt */; };
 		0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0469CC2321E4284700D0302C /* AddDepartmentView.xib */; };
 		0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2621E4288200D0302C /* AddDepartmentView.m */; };
 		0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2921E472D800D0302C /* BaseViewController.m */; };
-		0469CC2E21E47DDB00D0302C /* RecordReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2D21E47DDB00D0302C /* RecordReportViewController.m */; };
 		046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CA20C2244E52C00F61509 /* DeviceItemCell.xib */; };
 		046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37621DEFC450067BCB0 /* MachineListViewController.m */; };
 		046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37921DF32850067BCB0 /* MachineCell.m */; };
@@ -215,8 +216,6 @@
 		0419847021DDF1CD00C1713E /* RecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
 		0422F0DA221D5F4E00673649 /* videoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = videoViewController.h; sourceTree = "<group>"; };
 		0422F0DB221D5F4E00673649 /* videoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = videoViewController.m; sourceTree = "<group>"; };
-		04236CC621D360F200C848C9 /* TaskListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskListViewController.h; sourceTree = "<group>"; };
-		04236CC721D360F200C848C9 /* TaskListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskListViewController.m; sourceTree = "<group>"; };
 		04236CCA21D371E800C848C9 /* TaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
 		04236CCB21D371E800C848C9 /* TaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
 		04261E2121FAE0CE0043776D /* BodyImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BodyImageView.h; sourceTree = "<group>"; };
@@ -285,6 +284,9 @@
 		0465248A21E74D9900362D08 /* AlertTimeLineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertTimeLineCell.xib; sourceTree = "<group>"; };
 		0465248B21E74D9900362D08 /* BETimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETimeLine.h; sourceTree = "<group>"; };
 		0465248C21E74D9900362D08 /* BETimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETimeLine.m; sourceTree = "<group>"; };
+		04670A712252073E005E0BAF /* genhigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = genhigh.wav; sourceTree = "<group>"; };
+		04670A722252073E005E0BAF /* genlow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = genlow.wav; sourceTree = "<group>"; };
+		04670A732252073E005E0BAF /* genmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = genmed.wav; sourceTree = "<group>"; };
 		046815FE22013D9E004F9FBB /* FilterDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDeviceModel.h; sourceTree = "<group>"; };
 		046815FF22013D9E004F9FBB /* FilterDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDeviceModel.m; sourceTree = "<group>"; };
 		0468160122013E5F004F9FBB /* DepartmentDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepartmentDeviceModel.h; sourceTree = "<group>"; };
@@ -295,8 +297,6 @@
 		0469CC2621E4288200D0302C /* AddDepartmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddDepartmentView.m; sourceTree = "<group>"; };
 		0469CC2821E472D700D0302C /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		0469CC2921E472D800D0302C /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		0469CC2C21E47DDB00D0302C /* RecordReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordReportViewController.h; sourceTree = "<group>"; };
-		0469CC2D21E47DDB00D0302C /* RecordReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordReportViewController.m; sourceTree = "<group>"; };
 		046CA20C2244E52C00F61509 /* DeviceItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceItemCell.xib; sourceTree = "<group>"; };
 		046CD37521DEFC450067BCB0 /* MachineListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineListViewController.h; sourceTree = "<group>"; };
 		046CD37621DEFC450067BCB0 /* MachineListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MachineListViewController.m; sourceTree = "<group>"; };
@@ -652,8 +652,6 @@
 		04236CC921D360F900C848C9 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				04236CC621D360F200C848C9 /* TaskListViewController.h */,
-				04236CC721D360F200C848C9 /* TaskListViewController.m */,
 				0474945F2231093500E8C8AA /* TaskParentViewController.h */,
 				047494602231093500E8C8AA /* TaskParentViewController.m */,
 				047494622231129C00E8C8AA /* WaitingTaskViewController.h */,
@@ -826,6 +824,16 @@
 				0465248C21E74D9900362D08 /* BETimeLine.m */,
 			);
 			path = TimeLineView;
+			sourceTree = "<group>";
+		};
+		04670A702252073E005E0BAF /* alertSounds */ = {
+			isa = PBXGroup;
+			children = (
+				04670A712252073E005E0BAF /* genhigh.wav */,
+				04670A722252073E005E0BAF /* genlow.wav */,
+				04670A732252073E005E0BAF /* genmed.wav */,
+			);
+			path = alertSounds;
 			sourceTree = "<group>";
 		};
 		0469CC2B21E4730100D0302C /* BaseVc */ = {
@@ -1030,8 +1038,6 @@
 				0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */,
 				0419846F21DDF1CD00C1713E /* RecordCell.h */,
 				0419847021DDF1CD00C1713E /* RecordCell.m */,
-				0469CC2C21E47DDB00D0302C /* RecordReportViewController.h */,
-				0469CC2D21E47DDB00D0302C /* RecordReportViewController.m */,
 				0465248021E6F1E800362D08 /* ReportTableViewController.h */,
 				0465248121E6F1E800362D08 /* ReportTableViewController.m */,
 			);
@@ -1041,6 +1047,7 @@
 		04866CC921C9DBAC00855230 /* Supporting File */ = {
 			isa = PBXGroup;
 			children = (
+				04670A702252073E005E0BAF /* alertSounds */,
 				043BF5D3224DD1A300EE674C /* wavepng */,
 				042C745322425C3200FCA114 /* deviceGif */,
 				042C7440224259CF00FCA114 /* wavegif */,
@@ -1408,10 +1415,12 @@
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
 				043BF5E2224DD1A300EE674C /* sanxingbo.png in Resources */,
 				043BF5E5224DD1A300EE674C /* zhishubo.png in Resources */,
+				04670A742252073E005E0BAF /* genhigh.wav in Resources */,
 				046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */,
 				042C745822425C3300FCA114 /* bguangzi.gif in Resources */,
 				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
 				043BF5E4224DD1A300EE674C /* zhengxianbo.png in Resources */,
+				04670A762252073E005E0BAF /* genmed.wav in Resources */,
 				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
@@ -1436,6 +1445,7 @@
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
 				043BF5D0224DD10500EE674C /* dafuya2.png in Resources */,
 				042C746422426AA800FCA114 /* shihua.gif in Resources */,
+				04670A752252073E005E0BAF /* genlow.wav in Resources */,
 				043BF5DE224DD1A300EE674C /* jianbo.png in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
 				043BF5D2224DD10500EE674C /* gnhw2.png in Resources */,
@@ -1531,7 +1541,6 @@
 				04DFF16A21D07C4C009EA938 /* UIView+Tap.m in Sources */,
 				0474F239224B54D000C40E0E /* SingleElectCell.m in Sources */,
 				04709B2121F0251F000D4E12 /* UIView+AdaptScreen.m in Sources */,
-				04236CC821D360F200C848C9 /* TaskListViewController.m in Sources */,
 				047695752239E29A00FDC7DB /* MachineModel.m in Sources */,
 				0419847121DDF1CD00C1713E /* RecordCell.m in Sources */,
 				047078902226440600A0C9F7 /* PopoverTreatwayController.m in Sources */,
@@ -1556,7 +1565,6 @@
 				046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */,
 				046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */,
 				04A861A62233B3E700475A01 /* NSDate+BRAdd.m in Sources */,
-				0469CC2E21E47DDB00D0302C /* RecordReportViewController.m in Sources */,
 				047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */,
 				04DFF16D21D08FF6009EA938 /* MainViewController.m in Sources */,
 				04A861A32233AE9000475A01 /* PatientCell.m in Sources */,

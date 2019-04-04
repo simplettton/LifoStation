@@ -11,6 +11,7 @@
 #import <MMAlertView.h>
 #import "TimeLineModel.h"
 #import "BETimeLine.h"
+#import "TaskModel.h"
 
 #import "UIImage+Rotate.h"
 #import "JLImageMagnification.h"
@@ -27,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pictureButtonItem;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *printButtonItem;
-
 @property (strong,nonatomic)BETimeLine *timeLine;
 /**
  *  判断各部分cell是否显示
@@ -39,6 +39,9 @@
 
 @property (nonatomic, strong) NSString *advice;
 @property (nonatomic, assign) BOOL hasVedio;
+
+@property (weak, nonatomic) IBOutlet UILabel *patientLabel;
+
 @end
 
 @implementation ReportTableViewController {
@@ -53,8 +56,8 @@
     self.navigationController.navigationBar.tintColor = UIColorFromHex(0x272727);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromHex(0x272727)}];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
+    [self getReportData];
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
@@ -62,82 +65,54 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
+- (void)getReportData {
+
+    alertDatas = [NSMutableArray arrayWithCapacity:20];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/Report")
+                                  params:@{@"TaskId":self.taskId}
+                                hasToken:YES
+                                 success:^(HttpResponse *responseObject) {
+                                     if ([responseObject.result integerValue] == 1) {
+                                         LxDBAnyVar(responseObject.content);
+                                         TaskModel *model = [[TaskModel alloc]initWithDictionary:responseObject.content error:nil];
+                                         self.taskModel = model;
+                                         [self initAll];
+                                         [self getAlertInfomationData:model.warnning];
+                                         [self getTreatInfomationData];
+                                         
+                                         
+                                     }
+                                 }
+                                 failure:nil];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
 }
 - (void)getTreatInfomationData {
-//    NSMutableArray *paramList = [NSMutableArray arrayWithObjects:
-//                                 @{
-//                                   @"showName":@"治疗模式",@"value":@"标准治疗"
-//                                   },
-//                                 @{
-//                                   @"showName":@"治疗压力",@"value":@"200mmHg"
-//                                   },
-//                                 @{
-//                                   @"showName":@"红光治疗时间",@"value":@"40min"
-//                                   },
-//                                 @{
-//                                   @"showName":@"红光治疗模式",@"value":@"连续"
-//                                   },
-//                                 @{
-//                                   @"showName":@"红光治疗能量",@"value":@"4"
-//                                   },
-//                                 @{
-//                                   @"showName":@"蓝光治疗时间",@"value":@"20min"
-//                                   },
-//                                 @{
-//                                   @"showName":@"蓝光治疗模式",@"value":@"脉冲"
-//                                   },
-//                                 @{
-//                                   @"showName":@"蓝光治疗能量",@"value":@"1"
-//                                   },
-//                                 @{
-//                                   @"showName":@"温度检测开关",@"value":@"开"
-//                                   },
-//                                 @{
-//                                   @"showName":@"温度设定值",@"value":@"38°"
-//                                   },
-//                                 @{
-//                                   @"showName":@"治疗方案",@"value":@"5"
-//                                   },
-//                                 @{
-//                                   @"showName":@"附件类型",@"value":@"耳道"
-//                                   },
-//                                 @{
-//                                   @"showName":@"附件光源",@"value":@"red"
-//                                   },
-//                                 @{
-//                                   @"showName":@"附件时间",@"value":@"20min"
-//                                   }, nil];
-    NSMutableArray *paramList = [NSMutableArray arrayWithObjects:
-                                 @{
-                                   @"showName":@"红光治疗时间",@"value":@"40min"
-                                   },
-                                 @{
-                                   @"showName":@"红光治疗模式",@"value":@"连续"
-                                   },
-                                 @{
-                                   @"showName":@"红光治疗能量",@"value":@"4"
-                                   },
-                                 @{
-                                   @"showName":@"蓝光治疗时间",@"value":@"20min"
-                                   },
-                                 @{
-                                   @"showName":@"蓝光治疗模式",@"value":@"脉冲"
-                                   },
-                                 @{
-                                   @"showName":@"蓝光治疗能量",@"value":@"1"
-                                   },
 
-                                 @{
-                                   @"showName":@"附件光源",@"value":@"red"
-                                   },
-                                 @{
-                                   @"showName":@"附件时间",@"value":@"20min"
-                                   }, nil];
-    [paramList insertObject:@{@"showName":@"主治医生",@"value":@"李医生"} atIndex:0];
-    [paramList insertObject:@{@"showName":@"执行护士",@"value":@"小护士"} atIndex:1];
+    NSMutableArray *paramList = [NSMutableArray arrayWithArray:self.taskModel.solution.paramList];
+    [paramList insertObject:@{@"Key":@"主治医生",@"Value":self.taskModel.creatorName} atIndex:0];
+    [paramList insertObject:@{@"Key":@"执行护士",@"Value":self.taskModel.operatorName} atIndex:1];
+    [paramList insertObject:@{@"Key":@"治疗设备",@"Value":self.taskModel.solution.machineTypeName} atIndex:2];
+    [paramList insertObject:@{@"Key":@"设备名称",@"Value":self.taskModel.machine.name} atIndex:3];
+    [paramList insertObject:@{@"Key":@"治疗模式",@"Value":self.taskModel.solution.mainModeName} atIndex:4];
+    
+    NSString *realTimeString = [NSString stringWithFormat:@"%@分钟",self.taskModel.realTreatTime];
+    [paramList insertObject:@{@"Key":@"实际治疗时间",@"Value":realTimeString} atIndex:5];
+    /** 已取消的任务 */
+    if ([self.taskModel.state integerValue] == 0) {
+        [paramList addObject:@{@"Key":@"任务状态",@"Value":@"已取消"}];
+    }
+    
+    for (NSDictionary *dic in paramList) {
+        if ([dic[@"Key"]isEqualToString:@"计时方式"]) {
+            [paramList removeObject:dic];
+            break;
+        }
+    }
     
     //两列参数一行 计算行数
     NSInteger numberOfLines =( [paramList count] +1 )/2 ;
@@ -150,21 +125,33 @@
         underLineView.backgroundColor = UIColorFromHex(0xECE8E8);
         
         [self.treatInfoView addSubview:containView];
-        NSString *showName = [paramList[i*2] objectForKey:@"showName"];
-        NSString *value = [paramList[i*2] objectForKey:@"value"];
+        NSString *showName = [paramList[i*2] objectForKey:@"Key"];
+        NSString *value = [paramList[i*2] objectForKey:@"Value"];
         UILabel *firstLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, 16, 260, 21)];
-        firstLabel.textColor = UIColorFromHex(0x212121);
+        if ([showName isEqualToString:@"任务状态"]) {
+            firstLabel.textColor = UIColorFromHex(0xF26C84);
+        } else {
+            firstLabel.textColor = UIColorFromHex(0x212121);
+        }
+
         firstLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
         firstLabel.text = [NSString stringWithFormat:@"%@:%@",showName,value];
         [containView addSubview:firstLabel];
         
-        if ([paramList count] % 2 == 0) {
-            NSString *showName = [paramList[i*2 + 1] objectForKey:@"showName"];
-            NSString *value = [paramList[i*2 + 1] objectForKey:@"value"];
+
+        //判断某行第一个是不是最后一个param
+        if ((i*2+1) != [paramList count]) {
+            NSString *showName = [paramList[i*2 + 1] objectForKey:@"Key"];
+            NSString *value = [paramList[i*2 + 1] objectForKey:@"Value"];
             UILabel *secondLabel = [[UILabel alloc]initWithFrame:CGRectMake(400, 16, 260, 21)];
-            secondLabel.textColor = UIColorFromHex(0x212121);
+            if ([showName isEqualToString:@"任务状态"]) {
+                secondLabel.textColor = UIColorFromHex(0xF26C84);
+            } else {
+                secondLabel.textColor = UIColorFromHex(0x212121);
+            }
+
             secondLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
-            secondLabel.text = [NSString stringWithFormat:@"%@:%@",showName,value];
+            secondLabel.text = [NSString stringWithFormat:@"%@: %@",showName,value];
             [containView addSubview:secondLabel];
         }
         
@@ -175,12 +162,12 @@
         [self.tableView reloadData];
     });
 }
-- (void)getAlertInfomationData {
-    NSMutableArray *datas = [[NSMutableArray alloc]initWithCapacity:20];
-    NSMutableArray *testDatas = [NSMutableArray arrayWithObjects:
-  @{@"title":@"风扇异常",@"timeStamp":@"1547028360"},
-  @{@"title":@"温度报警",@"timeStamp":@"1547031960"},nil];
-    for (NSDictionary *dataDic in testDatas) {
+- (void)getAlertInfomationData:(NSArray *)dataArray {
+//    NSMutableArray *datas = [[NSMutableArray alloc]initWithCapacity:20];
+//    NSMutableArray *testDatas = [NSMutableArray arrayWithObjects:
+//  @{@"title":@"风扇异常",@"timeStamp":@"1547028360"},
+//  @{@"title":@"温度报警",@"timeStamp":@"1547031960"},nil];
+    for (NSDictionary *dataDic in dataArray) {
         NSError *error;
         TimeLineModel *model = [[TimeLineModel alloc]initWithDictionary:dataDic error:&error];
         BOOL containSameModel = NO;
@@ -209,13 +196,26 @@
     backButtonItem.title = @"";
     self.navigationItem.backBarButtonItem = backButtonItem;
     
-    self.hasAlertMessage = YES;
+
     self.hasPicture = NO;
     self.hasVedio = YES;
-    self.hasAdvice = NO;
-    alertDatas = [NSMutableArray arrayWithCapacity:20];
-    [self getAlertInfomationData];
-    [self getTreatInfomationData];
+    if ([self.taskModel.suggest length] > 0) {
+        self.hasAdvice = YES;
+        self.advice = self.taskModel.suggest;
+        self.adviceTextView.text = self.taskModel.suggest;
+    } else {
+        self.adviceTextView.text = @"无";
+    }
+
+    if ([self.taskModel.warnning count] > 0) {
+        self.hasAlertMessage = YES;
+    } else {
+        self.hasAlertMessage = NO;
+    }
+    NSString *creatTime = [self stringFromTimeIntervalString:self.taskModel.creatTime dateFormat:@"yyyy-MM-dd"];
+    if (self.taskModel.patient.medicalNumber) {
+        self.patientLabel.text = [NSString stringWithFormat:@"病历号:%@    姓名:%@   就诊时间:%@",self.taskModel.patient.medicalNumber,self.taskModel.patient.personName,creatTime];
+    }
     
     if (self.image) {
         self.resultImageView.image = self.image;
@@ -253,10 +253,11 @@
 
     }
     else if (indexPath.row == 3) {
-        if (self.hasAdvice) {
-            return 200;
-        }
-        return 0;
+//        if (self.hasAdvice) {
+//            return 200;
+//        }
+//        return 0;
+        return 200;
 
     }
     else if (indexPath.row == 4) {
@@ -275,20 +276,31 @@
     PopoverAction *action1 = [PopoverAction actionWithTitle:@"添加/编辑医嘱" handler:^(PopoverAction *action) {
         
         AddAdviceView *view = [[AddAdviceView alloc]initWithContent:self.advice return:^(NSString *newAdvice) {
-            self.advice = newAdvice;
-            self.hasAdvice = YES;
-            self.adviceTextView.text = newAdvice;
-            [self.tableView reloadData];
+            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/AddSuggest")
+                                          params:@{@"Suggest":newAdvice}
+                                        hasToken:YES
+                                         success:^(HttpResponse *responseObject) {
+                                             if ([responseObject.result integerValue] == 1) {
+                                                 self.advice = newAdvice;
+                                                 self.hasAdvice = YES;
+                                                 self.adviceTextView.text = newAdvice;
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [self.tableView reloadData];
+                                                 });
+
+                                             }
+                                         }
+                                         failure:nil];
         }];
-        [view showInWindow];
+        [view showInWindowWithBackgoundTapDismissEnable:YES];
         
     }];
-    PopoverAction *action2 = [PopoverAction actionWithTitle:@"治疗效果图" handler:^(PopoverAction *action) {
-        [self addPhotoAction:nil];
-    }];
+//    PopoverAction *action2 = [PopoverAction actionWithTitle:@"治疗效果图" handler:^(PopoverAction *action) {
+//        [self addPhotoAction:nil];
+//    }];
     PopoverView *popoverView = [PopoverView popoverView];
     popoverView.style = PopoverViewStyleDefault;
-    [popoverView showToView:sender withActions:@[action1,action2]];
+    [popoverView showToView:sender withActions:@[action1]];
 }
 - (IBAction)printAction:(id)sender {
 //    MMPopupItemHandler block = ^(NSInteger index){
@@ -422,5 +434,22 @@
         _advice = [[NSString alloc]init];
     }
     return _advice;
+}
+#pragma mark - Private Method
+//时间戳字符串转化为日期或时间
+- (NSString *)stringFromTimeIntervalString:(NSString *)timeString dateFormat:(NSString*)dateFormat
+{
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone: [NSTimeZone timeZoneWithName:@"Asia/Beijing"]];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:dateFormat];
+    
+    // 毫秒值转化为秒
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]];
+    NSString* dateString = [formatter stringFromDate:date];
+    
+    return dateString;
 }
 @end

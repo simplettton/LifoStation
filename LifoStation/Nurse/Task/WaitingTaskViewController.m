@@ -221,7 +221,10 @@
             NSArray *array = responseObject.content[@"LsEdit"];
             if ([array count]>0) {
                 for (NSDictionary *dataDic in array) {
-                    [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+                    /** 手动去掉服务器返回的计时方式无用字段 */
+                    if (![dataDic[@"ShowName"]isEqualToString:@"计时方式"]) {
+                        [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+                    }
                 }
             }
             task.solution.paramList = paramArray;
@@ -274,7 +277,7 @@
     
     TaskModel *task = datas[indexPath.row];
     cell.personNameLabel.text = task.patient.personName;
-    cell.machineTypeLabel.text = ([UserDefault objectForKey:@"MachineTypeDic"])[task.solution.machineType];
+    cell.machineTypeLabel.text = task.solution.machineTypeName;
     if ([task.patient.treatAddress length] > 0) {
         cell.locationLabel.text = task.patient.treatAddress;
         cell.locationImageView.hidden = YES;
@@ -325,7 +328,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     TaskModel *task = datas[indexPath.row];
     DeviceSelectView *view = [[DeviceSelectView alloc]initWithModel:task return:^(NSDictionary *dic) {
-        [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/BindingDevice") params:dic hasToken:YES success:^(HttpResponse *responseObject) {
+        [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/SolutionDownload") params:dic hasToken:YES success:^(HttpResponse *responseObject) {
             if ([responseObject.result integerValue] == 1) {
                 [BEProgressHUD showMessage:@"已绑定机器下发参数"];
                 [self refresh];

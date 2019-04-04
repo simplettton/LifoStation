@@ -9,6 +9,8 @@
 #import "MonitorViewController.h"
 #import "FocusMachineController.h"
 #import "DeviceFilterView.h"
+#import "MachineModel.h"
+
 
 #import "SingleViewAirWaveCell.h"
 #import "SingleElectCell.h"
@@ -29,14 +31,20 @@
 
 #import <MQTTClient/MQTTClient.h>
 #import <MQTTClient/MQTTSessionManager.h>
-
-#import "MachineModel.h"
+/** 短频音效播放 */
+#import <AudioToolbox/AudioToolbox.h>
+/** 音频库文件 */
+#import <AVFoundation/AVFoundation.h>
 
 #define USER_NAME @"admin"
 #define PASSWORD @"pwd321"
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
-@interface MonitorViewController ()<MQTTSessionManagerDelegate, MQTTSessionDelegate>
+typedef NS_ENUM(NSInteger, PlaySoundType) {
+    PlaySoundTypeNormal = 0,
+    PlaySoundTypeShake,
+};
+@interface MonitorViewController ()<MQTTSessionManagerDelegate, MQTTSessionDelegate,AVAudioPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *alertView;
@@ -54,7 +62,15 @@
 @property (strong, nonatomic) NSMutableDictionary *subscriptions;
 @property (nonatomic, strong) NSArray *selectedDepartment;
 
+//检测报警的定时器
+@property (nonatomic, strong) NSTimer *alerTimer;
 @property (weak, nonatomic) IBOutlet UIView *noDataView;
+/**
+ 播放器
+ */
+@property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, assign) NSInteger playingAlertLevel;
+@property (nonatomic, assign) float volumValue;
 
 @end
 
@@ -69,7 +85,6 @@
     NSMutableArray *alertArray;
     NSMutableArray *cpuids;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -122,6 +137,9 @@
     
     /** 下拉刷新控件 */
     [self initTableHeaderAndFooter];
+    
+    /** 初始化当前声音等级 */
+    self.playingAlertLevel = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,6 +154,9 @@
     //mqtt
     [self.manager addObserver:self
                    forKeyPath:@"state" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+    if (self.manager) {
+        self.manager.delegate = self;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -253,8 +274,8 @@
     NSString *receiveStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     NSData * receiveData = [receiveStr dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableLeaves error:nil];
-    LxDBAnyVar(topic);
-    LxDBAnyVar(jsonDict);
+//    LxDBAnyVar(topic);
+//    LxDBAnyVar(jsonDict);
     NSNumber *code = jsonDict[@"Cmdid"];
     NSArray *content = jsonDict[@"Data"];
     NSArray *topicArray = [topic componentsSeparatedByString:@"/"];
@@ -265,33 +286,40 @@
         if ([code integerValue] == 0x91) {
             //等3秒才去除报警信息
             machine.msg_realTimeData = content;
-            if (machine.msg_alertMessage !=nil) {
-                dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
-                dispatch_after(timer, dispatch_get_main_queue(), ^{
-                    machine.msg_alertMessage = nil;
-                    [self reloadItemAtIndex:index];
-                });
-            }
 
         } else if ([code integerValue] == 0x90) {
             machine.msg_treatParameter = content;
-            if (machine.msg_alertMessage !=nil) {
-                dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
-                dispatch_after(timer, dispatch_get_main_queue(), ^{
-                    machine.msg_alertMessage = nil;
-                    [self reloadItemAtIndex:index];
-                });
-            }
+
+        } else if ([code integerValue] == 0x94) {
+            NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
+            machine.isonline = [isOnline boolValue];
         } else if ([code integerValue] == 0x95) {
-            machine.msg_alertMessage =jsonDict[@"Data"][@"ErrMsg"];
+            BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
+            BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
+            
+            if (isAlertSwitchOn) {
+                machine.msg_alertMessage = jsonDict[@"Data"][@"ErrMsg"];
+                //取消3秒关闭报警提示
+                [self invalidateTimer:machine.outTimeTimer];
+                //开启3秒关闭报警提示
+                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:machine repeats:NO];
+                
+                //取消声音提示定时器
+                [self invalidateTimer:self.alerTimer];
+                //开启关闭声音提示3s定时器
+                self.alerTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeSounds:) userInfo:nil repeats:NO];
+                if (isSoundSwitchOn) {
+                    //报警提示音
+                    [self playAlertSoundsWithLevel:jsonDict[@"Data"][@"Level"]];
+                }
+            }
+            
             NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            
-            
             NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
-            LxDBAnyVar([self getCurrentTimeString]);
             [dataDic setObject:errorString forKey:@"error"];
             [dataDic setObject:machine.cpuid forKey:@"cpuid"];
-            
+            [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
+
             [alertArray addObject:dataDic];
             [self.tableView reloadData];
         }
@@ -299,9 +327,26 @@
             [self reloadItemAtIndex:index];
         });
     }
-
-    
 }
+- (void)closeAlert:(NSTimer *)timer {
+    MachineModel *machine = [timer userInfo];
+    machine.msg_alertMessage = nil;
+    NSInteger index = [cpuids indexOfObject:machine.cpuid];
+    [self reloadItemAtIndex:index];
+}
+- (void)closeSounds:(NSTimer *)timer {
+    if ([_player isPlaying]) {
+        [_player stop];
+    }
+    self.playingAlertLevel = 0;
+}
+- (void)invalidateTimer:(NSTimer *)timer {
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+}
+
 #pragma mark - refresh
 - (void)initTableHeaderAndFooter {
     
@@ -421,6 +466,7 @@
                                                  [datas addObject:machine];
                                                  [cpuids addObject:machine.cpuid];
                                                  [self subcribeMachine:machine];
+
                                              }
                                              /** 刷新设备参数 */
 //                                             [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ReflashParam") params:@{} hasToken:YES success:nil failure:nil];
@@ -633,7 +679,7 @@
     return [datas count];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     /** 一宫格 */
     switch (self.showViewType) {
         case SingleViewType:
@@ -747,7 +793,10 @@
     for (UIButton *button in self.typeSwitchView.subviews) {
         button.selected = (button.tag == [sender tag]);
     }
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
+
     /** 滑到第一格 */
 //    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
@@ -762,8 +811,67 @@
     self.isShowAlertMessage = !self.isShowAlertMessage;
     [self.tableView reloadData];
 }
+#pragma mark - AlertSounds
 
-#pragma mark - getter
+- (void)playAlertSoundsWithLevel:(NSNumber *)level {
+    NSString *soundName = [NSString string];
+
+    switch ([level integerValue]) {
+        case 1:
+            soundName = @"genhigh";
+            if (self.playingAlertLevel != 1) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:1] ;
+            }
+            break;
+        case 2:
+            soundName = @"genmed";
+            if (self.playingAlertLevel != 1 && self.playingAlertLevel != 2) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:2];
+            }
+
+            break;
+        case 3:
+            soundName = @"genlow";
+            if (self.playingAlertLevel == 0) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:3];
+            }
+            break;
+        default:
+            break;
+    }
+    self.playingAlertLevel = [level integerValue];
+}
+/**
+ 设置音效
+ @param name 音效名称
+ @param soundtype 音效类型
+
+ */
+- (void)playSoundWithName:(NSString *)name soundtype:(NSString *)soundtype level:(NSInteger)level
+{
+    [self playerInitialize:name soundtype:soundtype];
+    LxDBAnyVar(@"--------------------------------------");
+    self.playingAlertLevel = level;
+}
+- (void)playerInitialize:(NSString *)musicName soundtype:(NSString *)soundtype {
+    NSError *err;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:musicName withExtension:soundtype];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+    _volumValue = 0.5;
+    _player.volume = _volumValue;
+    _player.delegate = self;
+    _player.numberOfLoops = -1;
+    [_player prepareToPlay];
+    [_player play];
+}
+- (void)stopPlayer {
+    [_player stop];
+}
+#pragma mark - AVAudioDelegate
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+}
+#pragma mark - 懒加载
 - (NSArray *)selectedDepartment {
     if (!_selectedDepartment) {
         _selectedDepartment = [NSArray array];
@@ -779,16 +887,48 @@
 
 - (NSString *)getCurrentTimeString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy/MM/dd HH:mm"];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     NSDate *dateNow = [NSDate date];
     return [formatter stringFromDate:dateNow];
 }
+- (AVAudioPlayer *)player {
+    if (!_player) {
+        NSError *err;
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"genlow" withExtension:@"wav"];
+        //    初始化播放器
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+        //    设置播放器声音
+         _volumValue = 0.5;
+        _player.volume = _volumValue;
+        _player.delegate = self;
+        //    设置播放次数 负数代表无限循环
+        _player.numberOfLoops = -1;
+        //    准备播放
+        [_player prepareToPlay];
+        
+        
+    }
+    return _player;
+}
+- (IBAction)volumChange:(UISlider *)sender {
+    //    改变声音大小
+    _player.volume = sender.value;
+}
+- (IBAction)player:(id)sender {
+    //    开始播放
+    [_player play];
+}
 
+- (IBAction)stop:(id)sender {
+    //    暂停播放
+    [_player stop];
+}
 #pragma mark - segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowFocusMachines"]) {
         FocusMachineController *controller = (FocusMachineController *)segue.destinationViewController;
         controller.machine = (MachineModel *)sender;
+        controller.manager = self.manager;
     }
 }
 @end

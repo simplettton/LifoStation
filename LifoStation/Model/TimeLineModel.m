@@ -9,6 +9,12 @@
 #import "TimeLineModel.h"
 
 @implementation TimeLineModel
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:@{
+                                                                 @"title":@"Msg",
+                                                                 @"timeStamp":@"Time"
+                                                                 }];
+}
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
     return YES;
 }

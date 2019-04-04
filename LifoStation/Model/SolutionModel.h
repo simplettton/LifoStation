@@ -12,6 +12,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *machineType;
+@property (nonatomic, strong) NSString *machineTypeName;
 @property (nonatomic, strong) NSMutableArray <Optional> *paramList;
+@property (nonatomic, strong) NSString *mainModeName;
 @property (nonatomic, strong) NSString *treatTime;
 @end

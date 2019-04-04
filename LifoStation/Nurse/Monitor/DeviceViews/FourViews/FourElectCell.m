@@ -8,8 +8,8 @@
 
 #import "FourElectCell.h"
 #import "PatientInfoPopupView.h"
-#define kBodyViewWidth 137
-#define kBodyViewHeight 187
+#define kBodyViewWidth 126
+#define kBodyViewHeight 174
 @interface FourElectCell()
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
 
@@ -47,12 +47,13 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.patientView addTapBlock:^(id obj) {
-        PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithModel:self.machine.patient];
-        [view showInWindowWithBackgoundTapDismissEnable:YES];
-    }];
-
-    
+    LxDBAnyVar(self.machine.patient.personName);
+    if (self.machine.patient.personName) {
+        [self.patientView addTapBlock:^(id obj) {
+            PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithModel:self.machine.patient];
+            [view showInWindowWithBackgoundTapDismissEnable:YES];
+        }];
+    }
 }
 - (void)configureWithModel:(MachineModel *)machine {
     self.machine = machine;
@@ -75,19 +76,25 @@
     
 
     /** gif类型 */
-    NSString *machineType = machine.type;
+    NSString *machineType = machine.groupCode;
     if (!_deviceView) {
         
         switch ([machineType integerValue]) {
-            case 122:
+            case 112:
                 [self showWaveImage:@"shihua"];
                 break;
-                
+            case 6448:
+                [self showWaveImage:@"gnhw"];
+                break;
             default:
                 break;
         }
     }
 
+    /** 更新machine state */
+    if (machine.msg_treatParameter) {
+        [self updateMachineState:machine];
+    }
     
     NSDictionary *machineStateDic = @{
                                       @"0":@"运行中",
@@ -118,7 +125,6 @@
                                                      repeats:YES];
             [[NSRunLoop mainRunLoop] addTimer:self.alertTimer forMode:NSDefaultRunLoopMode];
         }
-        
     } else {
         self.alertView.hidden = YES;
         if (self.alertTimer) {
@@ -128,51 +134,77 @@
     }
     /** 右上 */
     /** 实时信息 */
-    if (machine.msg_realTimeData) {
-        NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-        for (NSDictionary *dic in machine.msg_realTimeData) {
-            NSString *key = dic[@"Key"];
-            NSString *value  = dic[@"Value"];
-            if ([key isEqualToString:@"Time"]) {
-                machine.leftTime = value;
-                self.machine.leftTime = value;
-            } else {
-                [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-            }
-        }
-
-        if ([paramArray count] > 0) {
-            [self configureParameterViewWithData:paramArray];
-        }
-    }
-    /** 参数修改信息 修改了state*/
-    if (machine.msg_treatParameter) {
-        NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-        for (NSDictionary *dic in machine.msg_treatParameter) {
-            NSString *key = dic[@"Key"];
-            NSString *value  = dic[@"Value"];
-            if ([key isEqualToString:@"Time"]) {
-                machine.leftTime = value;
-                self.machine.leftTime = value;
-            } else if([key isEqualToString:@"State"]) {
-                machine.state = [NSString stringWithFormat:@"%@",value];
-                self.machine.state = [NSString stringWithFormat:@"%@",value];
+    switch ([machine.state integerValue]) {
+        case MachineStateRunning:
+            if (machine.msg_realTimeData) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                for (NSDictionary *dic in machine.msg_realTimeData) {
+                    NSString *key = dic[@"Key"];
+                    NSString *value  = dic[@"Value"];
+                    if ([key isEqualToString:@"Time"]) {
+                        machine.leftTime = value;
+                        self.machine.leftTime = value;
+                    } else {
+                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
+                    }
+                }
                 
-            } else {
-                [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewWithData:paramArray];
+                }
             }
-        }
-        
-        if ([paramArray count] > 0) {
-            [self configureParameterViewWithData:paramArray];
-        }
+            if (![self.deviceView isAnimating]) {
+                [self.deviceView startAnimating];
+            }
+            break;
+        case MachineStateStop:
+        case MachineStatePause:
+            /** 参数修改信息 修改了state*/
+            if (machine.msg_treatParameter) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                for (NSDictionary *dic in machine.msg_treatParameter) {
+                    NSString *key = dic[@"Key"];
+                    NSString *value  = dic[@"Value"];
+                    if ([key isEqualToString:@"Time"]) {
+                        machine.leftTime = value;
+                        self.machine.leftTime = value;
+                    } else if([key isEqualToString:@"State"]) {
+                        machine.state = [NSString stringWithFormat:@"%@",value];
+                        self.machine.state = [NSString stringWithFormat:@"%@",value];
+                        
+                    } else {
+                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
+                    }
+                }
+                
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewWithData:paramArray];
+                }
+            }
+            if ([self.deviceView isAnimating]) {
+                [self.deviceView stopAnimating];
+            }
+            break;
+        default:
+            break;
     }
+
+
+
     
     /** 左上 */
-    self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,machineStateDic[machine.state]];
-
+    if (machine.patient.personName) {
+        self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,machineStateDic[machine.state]];
+    } else {
+        self.patientLabel.text = [NSString stringWithFormat:@"未知患者-%@",machineStateDic[machine.state]];
+    }
     self.patientLabel.adjustsFontSizeToFitWidth = YES;
-    self.treatAddressLabel.text = machine.patient.treatAddress;
+    if (machine.patient.treatAddress) {
+        self.treatAddressLabel.text = machine.patient.treatAddress;
+    } else {
+        self.treatAddressLabel.text = machine.patient.treatAddress;
+    }
+
     self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
     
     //静态动态判断
@@ -186,7 +218,6 @@
     }
     
     /** 左下 */
-
     self.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
     if (machine.isfocus) {
         self.heartImageView.image = [UIImage imageNamed:@"focus_fill"];
@@ -275,6 +306,16 @@
     self.statusImageView.hidden = !self.machine.isonline;
 }
 
+- (void)updateMachineState:(MachineModel *)machine {
+    for (NSDictionary *dic in machine.msg_treatParameter) {
+        NSString *key = dic[@"Key"];
+        NSString *value  = dic[@"Value"];
+        if ([key isEqualToString:@"State"]) {
+            machine.state = [NSString stringWithFormat:@"%@",value];
+            break;
+        }
+    }
+}
 - (void)configureParameterViewWithData:(NSMutableArray *)dataArray {
     for (int i = 0; i < [dataArray count]; i ++) {
         UILabel *label = [self.parameterView viewWithTag:1000+i];
@@ -305,15 +346,22 @@
     imageView.frame = CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
     
 
-    [self.bodyContentView addSubview:imageView];
-    self.deviceView = imageView;
-
+    /** 静态图 */
     UIImageView *imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight)];
     imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
     [imageView2 setContentMode:UIViewContentModeScaleAspectFit];
-    [self.bodyContentView addSubview:imageView2];
+    if (!self.staticDeviceView) {
+        [self.bodyContentView addSubview:imageView2];
+        self.staticDeviceView = imageView2;
+    }
+
     
-    self.staticDeviceView = imageView2;
+    /** 动态图 */
+    if (!self.deviceView) {
+        [self.bodyContentView addSubview:imageView];
+        self.deviceView = imageView;
+    }
+
 }
 - (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
     NSInteger seconds = [totalTime integerValue];
@@ -321,7 +369,8 @@
     //format of hour
     NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
     NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *formatTime = [NSString stringWithFormat:@"%@:%@",HourString,minuterString];
+    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
+    NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
     return formatTime;
 }
 @end

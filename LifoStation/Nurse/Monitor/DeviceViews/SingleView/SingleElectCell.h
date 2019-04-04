@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *patientView;
 @property (weak, nonatomic) IBOutlet UILabel *patientLabel;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
-@property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
+
 //2 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;
 @property (weak, nonatomic) IBOutlet UIImageView *heartImageView;

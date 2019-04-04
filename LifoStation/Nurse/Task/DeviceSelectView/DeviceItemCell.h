@@ -11,7 +11,7 @@
 @interface DeviceItemCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *departmentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *usageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bellButton;

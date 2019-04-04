@@ -178,6 +178,7 @@
                                          NSNumber *count = responseObject.content;
                                          totalPage = ([count intValue]+10-1)/10;
                                          
+                                         LxDBAnyVar(count);
                                          if (totalPage <= 1) {
                                              self.tableView.mj_footer.hidden = YES;
                                          }else{
@@ -195,7 +196,7 @@
 
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              //                                             [self hideNodataView];
-                                         }else{
+                                         } else {
                                              [datas removeAllObjects];
                                              if (self.isOnline) {
                                                  self.downloadButton.hidden = YES;
@@ -208,7 +209,7 @@
                                                  [BEProgressHUD showMessage:@"没有找到该设备"];
                                              }else{
                                                  
-                                                 [BEProgressHUD showMessage:@"暂无记录"];
+                                                 [BEProgressHUD showMessage:@"暂无设备"];
                                              }
                                              
                                          }
@@ -317,7 +318,7 @@
     DeviceItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceItemCell" forIndexPath:indexPath];
     
     //离线隐藏
-    cell.statusLabel.hidden = (self.selectedMachineType == offline);
+    cell.usageLabel.hidden = (self.selectedMachineType == offline);
     cell.usageLabel.hidden = (self.selectedMachineType == offline);
     cell.leftTimeLabel.hidden = (self.selectedMachineType == offline);
     cell.selectionImageView.hidden = (self.selectedMachineType == offline);
@@ -338,14 +339,15 @@
     }
 
     cell.deviceNameLabel.text = machine.name;
-    if ([machine.state integerValue] == STOP) {
-        cell.statusLabel.text = @"空闲";
+    if ([machine.state integerValue] == MachineStateStop) {
+        cell.usageLabel.text = @"空闲";
+        cell.leftTimeLabel.text = @"-";
     } else {
-        cell.statusLabel.text = @"使用中";
-        cell.statusLabel.text = [NSString stringWithFormat:@"%@ min",machine.leftTime];
+        cell.usageLabel.text = @"使用中";
+        cell.leftTimeLabel.text = [NSString stringWithFormat:@"%@ min",machine.leftTime];
     }
     //类似4min 格式
-    cell.leftTimeLabel.text = [self changeSecondToTimeString:machine.leftTime];
+//    cell.leftTimeLabel.text = [self changeSecondToTimeString:machine.leftTime];
     cell.bellButton.tag = indexPath.row;
     [cell.bellButton addTarget:self action:@selector(ringAction:) forControlEvents:UIControlEventTouchUpInside];
 

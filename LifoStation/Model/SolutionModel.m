@@ -15,7 +15,13 @@
         @"name":@"Name",
         @"uuid":@"Uid",
         @"machineType":@"MachineType",
-        @"treatTime":@"TreatTime"
+        @"machineTypeName":@"MachineName",
+        @"treatTime":@"TreatTime",
+        @"mainModeName":@"MainModeName",
+        @"paramList":@"LsParam"
         }];
+}
++ (BOOL)propertyIsOptional:(NSString *)propertyName {
+    return YES;
 }
 @end

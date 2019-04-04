@@ -110,16 +110,15 @@
 //                                           }, nil];
 
     //防止重复添加
-    NSDictionary *typeDic = [UserDefault objectForKey:@"MachineTypeDic"];
     if (![paramList containsObject:@{@"showName":@"主治医生",@"value":self.model.creatorName}]) {
         [paramList insertObject:@{@"showName":@"主治医生",@"value":self.model.creatorName} atIndex:0];
         if ([self.model.state integerValue] == 2) {
             //排队中任务
-            [paramList insertObject:@{@"showName":@"治疗设备",@"value":typeDic[self.model.solution.machineType]} atIndex:1];
+            [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:1];
         } else {
             //治疗中已完成任务
             [paramList insertObject:@{@"showName":@"执行护士",@"value":self.model.operatorName} atIndex:1];
-            [paramList insertObject:@{@"showName":@"治疗设备",@"value":typeDic[self.model.solution.machineType]} atIndex:2];
+            [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:2];
             [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:2];
         }
 

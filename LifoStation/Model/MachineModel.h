@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,machineState) {
 @property (nonatomic, strong) NSString *cpuid;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *groupCode;
 @property (nonatomic, strong) NSString *state;
 //剩余时间
 @property (nonatomic, strong) NSString<Optional> *leftTime;
@@ -36,5 +37,6 @@ typedef NS_ENUM(NSInteger,machineState) {
 
 @property (nonatomic, strong) NSString<Optional> *msg_alertMessage;
 
-
+//报警信息超时定时器
+@property (nonatomic, strong) NSTimer *outTimeTimer;
 @end

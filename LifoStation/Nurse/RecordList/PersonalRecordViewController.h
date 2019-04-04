@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PatientModel.h"
 @interface PersonalRecordViewController : UIViewController
 
+@property (nonatomic, strong) PatientModel *patient;
 @end

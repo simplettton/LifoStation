@@ -31,8 +31,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *isShowAlertViewButton;
 @property (nonatomic, assign) BOOL isShowAlertMessage;
 
-@property (strong, nonatomic) MQTTSessionManager *manager;
+/** mqtt */
+
 @property (strong, nonatomic) NSMutableDictionary *subscriptions;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
 @end
 
 @implementation FocusMachineController
@@ -66,16 +68,18 @@
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
-    [self connectMQTT];
+//    [self connectMQTT];
 
     if (self.machine) {
         [datas addObject:self.machine];
+        [cpuids addObject:self.machine.cpuid];
         [self.collectionView reloadData];
         self.title = @"";
     } else {
         self.title = @"重点关注";
         [self initTableHeaderAndFooter];
     }
+    self.manager.delegate = self;
     
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,17 +107,16 @@
 #pragma mark - MQTT
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"state"]) {
-        LxDBAnyVar(self.manager.state);
         switch (self.manager.state) {
             case MQTTSessionManagerStateClosed:
-                
+                LxDBAnyVar(@"closed");
                 break;
             case MQTTSessionManagerStateClosing:
                 break;
             case MQTTSessionManagerStateConnecting:
                 break;
             case MQTTSessionManagerStateConnected:
-                
+                LxDBAnyVar(@"connected");
                 break;
             default:
                 break;
@@ -195,6 +198,8 @@
     NSString *receiveStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     NSData * receiveData = [receiveStr dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableLeaves error:nil];
+    LxDBAnyVar(topic);
+    LxDBAnyVar(jsonDict);
     NSNumber *code = jsonDict[@"Cmdid"];
     NSArray *content = jsonDict[@"Data"];
     NSArray *topicArray = [topic componentsSeparatedByString:@"/"];
@@ -215,6 +220,7 @@
             
         } else if ([code integerValue] == 0x90) {
             machine.msg_treatParameter = content;
+            
             if (machine.msg_alertMessage !=nil) {
                 dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
                 dispatch_after(timer, dispatch_get_main_queue(), ^{
@@ -222,13 +228,17 @@
                     [self reloadItemAtIndex:index];
                 });
             }
+        } else if ([code integerValue] == 0x94) {
+            NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
+            machine.isonline = [isOnline boolValue];
+            [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x95) {
-            machine.msg_alertMessage = jsonDict[@"Data"][@"ErrMsg"];
+            machine.msg_alertMessage =jsonDict[@"Data"][@"ErrMsg"];
             NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            
-            NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],machine.departmentName,machine.name,machine.msg_alertMessage];
+
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
+            LxDBAnyVar([self getCurrentTimeString]);
             [dataDic setObject:errorString forKey:@"error"];
-            //            [dataDic setObject:machine.msg_alertMessage forKey:@"error"];
             [dataDic setObject:machine.cpuid forKey:@"cpuid"];
             
             [alertArray addObject:dataDic];
@@ -238,7 +248,6 @@
             [self reloadItemAtIndex:index];
         });
     }
-    
 }
 #pragma mark - refresh
 - (void)initTableHeaderAndFooter {
@@ -286,14 +295,15 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             
+                                             self.noDataView.hidden = YES;
                                              [self getNetworkDataWithHeader:isPullingDown];
-                                             //                                             [self hideNodataView];
+
                                          }else{
                                              [datas removeAllObjects];
                                              [cpuids removeAllObjects];
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.collectionView reloadData];
+                                                 self.noDataView.hidden = NO;
                                              });
 
                                              [BEProgressHUD showMessage:@"暂无数据"];
@@ -350,20 +360,7 @@
                                                  MachineModel *machine = [[MachineModel alloc]initWithDictionary:dic error:&error];
                                                  machine.isonline = YES;
                                                  machine.hasLicense = YES;
-                                                 //                                                 NSDictionary *textPatient = @{
-                                                 //                                                                               @"Age" : @"27",
-                                                 //                                                                               @"Birthday" : @"714153600",
-                                                 //                                                                               @"Gender" : @"女",
-                                                 //                                                                               @"MedicalNumber" : @"002019032500201903250020190325",
-                                                 //                                                                               @"PersonName" : @"独角阳",
-                                                 //                                                                               @"Phone" : @"15521081414",
-                                                 //                                                                               @"RegistedTime" : @"1553496587",
-                                                 //                                                                               @"TreatAddress" : @"康复科2号223",
-                                                 //                                                                               @"Uid" : @"ded29dde-7a91-4dbe-bd0b-477357df115d"
-                                                 //                                                     };
-                                                 //                                                 machine.patient = [[PatientModel alloc]initWithDictionary:textPatient error:&error];
                                                  [datas addObject:machine];
-
                                                  [cpuids addObject:machine.cpuid];
                                                  [self subcribeMachine:machine];
                                              }
@@ -425,7 +422,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isShowAlertMessage) {
-        return 3;
+//        return 3;
         return [alertArray count];
     } else {
         return 0;
@@ -443,6 +440,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.textLabel.textColor = UIColorFromHex(0x787878);
+    
+    cell.textLabel.text = alertArray[indexPath.row][@"error"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -453,8 +453,16 @@
 #pragma mark - Action
 
 - (IBAction)showAlertView:(id)sender {
-    AlertView *alerView = [AlertView createViewFromNib];
-    [alerView showInWindow];
+    AlertView *view = [[AlertView alloc]initWithData:alertArray return:^(NSString *cpuid) {
+        if ([cpuids containsObject:cpuid]) {
+            //选中报警信息滚动到设备视图可见
+            NSInteger index = [cpuids indexOfObject:cpuid];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        }
+        
+    }] ;
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 - (void)showPatientInfoView:(id)sender {
     AlertView *view = [[AlertView alloc]initWithData:alertArray return:^(NSString *cpuid) {

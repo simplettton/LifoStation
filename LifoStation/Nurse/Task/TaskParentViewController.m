@@ -41,7 +41,6 @@
     _searchButton.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     _searchButton.layer.borderWidth = 1.0;
 
-    
     [self initPageMenu];
     [self.view addSubview:self.scrollView];
     NSArray *controllerClassNames = [NSArray arrayWithObjects:@"WaitingTaskViewController",@"ProcessingTaskViewController",@"FinishedTaskViewController",nil];
@@ -60,6 +59,14 @@
         self.scrollView .contentSize = CGSizeMake(self.dataArr.count*kScreenWidth, 0);
         [self.view bringSubviewToFront:self.pageMenu];
     }
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
 }
 - (void)initPageMenu {
     self.dataArr = @[@"排队中",@"治疗中",@"已完成"];

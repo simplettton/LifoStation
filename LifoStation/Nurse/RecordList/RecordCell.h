@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *machineTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *machineNameLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *treatmentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *treatDateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
 @end

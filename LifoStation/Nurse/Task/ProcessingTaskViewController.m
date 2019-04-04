@@ -53,6 +53,7 @@
     [self initTableHeaderAndFooter];
     
 }
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self hideKeyBoard];
 }
@@ -276,7 +277,7 @@
     if ([datas count]>0) {
         TaskModel *task = datas[indexPath.row];
         cell.personNameLabel.text = task.patient.personName;
-        cell.machineTypeLabel.text = ([UserDefault objectForKey:@"MachineTypeDic"])[task.solution.machineType];
+        cell.machineTypeLabel.text = task.solution.machineTypeName;
         if ([task.patient.treatAddress length] > 0) {
             cell.locationLabel.text = task.patient.treatAddress;
             cell.locationImageView.hidden = YES;
@@ -326,7 +327,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TaskModel *task = datas[indexPath.row];
     TaskDetailView *view = [[TaskDetailView alloc]initWithModel:task];
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 #pragma mark - Action
 - (void)moreAction:(UIButton *)sender {

@@ -24,7 +24,9 @@
               
               @"machine":@"Device",
               @"leftTime":@"LeftTimeToOver",
-              @"solution":@"Solution"
+              @"solution":@"Solution",
+              @"warnning":@"Warnning",
+              @"realTreatTime":@"RealTreatTime"
               }
             ];
 }

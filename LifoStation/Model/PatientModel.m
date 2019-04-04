@@ -24,5 +24,7 @@
               @"phoneNumber":@"Phone"
               }];
 }
-
++ (BOOL)propertyIsOptional:(NSString *)propertyName {
+    return YES;
+}
 @end
