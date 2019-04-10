@@ -23,8 +23,6 @@
 /** 2 alert */
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessageLabel;
-@property (nonatomic,strong)NSTimer *alertTimer;
--(void)startFlashingAlertView;
 
 /** 3 titleView */
 @property (weak, nonatomic) IBOutlet UIView *titleView;
@@ -47,7 +45,7 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    LxDBAnyVar(self.machine.patient.personName);
+
     if (self.machine.patient.personName) {
         [self.patientView addTapBlock:^(id obj) {
             PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithModel:self.machine.patient];
@@ -73,7 +71,6 @@
         }
     }
     [self configureCellStyle];
-    
 
     /** gif类型 */
     NSString *machineType = machine.groupCode;
@@ -81,14 +78,33 @@
         
         switch ([machineType integerValue]) {
             case 112:
-                [self showWaveImage:@"shihua"];
+                [self addDeviceImage:@"shihua"];
                 break;
             case 6448:
-                [self showWaveImage:@"gnhw"];
+                [self addDeviceImage:@"gnhw"];
+                break;
+            case 61199:
+                [self addDeviceImage:@"rguangzi"];
                 break;
             default:
                 break;
         }
+    } else {
+        switch ([machineType integerValue]) {
+            case 112:
+                [self updateDeviceImage:@"shihua"];
+                break;
+            case 6448:
+                [self updateDeviceImage:@"gnhw"];
+                break;
+            case 61199:
+                [self updateDeviceImage:@"rguangzi"];
+
+                break;
+            default:
+                break;
+        }
+
     }
 
     /** 更新machine state */
@@ -110,28 +126,6 @@
         self.titleLabel.text = machine.name;
     }
     
-
-    
-    //报警信息置顶
-    if (machine.msg_alertMessage != nil) {
-        self.alertMessageLabel.text = machine.msg_alertMessage;
-        self.alertView.hidden = NO;
-        [self.bodyContentView bringSubviewToFront:self.alertView];
-        if(!self.alertTimer) {
-            self.alertTimer = [NSTimer timerWithTimeInterval:0.5
-                                                      target:self
-                                                    selector:@selector(startFlashingAlertView)
-                                                    userInfo:nil
-                                                     repeats:YES];
-            [[NSRunLoop mainRunLoop] addTimer:self.alertTimer forMode:NSDefaultRunLoopMode];
-        }
-    } else {
-        self.alertView.hidden = YES;
-        if (self.alertTimer) {
-            [self.alertTimer invalidate];
-            self.alertTimer = nil;
-        }
-    }
     /** 右上 */
     /** 实时信息 */
     switch ([machine.state integerValue]) {
@@ -325,8 +319,7 @@
     }
 }
 //gif波形和静态图
--(void)showWaveImage:(NSString *)name {
-    //GIF 转 NSData
+- (void)addDeviceImage:(NSString *)name {
     //Gif 路径
     NSString *pathForFile = [[NSBundle mainBundle] pathForResource: name ofType:@"gif"];
     //转成NSData
@@ -349,6 +342,7 @@
     /** 静态图 */
     UIImageView *imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight)];
     imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
+    [imageView2.image setAccessibilityIdentifier:[NSString stringWithFormat:@"%@2",name]];
     [imageView2 setContentMode:UIViewContentModeScaleAspectFit];
     if (!self.staticDeviceView) {
         [self.bodyContentView addSubview:imageView2];
@@ -361,7 +355,16 @@
         [self.bodyContentView addSubview:imageView];
         self.deviceView = imageView;
     }
-
+}
+- (void)updateDeviceImage:(NSString *)name {
+    /** 静态图 */
+    self.staticDeviceView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
+    
+    /** 动态图*/
+    NSString *pathForFile = [[NSBundle mainBundle] pathForResource: name ofType:@"gif"];
+    NSData *dataOfGif = [NSData dataWithContentsOfFile: pathForFile];
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:dataOfGif];
+    self.deviceView.animatedImage = image;
 }
 - (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
     NSInteger seconds = [totalTime integerValue];

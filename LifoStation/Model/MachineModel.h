@@ -39,4 +39,7 @@ typedef NS_ENUM(NSInteger,machineState) {
 
 //报警信息超时定时器
 @property (nonatomic, strong) NSTimer *outTimeTimer;
+
+//报警信息出现消失定时器
+@property (nonatomic, strong) NSTimer *alertTimer;
 @end

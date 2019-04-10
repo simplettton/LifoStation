@@ -30,13 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTap];
-
+    
 }
 
 #pragma mark - hide navigation bar
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 - (void)viewDidAppear:(BOOL)animated {

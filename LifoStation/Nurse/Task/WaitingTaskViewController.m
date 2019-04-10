@@ -216,7 +216,7 @@
         if ([responseObject.result integerValue] == 1) {
             NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
             [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
-            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
+//            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
             
             NSArray *array = responseObject.content[@"LsEdit"];
             if ([array count]>0) {

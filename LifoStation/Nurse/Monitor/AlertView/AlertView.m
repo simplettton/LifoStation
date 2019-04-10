@@ -47,13 +47,12 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    UILabel *detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(24, 13, 382, 21)];
-    detailLabel.text = _dataArray[indexPath.row][@"error"];
-//    detailLabel.text = @"2018/12/12 15:32 内科-23床 [光子设备1] 风扇异常";
-    detailLabel.textColor = UIColorFromHex(0x787878);
-    detailLabel.font = [UIFont systemFontOfSize:16];
-    [cell.contentView addSubview:detailLabel];
-    
+
+    cell.textLabel.text = _dataArray[indexPath.row][@"error"];
+
+    cell.textLabel.textColor = UIColorFromHex(0x787878);
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
+
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

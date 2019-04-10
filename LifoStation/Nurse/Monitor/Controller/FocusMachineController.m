@@ -18,12 +18,19 @@
 #import <MQTTClient/MQTTSessionManager.h>
 
 #import "MachineModel.h"
-
+/** 音频库文件 */
+#import <AVFoundation/AVFoundation.h>
 #define USER_NAME @"admin"
 #define PASSWORD @"pwd321"
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
-@interface FocusMachineController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource,MQTTSessionManagerDelegate, MQTTSessionDelegate>
+
+#define ParameterViewTag 9999
+#define TimeLabelTag 8888
+#define FocusViewTag 7777
+#define BodyContentViewTag 6666
+
+@interface FocusMachineController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource,MQTTSessionManagerDelegate, MQTTSessionDelegate,AVAudioPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *alertView;
@@ -34,7 +41,16 @@
 /** mqtt */
 
 @property (strong, nonatomic) NSMutableDictionary *subscriptions;
+
+//检测报警的定时器
+@property (nonatomic, strong) NSTimer *alerTimer;
 @property (weak, nonatomic) IBOutlet UIView *noDataView;
+/**
+ 播放器
+ */
+@property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, assign) NSInteger playingAlertLevel;
+@property (nonatomic, assign) float volumValue;
 @end
 
 @implementation FocusMachineController
@@ -190,7 +206,9 @@
         NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
         [indexPaths addObject:indexPath];
         if (index < [datas count]) {
-            [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+            [UIView performWithoutAnimation:^{
+                [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+            }];
         }
     }
 }
@@ -208,46 +226,194 @@
         NSInteger index = [cpuids indexOfObject:cpuid];
         MachineModel *machine = [datas objectAtIndex:index];
         if ([code integerValue] == 0x91) {
-            //等3秒才去除报警信息
             machine.msg_realTimeData = content;
-            if (machine.msg_alertMessage !=nil) {
-                dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
-                dispatch_after(timer, dispatch_get_main_queue(), ^{
-                    machine.msg_alertMessage = nil;
-                    [self reloadItemAtIndex:index];
-                });
-            }
-            
+             [self updateCellAtIndex:index withModel:machine];
+
         } else if ([code integerValue] == 0x90) {
             machine.msg_treatParameter = content;
-            
-            if (machine.msg_alertMessage !=nil) {
-                dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
-                dispatch_after(timer, dispatch_get_main_queue(), ^{
-                    machine.msg_alertMessage = nil;
-                    [self reloadItemAtIndex:index];
-                });
-            }
+            [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
             machine.isonline = [isOnline boolValue];
             [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x95) {
-            machine.msg_alertMessage =jsonDict[@"Data"][@"ErrMsg"];
+            BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
+            BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
+            
+            if (isAlertSwitchOn) {
+                machine.msg_alertMessage = jsonDict[@"Data"][@"ErrMsg"];
+                //取消3秒关闭报警提示
+                [self invalidateTimer:machine.outTimeTimer];
+                //开启3秒关闭报警提示
+                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:machine repeats:NO];
+                
+                //取消声音提示定时器
+                [self invalidateTimer:self.alerTimer];
+                //开启关闭声音提示3s定时器
+                self.alerTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeSounds:) userInfo:nil repeats:NO];
+                if (isSoundSwitchOn) {
+                    //报警提示音
+                    [self playAlertSoundsWithLevel:jsonDict[@"Data"][@"Level"]];
+                }
+            }
+            [self reloadItemAtIndex:index];
+            
             NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-
             NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
-            LxDBAnyVar([self getCurrentTimeString]);
             [dataDic setObject:errorString forKey:@"error"];
             [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+            [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
             
             [alertArray addObject:dataDic];
             [self.tableView reloadData];
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self reloadItemAtIndex:index];
-        });
+
     }
+}
+- (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
+    /** 右上 */
+    /** 实时信息 */
+    switch ([machine.state integerValue]) {
+        case MachineStateRunning:
+            if (machine.msg_realTimeData) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                for (NSDictionary *dic in machine.msg_realTimeData) {
+                    NSString *key = dic[@"Key"];
+                    NSString *value  = dic[@"Value"];
+                    if ([key isEqualToString:@"Time"]) {
+                        machine.leftTime = value;
+                        
+                    } else {
+                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
+                    }
+                }
+                
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewAtIndex:index withData:paramArray];
+                }
+            }
+            break;
+        case MachineStateStop:
+        case MachineStatePause:
+            /** 参数修改信息 修改了state*/
+            if (machine.msg_treatParameter) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                for (NSDictionary *dic in machine.msg_treatParameter) {
+                    NSString *key = dic[@"Key"];
+                    NSString *value  = dic[@"Value"];
+                    if ([key isEqualToString:@"Time"]) {
+                        machine.leftTime = value;
+                        
+                    } else if([key isEqualToString:@"State"]) {
+                        machine.state = [NSString stringWithFormat:@"%@",value];
+                        
+                    } else {
+                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
+                    }
+                }
+                
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewAtIndex:index withData:paramArray];
+                }
+            }
+            
+            break;
+        default:
+            break;
+    }
+    /** 左下 */
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
+    UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
+    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
+    
+}
+- (void)configureParameterViewAtIndex:(NSInteger)index withData:(NSMutableArray *)dataArray {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+    UIView *parameterView = [bodyContentView viewWithTag:ParameterViewTag];
+    for (int i = 0; i < [dataArray count]; i ++) {
+        UILabel *label = [parameterView viewWithTag:1000+i];
+        label.hidden = NO;
+        label.adjustsFontSizeToFitWidth = YES;
+        label.text = dataArray[i];
+    }
+}
+- (void)closeAlert:(NSTimer *)timer {
+    MachineModel *machine = [timer userInfo];
+    machine.msg_alertMessage = nil;
+    NSInteger index = [cpuids indexOfObject:machine.cpuid];
+    [self reloadItemAtIndex:index];
+}
+- (void)closeSounds:(NSTimer *)timer {
+    if ([_player isPlaying]) {
+        [_player stop];
+    }
+    self.playingAlertLevel = 0;
+}
+- (void)invalidateTimer:(NSTimer *)timer {
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+}
+#pragma mark - AlertSounds
+
+- (void)playAlertSoundsWithLevel:(NSNumber *)level {
+    NSString *soundName = [NSString string];
+    
+    switch ([level integerValue]) {
+        case 1:
+            soundName = @"warninghigh";
+            if (self.playingAlertLevel != 1) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:1] ;
+            }
+            break;
+        case 2:
+            soundName = @"warningmed";
+            if (self.playingAlertLevel != 1 && self.playingAlertLevel != 2) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:2];
+            }
+            
+            break;
+        case 3:
+            soundName = @"warninglow";
+            if (self.playingAlertLevel == 0) {
+                [self playSoundWithName:soundName soundtype:@"wav" level:3];
+            }
+            break;
+        default:
+            break;
+    }
+    self.playingAlertLevel = [level integerValue];
+}
+/**
+ 设置音效
+ @param name 音效名称
+ @param soundtype 音效类型
+ 
+ */
+- (void)playSoundWithName:(NSString *)name soundtype:(NSString *)soundtype level:(NSInteger)level
+{
+    [self playerInitialize:name soundtype:soundtype];
+    LxDBAnyVar(@"--------------------------------------");
+    self.playingAlertLevel = level;
+}
+- (void)playerInitialize:(NSString *)musicName soundtype:(NSString *)soundtype {
+    NSError *err;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:musicName withExtension:soundtype];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+    _volumValue = 0.5;
+    _player.volume = _volumValue;
+    _player.delegate = self;
+    _player.numberOfLoops = -1;
+    [_player prepareToPlay];
+    [_player play];
+}
+- (void)stopPlayer {
+    [_player stop];
 }
 #pragma mark - refresh
 - (void)initTableHeaderAndFooter {
@@ -358,8 +524,6 @@
                                              for (NSDictionary *dic in content) {
                                                  NSError *error;
                                                  MachineModel *machine = [[MachineModel alloc]initWithDictionary:dic error:&error];
-                                                 machine.isonline = YES;
-                                                 machine.hasLicense = YES;
                                                  [datas addObject:machine];
                                                  [cpuids addObject:machine.cpuid];
                                                  [self subcribeMachine:machine];
@@ -555,11 +719,40 @@
     NSDate *dateNow = [NSDate date];
     return [formatter stringFromDate:dateNow];
 }
+- (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
+    NSInteger seconds = [totalTime integerValue];
+    
+    //format of hour
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
+    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
+    NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
+    return formatTime;
+}
 #pragma mark - getter
 - (NSMutableDictionary *)subscriptions {
     if (!_subscriptions) {
         _subscriptions = [NSMutableDictionary dictionary];
     }
     return _subscriptions;
+}
+
+- (AVAudioPlayer *)player {
+    if (!_player) {
+        NSError *err;
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"warninglow" withExtension:@"wav"];
+        //    初始化播放器
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+        //    设置播放器声音
+        _volumValue = 0.5;
+        _player.volume = _volumValue;
+        _player.delegate = self;
+        //    设置播放次数 负数代表无限循环
+        _player.numberOfLoops = -1;
+        //    准备播放
+        [_player prepareToPlay];
+        
+    }
+    return _player;
 }
 @end

@@ -68,16 +68,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="640" height="46.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2018/12/12 15:32 内科-23床 [光子设备1] 风扇异常" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en5-uH-HMr">
-                        <rect key="frame" x="20" y="13" width="382" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2222" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="en5-uH-HMr">
+                        <rect key="frame" x="20" y="13" width="600" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="en5-uH-HMr" firstAttribute="centerY" secondItem="NAI-87-2o8" secondAttribute="centerY" id="Y5E-rX-V72"/>
+                    <constraint firstItem="en5-uH-HMr" firstAttribute="leading" secondItem="NAI-87-2o8" secondAttribute="leading" constant="20" symbolic="YES" id="gfq-h8-0Nb"/>
+                    <constraint firstAttribute="trailing" secondItem="en5-uH-HMr" secondAttribute="trailing" constant="20" symbolic="YES" id="kOA-ln-pcD"/>
+                </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="-6" y="687"/>
+            <point key="canvasLocation" x="1" y="491"/>
         </tableViewCell>
     </objects>
     <resources>

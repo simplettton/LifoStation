@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Task/ProcessingTaskViewController.m"
-            timestampString = "576065528.4949189"
+            timestampString = "576486653.1873209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "576065528.494989"
+            timestampString = "576582561.431461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "631"
-            endingLineNumber = "631"
+            startingLineNumber = "742"
+            endingLineNumber = "742"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,13 +52,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/DeviceViews/SingleView/SingleElectCell.m"
-            timestampString = "576065528.49536"
+            timestampString = "576582561.432162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "-updateMachineState:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
+            timestampString = "576582561.432219"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "916"
+            endingLineNumber = "916"
+            landmarkName = "-changeShowViewType:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MonitorViewController changeShowViewType:]"
+                  moduleName = "LifoStation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/LifoStation/LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
+                  timestampString = "576558754.967788"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "929"
+                  endingLineNumber = "929"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MonitorViewController changeShowViewType:]"
+                  moduleName = "LifoStation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/LifoStation/LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
+                  timestampString = "576558754.970137"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "929"
+                  endingLineNumber = "929"
+                  offsetFromSymbolStart = "176">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

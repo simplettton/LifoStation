@@ -45,7 +45,6 @@
         ChooseLanguageView *view = [ChooseLanguageView createViewFromNib];
         [view showInWindow];
     }];
-    
     [self.logoutView addTapBlock:^(id obj) {
         [self presentLogoutAlert];
     }];
@@ -89,17 +88,12 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-//    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x6DA3E0);
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

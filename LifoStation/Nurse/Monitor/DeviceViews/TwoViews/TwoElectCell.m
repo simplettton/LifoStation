@@ -72,21 +72,41 @@
     
     
     /** gif类型 */
-    NSString *machineType = machine.type;
+    NSString *machineType = machine.groupCode;
     if (!_deviceView) {
         
         switch ([machineType integerValue]) {
-            case 122:
-                [self showWaveImage:@"shihua"];
+            case 112:
+                [self addDeviceImage:@"shihua"];
                 break;
             case 6448:
-                [self showWaveImage:@"gnhw"];
+                [self addDeviceImage:@"gnhw"];
+                break;
+            case 61199:
+                [self addDeviceImage:@"rguangzi"];
                 break;
                 
             default:
                 break;
         }
+    } else {
+        switch ([machineType integerValue]) {
+            case 112:
+                [self updateDeviceImage:@"shihua"];
+                break;
+            case 6448:
+                [self updateDeviceImage:@"gnhw"];
+                break;
+            case 61199:
+                [self updateDeviceImage:@"rguangzi"];
+                
+                break;
+            default:
+                break;
+        }
     }
+    
+    
     /** 更新machine state */
     if (machine.msg_treatParameter) {
         [self updateMachineState:machine];
@@ -326,8 +346,7 @@
     }
 }
 //gif波形和静态图
--(void)showWaveImage:(NSString *)name {
-    //GIF 转 NSData
+-(void)addDeviceImage:(NSString *)name {
     //Gif 路径
     NSString *pathForFile = [[NSBundle mainBundle] pathForResource: name ofType:@"gif"];
     //转成NSData
@@ -347,15 +366,32 @@
     imageView.frame = CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
     
     
-    [self.bodyContentView addSubview:imageView];
-    self.deviceView = imageView;
-    
+    /** 静态图 */
     UIImageView *imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake((width - kBodyViewWidth) /2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight)];
     imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
+    [imageView2.image setAccessibilityIdentifier:[NSString stringWithFormat:@"%@2",name]];
     [imageView2 setContentMode:UIViewContentModeScaleAspectFit];
-    [self.bodyContentView addSubview:imageView2];
+    if (!self.staticDeviceView) {
+        [self.bodyContentView addSubview:imageView2];
+        self.staticDeviceView = imageView2;
+    }
     
-    self.staticDeviceView = imageView2;
+    
+    /** 动态图 */
+    if (!self.deviceView) {
+        [self.bodyContentView addSubview:imageView];
+        self.deviceView = imageView;
+    }
+}
+- (void)updateDeviceImage:(NSString *)name {
+    /** 静态图 */
+    self.staticDeviceView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@2",name]];
+    
+    /** 动态图*/
+    NSString *pathForFile = [[NSBundle mainBundle] pathForResource: name ofType:@"gif"];
+    NSData *dataOfGif = [NSData dataWithContentsOfFile: pathForFile];
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:dataOfGif];
+    self.deviceView.animatedImage = image;
 }
 - (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
     NSInteger seconds = [totalTime integerValue];
