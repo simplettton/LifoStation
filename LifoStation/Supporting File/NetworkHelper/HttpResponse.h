@@ -13,7 +13,7 @@
 
 @interface HttpResponse:NSObject
 
-@property NSDictionary *jsonDist;
+//@property NSDictionary *jsonDist;
 @property NSString *result;
 @property id content;
 @property NSString *errorString;

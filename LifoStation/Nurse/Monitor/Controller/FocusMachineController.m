@@ -7,6 +7,7 @@
 //
 
 #import "FocusMachineController.h"
+#import "MachineParameterTool.h"
 #import "AirWaveSetParameterView.h"
 #import "PatientInfoPopupView.h"
 #import "AlertView.h"
@@ -20,6 +21,8 @@
 #import "MachineModel.h"
 /** 音频库文件 */
 #import <AVFoundation/AVFoundation.h>
+/** 图表头文件 */
+#import "AAChartKit.h"
 #define USER_NAME @"admin"
 #define PASSWORD @"pwd321"
 #define MQTTIP @"HTTPServerIP"
@@ -29,6 +32,9 @@
 #define TimeLabelTag 8888
 #define FocusViewTag 7777
 #define BodyContentViewTag 6666
+#define AlertViewTag 5555
+#define AlertLabelTag 4444
+#define ChartViewTag 3333
 
 @interface FocusMachineController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource,MQTTSessionManagerDelegate, MQTTSessionDelegate,AVAudioPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -42,8 +48,8 @@
 
 @property (strong, nonatomic) NSMutableDictionary *subscriptions;
 
-//检测报警的定时器
-@property (nonatomic, strong) NSTimer *alerTimer;
+//检测声音报警的定时器
+@property (nonatomic, strong) NSTimer *soundTimer;
 @property (weak, nonatomic) IBOutlet UIView *noDataView;
 /**
  播放器
@@ -219,7 +225,7 @@
     LxDBAnyVar(topic);
     LxDBAnyVar(jsonDict);
     NSNumber *code = jsonDict[@"Cmdid"];
-    NSArray *content = jsonDict[@"Data"];
+    NSDictionary *content = jsonDict[@"Data"];
     NSArray *topicArray = [topic componentsSeparatedByString:@"/"];
     NSString *cpuid = topicArray[2];
     if ([cpuids containsObject:cpuid]) {
@@ -227,125 +233,114 @@
         MachineModel *machine = [datas objectAtIndex:index];
         if ([code integerValue] == 0x91) {
             machine.msg_realTimeData = content;
-             [self updateCellAtIndex:index withModel:machine];
-
+            [self updateCellAtIndex:index withModel:machine];
+            
         } else if ([code integerValue] == 0x90) {
             machine.msg_treatParameter = content;
+            /** 收到参数包代表已授权 */
+            machine.hasLicense = YES;
             [self reloadItemAtIndex:index];
+            
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
             machine.isonline = [isOnline boolValue];
-            [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
-            
+            machine.msg_alertMessage = content[@"ErrMsg"];
+            /** 打开了报警提示开关 */
             if (isAlertSwitchOn) {
-                machine.msg_alertMessage = jsonDict[@"Data"][@"ErrMsg"];
+                //更新报警文字
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+                UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+                UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+                UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
+                alertLabel.text = machine.msg_alertMessage;
+                //边框橙色
+                cell.layer.borderWidth = 2;
+                cell.layer.borderColor =  UIColorFromHex(0xFBA526).CGColor;
+                
                 //取消3秒关闭报警提示
                 [self invalidateTimer:machine.outTimeTimer];
                 //开启3秒关闭报警提示
-                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:machine repeats:NO];
+                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:@{
+                                                                                                                                        @"machine":machine,
+                                                                                                                                        @"index":[NSNumber numberWithInteger:index]} repeats:NO];
+                if (!machine.alertTimer) {
+                    machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                                          target:self
+                                                                        selector:@selector(startFlashingAlertView:)
+                                                                        userInfo:@{
+                                                                                   @"machine":machine,
+                                                                                   @"index":[NSNumber numberWithInteger:index]}
+                                                                         repeats:YES];
+                }
                 
-                //取消声音提示定时器
-                [self invalidateTimer:self.alerTimer];
-                //开启关闭声音提示3s定时器
-                self.alerTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeSounds:) userInfo:nil repeats:NO];
+                /** 打开了声音开关 */
                 if (isSoundSwitchOn) {
+                    //取消声音提示定时器
+                    [self invalidateTimer:self.soundTimer];
+                    //开启关闭声音提示3s定时器
+                    self.soundTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeSounds:) userInfo:nil repeats:NO];
                     //报警提示音
-                    [self playAlertSoundsWithLevel:jsonDict[@"Data"][@"Level"]];
+                    [self playAlertSoundsWithLevel:content[@"Level"]];
                 }
             }
-            [self reloadItemAtIndex:index];
             
             NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            NSString *errorString = [NSString stringWithFormat:@"%@ %@[%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
             [dataDic setObject:errorString forKey:@"error"];
             [dataDic setObject:machine.cpuid forKey:@"cpuid"];
             [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
             
-            [alertArray addObject:dataDic];
+            [alertArray insertObject:dataDic atIndex:0];
             [self.tableView reloadData];
         }
+        
+    }
+}
 
-    }
-}
-- (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
-    /** 右上 */
-    /** 实时信息 */
-    switch ([machine.state integerValue]) {
-        case MachineStateRunning:
-            if (machine.msg_realTimeData) {
-                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-                for (NSDictionary *dic in machine.msg_realTimeData) {
-                    NSString *key = dic[@"Key"];
-                    NSString *value  = dic[@"Value"];
-                    if ([key isEqualToString:@"Time"]) {
-                        machine.leftTime = value;
-                        
-                    } else {
-                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-                    }
-                }
-                
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewAtIndex:index withData:paramArray];
-                }
-            }
-            break;
-        case MachineStateStop:
-        case MachineStatePause:
-            /** 参数修改信息 修改了state*/
-            if (machine.msg_treatParameter) {
-                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-                for (NSDictionary *dic in machine.msg_treatParameter) {
-                    NSString *key = dic[@"Key"];
-                    NSString *value  = dic[@"Value"];
-                    if ([key isEqualToString:@"Time"]) {
-                        machine.leftTime = value;
-                        
-                    } else if([key isEqualToString:@"State"]) {
-                        machine.state = [NSString stringWithFormat:@"%@",value];
-                        
-                    } else {
-                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-                    }
-                }
-                
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewAtIndex:index withData:paramArray];
-                }
-            }
-            
-            break;
-        default:
-            break;
-    }
-    /** 左下 */
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
-    UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
-    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
+#pragma mark - 报警控制
+- (void)startFlashingAlertView:(NSTimer *)timer {
     
-}
-- (void)configureParameterViewAtIndex:(NSInteger)index withData:(NSMutableArray *)dataArray {
+    /** 获取alertView */
+    NSDictionary *dataDic = timer.userInfo;
+    NSInteger index = [dataDic[@"index"]integerValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
-    UIView *parameterView = [bodyContentView viewWithTag:ParameterViewTag];
-    for (int i = 0; i < [dataArray count]; i ++) {
-        UILabel *label = [parameterView viewWithTag:1000+i];
-        label.hidden = NO;
-        label.adjustsFontSizeToFitWidth = YES;
-        label.text = dataArray[i];
+    UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    
+    /** 报警信息置顶 */
+    [bodyContentView bringSubviewToFront:alertView];
+    
+    /** 显示与隐藏alertView */
+    if (alertView.isHidden) {
+        alertView.hidden = NO;
+    } else {
+        alertView.hidden = YES;
     }
 }
 - (void)closeAlert:(NSTimer *)timer {
-    MachineModel *machine = [timer userInfo];
+    NSDictionary *dataDic = timer.userInfo;
+    MachineModel *machine = dataDic[@"machine"];
+    NSInteger index = [dataDic[@"index"]integerValue];
     machine.msg_alertMessage = nil;
-    NSInteger index = [cpuids indexOfObject:machine.cpuid];
+    [machine.alertTimer invalidate];
+    machine.alertTimer = nil;
+    /** 恢复边框颜色 */
     [self reloadItemAtIndex:index];
+    
+    /** 隐藏alertview */
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+    UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    alertView.hidden = YES;
+    
+    
 }
 - (void)closeSounds:(NSTimer *)timer {
     if ([_player isPlaying]) {
@@ -358,6 +353,117 @@
         [timer invalidate];
         timer = nil;
     }
+}
+
+#pragma mark - 实时包
+- (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
+    /** 右上 */
+    /** 实时信息 */
+    switch ([machine.state integerValue]) {
+        case MachineStateRunning:
+            if (machine.msg_realTimeData) {
+                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewAtIndex:index withData:paramArray];
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    /** 左下 */
+    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
+    UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
+    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:showTime];
+    
+    NSString *machineType = machine.groupCode;
+    if ([machineType integerValue] == MachineType_Light) {
+        [self refreshChartAtIndex:index withMachine:machine];
+    }
+    
+}
+
+/** 根据paramter数组获取右上角 */
+- (void)configureParameterViewAtIndex:(NSInteger)index withData:(NSArray *)dataArray {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+    UIView *parameterView = [bodyContentView viewWithTag:ParameterViewTag];
+    for (int i = 0; i < 4; i ++) {
+        UILabel *label = [parameterView viewWithTag:1000+i];
+        if (i < [dataArray count]) {
+            label.hidden = NO;
+            label.adjustsFontSizeToFitWidth = YES;
+            label.text = dataArray[i];
+        } else {
+            label.hidden = YES;
+        }
+    }
+}
+#pragma mark - chart
+- (void)refreshChartAtIndex:(NSInteger)index withMachine:(MachineModel *)machine {
+    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+//    //    AAChartView *chartView = (AAChartView *)[bodyContentView viewWithTag:ChartViewTag
+//    //                              ];
+//    UIView *view = [bodyContentView viewWithTag:ChartViewTag];
+//    AAChartView *chartView;
+//    if (!machine.chartDataArray) {
+//        machine.chartDataArray = [[NSMutableArray alloc]initWithCapacity:20];
+//        chartView = [[AAChartView alloc]initWithFrame:view.frame];
+//        [bodyContentView addSubview:chartView];
+//        view = chartView;
+//        _aaview = chartView;
+//    }
+//    NSNumber *data = [[MachineParameterTool sharedInstance]getChartDataWithModel:machine];
+//    [machine.chartDataArray addObject:data];
+//    //已经有图表数据则更新，没有图标数据则新建
+//    if ([machine.chartDataArray count]>1) {
+//        if ([machine.chartDataArray count]>15) {
+//            [machine.chartDataArray removeObjectAtIndex:0];
+//        }
+//        NSArray *aaChartModelSeriesArray = @[@{
+//                                                 @"name":@"temperature",
+//                                                 @"type":@"spline",
+//                                                 @"data":machine.chartDataArray
+//                                                 },];
+//        //        [((AAChartView *)view) aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
+//        [_aaview aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
+//
+//    }
+//    else {
+//        if (data) {
+//            AAChartModel *chartModel= AAObject(AAChartModel)
+//            .chartTypeSet(AAChartTypeSpline)
+//            .titleSet(@"")
+//            .subtitleSet(@"")
+//            .yAxisLineWidthSet(@0)//Y轴轴线线宽为0即是隐藏Y轴轴线
+//            //            .colorsThemeSet(@[@"#fe117c",@"#ffc069",@"#06caf4",@"#7dffc0"])//设置主体颜色数组
+//            .markerRadiusSet(@0)    //圆点的大小
+//            .yAxisVisibleSet(NO)
+//            .xAxisVisibleSet(NO)
+//            .yAxisTitleSet(@"")//设置 Y 轴标题
+//            .tooltipValueSuffixSet(@"℃")//设置浮动提示框单位后缀
+//            .yAxisGridLineWidthSet(@0)//y轴横向分割线宽度为0(即是隐藏分割线)
+//
+//            .legendEnabledSet(NO)//下面按钮是否显示
+//            .seriesSet(@[@{
+//                             @"name":@"temperature",
+//                             @"data":machine.chartDataArray,
+//                             @"color":@"#f8b273"
+//                             },]);
+//            chartModel.animationType = AAChartAnimationBounce;
+//            /*图表视图对象调用图表模型对象,绘制最终图形*/
+//            //            [((AAChartView *)view) aa_drawChartWithChartModel:chartModel];
+//            [_aaview aa_drawChartWithChartModel:chartModel];
+//        }
+//    }
+    
 }
 #pragma mark - AlertSounds
 

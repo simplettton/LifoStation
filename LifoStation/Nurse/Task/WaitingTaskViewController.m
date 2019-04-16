@@ -212,26 +212,29 @@
     
 }
 - (void)getParamList :(TaskModel *)task atIndex:(NSInteger)index{
-    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
-        if ([responseObject.result integerValue] == 1) {
-            NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
-//            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
-            
-            NSArray *array = responseObject.content[@"LsEdit"];
-            if ([array count]>0) {
-                for (NSDictionary *dataDic in array) {
-                    /** 手动去掉服务器返回的计时方式无用字段 */
-                    if (![dataDic[@"ShowName"]isEqualToString:@"计时方式"]) {
-                        [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+    if (task.solution.uuid) {
+        [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
+            if ([responseObject.result integerValue] == 1) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
+                //            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
+                
+                NSArray *array = responseObject.content[@"LsEdit"];
+                if ([array count]>0) {
+                    for (NSDictionary *dataDic in array) {
+                        /** 手动去掉服务器返回的计时方式无用字段 */
+                        if (![dataDic[@"ShowName"]isEqualToString:@"计时方式"]) {
+                            [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+                        }
                     }
                 }
+                task.solution.paramList = paramArray;
+                [datas replaceObjectAtIndex:index withObject:task];
             }
-            task.solution.paramList = paramArray;
-            [datas replaceObjectAtIndex:index withObject:task];
-        }
-    } failure:nil];
-    
+        } failure:nil];
+        
+    }
+
 }
 #pragma mark - SearchBar delegate
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {

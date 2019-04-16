@@ -11,7 +11,7 @@
 
 @implementation HttpResponse
 
-@synthesize jsonDist;
+//@synthesize jsonDist;
 @synthesize result;
 @synthesize content;
 @synthesize errorString;

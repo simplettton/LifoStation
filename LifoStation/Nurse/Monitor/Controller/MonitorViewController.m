@@ -10,7 +10,7 @@
 #import "FocusMachineController.h"
 #import "DeviceFilterView.h"
 #import "MachineModel.h"
-
+#import "MachineParameterTool.h"
 
 #import "SingleViewAirWaveCell.h"
 #import "SingleElectCell.h"
@@ -20,7 +20,6 @@
 #import "FourElectCell.h"
 #import "NineViewsAirWaveCell.h"
 #import "NineElectCell.h"
-
 
 #import "PatientInfoPopupView.h"
 #import "AirWaveSetParameterView.h"
@@ -35,10 +34,14 @@
 /** 音频库文件 */
 #import <AVFoundation/AVFoundation.h>
 
+/** 图表头文件 */
+#import "AAChartKit.h"
+
 #define USER_NAME @"admin"
 #define PASSWORD @"pwd321"
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
+
 
 #define ParameterViewTag 9999
 #define TimeLabelTag 8888
@@ -46,6 +49,7 @@
 #define BodyContentViewTag 6666
 #define AlertViewTag 5555
 #define AlertLabelTag 4444
+#define ChartViewTag 3333
 
 typedef NS_ENUM(NSInteger, PlaySoundType) {
     PlaySoundTypeNormal = 0,
@@ -78,7 +82,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, assign) NSInteger playingAlertLevel;
 @property (nonatomic, assign) float volumValue;
-
+@property (nonatomic, strong) AAChartView *aaview;
 @end
 
 @implementation MonitorViewController
@@ -284,11 +288,11 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     NSString *receiveStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     NSData * receiveData = [receiveStr dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableLeaves error:nil];
-//    LxDBAnyVar(topic);
-//    LxDBAnyVar(jsonDict);
+    LxDBAnyVar(topic);
+    LxDBAnyVar(jsonDict);
     
     NSNumber *code = jsonDict[@"Cmdid"];
-    NSArray *content = jsonDict[@"Data"];
+    NSDictionary *content = jsonDict[@"Data"];
     NSArray *topicArray = [topic componentsSeparatedByString:@"/"];
     NSString *cpuid = topicArray[2];
     if ([cpuids containsObject:cpuid]) {
@@ -298,8 +302,17 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
             machine.msg_realTimeData = content;
             [self updateCellAtIndex:index withModel:machine];
 
+//            if ([machine.groupCode integerValue] == MachineType_AirWave) {
+//                
+//                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
+//                
+//            }
+
+            
         } else if ([code integerValue] == 0x90) {
             machine.msg_treatParameter = content;
+            /** 收到参数包代表已授权 */
+            machine.hasLicense = YES;
             [self reloadItemAtIndex:index];
 
         } else if ([code integerValue] == 0x94) {
@@ -308,7 +321,27 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
-            machine.msg_alertMessage = jsonDict[@"Data"][@"ErrMsg"];
+            
+            /** 报警信息栏添加信息 */
+            NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,content[@"ErrMsg"]];
+            
+            [dataDic setObject:errorString forKey:@"error"];
+            [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+            [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
+            
+            if (machine.msg_alertMessage) {
+                //如果当前信息与之前保存的报警信息不一致则添加到报警信息栏（之前的报警信息可以维持3s）
+                if (![machine.msg_alertMessage isEqualToString:content[@"ErrMsg"]]) {
+                    [alertArray insertObject:dataDic atIndex:0];
+                    [self.tableView reloadData];
+                }
+            } else {
+                [alertArray insertObject:dataDic atIndex:0];
+                [self.tableView reloadData];
+            }
+            
+            machine.msg_alertMessage = content[@"ErrMsg"];
             /** 打开了报警提示开关 */
             if (isAlertSwitchOn) {
                 //更新报警文字
@@ -326,17 +359,21 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 //取消3秒关闭报警提示
                 [self invalidateTimer:machine.outTimeTimer];
                 //开启3秒关闭报警提示
-                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:@{
-                                                                                                                                        @"machine":machine,
-                                                                                                                                        @"index":[NSNumber numberWithInteger:index]} repeats:NO];
+                machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self
+                                                                      selector:@selector(closeAlert:)
+                                                                      userInfo:@{
+                                                                                 @"machine":machine,
+                                                                                 @"index":[NSNumber numberWithInteger:index]}
+                                                                       repeats:NO];
                 if (!machine.alertTimer) {
+                    
                     machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
-                                                                 target:self
+                                                                          target:self
                                                                         selector:@selector(startFlashingAlertView:)
                                                                         userInfo:@{
                                                                                    @"machine":machine,
                                                                                    @"index":[NSNumber numberWithInteger:index]}
-                                                                repeats:YES];
+                                                                         repeats:YES];
                 }
                 
                 /** 打开了声音开关 */
@@ -346,24 +383,16 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                     //开启关闭声音提示3s定时器
                     self.soundTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeSounds:) userInfo:nil repeats:NO];
                     //报警提示音
-                    [self playAlertSoundsWithLevel:jsonDict[@"Data"][@"Level"]];
+                    [self playAlertSoundsWithLevel:content[@"Level"]];
                 }
-
             }
 
-            
-            NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
-            [dataDic setObject:errorString forKey:@"error"];
-            [dataDic setObject:machine.cpuid forKey:@"cpuid"];
-            [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
 
-            [alertArray insertObject:dataDic atIndex:0];
-            [self.tableView reloadData];
         }
 
     }
 }
+#pragma mark - 报警控制
 - (void)startFlashingAlertView:(NSTimer *)timer {
     
     /** 获取alertView */
@@ -384,77 +413,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         alertView.hidden = YES;
     }
 }
-- (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
-    /** 右上 */
-    /** 实时信息 */
-    switch ([machine.state integerValue]) {
-        case MachineStateRunning:
-            if (machine.msg_realTimeData) {
-                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-                for (NSDictionary *dic in machine.msg_realTimeData) {
-                    NSString *key = dic[@"Key"];
-                    NSString *value  = dic[@"Value"];
-                    if ([key isEqualToString:@"Time"]) {
-                        machine.leftTime = value;
-
-                    } else {
-                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-                    }
-                }
-                
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewAtIndex:index withData:paramArray];
-                }
-            }
-            break;
-        case MachineStateStop:
-        case MachineStatePause:
-            /** 参数修改信息 修改了state*/
-            if (machine.msg_treatParameter) {
-                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-                for (NSDictionary *dic in machine.msg_treatParameter) {
-                    NSString *key = dic[@"Key"];
-                    NSString *value  = dic[@"Value"];
-                    if ([key isEqualToString:@"Time"]) {
-                        machine.leftTime = value;
-
-                    } else if([key isEqualToString:@"State"]) {
-                        machine.state = [NSString stringWithFormat:@"%@",value];
-
-                    } else {
-                        [paramArray addObject:[NSString stringWithFormat:@"%@:%@",key,value]];
-                    }
-                }
-                
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewAtIndex:index withData:paramArray];
-                }
-            }
-
-            break;
-        default:
-            break;
-    }
-    /** 左下 */
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
-    UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
-    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
-
-}
-- (void)configureParameterViewAtIndex:(NSInteger)index withData:(NSMutableArray *)dataArray {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
-    UIView *parameterView = [bodyContentView viewWithTag:ParameterViewTag];
-    for (int i = 0; i < [dataArray count]; i ++) {
-        UILabel *label = [parameterView viewWithTag:1000+i];
-        label.hidden = NO;
-        label.adjustsFontSizeToFitWidth = YES;
-        label.text = dataArray[i];
-    }
-}
 - (void)closeAlert:(NSTimer *)timer {
     NSDictionary *dataDic = timer.userInfo;
     MachineModel *machine = dataDic[@"machine"];
@@ -472,7 +430,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
     alertView.hidden = YES;
     
-
+    
 }
 - (void)closeSounds:(NSTimer *)timer {
     if ([_player isPlaying]) {
@@ -487,6 +445,137 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     }
 }
 
+#pragma mark - 实时包
+- (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
+    /** 右上 */
+    /** 实时信息 */
+    switch ([machine.state integerValue]) {
+        case MachineStateRunning:
+            if (machine.msg_realTimeData) {
+                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
+                if ([paramArray count] > 0) {
+                    [self configureParameterViewAtIndex:index withData:paramArray];
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    /** 左下 */
+    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
+    UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
+    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:showTime];
+
+    NSString *machineType = machine.groupCode;
+    if ([machineType integerValue] == MachineType_Light) {
+        [self refreshChartAtIndex:index withMachine:machine];
+    }
+    
+    /** 中间视图修改 */
+//    switch ([machineType integerValue]) {
+//        case MachineType_Humidifier:
+//            [self updateDeviceImage:@"shihua"];
+//            break;
+//        case 6448:
+//            [self updateDeviceImage:@"gnhw"];
+//            break;
+//        case MachineType_Light:
+//        {
+//            LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+//            /** 主光源为空的时候显示附件光源 */
+//            if (machineParameter.mainLightSource != LightSourceNull) {
+//                [self updateDeviceImage:[self getLightName:machineParameter.mainLightSource]];
+//            } else {
+//                [self updateDeviceImage:[self getLightName:machineParameter.appendLightSource]];
+//            }
+//
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+
+}
+
+/** 根据paramter数组获取右上角 */
+- (void)configureParameterViewAtIndex:(NSInteger)index withData:(NSArray *)dataArray {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+    UIView *parameterView = [bodyContentView viewWithTag:ParameterViewTag];
+    for (int i = 0; i < 4; i ++) {
+        UILabel *label = [parameterView viewWithTag:1000+i];
+        if (i < [dataArray count]) {
+            label.hidden = NO;
+            label.adjustsFontSizeToFitWidth = YES;
+            label.text = dataArray[i];
+        } else {
+            label.hidden = YES;
+        }
+    }
+}
+#pragma mark - chart
+- (void)refreshChartAtIndex:(NSInteger)index withMachine:(MachineModel *)machine {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
+    //提供chartview位置大小参考
+    UIView *view = [bodyContentView viewWithTag:ChartViewTag];
+    AAChartView *chartView;
+    if (!machine.chartDataArray) {
+        machine.chartDataArray = [[NSMutableArray alloc]initWithCapacity:20];
+        chartView = [[AAChartView alloc]initWithFrame:view.frame];
+        chartView.backgroundColor = [UIColor clearColor];
+        [bodyContentView addSubview:chartView];
+        view = chartView;
+        machine.chartView = chartView;
+    }
+    NSNumber *data = [[MachineParameterTool sharedInstance]getChartDataWithModel:machine];
+    [machine.chartDataArray addObject:data];
+    //已经有图表数据则更新，没有图标数据则新建
+    if ([machine.chartDataArray count]>1) {
+        if ([machine.chartDataArray count]>15) {
+            [machine.chartDataArray removeObjectAtIndex:0];
+        }
+        NSArray *aaChartModelSeriesArray = @[@{
+                                               @"name":@"temperature",
+                                               @"type":@"spline",
+                                               @"data":machine.chartDataArray
+                                               },];
+        [machine.chartView aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
+
+    }
+    else {
+        if (data) {
+            AAChartModel *chartModel= AAObject(AAChartModel)
+            .chartTypeSet(AAChartTypeSpline)
+            .titleSet(@"")
+            .subtitleSet(@"")
+            .yAxisLineWidthSet(@0)//Y轴轴线线宽为0即是隐藏Y轴轴线
+            .markerRadiusSet(@0)    //圆点的大小
+            .yAxisVisibleSet(NO)
+            .xAxisVisibleSet(NO)
+            .yAxisTitleSet(@"")//设置 Y 轴标题
+            .tooltipValueSuffixSet(@"℃")//设置浮动提示框单位后缀
+            .yAxisGridLineWidthSet(@0)//y轴横向分割线宽度为0(即是隐藏分割线)
+            .legendEnabledSet(NO)//下面按钮是否显示
+            .seriesSet(@[@{
+                             @"name":@"temperature",
+                             @"data":machine.chartDataArray,
+                             @"color":@"#f8b273"
+                             },]);
+            chartModel.animationType = AAChartAnimationBounce;
+            /*图表视图对象调用图表模型对象,绘制最终图形*/
+//            [((AAChartView *)view) aa_drawChartWithChartModel:chartModel];
+            [machine.chartView aa_drawChartWithChartModel:chartModel];
+        }
+    }
+
+}
 #pragma mark - refresh
 - (void)initTableHeaderAndFooter {
     
@@ -602,14 +691,14 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                                              for (NSDictionary *dic in content) {
                                                  NSError *error;
                                                  MachineModel *machine = [[MachineModel alloc]initWithDictionary:dic error:&error];
-
+//                                                 machine.isonline = true;
                                                  [datas addObject:machine];
                                                  [cpuids addObject:machine.cpuid];
                                                  [self subcribeMachine:machine];
 
                                              }
-                                             /** 刷新设备参数 */
-//                                             [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ReflashParam") params:@{} hasToken:YES success:nil failure:nil];
+                                             [self reflashParam];
+
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.collectionView reloadData];
                                              });
@@ -625,7 +714,12 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     }
     [self.collectionView.mj_footer endRefreshing];
 }
-
+- (void)reflashParam {
+    /** 刷新设备参数 */
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ReflashParam") params:@{} hasToken:YES success:^(HttpResponse *responseObject) {
+        
+    } failure:nil];
+}
 #pragma mark - LongPress Action
 
 - (void)focusMachine:(MachineModel *)machine {
@@ -703,7 +797,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         case SingleViewType:
         {
 
-            if ([machine.type integerValue] == 1234) {
+            if ([machine.groupCode integerValue] == MachineType_AirWave) {
 
                 SingleViewAirWaveCell *cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SingleViewAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeThree message:nil];
@@ -721,7 +815,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
             break;
         case TwoViewsType:
         {
-            if ([machine.type integerValue] == 1234) {
+            if ([machine.groupCode integerValue] == MachineType_AirWave) {
                 
                 TwoViewsAirWaveCell *cell = (TwoViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"TwoViewsAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
@@ -740,7 +834,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
             
         case FourViewsType:
         {
-            if ([machine.type integerValue] == 1234) {
+            if ([machine.groupCode integerValue] == MachineType_AirWave) {
                 CellIdentifier = @"FourViewsAirWaveCell";
                 FourViewsAirWaveCell *cell = (FourViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
@@ -760,7 +854,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
              break;
         case NineViewsType:
         {
-            if ([machine.type integerValue] == 1234) {
+            if ([machine.groupCode integerValue] == MachineType_AirWave) {
                 NineViewsAirWaveCell *cell = (NineViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"NineViewsAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithAirBagType:AirBagTypeEight];
                 return cell;

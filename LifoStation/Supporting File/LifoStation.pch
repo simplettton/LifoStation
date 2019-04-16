@@ -27,6 +27,8 @@
 //#define AppDelegate [[UIApplication shareApplication] delegate]
 
 #ifdef __OBJC__
+#import "AAGlobalMacro.h"
+
 #import <SVProgressHUD.h>
 #import "BEProgressHUD.h"
 /** 弹窗 */

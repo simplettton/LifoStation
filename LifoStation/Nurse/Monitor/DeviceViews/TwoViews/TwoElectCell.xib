@@ -121,10 +121,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="unauthorized" translatesAutoresizingMaskIntoConstraints="NO" id="LqO-DI-Gy7">
-                                <rect key="frame" x="206" y="131" width="288" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <view hidden="YES" tag="5555" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-tw-i0n">
                                 <rect key="frame" x="244" y="87" width="212" height="197"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -142,6 +138,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="unauthorized" translatesAutoresizingMaskIntoConstraints="NO" id="LqO-DI-Gy7">
+                                <rect key="frame" x="206" y="109" width="288" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view tag="3333" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zes-oz-htD" customClass="AAChartView">
+                                <rect key="frame" x="454" y="179" width="246" height="113"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -163,6 +167,7 @@
                 <outlet property="alertMessageLabel" destination="gJX-lb-uvA" id="vV3-ie-aHt"/>
                 <outlet property="alertView" destination="Chg-tw-i0n" id="DUK-ag-0Gf"/>
                 <outlet property="bodyContentView" destination="SCY-jB-CvR" id="d3W-WR-tcL"/>
+                <outlet property="chartView" destination="Zes-oz-htD" id="Lef-Wk-TiC"/>
                 <outlet property="firstLabel" destination="5pZ-iF-q9E" id="0Xq-yY-yv2"/>
                 <outlet property="focusView" destination="WOS-O9-DC5" id="Vol-qT-IoY"/>
                 <outlet property="forthLabel" destination="7RF-mD-ied" id="CUD-bL-i9Q"/>
@@ -182,6 +187,7 @@
                 <outletCollection property="bodyContents" destination="Jzy-a7-qHh" id="cOg-cY-m9v"/>
                 <outletCollection property="bodyContents" destination="q2Z-U0-z60" id="mhL-HR-Lfb"/>
                 <outletCollection property="bodyContents" destination="Chg-tw-i0n" id="JeJ-FZ-vTU"/>
+                <outletCollection property="bodyContents" destination="Zes-oz-htD" id="vFg-nh-FTD"/>
             </connections>
             <point key="canvasLocation" x="25" y="477"/>
         </collectionViewCell>

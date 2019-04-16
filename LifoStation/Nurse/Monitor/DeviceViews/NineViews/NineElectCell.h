@@ -26,7 +26,8 @@
 @property (nonatomic, strong) FLAnimatedImageView *deviceView;
 @property (nonatomic, strong) UIImageView *staticDeviceView;
 
-
+//3右下
+@property (weak, nonatomic) IBOutlet AAChartView *chartView;
 @property (nonatomic, strong) MachineModel *machine;
 - (void)configureWithModel:(MachineModel *)machine;
 @end

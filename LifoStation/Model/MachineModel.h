@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 #import "PatientModel.h"
+/** 图表头文件 */
+#import "AAChartKit.h"
 typedef NS_ENUM(NSInteger,machineState) {
     START = 0,
     PAUSE = 1,
@@ -28,18 +30,22 @@ typedef NS_ENUM(NSInteger,machineState) {
 
 @property (nonatomic, strong) NSString<Optional> *departmentId;
 @property (nonatomic, strong) NSString<Optional> *departmentName;
-
 @property (nonatomic, strong) PatientModel<Optional> *patient;
 
 //消息订阅模型
-@property (nonatomic, strong) NSArray<Optional> *msg_treatParameter;
-@property (nonatomic, strong) NSArray<Optional> *msg_realTimeData;
+@property (nonatomic, strong) NSDictionary *msg_treatParameter;
+@property (nonatomic, strong) NSDictionary *msg_realTimeData;
 
-@property (nonatomic, strong) NSString<Optional> *msg_alertMessage;
+@property (nonatomic, strong) NSString *msg_alertMessage;
 
-//报警信息超时定时器
+//报警信息超时定时器 3s取消报警信息
 @property (nonatomic, strong) NSTimer *outTimeTimer;
 
-//报警信息出现消失定时器
+//报警信息出现/消失定时器
 @property (nonatomic, strong) NSTimer *alertTimer;
+@property (nonatomic, strong) NSMutableArray *chartDataArray;
+
+//曲线图
+@property (nonatomic, strong) AAChartView *chartView;
+
 @end

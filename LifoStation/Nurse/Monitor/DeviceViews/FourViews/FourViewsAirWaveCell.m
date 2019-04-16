@@ -26,7 +26,6 @@
     if (!self.deviceView) {
         AirWaveView *bodyView = [[AirWaveView alloc]initWithAirBagType:type];
         CGFloat width = self.contentView.bounds.size.width;
-        CGFloat height = self.bodyContentView.bounds.size.height;
         bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
         [self.bodyContentView addSubview:bodyView];
         self.deviceView = bodyView;

@@ -20,6 +20,18 @@ typedef NS_ENUM(NSInteger,MachineState) {
     MachineStatePause   = 1,
     MachineStateStop    = 2
 };
+typedef NS_ENUM(NSInteger,LightSource) {
+    LightSourceNull = 0,
+    LightSourceRed  = 1,
+    LightSourceBlue = 2,
+    LightSourceRedAndBlue = 3
+};
+typedef NS_ENUM(NSInteger,MachineType)
+{
+    MachineType_Humidifier = 112,   //湿化
+    MachineType_Light = 61199,      //光子
+    MachineType_AirWave = 7680      //空气波
+};
 @interface Constant : NSObject
 {
     NSMutableArray *machineTypeList;
