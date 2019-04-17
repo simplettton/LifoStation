@@ -60,6 +60,7 @@
 		0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */; };
 		0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */; };
 		0445C7DE21E5D8A800F35353 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DD21E5D8A800F35353 /* MonitorViewController.m */; };
+		045C70BF2266B4AD000C6FDB /* HighEnergyInfraredModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */; };
 		04626F88224C7E93006B963C /* TwoElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F86224C7E93006B963C /* TwoElectCell.m */; };
 		04626F89224C7E93006B963C /* TwoElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F87224C7E93006B963C /* TwoElectCell.xib */; };
 		04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F8B224C9BD9006B963C /* NineElectCell.m */; };
@@ -411,6 +412,8 @@
 		0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseSearchBar.m; sourceTree = "<group>"; };
 		0445C7DC21E5D8A800F35353 /* MonitorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
 		0445C7DD21E5D8A800F35353 /* MonitorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
+		045C70BD2266B4AD000C6FDB /* HighEnergyInfraredModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighEnergyInfraredModel.h; sourceTree = "<group>"; };
+		045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighEnergyInfraredModel.m; sourceTree = "<group>"; };
 		04626F85224C7E93006B963C /* TwoElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoElectCell.h; sourceTree = "<group>"; };
 		04626F86224C7E93006B963C /* TwoElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoElectCell.m; sourceTree = "<group>"; };
 		04626F87224C7E93006B963C /* TwoElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoElectCell.xib; sourceTree = "<group>"; };
@@ -878,12 +881,12 @@
 		041FC44821EED9F800B5408C /* TwoViews */ = {
 			isa = PBXGroup;
 			children = (
+				04709B2721F03255000D4E12 /* TwoViewsAirWaveCell.xib */,
 				04709B2521F03254000D4E12 /* TwoViewsAirWaveCell.h */,
 				04709B2621F03254000D4E12 /* TwoViewsAirWaveCell.m */,
-				04709B2721F03255000D4E12 /* TwoViewsAirWaveCell.xib */,
+				04626F87224C7E93006B963C /* TwoElectCell.xib */,
 				04626F85224C7E93006B963C /* TwoElectCell.h */,
 				04626F86224C7E93006B963C /* TwoElectCell.m */,
-				04626F87224C7E93006B963C /* TwoElectCell.xib */,
 			);
 			path = TwoViews;
 			sourceTree = "<group>";
@@ -1324,6 +1327,8 @@
 				04141F7B22606AB60021A31D /* LightModel.m */,
 				0469F7EA2265B79E0061F69B /* AirwaveModel.h */,
 				0469F7EB2265B79E0061F69B /* AirwaveModel.m */,
+				045C70BD2266B4AD000C6FDB /* HighEnergyInfraredModel.h */,
+				045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */,
 			);
 			path = "Device Model";
 			sourceTree = "<group>";
@@ -1843,6 +1848,7 @@
 				04FE94A22264811600FA6730 /* AAYAxis.m in Sources */,
 				04FE946D226480DC00FA6730 /* AAOptions.h in Sources */,
 				04FE946E226480DC00FA6730 /* AAOptions.m in Sources */,
+				045C70BF2266B4AD000C6FDB /* HighEnergyInfraredModel.m in Sources */,
 				04FE946B2264807E00FA6730 /* AAChartView.h in Sources */,
 				04FE946C2264807E00FA6730 /* AAChartView.m in Sources */,
 				04FE946922647A1B00FA6730 /* AASeriesElement.h in Sources */,

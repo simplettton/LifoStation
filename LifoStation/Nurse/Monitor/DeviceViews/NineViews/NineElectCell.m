@@ -77,7 +77,7 @@
             case MachineType_Humidifier:
                 [self addDeviceImage:@"shihua"];
                 break;
-            case 6448:
+            case MachineType_HighEnergyInfrared:
                 [self addDeviceImage:@"gnhw"];
                 break;
             case MachineType_Light:
@@ -92,7 +92,7 @@
             case MachineType_Humidifier:
                 [self updateDeviceImage:@"shihua"];
                 break;
-            case 6448:
+            case MachineType_HighEnergyInfrared:
                 [self updateDeviceImage:@"gnhw"];
                 break;
             case MachineType_Light:
@@ -258,9 +258,7 @@
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             for (UIView* view in self.bodyContents) {
-                if (![view isEqual:self.alertView]) {
-                    view.hidden = NO;
-                }
+                view.hidden = [view isEqual:self.alertView];
             }
             self.deviceView.hidden = NO;
             self.staticDeviceView.hidden = NO;
@@ -277,9 +275,7 @@
             
             /** 不在线设备隐藏按钮 */
             for (UIView* view in self.bodyContents) {
-                if (![view isEqual:self.focusView]) {
-                    view.hidden = YES;
-                }
+                view.hidden = ![view isEqual:self.focusView];
             }
             self.leftTimeLabel.hidden = YES;
             self.focusView.hidden = NO;
@@ -319,6 +315,16 @@
     //wifi标志控制
     
     self.statusImageView.hidden = !self.machine.isonline;
+    //chart
+    switch ([self.machine.groupCode integerValue]) {
+        case MachineType_Light:
+            self.chartView.hidden = NO;
+            break;
+            
+        default:
+            self.chartView.hidden = YES;
+            break;
+    }
 }
 
 - (void)updateMachineState:(MachineModel *)machine {

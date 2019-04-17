@@ -8,20 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "AirWaveView.h"
-#import "FLAnimatedImage.h"
+#import "MachineModel.h"
 @interface FourViewsAirWaveCell : UICollectionViewCell
 @property (nonatomic, assign) AirBagType type;
-@property (weak, nonatomic) IBOutlet AirWaveView *bodyView;
+
+//1 左上
+@property (weak, nonatomic) IBOutlet UIView *patientView;
+@property (weak, nonatomic) IBOutlet UILabel *patientLabel;
+@property (weak, nonatomic) IBOutlet UIButton *patientButton;
+@property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
+//2 左下
+@property (weak, nonatomic) IBOutlet UIView *focusView;
+@property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+//中央视图
 @property (nonatomic, strong) AirWaveView *deviceView;
 
-
-//@property (strong, nonatomic) AirWaveView *bodyView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIView *bodyContentView;
-@property (weak, nonatomic) IBOutlet UIButton *patientButton;
-@property (weak, nonatomic) IBOutlet UIView *focusView;
-@property (weak, nonatomic) IBOutlet UIView *patientView;
-
+@property (nonatomic, strong) MachineModel *machine;
+@property (nonatomic, assign) CellStyle style;
 - (void)configureWithAirBagType:(AirBagType)type;
-- (void)configureWithCellStyle:(CellStyle)style machineType:(NSInteger)typdeCode dataDic:(NSDictionary *)dic message:(NSString *)message;
+- (void)configureWithModel:(MachineModel *)machine;
 @end

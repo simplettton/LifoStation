@@ -300,6 +300,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         MachineModel *machine = [datas objectAtIndex:index];
         if ([code integerValue] == 0x91) {
             machine.msg_realTimeData = content;
+            machine.isonline = YES;
             [self updateCellAtIndex:index withModel:machine];
 
 //            if ([machine.groupCode integerValue] == MachineType_AirWave) {
@@ -317,7 +318,10 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
+            NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
             machine.isonline = [isOnline boolValue];
+            machine.hasLicense = [hasLicense boolValue];
+            
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
@@ -430,7 +434,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
     alertView.hidden = YES;
     
-    
 }
 - (void)closeSounds:(NSTimer *)timer {
     if ([_player isPlaying]) {
@@ -511,7 +514,9 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         if (i < [dataArray count]) {
             label.hidden = NO;
             label.adjustsFontSizeToFitWidth = YES;
-            label.text = dataArray[i];
+            if(dataArray[i]) {
+                label.text = dataArray[i];
+            }
         } else {
             label.hidden = YES;
         }
@@ -837,7 +842,8 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
             if ([machine.groupCode integerValue] == MachineType_AirWave) {
                 CellIdentifier = @"FourViewsAirWaveCell";
                 FourViewsAirWaveCell *cell = (FourViewsAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-                [cell configureWithAirBagType:AirBagTypeEight];
+//                [cell configureWithAirBagType:AirBagTypeEight];
+                [cell configureWithModel:machine];
                 return cell;
             } else {
                 FourElectCell *cell = (FourElectCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"FourElectCell" forIndexPath:indexPath];
@@ -846,7 +852,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 [cell.focusView addTapBlock:^(id obj) {
                     [self focusMachine:machine];
                 }];
-                LxDBAnyVar(cell.staticDeviceView.image.accessibilityIdentifier);
+
                 return cell;
             }
 

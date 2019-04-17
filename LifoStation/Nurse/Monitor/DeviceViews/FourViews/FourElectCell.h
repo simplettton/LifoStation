@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImage.h"
 #import "MachineModel.h"
+
 @interface FourElectCell : UICollectionViewCell
 @property (nonatomic, assign) CellStyle style;
 //1 左上
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+//中间视图
 @property (nonatomic, strong) FLAnimatedImageView *deviceView;
 @property (nonatomic, strong) UIImageView *staticDeviceView;
 

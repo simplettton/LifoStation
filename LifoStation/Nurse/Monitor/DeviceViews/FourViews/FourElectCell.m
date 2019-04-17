@@ -36,9 +36,6 @@
 /**  5 bodyContents授权除外 */
 @property (strong, nonatomic) IBOutletCollection(id) NSArray *bodyContents;
 
-
-
-
 @end
 @implementation FourElectCell
 - (void)awakeFromNib {
@@ -48,7 +45,6 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-
     if (self.machine.patient.personName) {
         [self.patientView addTapBlock:^(id obj) {
             PatientInfoPopupView *view = [[PatientInfoPopupView alloc]initWithModel:self.machine.patient];
@@ -56,6 +52,7 @@
         }];
     }
 }
+
 - (void)configureWithModel:(MachineModel *)machine {
     self.machine = machine;
     if (!machine.isonline) {
@@ -83,18 +80,19 @@
 
     /** gif类型 */
     NSString *machineType = machine.groupCode;
+
     if (!_deviceView) {
         
         switch ([machineType integerValue]) {
             case MachineType_Humidifier:
                 [self addDeviceImage:@"shihua"];
                 break;
-            case 6448:
+            case MachineType_HighEnergyInfrared:
                 [self addDeviceImage:@"gnhw"];
                 break;
             case MachineType_Light:
                 [self addDeviceImage:@"rlight"];
-
+                
                 break;
             default:
                 break;
@@ -104,11 +102,11 @@
             case MachineType_Humidifier:
                 [self updateDeviceImage:@"shihua"];
                 break;
-            case 6448:
+            case MachineType_HighEnergyInfrared:
                 [self updateDeviceImage:@"gnhw"];
                 break;
             case MachineType_Light:
-            {      
+            {
                 LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
                 /** 主光源为空的时候显示附件光源 */
                 if (machineParameter.mainLightSource != LightSourceNull) {
@@ -116,14 +114,15 @@
                 } else {
                     [self updateDeviceImage:[self getLightName:machineParameter.appendLightSource]];
                 }
-
+                
             }
                 break;
             default:
                 break;
         }
-
+        
     }
+
 
 
     NSDictionary *machineStateDic = @{
@@ -272,9 +271,7 @@
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             for (UIView* view in self.bodyContents) {
-                if (![view isEqual:self.alertView]) {
-                    view.hidden = NO;
-                }
+                view.hidden = [view isEqual:self.alertView];
             }
             self.deviceView.hidden = NO;
             self.staticDeviceView.hidden = NO;
@@ -291,9 +288,7 @@
             
             /** 不在线设备隐藏按钮 */
             for (UIView* view in self.bodyContents) {
-                if (![view isEqual:self.focusView]) {
-                    view.hidden = YES;
-                }
+                view.hidden = ![view isEqual:self.focusView];
             }
             self.leftTimeLabel.hidden = YES;
             self.focusView.hidden = NO;
@@ -331,9 +326,9 @@
             break;
     }
     //wifi标志控制
-    
     self.statusImageView.hidden = !self.machine.isonline;
     
+    //chart
     switch ([self.machine.groupCode integerValue]) {
         case MachineType_Light:
             self.chartView.hidden = NO;

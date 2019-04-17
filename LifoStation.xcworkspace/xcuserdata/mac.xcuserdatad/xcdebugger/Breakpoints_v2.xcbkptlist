@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577100466.277207"
+            timestampString = "577185046.818283"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "867"
-            endingLineNumber = "867"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577100466.277756"
+            timestampString = "577185046.818355"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1041"
-            endingLineNumber = "1041"
+            startingLineNumber = "1047"
+            endingLineNumber = "1047"
             landmarkName = "-playAlertSoundsWithLevel:"
             landmarkType = "7">
             <Locations>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/DeviceViews/FourViews/FourElectCell.m"
-            timestampString = "577100466.278141"
+            timestampString = "577185046.818413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-getLightName:"
             landmarkType = "7">
          </BreakpointContent>
@@ -116,7 +116,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577100466.2781971"
+            timestampString = "577185046.818468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "278"
@@ -128,27 +128,27 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577100466.278542"
+            timestampString = "577185046.818517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
+            startingLineNumber = "639"
+            endingLineNumber = "639"
             landmarkName = "-refreshDataWithHeader:"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__47-[MonitorViewController refreshDataWithHeader:]_block_invoke"
                   moduleName = "LifoStation"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mac/Desktop/LifoStation/LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-                  timestampString = "577100466.441159"
+                  timestampString = "577157999.591594"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "634"
@@ -156,14 +156,14 @@
                   offsetFromSymbolStart = "800">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__47-[MonitorViewController refreshDataWithHeader:]_block_invoke_2"
                   moduleName = "LifoStation"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mac/Desktop/LifoStation/LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-                  timestampString = "577100466.444953"
+                  timestampString = "577157999.593268"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "634"
@@ -171,14 +171,14 @@
                   offsetFromSymbolStart = "24">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__destroy_helper_block_.532"
                   moduleName = "LifoStation"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mac/Desktop/LifoStation/LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-                  timestampString = "577100466.45032"
+                  timestampString = "577157999.594885"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "634"
@@ -191,16 +191,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577100466.2789299"
+            filePath = "LifoStation/Nurse/Monitor/DeviceViews/NineViews/NineElectCell.m"
+            timestampString = "577185046.818621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
-            landmarkName = "-closeAlert:"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-configureWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -210,13 +210,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/DeviceViews/FourViews/FourElectCell.m"
-            timestampString = "577100466.279209"
+            filePath = "LifoStation/Nurse/Monitor/DeviceViews/MiddleViews/AirWaveView.m"
+            timestampString = "577185046.818671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-configureWithModel:"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-initWithParameter:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

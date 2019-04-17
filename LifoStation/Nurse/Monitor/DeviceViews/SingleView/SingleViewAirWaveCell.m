@@ -45,36 +45,12 @@
     if(self.bodyView){
         [self.bodyView removeFromSuperview];
     }
-    self.bodyView = bodyView;
+    self.bodyView = bodyView; 
     [self.bodyContentView addSubview:bodyView];
-    
-    
-    //报警信息置顶
-    if (message != nil) {
-        self.alertMessageLabel.text = message;
-        self.alertView.hidden = NO;
-        [self.bodyContentView bringSubviewToFront:self.alertView];
-        if(!self.alertTimer) {
-            self.alertTimer = [NSTimer timerWithTimeInterval:0.5
-                                                      target:self
-                                                    selector:@selector(startFlashingAlertView)
-                                                    userInfo:nil
-                                                     repeats:YES];
-            [[NSRunLoop mainRunLoop] addTimer:self.alertTimer forMode:NSDefaultRunLoopMode];
-        }
-        
-    } else {
-        self.alertView.hidden = YES;
-        if (self.alertTimer) {
-            [self.alertTimer invalidate];
-            self.alertTimer = nil;
-        }
-    }
     
     if (self.style == CellStyleUnauthorized) {
         self.bodyView.hidden = YES;
     }
-
 }
 - (void)configureCellStyle {
     switch (self.style) {
@@ -85,9 +61,7 @@
             self.layer.borderWidth = 0.5f;
             self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
             for (UIView* view in self.bodyContents) {
-                if (![view isEqual:self.alertView]) {
-                    view.hidden = NO;
-                }
+                view.hidden = [view isEqual:self.alertView];
             }
             self.bodyView.hidden = NO;
             self.statusImageView.hidden = NO;
@@ -102,7 +76,7 @@
             
             /** 不在线设备隐藏按钮 */
             for (UIView* view in self.bodyContents) {
-                view.hidden = YES;
+                view.hidden = ![view isEqual:self.focusView];
             }
             self.leftTimeLabel.hidden = YES;
             self.focusView.hidden = NO;
@@ -220,39 +194,9 @@
     [self.bodyContentView addSubview:bodyView];
 
 
-    //报警信息置顶
-    if (message != nil) {
-        self.alertMessageLabel.text = message;
-        self.alertView.hidden = NO;
-        [self.bodyContentView bringSubviewToFront:self.alertView];
-        if(!self.alertTimer) {
-            self.alertTimer = [NSTimer timerWithTimeInterval:0.5
-                                                      target:self
-                                                    selector:@selector(startFlashingAlertView)
-                                                    userInfo:nil
-                                                     repeats:YES];
-            [[NSRunLoop mainRunLoop] addTimer:self.alertTimer forMode:NSDefaultRunLoopMode];
-        }
-
-    } else {
-        self.alertView.hidden = YES;
-        if (self.alertTimer) {
-            [self.alertTimer invalidate];
-            self.alertTimer = nil;
-        }
-    }
     
     if (self.style == CellStyleUnauthorized) {
         self.bodyView.hidden = YES;
-    }
-}
-
-//报警视图闪烁效果
-- (void)startFlashingAlertView {
-    if (self.alertView.isHidden) {
-        self.alertView.hidden = NO;
-    } else {
-        self.alertView.hidden = YES;
     }
 }
 

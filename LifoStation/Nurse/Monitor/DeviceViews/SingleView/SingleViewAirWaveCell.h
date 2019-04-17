@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessageLabel;
 @property (nonatomic,strong)NSTimer *alertTimer;
--(void)startFlashingAlertView;
 
 //4 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;

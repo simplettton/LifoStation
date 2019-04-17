@@ -13,6 +13,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AirWaveView">
             <connections>
+                <outlet property="lefthand" destination="zxQ-i0-YaO" id="ctv-ka-Pyi"/>
+                <outlet property="leftup1" destination="s6s-Ex-HlZ" id="ZcM-0m-imS"/>
+                <outlet property="leftup2" destination="gGe-NJ-XbS" id="eA4-o8-xvr"/>
+                <outlet property="leftup3" destination="fon-CN-ot2" id="vBU-nX-bWU"/>
                 <outlet property="testBodyPart" destination="feH-uA-1N2" id="gSM-WW-lHO"/>
                 <outletCollection property="bodyImages" destination="s6s-Ex-HlZ" id="6Kd-qr-rCH"/>
                 <outletCollection property="bodyImages" destination="0Q7-Nn-4j3" id="GaK-z1-HPr"/>

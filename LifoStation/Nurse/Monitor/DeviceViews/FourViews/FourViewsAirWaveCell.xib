@@ -23,15 +23,7 @@
                         <rect key="frame" x="0.0" y="45" width="342" height="261"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v5o-9H-ucz">
-                                <rect key="frame" x="13" y="55" width="78" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="L090820">
-                                    <color key="titleColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tqk-jQ-Ptq" customClass="AirWaveView">
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tqk-jQ-Ptq" customClass="AirWaveView">
                                 <rect key="frame" x="112" y="55" width="137" height="187"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -84,17 +76,17 @@
                                 <rect key="frame" x="246" y="17" width="88" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-gA-zjr">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-gA-zjr">
                                         <rect key="frame" x="0.0" y="0.0" width="87" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.062745098040000002" green="0.062745098040000002" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-au-vi7">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Xv-au-vi7">
                                         <rect key="frame" x="0.0" y="19" width="88" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <color key="textColor" red="0.062745098040000002" green="0.062745098040000002" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -137,6 +129,13 @@
                                     </label>
                                 </subviews>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="L090820" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gsh-us-iI6">
+                                <rect key="frame" x="10" y="58" width="81" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -167,9 +166,30 @@
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="249" height="273"/>
             <connections>
-                <outlet property="bodyContentView" destination="bDQ-Fo-iyH" id="fyz-UT-MJu"/>
-                <outlet property="bodyView" destination="Tqk-jQ-Ptq" id="Nzo-Oh-SsZ"/>
+                <outlet property="alertMessageLabel" destination="BBo-Vp-1J2" id="opq-He-a4x"/>
+                <outlet property="alertView" destination="Qny-NV-4cI" id="k8d-9P-Q6u"/>
+                <outlet property="bodyContentView" destination="bDQ-Fo-iyH" id="sB3-NP-X9Q"/>
+                <outlet property="firstLabel" destination="zCF-gA-zjr" id="Psb-FU-Ubo"/>
+                <outlet property="focusView" destination="8In-t5-mWX" id="AFs-sA-UB5"/>
+                <outlet property="forthLabel" destination="a2t-se-xdr" id="YvO-gT-uJi"/>
+                <outlet property="heartImageView" destination="bDe-gR-oet" id="HFA-qa-G96"/>
+                <outlet property="leftTimeLabel" destination="HcM-ns-6zC" id="wHM-MU-tHX"/>
+                <outlet property="parameterView" destination="8Ox-sZ-lHO" id="2xC-hG-oGK"/>
+                <outlet property="patientButton" destination="tCr-xb-vLz" id="tQG-QU-yxE"/>
+                <outlet property="patientLabel" destination="Dca-hm-S98" id="7Fg-U1-sKp"/>
+                <outlet property="patientView" destination="ZmM-2w-lxO" id="ZHW-VG-pWH"/>
+                <outlet property="secondLabel" destination="0Xv-au-vi7" id="ePW-hI-6tl"/>
+                <outlet property="statusImageView" destination="Vpc-Cs-x27" id="qOA-B8-TH7"/>
+                <outlet property="thirdLabel" destination="5C5-9M-nDJ" id="n0f-lN-HXo"/>
                 <outlet property="titleLabel" destination="25Z-qj-4lF" id="ht2-mN-H1J"/>
+                <outlet property="titleView" destination="RqZ-YC-BHt" id="td5-km-coc"/>
+                <outlet property="treatAddressLabel" destination="Gsh-us-iI6" id="M9e-7r-dvj"/>
+                <outlet property="unauthorizedView" destination="kt1-wX-bSA" id="e3o-dG-EWe"/>
+                <outletCollection property="bodyContents" destination="ZmM-2w-lxO" id="ZOm-Rz-neG"/>
+                <outletCollection property="bodyContents" destination="Gsh-us-iI6" id="fju-3A-quf"/>
+                <outletCollection property="bodyContents" destination="Qny-NV-4cI" id="HZx-KL-qdl"/>
+                <outletCollection property="bodyContents" destination="8In-t5-mWX" id="yCa-0O-5HJ"/>
+                <outletCollection property="bodyContents" destination="8Ox-sZ-lHO" id="fIb-5C-Gjz"/>
             </connections>
             <point key="canvasLocation" x="117" y="266"/>
         </collectionViewCell>

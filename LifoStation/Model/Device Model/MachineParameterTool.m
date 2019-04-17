@@ -10,6 +10,7 @@
 #import "HumidifierModel.h"
 #import "LightModel.h"
 #import "AirwaveModel.h"
+#import "HighEnergyInfraredModel.h"
 @implementation MachineParameterTool
 static MachineParameterTool *_instance;
 + (instancetype)sharedInstance {
@@ -46,10 +47,17 @@ static MachineParameterTool *_instance;
 
                 AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:dic error:&error];
                 paramArray = [machineParameter getParameterArray];
-                LxDBAnyVar(error);
+
             }
                 
                 break;
+            case MachineType_HighEnergyInfrared:
+            {
+                NSError *error;
+                HighEnergyInfraredModel *machineParameter = [[HighEnergyInfraredModel alloc]initWithDictionary:dic error:&error];
+  
+                paramArray = [machineParameter getParameterArray];
+            }
             default:
                 break;
         }

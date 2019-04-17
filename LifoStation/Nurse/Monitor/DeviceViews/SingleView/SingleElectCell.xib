@@ -153,6 +153,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view tag="3333" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpS-XS-Kil" customClass="AAChartView">
+                                <rect key="frame" x="357" y="404" width="371" height="211"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -179,6 +183,7 @@
                 <outlet property="alertMessageLabel" destination="F7Y-z5-AHt" id="RBf-w9-7C4"/>
                 <outlet property="alertView" destination="f4u-KN-zzO" id="Y70-2B-ncq"/>
                 <outlet property="bodyContentView" destination="x9v-f5-lC5" id="TfX-u6-mR1"/>
+                <outlet property="chartView" destination="xpS-XS-Kil" id="zdU-z9-7Ck"/>
                 <outlet property="firstLabel" destination="hed-5A-Vhh" id="kC8-iB-n1b"/>
                 <outlet property="focusView" destination="Loa-G2-V2x" id="TV4-PD-L7k"/>
                 <outlet property="forthLabel" destination="k56-HM-3q8" id="ydn-cH-uMI"/>

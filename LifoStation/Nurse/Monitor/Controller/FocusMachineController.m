@@ -243,7 +243,9 @@
             
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
+            NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
             machine.isonline = [isOnline boolValue];
+            machine.hasLicense = [hasLicense boolValue];
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
@@ -397,7 +399,9 @@
         if (i < [dataArray count]) {
             label.hidden = NO;
             label.adjustsFontSizeToFitWidth = YES;
-            label.text = dataArray[i];
+            if(dataArray[i]) {
+                label.text = dataArray[i];
+            }
         } else {
             label.hidden = YES;
         }

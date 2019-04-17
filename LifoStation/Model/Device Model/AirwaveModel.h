@@ -30,39 +30,39 @@ typedef NS_ENUM(NSInteger,GradientLevel){
     GradientLevel_ThirdLevel     = 3
 };
 /** 气囊状态 */
-typedef NS_ENUM(NSUInteger,AirbagState){
-    AirbagState_UnWorking       = 0,
-    AirbagState_Working         = 1,
-    AirbagState_KeepingAir      = 2
+typedef NS_ENUM(NSUInteger,AirPortState){
+    AirPortState_UnWorking       = 0,
+    AirPortState_Working         = 1,
+    AirPortState_KeepingAir      = 2
 };
 /** 气囊类型 */
-typedef NS_ENUM(NSInteger,AirbagType){
-    AirbagType_Leg3         = 0,
-    AirbagType_Arm3         = 1,
-    AirbagType_Leg4         = 2,
-    AirbagType_Arm4         = 3,
-    AirbagType_Abdomen      = 4,
-    AirbagType_Leg6         = 5,
-    AirbagType_Leg8         = 6,
-    AirbagType_HandRecovery = 7,
-    AirbagType_Hand1        = 8,
-    AirbagType_Foot1        = 9,
-    AirbagType_Unconnected  = 10
+typedef NS_ENUM(NSInteger,AirPortType){
+    AirPortType_Leg3         = 0,
+    AirPortType_Arm3         = 1,
+    AirPortType_Leg4         = 2,
+    AirPortType_Arm4         = 3,
+    AirPortType_Abdomen      = 4,
+    AirPortType_Leg6         = 5,
+    AirPortType_Leg8         = 6,
+    AirPortType_HandRecovery = 7,
+    AirPortType_Hand1        = 8,
+    AirPortType_Foot1        = 9,
+    AirPortType_Unconnected  = 10
 };
 @interface AirwaveModel : JSONModel
 @property (nonatomic, strong) NSString *state;
 @property (nonatomic, strong) NSString *treatTime;
 @property (nonatomic, strong) NSString *showTime;
 
-@property (nonatomic, strong) NSArray<NSNumber *> *press;
-@property (nonatomic, assign) NSInteger APortType;
-@property (nonatomic, assign) NSInteger BPortType;
+@property (nonatomic, strong) NSArray<NSNumber *> *press;//设定压力值 （显示只取最大值）实时包参数包共有
+@property (nonatomic, assign) NSInteger APortType;//A气囊类型
+@property (nonatomic, assign) NSInteger BPortType;//B气囊类型
+@property (nonatomic, strong) NSArray<NSNumber*> *portEnable;//气囊使能(对应规则，从左到右，从下到上)
 
 //实时信息
-@property (nonatomic, strong) NSString *currentPress;
-@property (nonatomic, strong) NSArray *portState;
-//血液回盈时间
-@property (nonatomic, strong) NSString *backTime;
+@property (nonatomic, strong) NSString *currentPress;//当前腔压力
+@property (nonatomic, strong) NSArray *portState;//各腔充气状态
+@property (nonatomic, strong) NSString *backTime;//血液回盈时间
 
 - (NSArray *)getParameterArray;
 @end

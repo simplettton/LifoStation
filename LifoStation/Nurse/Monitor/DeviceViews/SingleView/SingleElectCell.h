@@ -19,11 +19,12 @@
 //2 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;
 @property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
-
 @property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+//中间视图
 @property (nonatomic, strong) FLAnimatedImageView *deviceView;
 @property (nonatomic, strong) UIImageView *staticDeviceView;
-
+//3右下
+@property (weak, nonatomic) IBOutlet AAChartView *chartView;
 @property (nonatomic, strong) MachineModel *machine;
 - (void)configureWithModel:(MachineModel *)machine;
 @end

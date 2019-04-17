@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger,MachineType)
 {
     MachineType_Humidifier = 112,   //湿化
     MachineType_Light = 61199,      //光子
-    MachineType_AirWave = 7680      //空气波
+    MachineType_AirWave = 7680,      //空气波
+    MachineType_HighEnergyInfrared = 0x1069     //高能红外
 };
 @interface Constant : NSObject
 {
