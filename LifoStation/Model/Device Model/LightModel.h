@@ -20,4 +20,5 @@
 @property (nonatomic, assign) NSInteger mainLightSource;//主光源
 @property (nonatomic, assign) NSInteger appendLightSource;//附件光源
 - (NSArray *)getParameterArray;
+- (NSString *)getLightName;
 @end

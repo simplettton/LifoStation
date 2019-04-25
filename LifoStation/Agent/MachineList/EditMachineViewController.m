@@ -34,7 +34,7 @@
 
             self.departmentNameLabel.text = [[Constant sharedInstance]departmentDic][selectedUuid];
         }];
-        [view showInWindow];
+        [view showInWindowWithBackgoundTapDismissEnable:YES];
     }];
 }
 

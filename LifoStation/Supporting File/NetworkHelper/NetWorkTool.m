@@ -18,34 +18,36 @@
 @implementation NetWorkTool
 static NetWorkTool *_instance;
 
-+(instancetype)sharedNetWorkTool {
++ (instancetype)sharedNetWorkTool {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[NetWorkTool alloc]initWithBaseURL:nil];
         _instance.requestSerializer = [AFJSONRequestSerializer serializer];
         [_instance.requestSerializer setValue:@"application/octet-stream" forHTTPHeaderField:@"Content-Type"];
 
-        //设置请求的超时时间
+        
         [_instance.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-        _instance.requestSerializer.timeoutInterval = 20.f;
         [_instance.requestSerializer didChangeValueForKey:@"timeoutInterval"];
         
         _instance.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+
         
     });
     return _instance;
 }
 
--(void)POST:(NSString *)address
+- (void)POST:(NSString *)address
      params:(id)parameters
    hasToken:(bool)hasToken
     success:(HttpResponseObject)responseBlock
-    failure:(HttpFailureBlock)failureBlock{
+    failure:(HttpFailureBlock)failureBlock {
 
     //服务器返回json格式
     _instance.requestSerializer = [AFJSONRequestSerializer serializer];
     _instance.responseSerializer = [AFJSONResponseSerializer serializer];
-
+    //设置请求的超时时间
+    _instance.requestSerializer.timeoutInterval = 3.f;
+    
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDefault objectForKey:@"Token"];
@@ -132,8 +134,11 @@ static NetWorkTool *_instance;
                }
                //endrefresh操作
                [self endTableViewRefreshing:YES];
-               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-               NSLog(@"ERROR = %@",error);
+               
+               [BEProgressHUD showMessage:@"网络请求失败，请检查网络连接"];
+//               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+               
+               NSLog(@"ERROR = %@",error.localizedDescription);
            });
            
            if (failureBlock) {
@@ -156,10 +161,10 @@ static NetWorkTool *_instance;
 //           });
        }];
 }
--(void)POST:(NSString *)address
+- (void)POST:(NSString *)address
       image:(UIImage *)image
     success:(HttpResponseObject)responseBlock
-    failure:(HttpFailureBlock)failureBlock{
+    failure:(HttpFailureBlock)failureBlock {
     
     _instance.requestSerializer = [AFHTTPRequestSerializer serializer];
     
@@ -251,10 +256,10 @@ static NetWorkTool *_instance;
        }];
     
 }
--(void)DownLoadFile:(NSString *)address
+- (void)DownLoadFile:(NSString *)address
      params:(id)parameters
     success:(HttpResponseObject)responseBlock
-    failure:(HttpFailureBlock)failureBlock{
+    failure:(HttpFailureBlock)failureBlock {
     
     NSString *fileName = (NSString *)parameters;
     

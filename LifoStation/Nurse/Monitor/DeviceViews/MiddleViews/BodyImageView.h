@@ -12,5 +12,8 @@
 /** 获取当前imageview的name */
 @property (nonatomic,strong)IBInspectable NSString *bodyName;
 @property (nonatomic,strong)NSTimer *changeColorTimer;
+- (instancetype)initWithView:(UIImageView *)view;
+- (void)closeTimer;
 - (void)changeGreenColor;
+- (void)changeColor:(NSString *)color;
 @end

@@ -25,6 +25,7 @@
 @property (nonatomic, strong) MachineModel<Optional> *machine;
 @property (nonatomic, strong) NSNumber *leftTime;
 @property (nonatomic, strong) SolutionModel *solution;
+@property (nonatomic, assign) BOOL isOrderTick;
 
 /** 已完成处方报告专用 */
 @property (nonatomic, strong) NSArray *warnning;

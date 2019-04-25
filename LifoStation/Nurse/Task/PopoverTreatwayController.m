@@ -252,6 +252,7 @@
     }else{
         cell.valueLabel.text = dic[@"value"];
     }
+
     return cell;
 
 }

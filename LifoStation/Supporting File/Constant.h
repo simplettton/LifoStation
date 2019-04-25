@@ -16,9 +16,16 @@ typedef NS_ENUM(NSInteger,CellStyle) {
     CellStyleUnauthorized
 };
 typedef NS_ENUM(NSInteger,MachineState) {
-    MachineStateRunning = 0,
-    MachineStatePause   = 1,
-    MachineStateStop    = 2
+    MachineStateRunning = 0,    //运行中
+    MachineStatePause   = 1,    //暂停中
+    MachineStateStop    = 2,    //空闲中
+    MachineStateNull    = 3,    //空
+    MachineStateOffLine = 0xff      //离线
+};
+typedef NS_ENUM(NSInteger,TaskState) {
+    TaskState_WaittingQueue = 2,    //排队中
+    TaskState_Treating = 3,         //治疗中
+    TaskState_Finished = 4          //已完成
 };
 typedef NS_ENUM(NSInteger,LightSource) {
     LightSourceNull = 0,
@@ -31,8 +38,12 @@ typedef NS_ENUM(NSInteger,MachineType)
     MachineType_Humidifier = 112,   //湿化
     MachineType_Light = 61199,      //光子
     MachineType_AirWave = 7680,      //空气波
-    MachineType_HighEnergyInfrared = 0x1069     //高能红外
+    MachineType_HighEnergyInfrared = 0x1069,     //高能红外
+    MachineType_NegativePressure = 17,   //负压吸引器
+    MachineType_SputumExcretion = 43263,   //排痰
+    MachineType_Elect = 56833   //电疗
 };
+
 @interface Constant : NSObject
 {
     NSMutableArray *machineTypeList;

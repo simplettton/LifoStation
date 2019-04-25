@@ -43,7 +43,7 @@
     }];
     [self.languageView addTapBlock:^(id obj) {
         ChooseLanguageView *view = [ChooseLanguageView createViewFromNib];
-        [view showInWindow];
+        [view showInWindowWithBackgoundTapDismissEnable:YES];
     }];
     [self.logoutView addTapBlock:^(id obj) {
         [self presentLogoutAlert];

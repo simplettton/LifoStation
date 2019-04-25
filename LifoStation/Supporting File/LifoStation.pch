@@ -9,6 +9,7 @@
 #define LifoStation_pch
 #define weakself(self)  __weak __typeof(self) weakSelf = self
 
+#define Number(x) [NSNumber numberWithInteger:x]
 //#define HTTPServerURLSting @"http://192.168.2.127:9999/"
 #define HTTPServerURLString [[NSUserDefaults standardUserDefaults]objectForKey:@"HTTPServerURLString"]
 

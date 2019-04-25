@@ -38,11 +38,11 @@
     [super viewDidLoad];
     [self initAll];
     
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self getMachineTypeList];
-    [self getDepartmentList];
+
 }
 - (void)getMachineTypeList {
     NSMutableArray *typeList = [[NSMutableArray alloc]init];
@@ -120,7 +120,8 @@
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.navigationItem.hidesBackButton = YES;
-    
+    [self getMachineTypeList];
+    [self getDepartmentList];
     [self initTableHeaderAndFooter];
 }
 - (void)initTableHeaderAndFooter {
@@ -132,10 +133,7 @@
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)refresh {
-//    [self.datas addObject:@{@"Name":@"空气波一号",@"Cpuid":@"5656565656565"}];
-//    [self.datas addObject:@{@"Name":@"空气波二号",@"Cpuid":@"53656523565"}];
-//    [self.datas addObject:@{@"Name":@"空气波三号",@"Cpuid":@"12656565656565"}];
-//    [self.tableView reloadData];
+
     NSNumber *type = [NSNumber numberWithInteger:selectedDeviceTag];
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ListRegister")
                                   params:@{@"MachineType":type}
@@ -144,10 +142,14 @@
                                         if ([responseObject.result integerValue] == 1) {
                                                 if ([responseObject.content count] > 0) {
                                                     for (NSDictionary *dic in responseObject.content) {
-                                                        [self.datas addObject:dic];
+                                                        if (![self.datas containsObject:dic]) {
+                                                            [self.datas addObject:dic];
+                                                        }
+
                                                     }
                                                     self.noDataView.hidden = YES;
                                                 } else {
+                                                    [self.datas removeAllObjects];
                                                     self.noDataView.hidden = NO;
                                                 }
                                             [self.tableView reloadData];
@@ -162,7 +164,6 @@
 #pragma mark - ScrollView
 - (void)initMachineTypeScrollView {
     
-//    NSMutableArray *typeList = [NSMutableArray arrayWithObjects:@{@"name":@"空气波治疗仪"},@{@"name":@"光子治疗仪"},@{@"name":@"中频电治疗仪"},@{@"name":@"脉冲磁"},@{@"name":@"红外设备"},@{@"name":@"湿化"},@{@"name":@"负压"},nil];
     NSMutableArray *typeList = [Constant sharedInstance].machineTypeList;
     
     typeModelArray = [[NSMutableArray alloc]initWithCapacity:20];
@@ -170,7 +171,7 @@
     CGFloat contentsizeWidth = TYPE_ITEM_ORIGIN_X;
     for (MachineTypeModel *type in typeList) {
         [typeModelArray addObject:type];
-        contentsizeWidth += type.titleWidth + TYPE_ITEM_ORIGIN_X +TYPE_ITEM_INTERVAL;
+
     }
 
     self.scrollView.contentSize = CGSizeMake(contentsizeWidth, self.scrollView.bounds.size.height);
@@ -183,7 +184,6 @@
     CGFloat XPostion = TYPE_ITEM_ORIGIN_X;
     for (int i = 0; i < [typeModelArray count]; i++) {
         MachineTypeModel *type = typeModelArray[i];
-        
         UIButton *button = [[UIButton alloc]init];
         CGSize titleSize = [type.name sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:button.titleLabel.font.fontName size:button.titleLabel.font.pointSize]}];
         titleSize.height = TYPE_ITEM_Height;
@@ -200,8 +200,12 @@
         [button addTarget:self action:@selector(selectDevice:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button];
         XPostion = CGRectGetMaxX(button.frame) + TYPE_ITEM_INTERVAL;
+        
+        contentsizeWidth += titleSize.width +TYPE_ITEM_INTERVAL;
 
     }
+    //根据button更新scrollview的宽度
+    self.scrollView.contentSize = CGSizeMake(contentsizeWidth, self.scrollView.bounds.size.height);
     MachineTypeModel *firstType = typeModelArray[0];
     UIButton *firstButton = [self.scrollView viewWithTag:[firstType.typeCode integerValue]];
     [self selectDevice:firstButton];
@@ -226,7 +230,6 @@
 #pragma mark - TableView datasource
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 3;
     return [_datas count];
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -253,7 +256,7 @@
                 cell.departmentNameLabel.text = [[Constant sharedInstance]departmentDic][selectedUuid];
                 
             }];
-            [view showInWindow];
+            [view showInWindowWithBackgoundTapDismissEnable:YES];
         }];
        
     }

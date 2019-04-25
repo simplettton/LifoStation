@@ -98,10 +98,11 @@
     [paramList insertObject:@{@"Key":@"执行护士",@"Value":self.taskModel.operatorName} atIndex:1];
     [paramList insertObject:@{@"Key":@"治疗设备",@"Value":self.taskModel.solution.machineTypeName} atIndex:2];
     [paramList insertObject:@{@"Key":@"设备名称",@"Value":self.taskModel.machine.name} atIndex:3];
-    [paramList insertObject:@{@"Key":@"治疗模式",@"Value":self.taskModel.solution.mainModeName} atIndex:4];
+    [paramList insertObject:@{@"Key":@"方案名称",@"Value":self.taskModel.solution.name} atIndex:4];
+    [paramList insertObject:@{@"Key":@"治疗模式",@"Value":self.taskModel.solution.mainModeName} atIndex:5];
     
     NSString *realTimeString = [NSString stringWithFormat:@"%@分钟",self.taskModel.realTreatTime];
-    [paramList insertObject:@{@"Key":@"实际治疗时间",@"Value":realTimeString} atIndex:5];
+    [paramList insertObject:@{@"Key":@"实际治疗时间",@"Value":realTimeString} atIndex:6];
     /** 已取消的任务 */
     if ([self.taskModel.state integerValue] == 0) {
         [paramList addObject:@{@"Key":@"任务状态",@"Value":@"已取消"}];
@@ -277,7 +278,9 @@
         
         AddAdviceView *view = [[AddAdviceView alloc]initWithContent:self.advice return:^(NSString *newAdvice) {
             [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/AddSuggest")
-                                          params:@{@"Suggest":newAdvice}
+                                          params:@{@"Suggest":newAdvice,
+                                                   @"TaskId":self.taskId
+                                                   }
                                         hasToken:YES
                                          success:^(HttpResponse *responseObject) {
                                              if ([responseObject.result integerValue] == 1) {
@@ -295,9 +298,7 @@
         [view showInWindowWithBackgoundTapDismissEnable:YES];
         
     }];
-//    PopoverAction *action2 = [PopoverAction actionWithTitle:@"治疗效果图" handler:^(PopoverAction *action) {
-//        [self addPhotoAction:nil];
-//    }];
+
     PopoverView *popoverView = [PopoverView popoverView];
     popoverView.style = PopoverViewStyleDefault;
     [popoverView showToView:sender withActions:@[action1]];

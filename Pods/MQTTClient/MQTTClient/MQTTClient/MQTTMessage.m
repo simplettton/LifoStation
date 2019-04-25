@@ -507,9 +507,9 @@
         [buffer appendData:self.data];
     }
 
-    DDLogVerbose(@"[MQTTMessage] wireFormat(%lu)=%@...",
-                 (unsigned long)buffer.length,
-                 [buffer subdataWithRange:NSMakeRange(0, MIN(256, buffer.length))]);
+//    DDLogVerbose(@"[MQTTMessage] wireFormat(%lu)=%@...",
+//                 (unsigned long)buffer.length,
+//                 [buffer subdataWithRange:NSMakeRange(0, MIN(256, buffer.length))]);
 
     return buffer;
 }

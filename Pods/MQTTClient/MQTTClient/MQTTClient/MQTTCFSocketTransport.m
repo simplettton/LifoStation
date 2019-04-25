@@ -136,7 +136,7 @@
 }
 
 - (void)internalClose {
-    DDLogVerbose(@"[MQTTCFSocketTransport] close");
+//    DDLogVerbose(@"[MQTTCFSocketTransport] close");
     self.state = MQTTTransportClosing;
 
     if (self.encoder) {

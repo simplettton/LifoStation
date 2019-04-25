@@ -12,4 +12,9 @@
 + (instancetype)sharedInstance;
 - (NSArray *)getParameter:(NSDictionary *)dic machine:(MachineModel *)machine;
 - (NSNumber *)getChartDataWithModel:(MachineModel *)machine;
+- (id)getMachineParameterModel:(MachineModel *)machine;
+- (NSString *)getTimeShowingText:(MachineModel *)machine;
+- (NSString *)getDeviceImageName:(MachineModel *)machine;
+- (NSString *)getMachineState:(MachineModel *)machine;
+- (NSString *)getStateShowingText:(MachineModel *)machine;
 @end

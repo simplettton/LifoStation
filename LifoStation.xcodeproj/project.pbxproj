@@ -23,18 +23,16 @@
 		04281DA8225B2C63008B111B /* warninglow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA5225B2C61008B111B /* warninglow.wav */; };
 		04281DA9225B2C63008B111B /* warningmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA6225B2C62008B111B /* warningmed.wav */; };
 		04281DAA225B2C63008B111B /* warninghigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA7225B2C63008B111B /* warninghigh.wav */; };
-		042C744A224259CF00FCA114 /* 三角波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7441224259CF00FCA114 /* 三角波.gif */; };
-		042C744B224259CF00FCA114 /* 尖波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7442224259CF00FCA114 /* 尖波.gif */; };
-		042C744C224259CF00FCA114 /* 扇形波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7443224259CF00FCA114 /* 扇形波.gif */; };
-		042C744D224259CF00FCA114 /* 指数波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7444224259CF00FCA114 /* 指数波.gif */; };
-		042C744E224259CF00FCA114 /* 方波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7445224259CF00FCA114 /* 方波.gif */; };
-		042C744F224259CF00FCA114 /* 梯形波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7446224259CF00FCA114 /* 梯形波.gif */; };
-		042C7450224259CF00FCA114 /* 正弦波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7447224259CF00FCA114 /* 正弦波.gif */; };
-		042C7451224259CF00FCA114 /* 脉冲波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7448224259CF00FCA114 /* 脉冲波.gif */; };
-		042C7452224259CF00FCA114 /* 锯齿波.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7449224259CF00FCA114 /* 锯齿波.gif */; };
-		042C745922425C3300FCA114 /* dafuya.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745522425C3200FCA114 /* dafuya.gif */; };
+		042C744A224259CF00FCA114 /* sanjiaobo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7441224259CF00FCA114 /* sanjiaobo.gif */; };
+		042C744B224259CF00FCA114 /* jianbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7442224259CF00FCA114 /* jianbo.gif */; };
+		042C744C224259CF00FCA114 /* sanxingbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7443224259CF00FCA114 /* sanxingbo.gif */; };
+		042C744D224259CF00FCA114 /* zhishubo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7444224259CF00FCA114 /* zhishubo.gif */; };
+		042C744E224259CF00FCA114 /* fangbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7445224259CF00FCA114 /* fangbo.gif */; };
+		042C744F224259CF00FCA114 /* tixingbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7446224259CF00FCA114 /* tixingbo.gif */; };
+		042C7450224259CF00FCA114 /* zhengxianbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7447224259CF00FCA114 /* zhengxianbo.gif */; };
+		042C7451224259CF00FCA114 /* maichongbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7448224259CF00FCA114 /* maichongbo.gif */; };
+		042C7452224259CF00FCA114 /* juchibo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7449224259CF00FCA114 /* juchibo.gif */; };
 		042C745A22425C3300FCA114 /* gnhw.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745622425C3200FCA114 /* gnhw.gif */; };
-		042C745B22425C3300FCA114 /* rguangzi.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C745722425C3200FCA114 /* rguangzi.gif */; };
 		042C745F224262C800FCA114 /* FourElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C745E224262C800FCA114 /* FourElectCell.xib */; };
 		042C74622242630C00FCA114 /* FourElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042C74612242630C00FCA114 /* FourElectCell.m */; };
 		042C746422426AA800FCA114 /* shihua.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C746322426AA800FCA114 /* shihua.gif */; };
@@ -45,7 +43,6 @@
 		04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04369EBA220054AE008F22E2 /* DeviceFilterView.xib */; };
 		04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04369EBD220054DD008F22E2 /* DeviceFilterView.m */; };
 		043BF5CF224DD10500EE674C /* paitan2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CB224DD10400EE674C /* paitan2.png */; };
-		043BF5D0224DD10500EE674C /* dafuya2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CC224DD10500EE674C /* dafuya2.png */; };
 		043BF5D1224DD10500EE674C /* rlight2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CD224DD10500EE674C /* rlight2.png */; };
 		043BF5D2224DD10500EE674C /* gnhw2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5CE224DD10500EE674C /* gnhw2.png */; };
 		043BF5DD224DD1A300EE674C /* fangbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5D4224DD1A300EE674C /* fangbo.png */; };
@@ -57,14 +54,20 @@
 		043BF5E3224DD1A300EE674C /* tixingbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DA224DD1A300EE674C /* tixingbo.png */; };
 		043BF5E4224DD1A300EE674C /* zhengxianbo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DB224DD1A300EE674C /* zhengxianbo.png */; };
 		043BF5E5224DD1A300EE674C /* zhishubo.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DC224DD1A300EE674C /* zhishubo.png */; };
+		04436E9F226EA75D008EC19B /* TaskParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04436E9E226EA75D008EC19B /* TaskParameterModel.m */; };
 		0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */; };
 		0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */; };
 		0445C7DE21E5D8A800F35353 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DD21E5D8A800F35353 /* MonitorViewController.m */; };
 		045C70BF2266B4AD000C6FDB /* HighEnergyInfraredModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */; };
+		045F60BA22716104006CC937 /* ElectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F60B922716104006CC937 /* ElectModel.m */; };
+		045F60BD22716455006CC937 /* MagneticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F60BC22716455006CC937 /* MagneticModel.m */; };
+		045F60BF2271B239006CC937 /* fuzzy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 045F60BE2271B239006CC937 /* fuzzy2.png */; };
 		04626F88224C7E93006B963C /* TwoElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F86224C7E93006B963C /* TwoElectCell.m */; };
 		04626F89224C7E93006B963C /* TwoElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F87224C7E93006B963C /* TwoElectCell.xib */; };
 		04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F8B224C9BD9006B963C /* NineElectCell.m */; };
 		04626F8E224C9BD9006B963C /* NineElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F8C224C9BD9006B963C /* NineElectCell.xib */; };
+		046354B32269C04200D010E3 /* blight2.png in Resources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
+		046354B42269C09400D010E3 /* blight2.png in Sources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
 		0465248221E6F1E800362D08 /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248121E6F1E800362D08 /* ReportTableViewController.m */; };
 		0465248621E746AE00362D08 /* TimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248521E746AE00362D08 /* TimeLineModel.m */; };
 		0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248921E74D9900362D08 /* AlertTimeLineCell.m */; };
@@ -150,6 +153,9 @@
 		0485F8352240BAF70026AFD1 /* ElectrotherapyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485F8342240BAF70026AFD1 /* ElectrotherapyView.m */; };
 		0486819F22602FB200DCD09F /* HumidifierModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486819E22602FB200DCD09F /* HumidifierModel.m */; };
 		04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */; };
+		04909A01226D6D850021160B /* NegativePressureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04909A00226D6D850021160B /* NegativePressureModel.m */; };
+		04909A04226DA4D90021160B /* negativePressure2.png in Resources */ = {isa = PBXBuildFile; fileRef = 04909A02226DA4D80021160B /* negativePressure2.png */; };
+		04909A05226DA4D90021160B /* negativePressure.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04909A03226DA4D80021160B /* negativePressure.gif */; };
 		04934775223F33250017EA73 /* SolutionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04934774223F33250017EA73 /* SolutionModel.m */; };
 		049534EA21C8D14200C567D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534E921C8D14200C567D8 /* AppDelegate.m */; };
 		049534ED21C8D14200C567D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534EC21C8D14200C567D8 /* ViewController.m */; };
@@ -170,8 +176,6 @@
 		04A8619F22336E5C00475A01 /* AddLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8619E22336E5C00475A01 /* AddLocationView.m */; };
 		04A861A32233AE9000475A01 /* PatientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861A22233AE9000475A01 /* PatientCell.m */; };
 		04A861A62233B3E700475A01 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A861A52233B3E700475A01 /* NSDate+BRAdd.m */; };
-		04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */; };
-		04B0A0DE21F85E6C00960A54 /* FlashingAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */; };
 		04B3976221E2E98200C9C5F5 /* AddMachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976121E2E98200C9C5F5 /* AddMachineCell.m */; };
 		04B3976621E303FC00C9C5F5 /* MachineTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976521E303FC00C9C5F5 /* MachineTypeModel.m */; };
 		04B3976B21E339D100C9C5F5 /* DepartmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3976A21E339D100C9C5F5 /* DepartmentListViewController.m */; };
@@ -182,6 +186,8 @@
 		04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B51D2421DCC5FE00B9DF2D /* ChooseLanguageView.xib */; };
 		04B51D2821DCC6E300B9DF2D /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B51D2721DCC6E300B9DF2D /* LanguageCell.m */; };
 		04B51D2E21DCC7B000B9DF2D /* ChooseLanguageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */; };
+		04BB7FF822702FCC00C2C21F /* SputumExcretionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB7FF722702FCC00C2C21F /* SputumExcretionModel.m */; };
+		04BB7FFC2270352100C2C21F /* fuzzy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04BB7FFA2270352100C2C21F /* fuzzy.gif */; };
 		04BFC7C52216728500EF9ADB /* DeviceFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */; };
 		04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */; };
 		04D986A621E0A9DF00DD62F1 /* AddMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D986A521E0A9DF00DD62F1 /* AddMachineViewController.m */; };
@@ -368,18 +374,16 @@
 		04281DA5225B2C61008B111B /* warninglow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninglow.wav; sourceTree = "<group>"; };
 		04281DA6225B2C62008B111B /* warningmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warningmed.wav; sourceTree = "<group>"; };
 		04281DA7225B2C63008B111B /* warninghigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninghigh.wav; sourceTree = "<group>"; };
-		042C7441224259CF00FCA114 /* 三角波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "三角波.gif"; sourceTree = "<group>"; };
-		042C7442224259CF00FCA114 /* 尖波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "尖波.gif"; sourceTree = "<group>"; };
-		042C7443224259CF00FCA114 /* 扇形波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "扇形波.gif"; sourceTree = "<group>"; };
-		042C7444224259CF00FCA114 /* 指数波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "指数波.gif"; sourceTree = "<group>"; };
-		042C7445224259CF00FCA114 /* 方波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "方波.gif"; sourceTree = "<group>"; };
-		042C7446224259CF00FCA114 /* 梯形波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "梯形波.gif"; sourceTree = "<group>"; };
-		042C7447224259CF00FCA114 /* 正弦波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "正弦波.gif"; sourceTree = "<group>"; };
-		042C7448224259CF00FCA114 /* 脉冲波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "脉冲波.gif"; sourceTree = "<group>"; };
-		042C7449224259CF00FCA114 /* 锯齿波.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "锯齿波.gif"; sourceTree = "<group>"; };
-		042C745522425C3200FCA114 /* dafuya.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dafuya.gif; sourceTree = "<group>"; };
+		042C7441224259CF00FCA114 /* sanjiaobo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sanjiaobo.gif; sourceTree = "<group>"; };
+		042C7442224259CF00FCA114 /* jianbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = jianbo.gif; sourceTree = "<group>"; };
+		042C7443224259CF00FCA114 /* sanxingbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sanxingbo.gif; sourceTree = "<group>"; };
+		042C7444224259CF00FCA114 /* zhishubo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = zhishubo.gif; sourceTree = "<group>"; };
+		042C7445224259CF00FCA114 /* fangbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fangbo.gif; sourceTree = "<group>"; };
+		042C7446224259CF00FCA114 /* tixingbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tixingbo.gif; sourceTree = "<group>"; };
+		042C7447224259CF00FCA114 /* zhengxianbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = zhengxianbo.gif; sourceTree = "<group>"; };
+		042C7448224259CF00FCA114 /* maichongbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = maichongbo.gif; sourceTree = "<group>"; };
+		042C7449224259CF00FCA114 /* juchibo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = juchibo.gif; sourceTree = "<group>"; };
 		042C745622425C3200FCA114 /* gnhw.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gnhw.gif; sourceTree = "<group>"; };
-		042C745722425C3200FCA114 /* rguangzi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rguangzi.gif; sourceTree = "<group>"; };
 		042C745E224262C800FCA114 /* FourElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FourElectCell.xib; sourceTree = "<group>"; };
 		042C74602242630C00FCA114 /* FourElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FourElectCell.h; sourceTree = "<group>"; };
 		042C74612242630C00FCA114 /* FourElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FourElectCell.m; sourceTree = "<group>"; };
@@ -394,7 +398,6 @@
 		04369EBC220054DD008F22E2 /* DeviceFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceFilterView.h; sourceTree = "<group>"; };
 		04369EBD220054DD008F22E2 /* DeviceFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceFilterView.m; sourceTree = "<group>"; };
 		043BF5CB224DD10400EE674C /* paitan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paitan2.png; sourceTree = "<group>"; };
-		043BF5CC224DD10500EE674C /* dafuya2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dafuya2.png; sourceTree = "<group>"; };
 		043BF5CD224DD10500EE674C /* rlight2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rlight2.png; sourceTree = "<group>"; };
 		043BF5CE224DD10500EE674C /* gnhw2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gnhw2.png; sourceTree = "<group>"; };
 		043BF5D4224DD1A300EE674C /* fangbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fangbo.png; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 		043BF5DA224DD1A300EE674C /* tixingbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tixingbo.png; sourceTree = "<group>"; };
 		043BF5DB224DD1A300EE674C /* zhengxianbo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhengxianbo.png; sourceTree = "<group>"; };
 		043BF5DC224DD1A300EE674C /* zhishubo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhishubo.png; sourceTree = "<group>"; };
+		04436E9D226EA75D008EC19B /* TaskParameterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskParameterModel.h; sourceTree = "<group>"; };
+		04436E9E226EA75D008EC19B /* TaskParameterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskParameterModel.m; sourceTree = "<group>"; };
 		0445C7D621E5A4AD00F35353 /* PersonalRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalRecordViewController.h; sourceTree = "<group>"; };
 		0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalRecordViewController.m; sourceTree = "<group>"; };
 		0445C7D921E5A53C00F35353 /* BaseSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSearchBar.h; sourceTree = "<group>"; };
@@ -414,12 +419,18 @@
 		0445C7DD21E5D8A800F35353 /* MonitorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		045C70BD2266B4AD000C6FDB /* HighEnergyInfraredModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighEnergyInfraredModel.h; sourceTree = "<group>"; };
 		045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighEnergyInfraredModel.m; sourceTree = "<group>"; };
+		045F60B822716104006CC937 /* ElectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElectModel.h; sourceTree = "<group>"; };
+		045F60B922716104006CC937 /* ElectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElectModel.m; sourceTree = "<group>"; };
+		045F60BB22716455006CC937 /* MagneticModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagneticModel.h; sourceTree = "<group>"; };
+		045F60BC22716455006CC937 /* MagneticModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagneticModel.m; sourceTree = "<group>"; };
+		045F60BE2271B239006CC937 /* fuzzy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuzzy2.png; sourceTree = "<group>"; };
 		04626F85224C7E93006B963C /* TwoElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoElectCell.h; sourceTree = "<group>"; };
 		04626F86224C7E93006B963C /* TwoElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoElectCell.m; sourceTree = "<group>"; };
 		04626F87224C7E93006B963C /* TwoElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoElectCell.xib; sourceTree = "<group>"; };
 		04626F8A224C9BD9006B963C /* NineElectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NineElectCell.h; sourceTree = "<group>"; };
 		04626F8B224C9BD9006B963C /* NineElectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineElectCell.m; sourceTree = "<group>"; };
 		04626F8C224C9BD9006B963C /* NineElectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NineElectCell.xib; sourceTree = "<group>"; };
+		046354B22269C04100D010E3 /* blight2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blight2.png; sourceTree = "<group>"; };
 		0465248021E6F1E800362D08 /* ReportTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportTableViewController.h; sourceTree = "<group>"; };
 		0465248121E6F1E800362D08 /* ReportTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportTableViewController.m; sourceTree = "<group>"; };
 		0465248421E746AE00362D08 /* TimeLineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineModel.h; sourceTree = "<group>"; };
@@ -580,6 +591,10 @@
 		0486819E22602FB200DCD09F /* HumidifierModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HumidifierModel.m; sourceTree = "<group>"; };
 		04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibBorderColor.h"; sourceTree = "<group>"; };
 		04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibBorderColor.m"; sourceTree = "<group>"; };
+		049099FF226D6D850021160B /* NegativePressureModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NegativePressureModel.h; sourceTree = "<group>"; };
+		04909A00226D6D850021160B /* NegativePressureModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NegativePressureModel.m; sourceTree = "<group>"; };
+		04909A02226DA4D80021160B /* negativePressure2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = negativePressure2.png; sourceTree = "<group>"; };
+		04909A03226DA4D80021160B /* negativePressure.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = negativePressure.gif; sourceTree = "<group>"; };
 		04934773223F33250017EA73 /* SolutionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SolutionModel.h; sourceTree = "<group>"; };
 		04934774223F33250017EA73 /* SolutionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SolutionModel.m; sourceTree = "<group>"; };
 		049534E521C8D14200C567D8 /* LifoStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifoStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -617,9 +632,6 @@
 		04A861A22233AE9000475A01 /* PatientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatientCell.m; sourceTree = "<group>"; };
 		04A861A42233B3E600475A01 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
 		04A861A52233B3E700475A01 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
-		04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlashingAlertView.xib; sourceTree = "<group>"; };
-		04B0A0DC21F85E6C00960A54 /* FlashingAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlashingAlertView.h; sourceTree = "<group>"; };
-		04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlashingAlertView.m; sourceTree = "<group>"; };
 		04B3976021E2E98200C9C5F5 /* AddMachineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMachineCell.h; sourceTree = "<group>"; };
 		04B3976121E2E98200C9C5F5 /* AddMachineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddMachineCell.m; sourceTree = "<group>"; };
 		04B3976421E303FC00C9C5F5 /* MachineTypeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineTypeModel.h; sourceTree = "<group>"; };
@@ -640,6 +652,10 @@
 		04B51D2721DCC6E300B9DF2D /* LanguageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageCell.m; sourceTree = "<group>"; };
 		04B51D2C21DCC7B000B9DF2D /* ChooseLanguageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseLanguageView.h; sourceTree = "<group>"; };
 		04B51D2D21DCC7B000B9DF2D /* ChooseLanguageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseLanguageView.m; sourceTree = "<group>"; };
+		04BB7FF622702FCC00C2C21F /* SputumExcretionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SputumExcretionModel.h; sourceTree = "<group>"; };
+		04BB7FF722702FCC00C2C21F /* SputumExcretionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SputumExcretionModel.m; sourceTree = "<group>"; };
+		04BB7FFA2270352100C2C21F /* fuzzy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fuzzy.gif; sourceTree = "<group>"; };
+		04BB7FFE227041B300C2C21F /* fuzzy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fuzzy.gif; sourceTree = "<group>"; };
 		04BFC7C22216728500EF9ADB /* DeviceFilterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceFilterCell.h; sourceTree = "<group>"; };
 		04BFC7C32216728500EF9ADB /* DeviceFilterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceFilterCell.m; sourceTree = "<group>"; };
 		04BFC7C42216728500EF9ADB /* DeviceFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceFilterCell.xib; sourceTree = "<group>"; };
@@ -932,15 +948,15 @@
 		042C7440224259CF00FCA114 /* wavegif */ = {
 			isa = PBXGroup;
 			children = (
-				042C7441224259CF00FCA114 /* 三角波.gif */,
-				042C7442224259CF00FCA114 /* 尖波.gif */,
-				042C7443224259CF00FCA114 /* 扇形波.gif */,
-				042C7444224259CF00FCA114 /* 指数波.gif */,
-				042C7445224259CF00FCA114 /* 方波.gif */,
-				042C7446224259CF00FCA114 /* 梯形波.gif */,
-				042C7447224259CF00FCA114 /* 正弦波.gif */,
-				042C7448224259CF00FCA114 /* 脉冲波.gif */,
-				042C7449224259CF00FCA114 /* 锯齿波.gif */,
+				042C7441224259CF00FCA114 /* sanjiaobo.gif */,
+				042C7442224259CF00FCA114 /* jianbo.gif */,
+				042C7443224259CF00FCA114 /* sanxingbo.gif */,
+				042C7444224259CF00FCA114 /* zhishubo.gif */,
+				042C7445224259CF00FCA114 /* fangbo.gif */,
+				042C7446224259CF00FCA114 /* tixingbo.gif */,
+				042C7447224259CF00FCA114 /* zhengxianbo.gif */,
+				042C7448224259CF00FCA114 /* maichongbo.gif */,
+				042C7449224259CF00FCA114 /* juchibo.gif */,
 			);
 			path = wavegif;
 			sourceTree = "<group>";
@@ -950,19 +966,22 @@
 			children = (
 				0474F23F224B9ADD00C40E0E /* maicongci2.jpg */,
 				0474F240224B9ADD00C40E0E /* shihua2.png */,
+				04BB7FFA2270352100C2C21F /* fuzzy.gif */,
+				045F60BE2271B239006CC937 /* fuzzy2.png */,
 				0474F23D224B590E00C40E0E /* paitan.gif */,
 				0474F23B224B590100C40E0E /* maicongci.gif */,
 				042C746322426AA800FCA114 /* shihua.gif */,
-				042C745522425C3200FCA114 /* dafuya.gif */,
 				042C745622425C3200FCA114 /* gnhw.gif */,
-				042C745722425C3200FCA114 /* rguangzi.gif */,
-				043BF5CC224DD10500EE674C /* dafuya2.png */,
 				043BF5CE224DD10500EE674C /* gnhw2.png */,
+				04909A03226DA4D80021160B /* negativePressure.gif */,
+				04909A02226DA4D80021160B /* negativePressure2.png */,
 				043BF5CD224DD10500EE674C /* rlight2.png */,
+				046354B22269C04100D010E3 /* blight2.png */,
 				04FE946422643A5600FA6730 /* rblight.gif */,
 				04FE94602264355B00FA6730 /* blight.gif */,
 				04FE945E2264355A00FA6730 /* rlight.gif */,
 				043BF5CB224DD10400EE674C /* paitan2.png */,
+				04BB7FFE227041B300C2C21F /* fuzzy.gif */,
 			);
 			path = deviceGif;
 			sourceTree = "<group>";
@@ -1013,7 +1032,6 @@
 			isa = PBXGroup;
 			children = (
 				046CE1B72217EF2B00ED6BF1 /* Device Filter View */,
-				04B0A0DF21F85E7A00960A54 /* FlashingAlertView */,
 				0415323221EDE0BA00DDBD78 /* AlertView */,
 				047D17BF21F1B0C100B498E6 /* PatientInfoPopupView */,
 				04261E2A21FAFB2E0043776D /* Controller */,
@@ -1052,6 +1070,8 @@
 				0472F6092238E97E00DD2658 /* TaskModel.m */,
 				04934773223F33250017EA73 /* SolutionModel.h */,
 				04934774223F33250017EA73 /* SolutionModel.m */,
+				04436E9D226EA75D008EC19B /* TaskParameterModel.h */,
+				04436E9E226EA75D008EC19B /* TaskParameterModel.m */,
 				047695732239E29A00FDC7DB /* MachineModel.h */,
 				047695742239E29A00FDC7DB /* MachineModel.m */,
 				048681A022602FB700DCD09F /* Device Model */,
@@ -1227,12 +1247,12 @@
 		047D17B921F17AA300B498E6 /* NineViews */ = {
 			isa = PBXGroup;
 			children = (
+				047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */,
 				047D17B421F17A8C00B498E6 /* NineViewsAirWaveCell.h */,
 				047D17B521F17A8C00B498E6 /* NineViewsAirWaveCell.m */,
-				047D17B621F17A8C00B498E6 /* NineViewsAirWaveCell.xib */,
+				04626F8C224C9BD9006B963C /* NineElectCell.xib */,
 				04626F8A224C9BD9006B963C /* NineElectCell.h */,
 				04626F8B224C9BD9006B963C /* NineElectCell.m */,
-				04626F8C224C9BD9006B963C /* NineElectCell.xib */,
 			);
 			path = NineViews;
 			sourceTree = "<group>";
@@ -1329,6 +1349,14 @@
 				0469F7EB2265B79E0061F69B /* AirwaveModel.m */,
 				045C70BD2266B4AD000C6FDB /* HighEnergyInfraredModel.h */,
 				045C70BE2266B4AD000C6FDB /* HighEnergyInfraredModel.m */,
+				049099FF226D6D850021160B /* NegativePressureModel.h */,
+				04909A00226D6D850021160B /* NegativePressureModel.m */,
+				04BB7FF622702FCC00C2C21F /* SputumExcretionModel.h */,
+				04BB7FF722702FCC00C2C21F /* SputumExcretionModel.m */,
+				045F60B822716104006CC937 /* ElectModel.h */,
+				045F60B922716104006CC937 /* ElectModel.m */,
+				045F60BB22716455006CC937 /* MagneticModel.h */,
+				045F60BC22716455006CC937 /* MagneticModel.m */,
 			);
 			path = "Device Model";
 			sourceTree = "<group>";
@@ -1452,16 +1480,6 @@
 				04357DCA21F2F23700A5B45C /* AirWaveSetParameterView.m */,
 			);
 			path = AirwaveSetParameterView;
-			sourceTree = "<group>";
-		};
-		04B0A0DF21F85E7A00960A54 /* FlashingAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				04B0A0DA21F85E5000960A54 /* FlashingAlertView.xib */,
-				04B0A0DC21F85E6C00960A54 /* FlashingAlertView.h */,
-				04B0A0DD21F85E6C00960A54 /* FlashingAlertView.m */,
-			);
-			path = FlashingAlertView;
 			sourceTree = "<group>";
 		};
 		04B3976321E303BC00C9C5F5 /* Choose Department View */ = {
@@ -1652,23 +1670,26 @@
 			files = (
 				04FE94A322648A5800FA6730 /* AAJSFiles.bundle in Resources */,
 				042C745A22425C3300FCA114 /* gnhw.gif in Resources */,
-				042C744D224259CF00FCA114 /* 指数波.gif in Resources */,
+				042C744D224259CF00FCA114 /* zhishubo.gif in Resources */,
 				0484274921DDABD80071C177 /* EditDeviceView.xib in Resources */,
+				045F60BF2271B239006CC937 /* fuzzy2.png in Resources */,
 				04709B2921F03255000D4E12 /* TwoViewsAirWaveCell.xib in Resources */,
 				046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */,
 				0474F23A224B54D000C40E0E /* SingleElectCell.xib in Resources */,
 				046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */,
 				047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */,
 				04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */,
-				042C744F224259CF00FCA114 /* 梯形波.gif in Resources */,
-				042C7450224259CF00FCA114 /* 正弦波.gif in Resources */,
+				042C744F224259CF00FCA114 /* tixingbo.gif in Resources */,
+				042C7450224259CF00FCA114 /* zhengxianbo.gif in Resources */,
+				046354B32269C04200D010E3 /* blight2.png in Resources */,
 				0485F8322240BA6D0026AFD1 /* ElectrotherapyView.xib in Resources */,
 				042C9E6F21CC9A9E001A3246 /* SetNetWorkView.xib in Resources */,
-				042C744C224259CF00FCA114 /* 扇形波.gif in Resources */,
-				042C744A224259CF00FCA114 /* 三角波.gif in Resources */,
+				04BB7FFC2270352100C2C21F /* fuzzy.gif in Resources */,
+				042C744C224259CF00FCA114 /* sanxingbo.gif in Resources */,
+				042C744A224259CF00FCA114 /* sanjiaobo.gif in Resources */,
 				042C745F224262C800FCA114 /* FourElectCell.xib in Resources */,
 				043BF5E1224DD1A300EE674C /* sanjiaobo.png in Resources */,
-				042C744B224259CF00FCA114 /* 尖波.gif in Resources */,
+				042C744B224259CF00FCA114 /* jianbo.gif in Resources */,
 				0415322E21EDDD4500DDBD78 /* AlertView.xib in Resources */,
 				043BF5DD224DD1A300EE674C /* fangbo.png in Resources */,
 				043BF5CF224DD10500EE674C /* paitan2.png in Resources */,
@@ -1686,15 +1707,14 @@
 				046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */,
 				04BFC7C62216728500EF9ADB /* DeviceFilterCell.xib in Resources */,
 				043BF5E4224DD1A300EE674C /* zhengxianbo.png in Resources */,
-				04B0A0DB21F85E5000960A54 /* FlashingAlertView.xib in Resources */,
 				04736BAB21E883DD004D60D6 /* AirWaveView.xib in Resources */,
 				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
 				0474F23E224B590E00C40E0E /* paitan.gif in Resources */,
-				042C7452224259CF00FCA114 /* 锯齿波.gif in Resources */,
-				042C7451224259CF00FCA114 /* 脉冲波.gif in Resources */,
+				042C7452224259CF00FCA114 /* juchibo.gif in Resources */,
+				042C7451224259CF00FCA114 /* maichongbo.gif in Resources */,
 				04A86184223350E500475A01 /* EditTaskView.xib in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
-				042C744E224259CF00FCA114 /* 方波.gif in Resources */,
+				042C744E224259CF00FCA114 /* fangbo.gif in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
 				04A8619C22336DE800475A01 /* AddLocationView.xib in Resources */,
 				04B51D2521DCC5FE00B9DF2D /* ChooseLanguageView.xib in Resources */,
@@ -1704,13 +1724,10 @@
 				043BF5D1224DD10500EE674C /* rlight2.png in Resources */,
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
 				0474F23C224B590100C40E0E /* maicongci.gif in Resources */,
-				042C745922425C3300FCA114 /* dafuya.gif in Resources */,
 				0468160522014D0B004F9FBB /* devices.txt in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
-				042C745B22425C3300FCA114 /* rguangzi.gif in Resources */,
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
 				04281DA8225B2C63008B111B /* warninglow.wav in Resources */,
-				043BF5D0224DD10500EE674C /* dafuya2.png in Resources */,
 				042C746422426AA800FCA114 /* shihua.gif in Resources */,
 				043BF5DE224DD1A300EE674C /* jianbo.png in Resources */,
 				047D17BE21F1B0A900B498E6 /* PatientInfoPopupView.xib in Resources */,
@@ -1720,6 +1737,8 @@
 				0474F242224B9ADD00C40E0E /* shihua2.png in Resources */,
 				04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */,
 				0474F241224B9ADD00C40E0E /* maicongci2.jpg in Resources */,
+				04909A04226DA4D90021160B /* negativePressure2.png in Resources */,
+				04909A05226DA4D90021160B /* negativePressure.gif in Resources */,
 				0469CC2421E4284700D0302C /* AddDepartmentView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1794,6 +1813,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04909A01226D6D850021160B /* NegativePressureModel.m in Sources */,
+				046354B42269C09400D010E3 /* blight2.png in Sources */,
 				04FE946F2264811600FA6730 /* AAAnimation.h in Sources */,
 				04FE94702264811600FA6730 /* AAAnimation.m in Sources */,
 				04FE94712264811600FA6730 /* AAArea.h in Sources */,
@@ -1886,13 +1907,13 @@
 				04709B2C21F07812000D4E12 /* BasicAirWaveCell.m in Sources */,
 				04829C3C21CBA01700A42FC0 /* LoginViewController.m in Sources */,
 				04709B2421F02D9B000D4E12 /* AirWaveView.m in Sources */,
-				04B0A0DE21F85E6C00960A54 /* FlashingAlertView.m in Sources */,
 				04236CCC21D371E800C848C9 /* TaskCell.m in Sources */,
 				04B3976221E2E98200C9C5F5 /* AddMachineCell.m in Sources */,
 				04829C3F21CBBBE200A42FC0 /* BEProgressHUD.m in Sources */,
 				046CD38221DF632C0067BCB0 /* DepartmentItemCell.m in Sources */,
 				047519D121D0E14D00A30B9E /* SettingsViewController.m in Sources */,
 				046D214F21D47BCB00A0D5AE /* TaskDetailView.m in Sources */,
+				045F60BD22716455006CC937 /* MagneticModel.m in Sources */,
 				046D215421D4B47800A0D5AE /* DeviceSelectView.m in Sources */,
 				04A861A62233B3E700475A01 /* NSDate+BRAdd.m in Sources */,
 				047D17B121F16F5C00B498E6 /* FourViewsAirWaveCell.m in Sources */,
@@ -1926,6 +1947,7 @@
 				04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */,
 				048563DA22378EDE00708DF2 /* PatientModel.m in Sources */,
 				0422F0DC221D5F4E00673649 /* videoViewController.m in Sources */,
+				045F60BA22716104006CC937 /* ElectModel.m in Sources */,
 				04B51D2221DCA28C00B9DF2D /* NSString+Size.m in Sources */,
 				0472F60A2238E97E00DD2658 /* TaskModel.m in Sources */,
 				0474946A2231151800E8C8AA /* FinishedTaskViewController.m in Sources */,
@@ -1937,6 +1959,7 @@
 				0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */,
 				04B51D2021DCA28C00B9DF2D /* GHDropMenu.m in Sources */,
 				046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */,
+				04436E9F226EA75D008EC19B /* TaskParameterModel.m in Sources */,
 				0472F6072238DF8300DD2658 /* NSDictionary+Log.m in Sources */,
 				0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */,
 				04B51D2321DCA28C00B9DF2D /* UIView+Extension.m in Sources */,
@@ -1955,6 +1978,7 @@
 				0468160322013E5F004F9FBB /* DepartmentDeviceModel.m in Sources */,
 				047494642231129C00E8C8AA /* WaitingTaskViewController.m in Sources */,
 				04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */,
+				04BB7FF822702FCC00C2C21F /* SputumExcretionModel.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
 				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,

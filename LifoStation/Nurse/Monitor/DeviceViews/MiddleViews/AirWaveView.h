@@ -17,13 +17,17 @@ typedef NS_ENUM(NSInteger,AirBagType) {
 };
 typedef NS_ENUM(NSUInteger,BodyTags)
 {
-    leftup1tag   =17,leftup2tag   =16,leftup3tag   =15,lefthandtag  =14,leftdown1tag =13,leftdown2tag =12,leftdown3tag =11,
-    leftfoottag  =10,rightup1tag  =27,rightup2tag  =26,rightup3tag  =25,righthandtag =24,rightdown1tag=23,rightdown2tag=22,
-    rightdown3tag=21,rightfoottag =20,middle1tag   =33,middle2tag   =32,middle3tag   =31,middle4tag   =30,
+    leftup1tag   =1017,leftup2tag   =1016,leftup3tag   =1015,lefthandtag  =1014,leftdown1tag =1013,leftdown2tag =1012,leftdown3tag =1011,
+    leftfoottag  =1010,rightup1tag  =1027,rightup2tag  =1026,rightup3tag  =1025,righthandtag =1024,rightdown1tag=1023,rightdown2tag=1022,
+    rightdown3tag=1021,rightfoottag =1020,middle1tag   =1033,middle2tag   =1032,middle3tag   =1031,middle4tag   =1030,
     
     rightleg1tag =47,rightleg2tag =46,rightleg3tag =45,rightleg4tag =44,rightleg5tag =43,rightleg6tag =42,rightleg7tag =41,
-    leftleg1tag  =57,leftleg2tag  =56,leftleg3tag  =55,leftleg4tag  =54,leftleg5tag  =53,leftleg6tag  =52,leftleg7tag  =51, disconnectViewtag = 999
+    leftleg1tag  =1007,leftleg2tag  =1006,leftleg3tag  =1005,leftleg4tag  =1004,leftleg5tag  =1003,leftleg6tag  =1002,leftleg7tag  =1001, disconnectViewtag = 999
     
+};
+typedef NS_ENUM(NSUInteger,BodyIndex)
+{
+    leftfootIndex=0, leftup3Index=5, leftdown3Index=1, lefthandIndex=4, middle4Index=8, rightfootIndex=12, rightup3Index=17, rightdown3Index = 13, righthandIndex = 16
 };
 @interface AirWaveView : UIView
 @property (nonatomic, assign) AirBagType type;
@@ -32,9 +36,8 @@ typedef NS_ENUM(NSUInteger,BodyTags)
 @property (strong, nonatomic) IBOutletCollection(BodyImageView) NSArray *bodyImages;
 @property (nonatomic, assign) NSInteger APortType;
 @property (nonatomic, assign) NSInteger BPortType;
-- (void)flashingTest;
-- (instancetype)initWithAirBagType:(AirBagType)type;
 - (instancetype)initWithParameter:(AirwaveModel*)machineParameter;
+- (void)resetBodyPartColor:(MachineModel *)machine;
 - (void)updateViewWithModel:(MachineModel *)machine;
-
+- (void)changeAllBodyPartsToGrey;
 @end

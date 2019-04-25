@@ -45,7 +45,6 @@ typedef NS_ENUM(NSInteger,machineState) {
 @property (nonatomic, strong) NSTimer *alertTimer;
 @property (nonatomic, strong) NSMutableArray *chartDataArray;
 
-//曲线图
-@property (nonatomic, strong) AAChartView *chartView;
-
+//光子特有
+@property (nonatomic, strong) NSString *lightSource;
 @end

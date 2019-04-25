@@ -25,6 +25,8 @@
               @"machine":@"Device",
               @"leftTime":@"LeftTimeToOver",
               @"solution":@"Solution",
+              @"isOrderTick":@"IsOrderTick",
+              
               @"warnning":@"Warnning",
               @"realTreatTime":@"RealTreatTime"
               }

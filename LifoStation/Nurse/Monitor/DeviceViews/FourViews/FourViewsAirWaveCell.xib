@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="342" height="306"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDQ-Fo-iyH">
+                    <view tag="6666" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDQ-Fo-iyH">
                         <rect key="frame" x="0.0" y="45" width="342" height="261"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -58,7 +58,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="focus_fill" translatesAutoresizingMaskIntoConstraints="NO" id="bDe-gR-oet">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="focus_unfill" translatesAutoresizingMaskIntoConstraints="NO" id="bDe-gR-oet">
                                         <rect key="frame" x="2" y="10" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -119,7 +119,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="183" height="135"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="4444" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="风扇异常" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BBo-Vp-1J2">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="4444" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="气囊类型不合适" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BBo-Vp-1J2">
                                         <rect key="frame" x="0.0" y="135" width="183" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -172,7 +172,7 @@
                 <outlet property="firstLabel" destination="zCF-gA-zjr" id="Psb-FU-Ubo"/>
                 <outlet property="focusView" destination="8In-t5-mWX" id="AFs-sA-UB5"/>
                 <outlet property="forthLabel" destination="a2t-se-xdr" id="YvO-gT-uJi"/>
-                <outlet property="heartImageView" destination="bDe-gR-oet" id="HFA-qa-G96"/>
+                <outlet property="heartImageView" destination="bDe-gR-oet" id="hIj-zq-EhK"/>
                 <outlet property="leftTimeLabel" destination="HcM-ns-6zC" id="wHM-MU-tHX"/>
                 <outlet property="parameterView" destination="8Ox-sZ-lHO" id="2xC-hG-oGK"/>
                 <outlet property="patientButton" destination="tCr-xb-vLz" id="tQG-QU-yxE"/>
@@ -195,7 +195,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="focus_fill" width="28" height="28"/>
+        <image name="focus_unfill" width="28" height="28"/>
         <image name="idcard" width="55" height="49"/>
         <image name="unauthorized" width="595" height="114"/>
         <image name="warm" width="150" height="150"/>

@@ -17,6 +17,7 @@
 
 #import "TaskParentViewController.h"
 #import "TaskModel.h"
+#import "TaskParameterModel.h"
 @interface ProcessingTaskViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) BaseSearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -208,23 +209,30 @@
     
 }
 - (void)getParamList :(TaskModel *)task atIndex:(NSInteger)index{
-    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
-        if ([responseObject.result integerValue] == 1) {
-            NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
-            [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
-//            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
-            
-            NSArray *array = responseObject.content[@"LsEdit"];
-            if ([array count]>0) {
-                for (NSDictionary *dataDic in array) {
-                    [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+    if (task.solution.uuid) {
+        [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
+            if ([responseObject.result integerValue] == 1) {
+                NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                [paramArray addObject:@{@"showName":@"方案名称",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"Name"]]}];
+                [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
+                
+                
+                NSArray *array = responseObject.content[@"LsEdit"];
+                if ([array count]>0) {
+                    for (NSDictionary *dataDic in array) {
+                        TaskParameterModel *taskParameter = [[TaskParameterModel alloc]initWithDictionary:dataDic error:nil];
+                        if (![taskParameter.showName isEqualToString:@"计时方式"]) {
+                            [paramArray addObject:[taskParameter getParamDictionary]];
+                        }
+                        
+                        
+                    }
                 }
+                task.solution.paramList = paramArray;
+                [datas replaceObjectAtIndex:index withObject:task];
             }
-            task.solution.paramList = paramArray;
-            [datas replaceObjectAtIndex:index withObject:task];
-        }
-    } failure:nil];
-    
+        } failure:nil];
+    }
 }
 #pragma mark - SearchBar delegate
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -315,7 +323,14 @@
                 [view showInWindowWithBackgoundTapDismissEnable:YES];
             }];
         }
-        cell.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:task.leftTime];
+        if (task.isOrderTick) {   //正计时显示- 颜色变为黑色
+            cell.leftTimeLabel.text = @"-";
+            cell.leftTimeLabel.textColor = UIColorFromHex(0x212121);
+        } else {
+            cell.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:task.leftTime];
+            cell.leftTimeLabel.textColor = UIColorFromHex(0x00935E);
+        }
+
         [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@分钟",task.solution.treatTime] forState:UIControlStateNormal];
     }
 

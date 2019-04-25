@@ -83,9 +83,7 @@
                                      success:^(HttpResponse *responseObject) {
                                          if ([responseObject.result intValue] == 1) {
                                              NSDictionary *content = responseObject.content;
-                                             [self getMachineTypeList];
                                              LxDBAnyVar(content);
-
                                              NSInteger license = [[responseObject.content objectForKey:@"License"]integerValue];
 
 
@@ -102,19 +100,25 @@
                                              NSString *department = [responseObject.content objectForKey:@"Department"];
                                              NSString *personName = [responseObject.content objectForKey:@"PersonName"];
                                              NSString *hospital = [responseObject.content objectForKey:@"Hospital"];
-                                             
-                                             [UserDefault setObject:hospital forKey:@"Hospital"];
-                                             [UserDefault setObject:token forKey:@"Token"];
-                                             [UserDefault setObject:personName forKey:@"PersonName"];
-                                             [UserDefault setObject:department forKey:@"Department"];
-                                             [UserDefault synchronize];
+
+
                                              if (controller) {
                                                  //登录成功保存token role
                                                  [UserDefault setBool:YES forKey:@"IsLogined"];
                                                  [UserDefault setObject:roleString forKey:@"Role"];
                                                  [UserDefault setObject:token forKey:@"Token"];
+                                                 
+                                                 
+                                                 [UserDefault setObject:hospital forKey:@"Hospital"];
+                                                 [UserDefault setObject:token forKey:@"Token"];
+                                                 [UserDefault setObject:personName forKey:@"PersonName"];
+                                                 [UserDefault setObject:department forKey:@"Department"];
+                                                 [UserDefault synchronize];
                                                  [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
                                              }
+                                             [self getMachineTypeList];
+
+
                                          }
                                      }
                                      failure:^(NSError *error) {

@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "FLAnimatedImage.h"
 #import "MachineModel.h"
-@interface TwoElectCell : UICollectionViewCell
+@interface TwoElectCell : UICollectionViewCell;
 @property (nonatomic, assign) CellStyle style;
 //1 左上
 @property (weak, nonatomic) IBOutlet UIView *patientView;
 @property (weak, nonatomic) IBOutlet UILabel *patientLabel;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
-@property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
+
 //2 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;
 @property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
@@ -25,8 +25,10 @@
 @property (nonatomic, strong) UIImageView *staticDeviceView;
 
 //3右下
-@property (weak, nonatomic) IBOutlet AAChartView *chartView;
+@property (nonatomic, strong) AAChartView *chartView;
+
 
 @property (nonatomic, strong) MachineModel *machine;
 - (void)configureWithModel:(MachineModel *)machine;
+- (void)updateDeviceImage:(NSString *)name;
 @end

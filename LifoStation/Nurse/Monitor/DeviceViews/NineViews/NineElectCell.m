@@ -10,8 +10,15 @@
 #import "HumidifierModel.h"
 #import "LightModel.h"
 #import "MachineParameterTool.h"
+#import "NegativePressureModel.h"
+
 #define kBodyViewWidth 90
 #define kBodyViewHeight 113
+#define kChartViewWidth 105
+#define kChartViewHeight 72
+
+#define kTimeLabelFont 11
+#define kNoTimeLabelFont 11
 @interface NineElectCell()
 @property (weak, nonatomic) IBOutlet UIView *bodyContentView;
 //1 右上
@@ -25,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UILabel *alertMessageLabel;
 @property (nonatomic,strong)NSTimer *alertTimer;
--(void)startFlashingAlertView;
 
 /** 3 titleView */
 @property (weak, nonatomic) IBOutlet UIView *titleView;
@@ -70,55 +76,10 @@
     }
     
     /** gif类型 */
-    NSString *machineType = machine.groupCode;
-    if (!_deviceView) {
-        
-        switch ([machineType integerValue]) {
-            case MachineType_Humidifier:
-                [self addDeviceImage:@"shihua"];
-                break;
-            case MachineType_HighEnergyInfrared:
-                [self addDeviceImage:@"gnhw"];
-                break;
-            case MachineType_Light:
-                [self addDeviceImage:@"rlight"];
-                
-                break;
-            default:
-                break;
-        }
-    } else {
-        switch ([machineType integerValue]) {
-            case MachineType_Humidifier:
-                [self updateDeviceImage:@"shihua"];
-                break;
-            case MachineType_HighEnergyInfrared:
-                [self updateDeviceImage:@"gnhw"];
-                break;
-            case MachineType_Light:
-            {
-                LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-                /** 主光源为空的时候显示附件光源 */
-                if (machineParameter.mainLightSource != LightSourceNull) {
-                    [self updateDeviceImage:[self getLightName:machineParameter.mainLightSource]];
-                } else {
-                    [self updateDeviceImage:[self getLightName:machineParameter.appendLightSource]];
-                }
-                
-            }
-                break;
-            default:
-                break;
-        }
-        
-    }
+    NSString *deviceImageName = [[MachineParameterTool sharedInstance]getDeviceImageName:machine];
+    [self configureDeviceImage:deviceImageName];
     
-    NSDictionary *machineStateDic = @{
-                                      @"0":@"运行中",
-                                      @"1":@"暂停中",
-                                      @"2":@"空闲中",
-                                      @"3":@"离线"
-                                      };
+    
     //信息展示
     /** 标题 */
     if ([machine.departmentName length] > 0) {
@@ -128,88 +89,90 @@
     }
     
 
-    /** 右上 */
-    /** 实时信息和lefttime更新 */
-    switch ([machine.state integerValue]) {
-        case MachineStateRunning:
-            
-            if (machine.msg_realTimeData) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+    if (machine.isonline) {
+        /** 右上 */
+        /** 实时信息和lefttime更新 */
+        switch ([machine.state integerValue]) {
+            case MachineStateRunning:
+                
+                if (machine.msg_realTimeData) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                    /** 显示时间ShowTime 秒为单位 */
+                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+                } else {                //刚开始没有realtimedata 用参数信息顶替
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 }
-                /** 显示时间ShowTime 秒为单位 */
-                machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
-            } else {                //刚开始没有realtimedata 用参数信息顶替
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                if (![self.deviceView isAnimating]) {
+                    [self.deviceView startAnimating];
                 }
+                self.chartView.hidden = NO;
+                break;
+            case MachineStateStop:
+                /** 参数修改信息 修改了state 多了treattime 和 state*/
+                if (machine.msg_treatParameter) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                }
+                if ([self.deviceView isAnimating]) {
+                    [self.deviceView stopAnimating];
+                }
+                /** 隐藏chartview */
+                self.chartView.hidden = YES;
+                
+                /** 显示时间TreatTime分钟为单位 */
                 machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
-            }
-            if (![self.deviceView isAnimating]) {
-                [self.deviceView startAnimating];
-            }
-            machine.chartView.hidden = NO;
-            break;
-        case MachineStateStop:
-            /** 参数修改信息 修改了state 多了treattime 和 state*/
-            if (machine.msg_treatParameter) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                break;
+            case MachineStatePause:
+                /** 参数修改信息 修改了state 多了treattime 和 state*/
+                if (machine.msg_treatParameter) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
                 }
-            }
-            if ([self.deviceView isAnimating]) {
-                [self.deviceView stopAnimating];
-            }
-            /** 隐藏chartview */
-            self.chartView.hidden = YES;
-            machine.chartView.hidden = YES;
-            
-            /** 显示时间TreatTime分钟为单位 */
-            machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
-            break;
-        case MachineStatePause:
-            /** 参数修改信息 修改了state 多了treattime 和 state*/
-            if (machine.msg_treatParameter) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                if ([self.deviceView isAnimating]) {
+                    [self.deviceView stopAnimating];
                 }
-            }
-            if ([self.deviceView isAnimating]) {
-                [self.deviceView stopAnimating];
-            }
-            /** 显示时间 */
-            if(machine.msg_realTimeData) {
-                machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
-            }
-            machine.chartView.hidden = NO;
-            break;
-        default:
-            break;
-    }
-
-
-    
-    /** 左上 */
-    if (machine.patient.personName) {
-        self.patientLabel.text = [NSString stringWithFormat:@"%@",machine.patient.personName];
-
-    } else {
-        self.patientLabel.text = @"未知患者";
+                /** 显示时间 */
+                if(machine.msg_realTimeData) {
+                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+                }
+                self.chartView.hidden = NO;
+                break;
+            default:
+                break;
+        }
         
+        
+        
+        /** 左上 */
+        if (machine.patient.personName) {
+            self.patientLabel.text = [NSString stringWithFormat:@"%@",machine.patient.personName];
+            
+        } else {
+            self.patientLabel.text = @"未知患者";
+            
+        }
+        
+        self.statusLabel.text = [[MachineParameterTool sharedInstance]getStateShowingText:machine];
+        self.patientLabel.adjustsFontSizeToFitWidth = YES;
+        self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
+        if (machine.patient.treatAddress) {
+            self.treatAddressLabel.text = machine.patient.treatAddress;
+        }else {
+            self.treatAddressLabel.text = @"";
+        }
     }
 
-    self.statusLabel.text = machineStateDic[machine.state];
-    self.patientLabel.adjustsFontSizeToFitWidth = YES;
-    self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
-    if (machine.patient.treatAddress) {
-        self.treatAddressLabel.text = machine.patient.treatAddress;
-    }else {
-        self.treatAddressLabel.text = @"";
-    }
     //静态动态判断
     if ([machine.state integerValue] == MachineStateRunning) {
         self.deviceView.hidden = NO;
@@ -220,36 +183,18 @@
         self.staticDeviceView.hidden = NO;
     }
     /** 左下 */
-    self.leftTimeLabel.text = [self getHourAndMinuteFromSeconds:machine.leftTime];
+    self.leftTimeLabel.text = [[MachineParameterTool sharedInstance]getTimeShowingText:machine];
+    
     if (machine.isfocus) {
         self.heartImageView.image = [UIImage imageNamed:@"focus_fill"];
     } else {
         self.heartImageView.image = [UIImage imageNamed:@"focus_unfill"];
     }
-}
-- (NSString *)getLightName:(NSInteger)lightSource {
-    if ([self.machine.state integerValue] != MachineStateRunning) {
-        return @"rlight";
-    } else {
-        switch (lightSource) {
-            case LightSourceNull:
-                return @"rlight";
-                break;
-            case LightSourceRed:
-                return @"rlight";
-                break;
-            case LightSourceBlue:
-                return @"blight";
-                break;
-            case LightSourceRedAndBlue:
-                return @"rblight";
-                break;
-            default:
-                return nil;
-                break;
-        }
+    if (!machine.chartDataArray) {
+        self.alertView.hidden = YES;
     }
 }
+
 - (void)configureCellStyle {
     switch (self.style) {
             /** 在线设备 */
@@ -261,10 +206,16 @@
                 view.hidden = [view isEqual:self.alertView];
             }
             self.deviceView.hidden = NO;
+            
             self.staticDeviceView.hidden = NO;
             self.leftTimeLabel.hidden = NO;
             self.statusImageView.hidden = NO;
             self.unauthorizedView.hidden = YES;
+            if ([self.machine.groupCode integerValue] == MachineType_Light) {
+                self.chartView.hidden = NO;
+            } else {
+                self.chartView.hidden = YES;
+            }
             
             break;
             /** 离线设备 */
@@ -280,6 +231,7 @@
             self.leftTimeLabel.hidden = YES;
             self.focusView.hidden = NO;
             self.deviceView.hidden = NO;
+            self.chartView.hidden = YES;
             self.staticDeviceView.hidden = NO;
             self.unauthorizedView.hidden = YES;
             break;
@@ -295,6 +247,11 @@
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
             }
+            if ([self.machine.groupCode integerValue] == MachineType_Light) {
+                self.chartView.hidden = NO;
+            } else {
+                self.chartView.hidden = YES;
+            }
             break;
         case CellStyleUnauthorized:
             
@@ -306,6 +263,7 @@
             }
             
             self.deviceView.hidden = YES;
+            self.chartView.hidden = YES;
             self.staticDeviceView.hidden = YES;
             self.unauthorizedView.hidden = NO;
             break;
@@ -313,22 +271,12 @@
             break;
     }
     //wifi标志控制
-    
     self.statusImageView.hidden = !self.machine.isonline;
-    //chart
-    switch ([self.machine.groupCode integerValue]) {
-        case MachineType_Light:
-            self.chartView.hidden = NO;
-            break;
-            
-        default:
-            self.chartView.hidden = YES;
-            break;
-    }
+    
 }
 
 - (void)updateMachineState:(MachineModel *)machine {
-    machine.state = [NSString stringWithFormat:@"%@",machine.msg_treatParameter[@"State"]];
+    machine.state = [[MachineParameterTool sharedInstance]getMachineState:machine];
     self.machine = machine;
 }
 - (void)configureParameterViewWithData:(NSArray *)dataArray {
@@ -341,6 +289,14 @@
         } else {
             label.hidden = YES;
         }
+    }
+}
+#pragma mark - 中间视图更新
+- (void)configureDeviceImage:(NSString *)name {
+    if (!_deviceView) {
+        [self addDeviceImage:name];
+    } else {
+        [self updateDeviceImage:name];
     }
 }
 //gif波形和静态图
@@ -380,6 +336,12 @@
         [self.bodyContentView addSubview:imageView];
         self.deviceView = imageView;
     }
+    /** 图表视图 */
+    if ([self.machine.groupCode integerValue] == MachineType_Light) {
+        [self initChartView];
+    } else {
+        self.chartView = nil;
+    }
 
 }
 - (void)updateDeviceImage:(NSString *)name {
@@ -391,6 +353,65 @@
     NSData *dataOfGif = [NSData dataWithContentsOfFile: pathForFile];
     FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:dataOfGif];
     self.deviceView.animatedImage = image;
+    /** 图表视图 */
+    if ([self.machine.groupCode integerValue] == MachineType_Light) {
+        [self updateChartView];
+    } else {
+        self.chartView = nil;
+    }
+}
+#pragma mark - 图表视图
+- (void)initChartView {
+    if (!self.chartView) {
+
+        CGFloat width = self.contentView.bounds.size.width;
+        CGFloat height = self.bodyContentView.bounds.size.height;
+        AAChartView *chartView = [[AAChartView alloc]initWithFrame:CGRectMake(width - kChartViewWidth, height - kChartViewHeight,kChartViewWidth, kChartViewHeight)];
+        chartView.backgroundColor = [UIColor clearColor];
+        [self.bodyContentView addSubview:chartView];
+        self.chartView = chartView;
+        
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        if (self.machine.chartDataArray) {
+            dataArray = self.machine.chartDataArray;
+        } else {
+            [dataArray addObject:@"0"];
+        }
+        
+        AAChartModel *chartModel= AAObject(AAChartModel)
+        .chartTypeSet(AAChartTypeSpline)
+        .titleSet(@"")
+        .subtitleSet(@"")
+        .yAxisLineWidthSet(@0)//Y轴轴线线宽为0即是隐藏Y轴轴线
+        .markerRadiusSet(@0)    //圆点的大小
+        .yAxisVisibleSet(NO)
+        .xAxisVisibleSet(NO)
+        .yAxisTitleSet(@"")//设置 Y 轴标题
+        .tooltipValueSuffixSet(@"℃")//设置浮动提示框单位后缀
+        .yAxisGridLineWidthSet(@0)//y轴横向分割线宽度为0(即是隐藏分割线)
+        .legendEnabledSet(NO)//下面按钮是否显示
+        .seriesSet(@[@{
+                         @"name":@"temperature",
+                         @"data":dataArray,
+                         @"color":@"#f8b273"
+                         },]);
+        
+        chartModel.animationType = AAChartAnimationBounce;
+        [self.chartView aa_drawChartWithChartModel:chartModel];
+    }
+}
+- (void)updateChartView {
+    if (self.chartView && self.machine.chartDataArray) {
+        NSArray *aaChartModelSeriesArray = @[@{
+                                                 @"name":@"temperature",
+                                                 @"type":@"spline",
+                                                 @"data":self.machine.chartDataArray
+                                                 },];
+        [self.chartView aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
+    } else {
+        [self initChartView];
+    }
+    
 }
 - (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
     NSInteger seconds = [totalTime integerValue];

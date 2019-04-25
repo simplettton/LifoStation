@@ -230,7 +230,7 @@
 #pragma mark - Filter
 - (IBAction)showTimeFilter:(id)sender {
     SelectDateView *view = [SelectDateView createViewFromNib];
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 - (IBAction)filterDropMenu:(id)sender {
     GHDropMenuModel *configuration = [[GHDropMenuModel alloc]init];

@@ -25,6 +25,9 @@
 @property (nonatomic, assign) BOOL isOnline;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *hiddentitles;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
+@property (weak, nonatomic) IBOutlet UIView *tableTitleView;
+
 
 @end
 @implementation DeviceSelectView
@@ -188,6 +191,8 @@
                                          
                                          if([count intValue] > 0)
                                          {
+                                             self.noDataView.hidden = YES;
+                                             self.tableTitleView.hidden = NO;
                                              self.tableView.tableHeaderView.hidden = NO;
                                              if (self.isOnline) {
                                                  self.downloadButton.hidden = NO;
@@ -195,7 +200,7 @@
                                             
 
                                              [self getNetworkDataWithHeader:isPullingDown];
-                                             //                                             [self hideNodataView];
+
                                          } else {
                                              [datas removeAllObjects];
                                              if (self.isOnline) {
@@ -205,12 +210,8 @@
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
-                                             if (isFilteredList) {
-                                                 [BEProgressHUD showMessage:@"没有找到该设备"];
-                                             }else{
-                                                 
-                                                 [BEProgressHUD showMessage:@"暂无设备"];
-                                             }
+                                             self.noDataView.hidden = NO;
+                                             self.tableTitleView.hidden = YES;
                                              
                                          }
                                          

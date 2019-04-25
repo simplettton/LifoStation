@@ -18,10 +18,13 @@
         @"machineTypeName":@"MachineName",
         @"treatTime":@"TreatTime",
         @"mainModeName":@"MainModeName",
+        @"note":@"Note",
+        @"originalParamList":@"LsEdit",
         @"paramList":@"LsParam"
         }];
 }
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
     return YES;
 }
+
 @end

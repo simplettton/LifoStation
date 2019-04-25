@@ -7,14 +7,24 @@
 
 #import <UIKit/UIKit.h>
 #import "AirWaveView.h"
+#import "MachineModel.h"
 @interface TwoViewsAirWaveCell : UICollectionViewCell
 @property (nonatomic, assign) AirBagType type;
-
-@property (weak, nonatomic) IBOutlet UIView *bodyContentView;
+//1 左上
+@property (weak, nonatomic) IBOutlet UIView *patientView;
+@property (weak, nonatomic) IBOutlet UILabel *patientLabel;
 @property (weak, nonatomic) IBOutlet UIButton *patientButton;
-@property (weak, nonatomic) IBOutlet UIView *parameterView;
-@property (weak, nonatomic) IBOutlet UIView *focusView;
 
-@property (nonatomic, strong) AirWaveView * bodyView;
-- (void)configureWithAirBagType:(AirBagType)type;
+//2 左下
+@property (weak, nonatomic) IBOutlet UIView *focusView;
+@property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+//中央视图
+@property (nonatomic, strong) AirWaveView *deviceView;
+
+@property (nonatomic, strong) MachineModel *machine;
+@property (nonatomic, assign) CellStyle style;
+
+- (void)configureWithModel:(MachineModel *)machine;
+- (void)updateDeviceImage:(NSString *)name;
 @end

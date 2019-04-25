@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *patientInfoHeight;
 
 @property (nonatomic, strong) NSDictionary *dataDic;
+@property (weak, nonatomic) IBOutlet UITextView *noteTextView;
 @property (weak, nonatomic) IBOutlet UITextView *suggestTextView;
 @property (weak, nonatomic) IBOutlet UIView *treatInfoView;
 
@@ -56,6 +57,11 @@
         self.suggestTextView.text = self.model.suggest;
     } else {
         self.suggestTextView.text = @"无";
+    }
+    if ([self.model.solution.note length] > 0) {
+        self.noteTextView.text = self.model.solution.note;
+    } else {
+        self.noteTextView.text = @"无";
     }
     
     //病历号有两行时重新计算高度
@@ -112,17 +118,23 @@
     //防止重复添加
     if (![paramList containsObject:@{@"showName":@"主治医生",@"value":self.model.creatorName}]) {
         [paramList insertObject:@{@"showName":@"主治医生",@"value":self.model.creatorName} atIndex:0];
-        if ([self.model.state integerValue] == 2) {
-            //排队中任务
-            [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:1];
-        } else {
-            //治疗中已完成任务
-            [paramList insertObject:@{@"showName":@"执行护士",@"value":self.model.operatorName} atIndex:1];
-            [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:2];
-            [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:2];
+        
+        switch ([self.model.state integerValue]) {
+            case TaskState_WaittingQueue:
+                [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:1];
+                break;
+            case TaskState_Treating:
+                [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:1];
+                [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:2];
+                break;
+            case TaskState_Finished:
+                [paramList insertObject:@{@"showName":@"执行护士",@"value":self.model.operatorName} atIndex:1];
+                [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:2];
+                [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:3];
+                break;
+            default:
+                break;
         }
-
-
     }
 
 

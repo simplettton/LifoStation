@@ -18,6 +18,8 @@
 
 #import "TaskParentViewController.h"
 #import "TaskModel.h"
+/** listone参数解析 */
+#import "TaskParameterModel.h"
 @interface WaitingTaskViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) BaseSearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -196,7 +198,6 @@
                                                  NSError *error;
                                                  TaskModel *task = [[TaskModel alloc]initWithDictionary:dic error:&error];
 
-
                                                  [datas addObject:task];
                                                  NSInteger index = [datas indexOfObject:task];
                                                  
@@ -207,25 +208,26 @@
                                              });
                                          }
                                      }
-                                     
                                  } failure:nil];
-    
 }
 - (void)getParamList :(TaskModel *)task atIndex:(NSInteger)index{
     if (task.solution.uuid) {
         [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SolutionController/ListOne") params:@{@"SolutionId":task.solution.uuid} hasToken:YES success:^(HttpResponse *responseObject) {
             if ([responseObject.result integerValue] == 1) {
                 NSMutableArray *paramArray = [[NSMutableArray alloc]initWithCapacity:20];
+                [paramArray addObject:@{@"showName":@"方案名称",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"Name"]]}];
                 [paramArray addObject:@{@"showName":@"治疗模式",@"value":[NSString stringWithFormat:@"%@",responseObject.content[@"MainModeName"]]}];
-                //            [paramArray addObject:@{@"showName":@"治疗时间",@"value":[NSString stringWithFormat:@"%@分钟",responseObject.content[@"TreatTime"]]}];
+
                 
                 NSArray *array = responseObject.content[@"LsEdit"];
                 if ([array count]>0) {
                     for (NSDictionary *dataDic in array) {
-                        /** 手动去掉服务器返回的计时方式无用字段 */
-                        if (![dataDic[@"ShowName"]isEqualToString:@"计时方式"]) {
-                            [paramArray addObject:@{@"showName":dataDic[@"ShowName"],@"value":[NSString stringWithFormat:@"%@%@",dataDic[@"DefaultValue"],dataDic[@"Unit"]]}];
+                        TaskParameterModel *taskParameter = [[TaskParameterModel alloc]initWithDictionary:dataDic error:nil];
+                        if (![taskParameter.showName isEqualToString:@"计时方式"]) {
+                            [paramArray addObject:[taskParameter getParamDictionary]];
                         }
+
+
                     }
                 }
                 task.solution.paramList = paramArray;
@@ -412,7 +414,7 @@
         TaskModel *task = [datas objectAtIndex:index.row];
 
         destination.paramList = task.solution.paramList;
-//        destination.treatmentScheduleName = task.treatmentScheduleName;
+
         UIButton *button = sender;
         popover.sourceView = button;
         popover.sourceRect = button.bounds;

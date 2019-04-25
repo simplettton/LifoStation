@@ -50,16 +50,7 @@
         }];
     }
 }
-- (void)configureWithAirBagType:(AirBagType)type {
 
-    if (!self.deviceView) {
-        AirWaveView *bodyView = [[AirWaveView alloc]initWithAirBagType:type];
-        CGFloat width = self.contentView.bounds.size.width;
-        bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
-        [self.bodyContentView addSubview:bodyView];
-        self.deviceView = bodyView;
-    }
-}
 
 - (void)configureWithModel:(MachineModel *)machine {
     self.machine = machine;
@@ -67,6 +58,7 @@
     /** 更新cellstyle */
     if (!machine.isonline) {
         self.style = CellStyleOffLine;
+
     } else {
         if (!machine.hasLicense) {
             self.style = CellStyleUnauthorized;
@@ -79,6 +71,8 @@
                 self.style = CellStyleOnline;
             }
         }
+        
+        
     }
     [self configureCellStyle];
     
@@ -94,11 +88,12 @@
         CGFloat width = self.contentView.bounds.size.width;
         bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
         [self.bodyContentView addSubview:bodyView];
-        //alertView置顶
-        [self.bodyContentView bringSubviewToFront:self.alertView];
         self.deviceView = bodyView;
+        
+        //alertview置顶
+        [self.bodyContentView bringSubviewToFront:self.alertView];
     } else {
-//        AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+        [self.deviceView resetBodyPartColor:machine];
         [self.deviceView updateViewWithModel:machine];
     }
     
@@ -111,78 +106,81 @@
         self.titleLabel.text = machine.name;
     }
     
-    /** 右上 */
-    /** 实时信息和lefttime更新 */
-    switch ([machine.state integerValue]) {
-        case MachineStateRunning:
-            
-            if (machine.msg_realTimeData) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+    if (machine.isonline) {
+        /** 右上 */
+        /** 实时信息和lefttime更新 */
+        switch ([machine.state integerValue]) {
+            case MachineStateRunning:
+                
+                if (machine.msg_realTimeData) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_realTimeData machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                    /** 显示时间ShowTime 秒为单位 */
+                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+                } else {                //刚开始没有realtimedata 用参数信息顶替
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 }
-                /** 显示时间ShowTime 秒为单位 */
-                machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
-            } else {                //刚开始没有realtimedata 用参数信息顶替
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                
+
+                break;
+            case MachineStateStop:
+                /** 参数修改信息 修改了state 多了treattime 和 state*/
+                if (machine.msg_treatParameter) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
+                    [self.deviceView resetBodyPartColor:machine];
+                    [self.deviceView updateViewWithModel:machine];
                 }
+                
+                /** 显示时间TreatTime分钟为单位 */
                 machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
-            }
-
-            machine.chartView.hidden = NO;
-            break;
-        case MachineStateStop:
-            /** 参数修改信息 修改了state 多了treattime 和 state*/
-            if (machine.msg_treatParameter) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                break;
+            case MachineStatePause:
+                /** 参数修改信息 修改了state 多了treattime 和 state*/
+                if (machine.msg_treatParameter) {
+                    NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
+                    if ([paramArray count] > 0) {
+                        [self configureParameterViewWithData:paramArray];
+                    }
                 }
-            }
-
-            /** 显示时间TreatTime分钟为单位 */
-            machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
-            break;
-        case MachineStatePause:
-            /** 参数修改信息 修改了state 多了treattime 和 state*/
-            if (machine.msg_treatParameter) {
-                NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
-                if ([paramArray count] > 0) {
-                    [self configureParameterViewWithData:paramArray];
+                [self.deviceView resetBodyPartColor:machine];
+                [self.deviceView updateViewWithModel:machine];
+                
+                /** 显示时间 */
+                if(machine.msg_realTimeData) {
+                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
                 }
-            }
 
-            /** 显示时间 */
-            if(machine.msg_realTimeData) {
-                machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
-            }
-            machine.chartView.hidden = NO;
-            break;
-        default:
-            break;
-    }
-    /** 左上 */
-    NSDictionary *machineStateDic = @{
-                                      @"0":@"运行中",
-                                      @"1":@"暂停中",
-                                      @"2":@"空闲中",
-                                      @"3":@"离线"
-                                      };
-    if (machine.patient.personName) {
-        self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,machineStateDic[machine.state]];
+                break;
+            default:
+                break;
+        }
+        /** 左上 */
+        if (machine.patient.personName) {
+            self.patientLabel.text = [NSString stringWithFormat:@"%@-%@",machine.patient.personName,[[MachineParameterTool sharedInstance]getStateShowingText:machine]];
+        } else {
+            self.patientLabel.text = [NSString stringWithFormat:@"未知患者-%@",[[MachineParameterTool sharedInstance]getStateShowingText:machine]];
+        }
+        self.patientLabel.adjustsFontSizeToFitWidth = YES;
+        if (machine.patient.treatAddress) {
+            self.treatAddressLabel.text = machine.patient.treatAddress;
+        } else {
+            self.treatAddressLabel.text = machine.patient.treatAddress;
+        }
+        
+        self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
+
     } else {
-        self.patientLabel.text = [NSString stringWithFormat:@"未知患者-%@",machineStateDic[machine.state]];
+        [self.deviceView changeAllBodyPartsToGrey];
     }
-    self.patientLabel.adjustsFontSizeToFitWidth = YES;
-    if (machine.patient.treatAddress) {
-        self.treatAddressLabel.text = machine.patient.treatAddress;
-    } else {
-        self.treatAddressLabel.text = machine.patient.treatAddress;
-    }
-    
-    self.treatAddressLabel.adjustsFontSizeToFitWidth = YES;
     
     /** 左下 */
     
@@ -192,6 +190,10 @@
     } else {
         self.heartImageView.image = [UIImage imageNamed:@"focus_unfill"];
     }
+    if (!machine.chartDataArray) {
+        self.alertView.hidden = YES;
+    }
+
 }
 - (void)configureCellStyle {
     switch (self.style) {
@@ -222,6 +224,7 @@
             self.leftTimeLabel.hidden = YES;
             self.focusView.hidden = NO;
             self.deviceView.hidden = NO;
+            [self.deviceView changeAllBodyPartsToGrey];
             self.unauthorizedView.hidden = YES;
             break;
             /** 有报警信息的设备 */
@@ -256,7 +259,7 @@
 
 }
 - (void)updateMachineState:(MachineModel *)machine {
-    machine.state = [NSString stringWithFormat:@"%@",machine.msg_treatParameter[@"State"]];
+    machine.state = [[MachineParameterTool sharedInstance]getMachineState:machine];
     self.machine = machine;
 }
 - (void)configureParameterViewWithData:(NSArray *)dataArray {

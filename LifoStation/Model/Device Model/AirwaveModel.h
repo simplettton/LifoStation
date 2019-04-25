@@ -57,11 +57,11 @@ typedef NS_ENUM(NSInteger,AirPortType){
 @property (nonatomic, strong) NSArray<NSNumber *> *press;//设定压力值 （显示只取最大值）实时包参数包共有
 @property (nonatomic, assign) NSInteger APortType;//A气囊类型
 @property (nonatomic, assign) NSInteger BPortType;//B气囊类型
-@property (nonatomic, strong) NSArray<NSNumber*> *portEnable;//气囊使能(对应规则，从左到右，从下到上)
+@property (nonatomic, strong) NSArray<NSString*> *portEnable;//气囊使能(对应规则，从左到右，从下到上)
 
 //实时信息
 @property (nonatomic, strong) NSString *currentPress;//当前腔压力
-@property (nonatomic, strong) NSArray *portState;//各腔充气状态
+@property (nonatomic, strong) NSArray<NSString*> *portState;//各腔充气状态
 @property (nonatomic, strong) NSString *backTime;//血液回盈时间
 
 - (NSArray *)getParameterArray;

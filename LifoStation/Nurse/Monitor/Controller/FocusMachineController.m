@@ -11,6 +11,7 @@
 #import "AirWaveSetParameterView.h"
 #import "PatientInfoPopupView.h"
 #import "AlertView.h"
+#import "LightModel.h"
 #import "SingleViewAirWaveCell.h"
 #import "SingleElectCell.h"
 #import "UIView+Tap.h"
@@ -85,8 +86,8 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleViewAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleViewAirWaveCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleElectCell"];
     
-    /** 默认展示alertview */
-    _isShowAlertMessage = YES;
+    /** 默认不展示alertview */
+    _isShowAlertMessage = NO;
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
@@ -246,14 +247,40 @@
             NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
             machine.isonline = [isOnline boolValue];
             machine.hasLicense = [hasLicense boolValue];
+            [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
-            machine.msg_alertMessage = content[@"ErrMsg"];
+            
             /** 打开了报警提示开关 */
             if (isAlertSwitchOn) {
-                //更新报警文字
+                /** 报警信息栏添加信息 */
+                NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+                NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,content[@"ErrMsg"]];
                 
+                [dataDic setObject:errorString forKey:@"error"];
+                [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+                [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
+                if (machine.msg_alertMessage) {
+                    //如果当前信息与之前保存的报警信息不一致则添加到报警信息栏（之前的报警信息可以维持3s）
+                    if (![machine.msg_alertMessage isEqualToString:content[@"ErrMsg"]]) {
+                        if ([alertArray count] == 0) {
+                            [self showBottomAlertView];
+                        }
+                        [alertArray insertObject:dataDic atIndex:0];
+                        
+                        [self.tableView reloadData];
+                    }
+                } else {
+                    if ([alertArray count] == 0) {
+                        [self showBottomAlertView];
+                    }
+                    [alertArray insertObject:dataDic atIndex:0];
+                    [self.tableView reloadData];
+                }
+                
+                /** 更新报警文字 */
+                machine.msg_alertMessage = content[@"ErrMsg"];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
                 UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
                 UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
@@ -290,21 +317,16 @@
                     [self playAlertSoundsWithLevel:content[@"Level"]];
                 }
             }
-            
-            NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-            NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,machine.msg_alertMessage];
-            [dataDic setObject:errorString forKey:@"error"];
-            [dataDic setObject:machine.cpuid forKey:@"cpuid"];
-            [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
-            
-            [alertArray insertObject:dataDic atIndex:0];
-            [self.tableView reloadData];
         }
-        
     }
 }
 
 #pragma mark - 报警控制
+- (void)showBottomAlertView {
+    self.isShowAlertMessage = YES;
+    self.alertViewHeight.constant = 184;
+    [self.isShowAlertViewButton setImage:[UIImage imageNamed:@"RectangleUp"] forState:UIControlStateNormal];
+}
 - (void)startFlashingAlertView:(NSTimer *)timer {
     
     /** 获取alertView */
@@ -358,6 +380,27 @@
 }
 
 #pragma mark - 实时包
+
+- (void)updateLightSourceAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
+    if ([machine.groupCode integerValue] == MachineType_Light)
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_realTimeData error:nil];
+        
+        if ([machine.lightSource integerValue] != machineParameter.mainLightSource ||!machine.lightSource ) {
+        SingleElectCell *cell1 = (SingleElectCell *)cell;
+        [cell1 updateDeviceImage:[machineParameter getLightName]];
+   
+        }
+        //machine中保存光源
+        if (machineParameter.mainLightSource != LightSourceNull) {
+            machine.lightSource = [NSString stringWithFormat:@"%ld",(long)machineParameter.mainLightSource];
+        } else {
+            machine.lightSource = [NSString stringWithFormat:@"%ld",(long)machineParameter.appendLightSource];;
+        }
+    }
+}
 - (void)updateCellAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
     /** 右上 */
     /** 实时信息 */
@@ -374,18 +417,29 @@
             break;
     }
     /** 左下 */
-    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+//    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
     UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
-    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:showTime];
+//    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:showTime];
+    leftTimeLabel.text = [[MachineParameterTool sharedInstance]getTimeShowingText:machine];
     
+    /** 图表 */
     NSString *machineType = machine.groupCode;
     if ([machineType integerValue] == MachineType_Light) {
         [self refreshChartAtIndex:index withMachine:machine];
     }
-    
+    /** 中间视图 */
+    if ([machineType integerValue] == MachineType_AirWave) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        SingleViewAirWaveCell *cell = (SingleViewAirWaveCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        [cell.deviceView updateViewWithModel:machine];
+    }
+    else if ([machineType integerValue] == MachineType_Light)
+    {
+        [self updateLightSourceAtIndex:index withModel:machine];
+    }
 }
 
 /** 根据paramter数组获取右上角 */
@@ -406,6 +460,27 @@
             label.hidden = YES;
         }
     }
+}
+- (NSString *)getLightName:(NSInteger)lightSource {
+    
+    switch (lightSource) {
+        case LightSourceNull:
+            return @"rlight";
+            break;
+        case LightSourceRed:
+            return @"rlight";
+            break;
+        case LightSourceBlue:
+            return @"blight";
+            break;
+        case LightSourceRedAndBlue:
+            return @"rblight";
+            break;
+        default:
+            return nil;
+            break;
+    }
+    
 }
 #pragma mark - chart
 - (void)refreshChartAtIndex:(NSInteger)index withMachine:(MachineModel *)machine {
@@ -582,7 +657,6 @@
                                                  self.noDataView.hidden = NO;
                                              });
 
-                                             [BEProgressHUD showMessage:@"暂无数据"];
                                          }
                                          
                                      }
@@ -656,10 +730,13 @@
 #pragma mark - CollectionView
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MachineModel *machine = datas[indexPath.row];
-    if ([machine.type integerValue] == 1234) {
+    if ([machine.groupCode integerValue] == MachineType_AirWave) {
         
         SingleViewAirWaveCell *cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SingleViewAirWaveCell" forIndexPath:indexPath];
-        [cell configureWithAirBagType:AirBagTypeThree message:nil];
+        [cell configureWithModel:machine];
+        [cell.focusView addTapBlock:^(id obj) {
+            [self unfocusMachine:machine];
+        }];
         return cell;
     } else {
         SingleElectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SingleElectCell" forIndexPath:indexPath];

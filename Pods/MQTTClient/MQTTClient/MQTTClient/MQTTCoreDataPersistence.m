@@ -271,11 +271,11 @@
 
 - (void)internalSync {
     if (self.managedObjectContext.hasChanges) {
-        DDLogVerbose(@"[MQTTPersistence] pre-sync: i%lu u%lu d%lu",
-                     (unsigned long)self.managedObjectContext.insertedObjects.count,
-                     (unsigned long)self.managedObjectContext.updatedObjects.count,
-                     (unsigned long)self.managedObjectContext.deletedObjects.count
-                     );
+//        DDLogVerbose(@"[MQTTPersistence] pre-sync: i%lu u%lu d%lu",
+//                     (unsigned long)self.managedObjectContext.insertedObjects.count,
+//                     (unsigned long)self.managedObjectContext.updatedObjects.count,
+//                     (unsigned long)self.managedObjectContext.deletedObjects.count
+//                     );
         NSError *error = nil;
         if (![self.managedObjectContext save:&error]) {
             DDLogError(@"[MQTTPersistence] sync error %@", error);
@@ -283,11 +283,11 @@
         if (self.managedObjectContext.hasChanges) {
             DDLogError(@"[MQTTPersistence] sync not complete");
         }
-        DDLogVerbose(@"[MQTTPersistence] postsync: i%lu u%lu d%lu",
-                     (unsigned long)self.managedObjectContext.insertedObjects.count,
-                     (unsigned long)self.managedObjectContext.updatedObjects.count,
-                     (unsigned long)self.managedObjectContext.deletedObjects.count
-                     );
+//        DDLogVerbose(@"[MQTTPersistence] postsync: i%lu u%lu d%lu",
+//                     (unsigned long)self.managedObjectContext.insertedObjects.count,
+//                     (unsigned long)self.managedObjectContext.updatedObjects.count,
+//                     (unsigned long)self.managedObjectContext.deletedObjects.count
+//                     );
         [self sizes];
     }
 }
@@ -322,13 +322,13 @@
                             messageId:(UInt16)messageId {
     __block MQTTCoreDataFlow *flow = nil;
 
-    DDLogVerbose(@"flowforClientId requestingPerform");
+//    DDLogVerbose(@"flowforClientId requestingPerform");
     [self.managedObjectContext performBlockAndWait:^{
         flow = [self internalFlowForClientId:clientId
                                 incomingFlag:incomingFlag
                                    messageId:messageId];
     }];
-    DDLogVerbose(@"flowforClientId performed");
+//    DDLogVerbose(@"flowforClientId performed");
     return flow;
 }
 
@@ -337,7 +337,7 @@
                                     messageId:(UInt16)messageId {
     MQTTCoreDataFlow *flow = nil;
 
-    DDLogVerbose(@"flowforClientId performing");
+//    DDLogVerbose(@"flowforClientId performing");
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"MQTTFlow"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:
@@ -508,6 +508,6 @@
         self.fileSize = 0;
         self.fileSystemFreeSize = 0;
     }
-    DDLogVerbose(@"[MQTTPersistence] sizes %llu/%llu", self.fileSize, self.fileSystemFreeSize);
+//    DDLogVerbose(@"[MQTTPersistence] sizes %llu/%llu", self.fileSize, self.fileSystemFreeSize);
 }
 @end

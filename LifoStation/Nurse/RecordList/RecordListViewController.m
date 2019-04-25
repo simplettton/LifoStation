@@ -293,7 +293,7 @@
 }
 - (IBAction)showTimeFilter:(id)sender {
     SelectDateView *view = [SelectDateView createViewFromNib];
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 - (NSArray *)creaFilterDropMenuData {
     

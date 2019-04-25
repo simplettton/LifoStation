@@ -12,14 +12,11 @@
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
     return YES;
 }
-- (instancetype)init {
-    if (self = [super init]) {
-        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
-        
-        CGFloat length = [self.name boundingRectWithSize:CGSizeMake(552, 74) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
-        self.titleWidth = MAX(length + 20, MIN_WIDTH);
-    }
-    return self;
+
+- (CGFloat)titleWidth {
+    CGFloat length = [self getWidthWithText:self.name height:30 font:15];
+    return MAX(length + 20, MIN_WIDTH);
+    
 }
 + (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:
@@ -30,4 +27,26 @@
               
               }];
 }
+/**
+ 
+  根据高度求宽度
+ 
+  
+ 
+  @param text 计算的内容
+ 
+  @param height 计算的高度
+ 
+  @param font font字体大小
+ 
+  @return 返回Label的宽度
+ 
+  */
+
+- (CGFloat)getWidthWithText:(NSString *)text height:(CGFloat)height font:(CGFloat)font {
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font weight:UIFontWeightLight]} context:nil];
+    return rect.size.width;
+    
+}
+
 @end

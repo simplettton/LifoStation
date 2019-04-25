@@ -16,6 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="588" height="557"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hsN-tC-ffc">
+                    <rect key="frame" x="0.0" y="179" width="588" height="274"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="ERl-k7-TBh"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="Gno-Fh-EDh"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdL-OO-iaG">
                     <rect key="frame" x="0.0" y="0.0" width="588" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -38,15 +47,33 @@
                     </subviews>
                     <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hsN-tC-ffc">
-                    <rect key="frame" x="0.0" y="179" width="588" height="274"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sm6-Hx-k2T" userLabel="NODATAVIEW">
+                    <rect key="frame" x="229" y="223.5" width="130" height="130"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="20000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mmc-Xd-D4y">
+                            <rect key="frame" x="38.5" y="115" width="54" height="16"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                            <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodataHolder" translatesAutoresizingMaskIntoConstraints="NO" id="dbw-ZT-cXs">
+                            <rect key="frame" x="23" y="22.5" width="85" height="85"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="85" id="peb-Jb-VoR"/>
+                                <constraint firstAttribute="height" constant="85" id="yli-Ne-gTf"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="iN0-l3-epB" id="ERl-k7-TBh"/>
-                        <outlet property="delegate" destination="iN0-l3-epB" id="Gno-Fh-EDh"/>
-                    </connections>
-                </tableView>
+                    <constraints>
+                        <constraint firstItem="dbw-ZT-cXs" firstAttribute="centerY" secondItem="sm6-Hx-k2T" secondAttribute="centerY" id="5L2-0R-6cr"/>
+                        <constraint firstAttribute="height" constant="130" id="Eu9-w9-BIz"/>
+                        <constraint firstItem="dbw-ZT-cXs" firstAttribute="centerX" secondItem="sm6-Hx-k2T" secondAttribute="centerX" id="UBM-x3-qJX"/>
+                        <constraint firstItem="Mmc-Xd-D4y" firstAttribute="top" secondItem="dbw-ZT-cXs" secondAttribute="bottom" constant="7.5" id="bhu-1c-bcm"/>
+                        <constraint firstItem="Mmc-Xd-D4y" firstAttribute="centerX" secondItem="sm6-Hx-k2T" secondAttribute="centerX" id="jKh-RZ-eOq"/>
+                        <constraint firstAttribute="width" constant="130" id="sO3-FX-5rC"/>
+                    </constraints>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBb-7U-xre">
                     <rect key="frame" x="76" y="484" width="413" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -169,6 +196,10 @@
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="sm6-Hx-k2T" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Yji-rw-TFV"/>
+                <constraint firstItem="sm6-Hx-k2T" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="d02-TF-kUz"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <userDefinedRuntimeAttributes>
@@ -179,6 +210,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="downloadButton" destination="IBb-7U-xre" id="q3o-mT-uL2"/>
+                <outlet property="noDataView" destination="sm6-Hx-k2T" id="K9a-lP-btx"/>
                 <outlet property="offlineLabel" destination="Qch-Zs-NqA" id="Jvc-30-prb"/>
                 <outlet property="offlineLine" destination="PoF-iu-YVc" id="y4O-DV-paZ"/>
                 <outlet property="offlineView" destination="mkQ-v5-1JB" id="cZ4-7D-wYq"/>
@@ -186,6 +218,7 @@
                 <outlet property="onlineLine" destination="fKM-ID-fLE" id="6Xr-Yb-j03"/>
                 <outlet property="onlineView" destination="KSL-zX-Sxj" id="A9W-NO-4OL"/>
                 <outlet property="searchBar" destination="1AF-0D-Z3O" id="FFn-Z3-fGs"/>
+                <outlet property="tableTitleView" destination="JgD-Cm-7jd" id="tyC-f1-aka"/>
                 <outlet property="tableView" destination="hsN-tC-ffc" id="h0r-Ac-BSV"/>
                 <outletCollection property="hiddentitles" destination="JB3-B2-APo" id="Hmy-aD-Wdo"/>
                 <outletCollection property="hiddentitles" destination="G5m-TR-RdZ" id="wLk-My-HQS"/>
@@ -278,6 +311,7 @@
     <resources>
         <image name="alert" width="50" height="50"/>
         <image name="error" width="50" height="50"/>
+        <image name="nodataHolder" width="100" height="100"/>
         <image name="right" width="35" height="35"/>
     </resources>
 </document>

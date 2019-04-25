@@ -44,11 +44,11 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronConnect && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for connect");
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for connect");
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
     
-    DDLogVerbose(@"[MQTTSessionSynchron] end connect");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end connect");
     
     return (self.status == MQTTSessionStatusConnected);
 }
@@ -62,11 +62,11 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronSub && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for suback %d", mid);
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for suback %d", mid);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
     
-    DDLogVerbose(@"[MQTTSessionSynchron] end subscribe");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end subscribe");
     
     if (self.synchronSub || self.synchronSubMid != mid) {
         return FALSE;
@@ -84,11 +84,11 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronSub && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for suback %d", mid);
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for suback %d", mid);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
     
-    DDLogVerbose(@"[MQTTSessionSynchron] end subscribe");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end subscribe");
     
     if (self.synchronSub || self.synchronSubMid != mid) {
         return FALSE;
@@ -107,11 +107,11 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronUnsub && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for unsuback %d", mid);
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for unsuback %d", mid);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
     
-    DDLogVerbose(@"[MQTTSessionSynchron] end unsubscribe");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end unsubscribe");
     
     if (self.synchronUnsub || self.synchronUnsubMid != mid) {
         return FALSE;
@@ -129,11 +129,11 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronUnsub && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for unsuback %d", mid);
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for unsuback %d", mid);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
     
-    DDLogVerbose(@"[MQTTSessionSynchron] end unsubscribe");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end unsubscribe");
     
     if (self.synchronUnsub || self.synchronUnsubMid != mid) {
         return FALSE;
@@ -161,11 +161,11 @@
         [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
         
         while (self.synchronPub && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-            DDLogVerbose(@"[MQTTSessionSynchron] waiting for mid %d", mid);
+//            DDLogVerbose(@"[MQTTSessionSynchron] waiting for mid %d", mid);
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
         }
         
-        DDLogVerbose(@"[MQTTSessionSynchron] end publish");
+//        DDLogVerbose(@"[MQTTSessionSynchron] end publish");
         
         if (self.synchronPub || self.synchronPubMid != mid) {
             return FALSE;
@@ -183,10 +183,10 @@
     [[NSRunLoop currentRunLoop] addPort:[NSMachPort port] forMode:NSRunLoopCommonModes];
     
     while (self.synchronDisconnect && (timeout == 0 || started.timeIntervalSince1970 + timeout > [NSDate date].timeIntervalSince1970)) {
-        DDLogVerbose(@"[MQTTSessionSynchron] waiting for close");
+//        DDLogVerbose(@"[MQTTSessionSynchron] waiting for close");
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
     }
-    DDLogVerbose(@"[MQTTSessionSynchron] end close");
+//    DDLogVerbose(@"[MQTTSessionSynchron] end close");
 }
 
 @end

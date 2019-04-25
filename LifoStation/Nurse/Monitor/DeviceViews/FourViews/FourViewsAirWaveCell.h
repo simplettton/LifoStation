@@ -10,8 +10,6 @@
 #import "AirWaveView.h"
 #import "MachineModel.h"
 @interface FourViewsAirWaveCell : UICollectionViewCell
-@property (nonatomic, assign) AirBagType type;
-
 //1 左上
 @property (weak, nonatomic) IBOutlet UIView *patientView;
 @property (weak, nonatomic) IBOutlet UILabel *patientLabel;
@@ -26,6 +24,6 @@
 
 @property (nonatomic, strong) MachineModel *machine;
 @property (nonatomic, assign) CellStyle style;
-- (void)configureWithAirBagType:(AirBagType)type;
+
 - (void)configureWithModel:(MachineModel *)machine;
 @end

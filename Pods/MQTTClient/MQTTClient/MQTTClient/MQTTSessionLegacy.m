@@ -55,7 +55,7 @@
                             queue:(dispatch_queue_t)queue
                    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
                      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"[MQTTSessionLegacy] initWithClientId:%@ ", clientId);
+//    DDLogVerbose(@"[MQTTSessionLegacy] initWithClientId:%@ ", clientId);
 
     self = [self init];
     self.connectMessage = theConnectMessage;

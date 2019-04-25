@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "AirWaveView.h"
+#import "MachineModel.h"
 @interface NineViewsAirWaveCell : UICollectionViewCell
-@property (nonatomic, assign) AirBagType type;
 
-@property (weak, nonatomic) IBOutlet AirWaveView *bodyView;
+//1 左上
+@property (weak, nonatomic) IBOutlet UILabel *patientLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
-@property (weak, nonatomic) IBOutlet UIView *bodyContentView;
+@property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
+//2 左下
 @property (weak, nonatomic) IBOutlet UIView *focusView;
-
-- (void)configureWithAirBagType:(AirBagType)type;
+@property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
+@property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
+//中央视图
+@property (nonatomic, strong) AirWaveView *deviceView;
+@property (nonatomic, assign) CellStyle style;
+@property (nonatomic, strong) MachineModel *machine;
+- (void)configureWithModel:(MachineModel *)machine;
 @end

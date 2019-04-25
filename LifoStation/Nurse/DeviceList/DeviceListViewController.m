@@ -90,7 +90,7 @@
             case 0:
             {
                 EditDeviceView *view = [EditDeviceView createViewFromNib];
-                [view showInWindow];
+                [view showInWindowWithBackgoundTapDismissEnable:YES];
             }
 
                 break;

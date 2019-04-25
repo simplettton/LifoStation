@@ -17,8 +17,9 @@
         @"showTime":@"ShowTime",
         
         @"press":@"Press",
-        @"APortType":@"AportType",
+        @"APortType":@"APortType",
         @"BPortType":@"BPortType",
+        @"portEnable":@"PortEnabled",
         
         @"currentPress":@"CurrentPress",
         @"portState":@"PortState",

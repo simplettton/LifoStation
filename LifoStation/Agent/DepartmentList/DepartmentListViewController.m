@@ -172,7 +172,7 @@
                                      failure:nil];
 
     }] ;
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 - (void)editAction:(UIButton *)sender {
     //获取某个cell的数据
@@ -181,10 +181,8 @@
     NSIndexPath *indexpath = [self.tableView indexPathForCell:cell];
     DepartmentModel *department = self.datas[indexpath.row];
     self.editDepartment = department;
-    UILabel *nameLabel = [cell viewWithTag:NAME_LABEL_TAG];
 
     AddDepartmentView *view = [[AddDepartmentView alloc]initWithDic:[department toDictionary]  return:^(NSString *name) {
-//        nameLabel.text = name;
         [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DepartmentController/ReName")
                                       params:@{@"DepartmentId":self.editDepartment.uuid,
                                                @"NewName":name
@@ -197,7 +195,7 @@
                                      }
                                      failure:nil];
     }];
-    [view showInWindow];
+    [view showInWindowWithBackgoundTapDismissEnable:YES];
 }
 #pragma mark - Logout Action
 - (IBAction)logoutAction:(id)sender {
