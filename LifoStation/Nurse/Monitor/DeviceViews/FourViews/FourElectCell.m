@@ -110,13 +110,13 @@ typedef void(^funcBlock)(NSString *deviceName);
                         [self configureParameterViewWithData:paramArray];
                     }
                     /** 显示时间ShowTime 秒为单位 */
-                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+//                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
                 } else {                //刚开始没有realtimedata 用参数信息顶替
                     NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
-                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+//                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 }
                 if (![self.deviceView isAnimating]) {
                     [self.deviceView startAnimating];
@@ -138,7 +138,7 @@ typedef void(^funcBlock)(NSString *deviceName);
                 self.chartView.hidden = YES;
                 
                 /** 显示时间TreatTime分钟为单位 */
-                machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+//                machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 break;
             case MachineStatePause:
                 /** 参数修改信息 修改了state 多了treattime 和 state*/
@@ -153,7 +153,7 @@ typedef void(^funcBlock)(NSString *deviceName);
                 }
                 /** 显示时间 */
                 if(machine.msg_realTimeData) {
-                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+//                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
                 }
                 self.chartView.hidden = NO;
                 

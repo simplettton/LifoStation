@@ -28,6 +28,10 @@
             }
         }
     }
+    //空气波持续治疗模式时间处理
+    if ([self.value isEqualToString:@"持续治疗"]) {
+        self.unit = @"";
+    }
         return @{
                  @"showName":self.showName,
                  @"value":[NSString stringWithFormat:@"%@%@",self.value,self.unit]};

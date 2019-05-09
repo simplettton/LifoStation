@@ -112,16 +112,16 @@ static NetWorkTool *_instance;
                        [appDelegate performSelector:@selector(initRootViewController) withObject:nil afterDelay:1];
                    });
                } else {
-                   
+                   //停止刷新
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [self endTableViewRefreshing:NO];
+                   });
                    HttpResponse* responseObject = [[HttpResponse alloc]init];
                    responseObject.result = result;
                    responseObject.content = content;
                    responseObject.errorString = errorString;
                    responseBlock(responseObject);
-                   //停止刷新
-                   dispatch_async(dispatch_get_main_queue(), ^{
-                       [self endTableViewRefreshing:NO];
-                   });
+
                }
            }
        }

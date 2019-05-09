@@ -8,7 +8,7 @@
 
 #import "AddDepartmentView.h"
 #import "UIVIEW+TYAlertView.h"
-@interface AddDepartmentView()
+@interface AddDepartmentView()<UITextFieldDelegate>
 @property (nonatomic, assign) BOOL isAddMode;
 @property (nonatomic, strong) NSDictionary *dataDic;
 @end
@@ -35,6 +35,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.nameTextField becomeFirstResponder];
+    self.nameTextField.delegate = self;
+    
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger proposedNewLength = textField.text.length - range.length + string.length;
+    if (proposedNewLength > 7) {
+        return NO;//限制长度
+    }
+    return YES;
 }
 - (IBAction)cancelAction:(id)sender {
     [self hideView];

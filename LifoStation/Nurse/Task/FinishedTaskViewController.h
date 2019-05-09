@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FinishedTaskViewController : UIViewController
-
+@interface FinishedTaskViewController : UIViewController<UISearchBarDelegate>
+- (void)refresh;
 @end

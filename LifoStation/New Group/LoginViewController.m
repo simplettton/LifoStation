@@ -39,6 +39,10 @@
     
     [self.passwordTextField setSecureTextEntry:YES];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
 #pragma mark - hide keyboard
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
@@ -65,7 +69,14 @@
 }
 - (void)loginCheck {
     [self hideKeyBoard];
-    [UserDefault setBool:[self.remenberNameSwitch isOn] forKey:@"HasRememberName"];
+    if ([self.remenberNameSwitch isOn])
+    {
+        [UserDefault setBool:YES forKey:@"HasRememberName"];
+    }
+    else
+    {
+        [UserDefault setBool:NO forKey:@"HasRememberName"];
+    }
     [UserDefault synchronize];
     
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -90,11 +101,13 @@
                                              if (license == NurseLicense || license == DoctorAndNurseLicense) {
                                                  roleString = @"Nurse";
                                                  controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];
-                                             } else if(license == AdminLicense) {
+                                             } else if (license == AdminLicense) {
                                                  roleString = @"Agent";
                                                  controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"AgentNavigation"];
                                              } else {
-                                                 [BEProgressHUD showMessage:@"该账号权限无法登陆系统"];
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [BEProgressHUD showMessage:@"该账号权限无法登陆系统"];
+                                                 });
                                              }
                                              NSString *token = [responseObject.content objectForKey:@"Token"];
                                              NSString *department = [responseObject.content objectForKey:@"Department"];
@@ -112,13 +125,13 @@
                                                  [UserDefault setObject:hospital forKey:@"Hospital"];
                                                  [UserDefault setObject:token forKey:@"Token"];
                                                  [UserDefault setObject:personName forKey:@"PersonName"];
+                                                 [UserDefault setObject:userName forKey:@"UserName"];
                                                  [UserDefault setObject:department forKey:@"Department"];
                                                  [UserDefault synchronize];
+                                                 [self getMachineTypeList];
                                                  [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
+                                                 
                                              }
-                                             [self getMachineTypeList];
-
-
                                          }
                                      }
                                      failure:^(NSError *error) {

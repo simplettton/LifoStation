@@ -39,9 +39,30 @@
 
 @property (nonatomic, strong) NSMutableArray *activeBodyPartArray;
 @end
+IB_DESIGNABLE
 @implementation AirWaveView
-
-- (instancetype)initWithParameter:(AirwaveModel *)machineParameter {
+- (void)awakeFromNib {
+    [super awakeFromNib];
+//    UIView *view = (AirWaveView *)[[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].lastObject;
+//
+//    [self addSubview:view];
+//    self.bodyView = view;
+}
+// 从storyboard上初始化时，会调用该方法
+//- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+//    self = [super initWithCoder:aDecoder];
+//    if (self) {
+////        UIView *view = (AirWaveView *)[[UINib nibWithNibName:@"AirWaveView" bundle:nil] instantiateWithOwner:self options:nil].lastObject;
+//        [[NSBundle mainBundle]loadNibNamed:@"AirWaveView" owner:self options:nil];
+////        view.frame = self.bounds
+//        ;
+////        self.bodyView = view;
+////        [self addSubview:view];
+//    }
+//    return self;
+//}
+- (instancetype)initWithParameter:(MachineModel *)machine {
+    AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
     if (self = [super init]) {
         self.APortType = machineParameter.APortType;
         self.BPortType = machineParameter.BPortType;
@@ -61,6 +82,7 @@
                 self.bodyView = view;
                 self.type = AirBagTypeEight;
                 [self addSubview:view];
+                [self resetBodyPartColor:machine];
             }
                 
                 break;
@@ -70,6 +92,7 @@
                 self.type = AirBagTypeThree;
                 self.bodyView = view;
                 [self addSubview:view];
+                [self resetBodyPartColor:machine];
             }
                 break;
         }
@@ -88,6 +111,7 @@
             view.frame = frame;
             [self.bodyView removeFromSuperview];
             [self addSubview:view];
+            
             self.bodyView = view;
         }
             
@@ -133,9 +157,6 @@
     
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
 - (void)closeTimer:(NSTimer *)timer {
     if (timer) {
         [timer invalidate];
@@ -151,9 +172,7 @@
 #pragma mark - 参数包
 - (void)resetBodyPartColor:(MachineModel *)machine {
     AirwaveModel *treatParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-    if ([machine.state integerValue] != MachineStateRunning) {
-        [self changeAllBodyPartsToGrey];
-    }
+
     AirBagType type;
     if (treatParameter.APortType == AirPortType_Leg6 || treatParameter.APortType == AirPortType_Leg8) {
         type = AirBagTypeEight;
@@ -163,79 +182,69 @@
     if (type != self.type) {
         [self updateBodyView:type];
     }
-    [self.activeBodyPartArray removeAllObjects];
-    switch (treatParameter.APortType) {
-        case AirPortType_Leg6:
-        case AirPortType_Leg8:
-        {
-            [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:8];
-        }
-            break;
-        case AirPortType_Arm3:
-            [self resetBodyPartWithModel:machine startIndex:leftup3Index startEnableIndex:1 partNumber:3];
-            break;
-        case AirPortType_Leg3:
-            [self resetBodyPartWithModel:machine startIndex:leftdown3Index startEnableIndex:1 partNumber:3];
-            break;
-        case AirPortType_Arm4:
-            [self resetBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:4];
-            break;
-        case AirPortType_Leg4:
-            [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:4];
-            break;
-        case AirPortType_Abdomen:
-            [self resetBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:0 partNumber:4];
-            break;
-        case AirPortType_Hand1:
-        case AirPortType_HandRecovery:
-            [self resetBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:1];
-            break;
-        case AirPortType_Foot1:
-            [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:1];
-            break;
-        default:
-            break;
-    }
-    switch (treatParameter.BPortType) {
-        case AirPortType_Arm3:
-            [self resetBodyPartWithModel:machine startIndex:rightup3Index startEnableIndex:5 partNumber:3];
-            break;
-        case AirPortType_Leg3:
-            [self resetBodyPartWithModel:machine startIndex:rightdown3Index startEnableIndex:5 partNumber:3];
-            break;
-        case AirPortType_Arm4:
-            [self resetBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:4];
-            break;
-        case AirPortType_Leg4:
-            [self resetBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:4];
-            break;
-        case AirPortType_Abdomen:
-            [self resetBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:4 partNumber:4];
-            break;
-        case AirPortType_Hand1:
-        case AirPortType_HandRecovery:
-            [self resetBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:1];
-            break;
-        case AirPortType_Foot1:
-            [self resetBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:1];
-            break;
-        default:
-            break;
-    }
-
-    if (treatParameter.APortType == AirPortType_Leg6 || treatParameter.APortType == AirPortType_Leg8) {
-        for (BodyImageView *bodypart in self.eightLegArray) {
-            if (![self.activeBodyPartArray containsObject:bodypart]) {
-                [bodypart changeColor:@"grey"];
+    self.activeBodyPartArray = [[NSMutableArray alloc]initWithCapacity:20];
+    //设备正在运行的时候不要刷新参数
+    if ([machine.state integerValue] != MachineStateRunning) {
+        switch (treatParameter.APortType) {
+            case AirPortType_Leg6:
+            case AirPortType_Leg8:
+            {
+                [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:8];
             }
+                break;
+            case AirPortType_Arm3:
+                [self resetBodyPartWithModel:machine startIndex:leftup3Index startEnableIndex:1 partNumber:3];
+                break;
+            case AirPortType_Leg3:
+                [self resetBodyPartWithModel:machine startIndex:leftdown3Index startEnableIndex:1 partNumber:3];
+                break;
+            case AirPortType_Arm4:
+                [self resetBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:4];
+                break;
+            case AirPortType_Leg4:
+                [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:4];
+                break;
+            case AirPortType_Abdomen:
+                [self resetBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:0 partNumber:4];
+                break;
+            case AirPortType_Hand1:
+            case AirPortType_HandRecovery:
+                [self resetBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:1];
+                break;
+            case AirPortType_Foot1:
+                [self resetBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:1];
+                break;
+            default:
+                break;
         }
-    } else {
-        for (BodyImageView *bodypart in self.bodyPartArray) {
-            if (![self.activeBodyPartArray containsObject:bodypart]) {
-                [bodypart changeColor:@"grey"];
-            }
+        switch (treatParameter.BPortType) {
+            case AirPortType_Arm3:
+                [self resetBodyPartWithModel:machine startIndex:rightup3Index startEnableIndex:5 partNumber:3];
+                break;
+            case AirPortType_Leg3:
+                [self resetBodyPartWithModel:machine startIndex:rightdown3Index startEnableIndex:5 partNumber:3];
+                break;
+            case AirPortType_Arm4:
+                [self resetBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:4];
+                break;
+            case AirPortType_Leg4:
+                [self resetBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:4];
+                break;
+            case AirPortType_Abdomen:
+                [self resetBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:4 partNumber:4];
+                break;
+            case AirPortType_Hand1:
+            case AirPortType_HandRecovery:
+                [self resetBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:1];
+                break;
+            case AirPortType_Foot1:
+                [self resetBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:1];
+                break;
+            default:
+                break;
         }
         
+        [self changeInvalidBodyPartToGreyWithModel:machine validArray:self.activeBodyPartArray];
     }
 }
 - (void)resetBodyPartWithModel:(MachineModel *)machine startIndex:(NSInteger)startIndex startEnableIndex:(NSInteger)startEnableIndex partNumber:(NSInteger)partNumber {
@@ -261,7 +270,9 @@
                 if (bodyPart.changeColorTimer) {
                     [bodyPart closeTimer];
                 }
-                [self.activeBodyPartArray addObject:bodyPart];
+                if (![self.activeBodyPartArray containsObject:bodyPart]) {
+                    [self.activeBodyPartArray addObject:bodyPart];
+                }
             }
         }
         
@@ -270,9 +281,7 @@
 #pragma mark - 实时包
 - (void)updateBodyPart:(MachineModel *)machine {
     AirwaveModel *treatParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-    if ([machine.state integerValue] != MachineStateRunning) {
-        [self changeAllBodyPartsToGrey];
-    }
+
     AirBagType type;
     if (treatParameter.APortType == AirPortType_Leg6 || treatParameter.APortType == AirPortType_Leg8) {
         type = AirBagTypeEight;
@@ -282,66 +291,78 @@
     if (type != self.type) {
         [self updateBodyView:type];
     }
+    NSUInteger startIndex = 0;
+    NSInteger startEnableIndex = 0;
+    NSInteger partNumber = 0;
     switch (treatParameter.APortType) {
         case AirPortType_Leg6:
         case AirPortType_Leg8:
         {
-            [self updateBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:8];
-        }
+            startIndex = leftfootIndex; startEnableIndex = 0;   partNumber = 8;        }
             break;
         case AirPortType_Arm3:
-            [self updateBodyPartWithModel:machine startIndex:leftup3Index startEnableIndex:1 partNumber:3];
+            startIndex = leftup3Index; startEnableIndex = 1;   partNumber = 3;
             break;
         case AirPortType_Leg3:
-            [self updateBodyPartWithModel:machine startIndex:leftdown3Index startEnableIndex:1 partNumber:3];
+            startIndex = leftdown3Index; startEnableIndex = 1;   partNumber = 3;
             break;
         case AirPortType_Arm4:
-            [self updateBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:4];
+            startIndex = lefthandIndex; startEnableIndex = 0;   partNumber = 4;
             break;
         case AirPortType_Leg4:
-            [self updateBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:4];
+            startIndex = leftfootIndex; startEnableIndex = 0;   partNumber = 4;
             break;
         case AirPortType_Abdomen:
-            [self updateBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:0 partNumber:4];
+            startIndex = middle4Index; startEnableIndex = 0;   partNumber = 4;
             break;
         case AirPortType_Hand1:
         case AirPortType_HandRecovery:
-            [self updateBodyPartWithModel:machine startIndex:lefthandIndex startEnableIndex:0 partNumber:1];
+            startIndex = lefthandIndex; startEnableIndex = 0;   partNumber = 1;
             break;
         case AirPortType_Foot1:
-            [self updateBodyPartWithModel:machine startIndex:leftfootIndex startEnableIndex:0 partNumber:1];
+            startIndex = leftfootIndex; startEnableIndex = 0;   partNumber = 1;
             break;
         default:
             break;
     }
+    NSMutableArray *bodyPartArray = [[NSMutableArray alloc]initWithCapacity:20];
+    if (treatParameter.APortType != AirPortType_Unconnected) {
+        [self updateBodyPartWithModel:machine startIndex:startIndex startEnableIndex:startEnableIndex partNumber:partNumber];
+        [bodyPartArray addObjectsFromArray:[self bodyPartArrayWithModel:machine startIndex:startIndex startEnableIndex:startEnableIndex partNumber:partNumber]];
+    }
+    
     switch (treatParameter.BPortType) {
         case AirPortType_Arm3:
-            [self updateBodyPartWithModel:machine startIndex:rightup3Index startEnableIndex:5 partNumber:3];
+            startIndex = rightup3Index; startEnableIndex = 5;   partNumber = 3;
             break;
         case AirPortType_Leg3:
-            [self updateBodyPartWithModel:machine startIndex:rightdown3Index startEnableIndex:5 partNumber:3];
+            startIndex = rightdown3Index; startEnableIndex = 5;   partNumber = 3;
             break;
         case AirPortType_Arm4:
-            [self updateBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:4];
+            startIndex = righthandIndex; startEnableIndex = 4;   partNumber = 4;
             break;
         case AirPortType_Leg4:
-            [self updateBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:4];
+            startIndex = rightfootIndex; startEnableIndex = 4;   partNumber = 4;
             break;
         case AirPortType_Abdomen:
-            [self updateBodyPartWithModel:machine startIndex:middle4Index startEnableIndex:4 partNumber:4];
+            startIndex = middle4Index; startEnableIndex = 4;   partNumber = 4;
             break;
         case AirPortType_Hand1:
         case AirPortType_HandRecovery:
-            [self updateBodyPartWithModel:machine startIndex:righthandIndex startEnableIndex:4 partNumber:1];
+            startIndex = righthandIndex; startEnableIndex = 4;   partNumber = 1;
             break;
         case AirPortType_Foot1:
-            [self updateBodyPartWithModel:machine startIndex:rightfootIndex startEnableIndex:4 partNumber:1];
+            startIndex = rightfootIndex; startEnableIndex = 4;   partNumber = 1;
             break;
         default:
             break;
     }
+    if (treatParameter.BPortType != AirPortType_Unconnected) {
+        [self updateBodyPartWithModel:machine startIndex:startIndex startEnableIndex:startEnableIndex partNumber:partNumber];
+        [bodyPartArray addObjectsFromArray:[self bodyPartArrayWithModel:machine startIndex:startIndex startEnableIndex:startEnableIndex partNumber:partNumber]];
+    }
+    [self changeInvalidBodyPartToGreyWithModel:machine validArray:bodyPartArray];
 }
-
 - (void)updateBodyPartWithModel:(MachineModel *)machine startIndex:(NSInteger)startIndex startEnableIndex:(NSInteger)startEnableIndex partNumber:(NSInteger)partNumber {
     AirwaveModel *treatParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
     AirwaveModel *runningParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_realTimeData error:nil];
@@ -383,7 +404,7 @@
                     } else {
                         if (bodyPart.changeColorTimer) {
                             [bodyPart closeTimer];
-
+                            
                         }
                         [bodyPart changeColor:@"yellow"];
                     }
@@ -395,6 +416,51 @@
         }
     }
 }
+#pragma mark - 非有效bodypart变灰色
+- (void)changeInvalidBodyPartToGreyWithModel:(MachineModel *)machine validArray:(NSMutableArray *)enableArray {
+    if ([enableArray count] > 0) {
+        AirwaveModel *treatParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+        NSArray *currentAllBodypartArray;
+        if (treatParameter.APortType == AirPortType_Leg6 || treatParameter.APortType == AirPortType_Leg8) {
+            currentAllBodypartArray = self.eightLegArray;
+        } else {
+            currentAllBodypartArray = self.bodyPartArray;
+            
+        }
+        for (BodyImageView *bodyPart in currentAllBodypartArray) {
+            if (bodyPart) {
+                if (![enableArray containsObject:bodyPart]) {
+                    [bodyPart changeColor:@"grey"];
+                    [self closeTimer:bodyPart.changeColorTimer];
+                    
+                }
+            }
+        }
+    }
+}
+#pragma mark - 获得有效bodypart
+- (NSArray *)bodyPartArrayWithModel:(MachineModel *)machine startIndex:(NSInteger)startIndex startEnableIndex:(NSInteger)startEnableIndex partNumber:(NSInteger)partNumber {
+    NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:20];
+    AirwaveModel *treatParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+    if (treatParameter) {
+        for (NSInteger i = startEnableIndex; i < partNumber + startEnableIndex; i++)
+        {
+            BodyImageView *bodyPart = [[BodyImageView alloc]init];
+            
+            if (treatParameter.APortType == AirPortType_Leg6 || treatParameter.APortType == AirPortType_Leg8) {
+                bodyPart = self.eightLegArray[startIndex + i - startEnableIndex];
+            } else {
+                
+                bodyPart = self.bodyPartArray[startIndex + i - startEnableIndex];
+            }
+            if (bodyPart) {
+                [array addObject:bodyPart];
+            }
+        }
+    }
+    return array;
+}
+
 - (void)changeAllBodyPartsToGrey {
     for (BodyImageView *bodyPart in self.bodyPartArray) {
         if (bodyPart) {
@@ -412,8 +478,11 @@
 }
 - (NSMutableArray *)activePartArray {
     if (!_activeBodyPartArray) {
-        _activeBodyPartArray = [NSMutableArray array];
+        _activeBodyPartArray = [[NSMutableArray alloc]initWithCapacity:20];;
     }
     return _activeBodyPartArray;
+}
+- (void)drawRect:(CGRect)rect {
+    
 }
 @end

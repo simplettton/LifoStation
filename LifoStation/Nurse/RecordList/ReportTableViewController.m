@@ -12,6 +12,7 @@
 #import "TimeLineModel.h"
 #import "BETimeLine.h"
 #import "TaskModel.h"
+#import "PrinterListView.h"
 
 #import "UIImage+Rotate.h"
 #import "JLImageMagnification.h"
@@ -51,6 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0xf8f8f8);
     self.navigationController.navigationBar.tintColor = UIColorFromHex(0x272727);
@@ -60,15 +62,11 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)getReportData {
 
     alertDatas = [NSMutableArray arrayWithCapacity:20];
-    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/Report")
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/ReportController/Report")
                                   params:@{@"TaskId":self.taskId}
                                 hasToken:YES
                                  success:^(HttpResponse *responseObject) {
@@ -97,7 +95,10 @@
     [paramList insertObject:@{@"Key":@"主治医生",@"Value":self.taskModel.creatorName} atIndex:0];
     [paramList insertObject:@{@"Key":@"执行护士",@"Value":self.taskModel.operatorName} atIndex:1];
     [paramList insertObject:@{@"Key":@"治疗设备",@"Value":self.taskModel.solution.machineTypeName} atIndex:2];
-    [paramList insertObject:@{@"Key":@"设备名称",@"Value":self.taskModel.machine.name} atIndex:3];
+    if (self.taskModel.machine.name) {
+        [paramList insertObject:@{@"Key":@"设备名称",@"Value":self.taskModel.machine.name} atIndex:3];
+    }
+
     [paramList insertObject:@{@"Key":@"方案名称",@"Value":self.taskModel.solution.name} atIndex:4];
     [paramList insertObject:@{@"Key":@"治疗模式",@"Value":self.taskModel.solution.mainModeName} atIndex:5];
     
@@ -304,45 +305,8 @@
     [popoverView showToView:sender withActions:@[action1]];
 }
 - (IBAction)printAction:(id)sender {
-//    MMPopupItemHandler block = ^(NSInteger index){
-//        switch (index) {
-//            case 0:
-//
-//                break;
-//            case 1:
-//
-//                break;
-//            default:
-//                break;
-//        }
-//    };
-//
-//    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
-//
-//    };
-//
-//    NSArray *items =
-//    @[MMItemMake(@"打印预览", MMItemTypeNormal, block),
-//      MMItemMake(@"打印", MMItemTypeNormal, block),
-//      MMItemMake(@"取消", MMItemTypeNormal, block)];
-//
-//    [[[MMAlertView alloc] initWithTitle:@"连接工作站打印机"
-//                                 detail:@""
-//                                  items:items]
-//     showWithBlock:completeBlock];
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
-                                                                   message:@"是否打印治疗报告？"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    
-    [alert addAction:confirmAction];
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * action) {}];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    PrinterListView *printerListView = [[PrinterListView alloc]initWithData:self.taskId];
+    [printerListView showInWindowWithBackgoundTapDismissEnable:YES];
 }
 
 - (IBAction)addPhotoAction:(id)sender {

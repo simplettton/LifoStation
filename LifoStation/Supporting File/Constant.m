@@ -26,8 +26,7 @@
     {
         if (!sharedInstance)
             sharedInstance = [[Constant alloc] init];
-        
-        
+
         return sharedInstance;
     }
 }

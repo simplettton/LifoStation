@@ -21,8 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *heartImageView;
 @property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
 //中央视图
+
 @property (nonatomic, strong) AirWaveView *deviceView;
 @property (nonatomic, assign) CellStyle style;
 @property (nonatomic, strong) MachineModel *machine;
+
 - (void)configureWithModel:(MachineModel *)machine;
 @end

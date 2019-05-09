@@ -28,8 +28,8 @@
                                 <action selector="cancelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Kd-OQ-LOq"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="添加医嘱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWV-0C-5Rn">
-                            <rect key="frame" x="190" y="11" width="70" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="医嘱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWV-0C-5Rn">
+                            <rect key="frame" x="208" y="11" width="35" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.2274509804" green="0.52941176469999995" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -11,7 +11,7 @@
 @interface TaskParameterModel : JSONModel
 @property (nonatomic, strong) NSString *showName;
 @property (nonatomic, strong) NSString *unit;
-@property (nonatomic, strong) NSNumber *value;
+@property (nonatomic, strong) NSString *value;
 @property (nonatomic, strong) NSDictionary *selectionList;
 - (NSDictionary *)getParamDictionary;
 @end

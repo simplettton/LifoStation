@@ -29,14 +29,15 @@ typedef NS_ENUM(NSUInteger,BodyIndex)
 {
     leftfootIndex=0, leftup3Index=5, leftdown3Index=1, lefthandIndex=4, middle4Index=8, rightfootIndex=12, rightup3Index=17, rightdown3Index = 13, righthandIndex = 16
 };
+
 @interface AirWaveView : UIView
-@property (nonatomic, assign) AirBagType type;
+@property (nonatomic, assign) IBInspectable NSInteger type;
 
 @property (strong, nonatomic) UIView *bodyView;
 @property (strong, nonatomic) IBOutletCollection(BodyImageView) NSArray *bodyImages;
 @property (nonatomic, assign) NSInteger APortType;
 @property (nonatomic, assign) NSInteger BPortType;
-- (instancetype)initWithParameter:(AirwaveModel*)machineParameter;
+- (instancetype)initWithParameter:(MachineModel*)machine;
 - (void)resetBodyPartColor:(MachineModel *)machine;
 - (void)updateViewWithModel:(MachineModel *)machine;
 - (void)changeAllBodyPartsToGrey;

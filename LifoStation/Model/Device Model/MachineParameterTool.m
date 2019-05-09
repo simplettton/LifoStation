@@ -13,6 +13,8 @@
 #import "HighEnergyInfraredModel.h"
 #import "NegativePressureModel.h"
 #import "SputumExcretionModel.h"
+#import "MagneticModel.h"
+#import "ElectModel.h"
 @implementation MachineParameterTool
 static MachineParameterTool *_instance;
 + (instancetype)sharedInstance {
@@ -75,6 +77,22 @@ static MachineParameterTool *_instance;
                 SputumExcretionModel *treatParameter = [[SputumExcretionModel alloc]initWithDictionary:machine.msg_treatParameter error:&error];
                 SputumExcretionModel *machineParameter = [[SputumExcretionModel alloc]initWithDictionary:dic error:&error];
                 paramArray = [machineParameter getParameterArray:treatParameter];
+            }
+                break;
+            case MachineType_Magnetic:
+            {
+                NSError *error;
+                MagneticModel *machineParameter = [[MagneticModel alloc]initWithDictionary:dic error:&error];
+                paramArray = [machineParameter getParameterArray];
+            }
+                break;
+            case MachineType_Elect:
+            {
+                NSError *error;
+                if (dic) {
+                    ElectModel *machineParameter = [[ElectModel alloc]initWithDictionary:@{@"channelArray":dic} error:&error];
+                    paramArray = [machineParameter getParameterArray];
+                }
             }
                 break;
             default:
@@ -146,6 +164,24 @@ static MachineParameterTool *_instance;
             return machineParameter;
         }
             break;
+        case MachineType_Magnetic:
+        {
+            NSError *error;
+            MagneticModel *machineParameter = [[MagneticModel alloc]initWithDictionary:parameterDic error:&error];
+            return machineParameter;
+        }
+            break;
+        case MachineType_Elect:
+        {
+            NSError *error;
+            if (parameterDic) {
+                ElectModel *machineParameter = [[ElectModel alloc]initWithDictionary:@{@"channelArray":parameterDic} error:&error];
+                return machineParameter;
+            } else {
+                return nil;
+            }
+        }
+            break;
         default:
             return nil;
             break;
@@ -211,7 +247,44 @@ static MachineParameterTool *_instance;
                 }
                     
                     break;
+                    //脉冲磁的倒计时取接入线圈通道的最大值
+                case MachineType_Magnetic:
+                {
+                    MagneticModel *treatParameter = [[MagneticModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                    MagneticModel *runningParameter = [[MagneticModel alloc]initWithDictionary:machine.msg_realTimeData error:nil];
+                    if (runningParameter) {
+                        NSString *showTime = [MagneticModel getShowingTimeWithRunningParameter:runningParameter treatParameter:treatParameter];
+                        return [self getHourAndMinuteFromSeconds:showTime];
+                    } else {
+                        //没有实时包则返回设置包的时间设置参数treatTime
+                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                    }
+                }
                     
+                    break;
+                case MachineType_Elect:
+                {
+                    ElectModel *treatParameter;
+                    if (machine.msg_treatParameter) {
+                        treatParameter= [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_treatParameter} error:nil];
+                    }
+
+
+                    ElectModel *runningParameter;
+                    if (machine.msg_realTimeData) {
+                        runningParameter = [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_realTimeData} error:nil];
+                    }
+                    if (runningParameter) {
+                        NSString *showTime = [ElectModel getShowingTimeWithRunningParameter:runningParameter treatParameter:treatParameter];
+                        return [self getHourAndMinuteFromSeconds:showTime];
+                    } else {
+                        //没有实时包则返回设置包的时间设置参数treatTime
+                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                    }
+                    
+                }
+                    
+                    break;
                 default:
                 {
                     NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
@@ -225,8 +298,26 @@ static MachineParameterTool *_instance;
         switch ([machine.groupCode integerValue]) {
             case MachineType_SputumExcretion:
             {
+                //服务器返回了msg_treatParameter[@"OutPhlegmTime"] 特殊处理
                 SputumExcretionModel *treatParameter = [[SputumExcretionModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
                 return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+            }
+                break;
+            case MachineType_Magnetic:
+            {
+                //服务器返回treatTime数组要另外计算
+                MagneticModel *treatParameter = [[MagneticModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+            }
+                break;
+            case MachineType_Elect:
+            {
+                ElectModel *treatParameter;
+                if (machine.msg_treatParameter) {
+                    treatParameter= [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_treatParameter} error:nil];
+                }
+                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                
             }
                 break;
             default:
@@ -279,6 +370,23 @@ static MachineParameterTool *_instance;
             }
         }
             break;
+        case MachineType_Magnetic:
+        {
+            return @"maicongci";
+        }
+            break;
+        case MachineType_Elect:
+        {
+            NSError *error;
+            if (machine.msg_treatParameter) {
+                ElectModel *treatParameter = [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_treatParameter} error:&error];
+                return [treatParameter getGifName];
+            } else {
+                return @"zhengxianbo";
+            }
+
+        }
+            break;
         default:
             return nil;
             break;
@@ -286,14 +394,39 @@ static MachineParameterTool *_instance;
 }
 #pragma mark - 设备状态获取
 - (NSString *)getMachineState:(MachineModel *)machine {
-    //排痰状态获取根据三种状态（排痰雾化吸痰）叠加获取
-    if ([machine.groupCode integerValue] == MachineType_SputumExcretion) {
-        SputumExcretionModel *treatmentParameter = [[SputumExcretionModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-        if (treatmentParameter) {
-            return treatmentParameter.state;
+    NSString *machineType = machine.groupCode;
+    switch ([machineType integerValue]) {
+        case MachineType_SputumExcretion:
+        {
+            //排痰状态获取根据三种状态（排痰雾化吸痰）叠加获取
+            SputumExcretionModel *treatmentParameter = [[SputumExcretionModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+            if (treatmentParameter) {
+                return treatmentParameter.state;
+            }
         }
-    } else {
-        return [NSString stringWithFormat:@"%@",machine.msg_treatParameter[@"State"]];
+            break;
+        case MachineType_Magnetic:
+        {
+            //脉冲磁状态通过六个通道状态叠加获取
+            MagneticModel *treatmentParameter = [[MagneticModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+            if (treatmentParameter) {
+                return treatmentParameter.state;
+            }
+        }
+            break;
+        case MachineType_Elect:
+        {
+            ElectModel *treatParameter;
+            if (machine.msg_treatParameter) {
+                treatParameter= [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_treatParameter} error:nil];
+            }
+            if (treatParameter) {
+                return treatParameter.state;
+            }
+        }
+            break;
+        default:
+            return [NSString stringWithFormat:@"%@",machine.msg_treatParameter[@"State"]];
     }
     return nil;
 }
@@ -304,8 +437,13 @@ static MachineParameterTool *_instance;
                                       @"1":@"暂停中",
                                       @"2":@"空闲中",
                                       @"3":@"空",
-                                      @"255":@"离线"
+                                      @"127":@"离线"
                                       };
-    return machineStateDic[machine.state];
+    if (machine.state) {
+        return machineStateDic[machine.state];
+    } else {
+        return @"未知状态";
+    }
+
 }
 @end

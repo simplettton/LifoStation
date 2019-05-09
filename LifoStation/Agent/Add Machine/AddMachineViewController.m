@@ -13,14 +13,14 @@
 #import "UIView+Tap.h"
 #import "ChooseDepartmentView.h"
 #import "UIView+TYAlertView.h"
-
+#import "MainViewController.h"
 #import "MachineTypeModel.h"
 #import "DepartmentModel.h"
 
 #define TYPE_ITEM_ORIGIN_X 20
 #define TYPE_ITEM_Height 30
 #define TYPE_ITEM_INTERVAL 48
-@interface AddMachineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddMachineViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NSString *firstDepartment;
@@ -42,6 +42,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
 }
 - (void)getMachineTypeList {
@@ -112,7 +113,7 @@
 
                                          [Constant sharedInstance].departmentList = departmentList;
                                          [Constant sharedInstance].departmentDic = departmentDictionary;
-                                         LxDBAnyVar(departmentList);
+                                         [Constant sharedInstance].departmentOppositeDic = oppositeDictionary;
                                      }
                                  }
                                  failure:nil];
@@ -244,7 +245,7 @@
         [cell.ringButton setTitle:[dataDic objectForKey:@"Cpuid"] forState:UIControlStateNormal];
         [cell.ringButton addTarget:self action:@selector(ringAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.nameTextField.text = dataDic[@"Name"];
-        
+        cell.nameTextField.delegate = self;
         NSArray *departmentList = [Constant sharedInstance].departmentList;
         if ([departmentList count]>0) {
             DepartmentModel *department = departmentList[0];
@@ -267,6 +268,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+#pragma mark - TextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger proposedNewLength = textField.text.length - range.length + string.length;
+    if (proposedNewLength > 10) {
+        return NO;//限制长度
+    }
+    return YES;
+}
+
 #pragma mark - Action
 - (void)ringAction :(id)sender {
     AddMachineCell *cell = (AddMachineCell *)[[sender superview]superview];
@@ -291,21 +301,26 @@
                 [dic setObject:cell.ringButton.titleLabel.text forKey:@"Cpuid"];
                 [dic setObject:cell.nameTextField.text forKey:@"DeviceName"];
                 NSString *departmentName = cell.departmentNameLabel.text;
-                
-                
+
                 NSString *uuid = [[Constant sharedInstance]departmentOppositeDic][departmentName];
                 [dic setObject:uuid forKey:@"DepartmentId"];
                 [saveArray addObject:dic];
             }
         }
         if ([saveArray count]>0) {
-            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Register")
-                                          params:@{@"ListData":saveArray}
+            //@{@"ListData":saveArray}
+            [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/Registed")
+                                          params:saveArray
                                         hasToken:YES
                                          success:^(HttpResponse *responseObject) {
                                              if ([responseObject.result integerValue] == 1) {
-                                                 [BEProgressHUD showMessage:@"录入成功"];
-                                                 [self refresh];
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [BEProgressHUD showMessage:@"录入成功"];
+                                                 });
+
+                                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                     [self refresh];
+                                                 });
                                              }
                                          }
                                          failure:nil];
@@ -353,5 +368,15 @@
         _datas = [[NSMutableArray alloc]init];
     }
     return _datas;
+}
+- (IBAction)routineButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:@"AdminToNurse1" sender:nil];
+    
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AdminToNurse1"]) {
+        MainViewController *vc = (MainViewController *)segue.destinationViewController;
+        vc.isAdminRole = YES;
+    }
 }
 @end

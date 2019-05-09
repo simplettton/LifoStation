@@ -14,6 +14,7 @@
 #import "NegativePressureModel.h"
 
 #import "LightModel.h"
+#import "AlertView.h"
 
 #import "SingleViewAirWaveCell.h"
 #import "SingleElectCell.h"
@@ -29,7 +30,6 @@
 
 #import "UIView+TYAlertView.h"
 #import "UIView+Tap.h"
-#import "AlertView.h"
 
 #import <MQTTClient/MQTTClient.h>
 #import <MQTTClient/MQTTSessionManager.h>
@@ -155,10 +155,17 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     /** 初始化当前声音等级 */
     self.playingAlertLevel = 0;
 }
-
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    /** 关闭报警信息隐藏整个报警的tableview */
+    BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
+    if (!isAlertSwitchOn) {
+        self.alertViewHeight.constant = 0.5;
+    }
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0xf8f8f8);
     self.navigationController.navigationBar.tintColor = UIColorFromHex(0x272727);
@@ -171,6 +178,10 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     if (self.manager) {
         self.manager.delegate = self;
     }
+    if ([datas count]>0) {
+        [self refresh];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -307,17 +318,26 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
             [self updateCellAtIndex:index withModel:machine];
             
         } else if ([code integerValue] == 0x90) {
+            NSString *currentState = machine.state;
             machine.msg_treatParameter = content;
-            /** 收到参数包代表已授权 */
-            machine.hasLicense = YES;
-            [self reloadItemAtIndex:index];
+            NSString *newState = [[MachineParameterTool sharedInstance]getMachineState:machine];
+            //屏蔽电疗有实时包数据还发参数包
+            if (!([currentState integerValue] == MachineStateRunning && [newState integerValue] == MachineStateRunning)) {
+                /** 收到参数包代表已授权 */
+                machine.hasLicense = YES;
+                [self reloadItemAtIndex:index];
+            }
 
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
             NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
             machine.isonline = [isOnline boolValue];
             machine.hasLicense = [hasLicense boolValue];
-
+            if (machine.isonline) {
+                [BEProgressHUD showMessage:[NSString stringWithFormat:@"%@-%@-上线",machine.departmentName,machine.name]];
+            } else {
+                [BEProgressHUD showMessage:[NSString stringWithFormat:@"%@-%@-下线",machine.departmentName,machine.name]];
+            }
             [self reloadItemAtIndex:index];
             
         } else if ([code integerValue] == 0x95) {
@@ -356,10 +376,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 machine.msg_alertMessage = content[@"ErrMsg"];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
                 UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-                UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
-                UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
-                UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
-                alertLabel.text = machine.msg_alertMessage;
+
                 //边框橙色
                 cell.layer.borderWidth = 2;
                 cell.layer.borderColor =  UIColorFromHex(0xFBA526).CGColor;
@@ -409,10 +426,13 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     /** 获取alertView */
     NSDictionary *dataDic = timer.userInfo;
     NSInteger index = [dataDic[@"index"]integerValue];
+    MachineModel *machine = dataDic[@"machine"];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
+    alertLabel.text = machine.msg_alertMessage;
     
     /** 报警信息置顶 */
     [bodyContentView bringSubviewToFront:alertView];
@@ -454,47 +474,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
         timer = nil;
     }
 }
-#pragma mark - 参数包
-- (void)resetbodyViewAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
 
-    NSString *machineType = machine.groupCode;
-    if ([machineType integerValue] == MachineType_AirWave) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        switch (self.showViewType) {
-            case SingleViewType:
-            {
-                SingleViewAirWaveCell *cell1 = (SingleViewAirWaveCell *)cell;
-                [cell1.deviceView changeAllBodyPartsToGrey];
-            }
-                
-                break;
-            case TwoViewsType:
-            {
-                TwoViewsAirWaveCell *cell1 = (TwoViewsAirWaveCell *)cell;
-                [cell1.deviceView changeAllBodyPartsToGrey];
-            }
-                
-                break;
-            case FourViewsType:
-            {
-                FourViewsAirWaveCell *cell1 = (FourViewsAirWaveCell *)cell;
-                [cell1.deviceView changeAllBodyPartsToGrey];
-            }
-                
-                break;
-            case NineViewsType:
-            {
-                NineViewsAirWaveCell *cell1 = (NineViewsAirWaveCell *)cell;
-                [cell1.deviceView changeAllBodyPartsToGrey];
-            }
-                
-                break;
-            default:
-                break;
-        }
-    }
-}
 #pragma mark - 实时包
 
 - (void)updateLightSourceAtIndex:(NSInteger)index withModel:(MachineModel *)machine {
@@ -760,7 +740,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     header.stateLabel.textColor =UIColorFromHex(0xABABAB);
     header.lastUpdatedTimeLabel.hidden = YES;
     self.collectionView.mj_header = header;
-    
     [self.collectionView.mj_header beginRefreshing];
     
     //上拉加载
@@ -839,6 +818,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                                      isRefreshing = NO;
                                      if (page == 0) {
                                          [datas removeAllObjects];
+                                         [cpuids removeAllObjects];
                                      }
                                      
                                      if (isRefreshing) {
@@ -868,6 +848,13 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                                                  [cpuids addObject:machine.cpuid];
 
                                                  [self subcribeMachine:machine];
+                                             }
+                                             
+                                             if (totalPage > 1) {
+                                                 //下拉多刷新一页
+                                                 if (isPullingDown) {
+                                                     [self getNetworkDataWithHeader:NO];
+                                                 }
                                              }
                                              //等所有cell设置好再刷新数据？
                                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

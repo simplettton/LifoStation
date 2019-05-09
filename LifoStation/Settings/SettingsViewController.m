@@ -88,6 +88,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x6DA3E0);
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 }

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *taskListView;
 @property (weak, nonatomic) IBOutlet UIView *patientListView;
 @property (weak, nonatomic) IBOutlet UIView *videoView;
+@property (weak, nonatomic) IBOutlet UIView *backToAdminView;
 
 
 @property (weak, nonatomic) IBOutlet UIView *treatmentRecordView;
@@ -30,12 +31,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTap];
-    
+    self.backToAdminView.hidden = !self.isAdminRole;
 }
 
 #pragma mark - hide navigation bar
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,6 +77,9 @@
     }];
     [self.videoView addTapBlock:^(id obj) {
         [self performSegueWithIdentifier:@"ShowVideo" sender:nil];
+    }];
+    [self.backToAdminView addTapBlock:^(id obj) {
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 
     

@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *myChildViewControllers;
 
-@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+
 
 @end
 
@@ -37,6 +37,7 @@
     searchField.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     searchField.layer.borderWidth = 1.0;
     searchField.layer.cornerRadius = 5.0f;
+    self.searchBar.returnKeyType = UIReturnKeySearch;
     
     _searchButton.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     _searchButton.layer.borderWidth = 1.0;
@@ -62,6 +63,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -95,6 +97,38 @@
 
 - (void)pageMenu:(SPPageMenu *)pageMenu itemSelectedFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     NSLog(@"%zd------->%zd",fromIndex,toIndex);
+
+    //切换任务tab的时候隐藏键盘
+    [self.searchBar resignFirstResponder];
+    
+    //切换任务tab的时候切换delegate
+
+    self.searchBar.text = @"";
+    if ([self.childViewControllers count] == 3) {
+        WaitingTaskViewController *vc0 = self.childViewControllers[0];
+        ProcessingTaskViewController *vc1 = self.childViewControllers[1];
+        FinishedTaskViewController *vc2 = self.childViewControllers[2];
+        switch (toIndex) {
+            case 0:
+                self.searchBar.delegate = vc0;
+                [vc0 refresh];
+                break;
+            case 1:
+                self.searchBar.delegate = vc1;
+                [vc1 refresh];
+                break;
+            case 2:
+                self.searchBar.delegate = vc2;
+                [vc2 refresh];
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
+
+    
     
     // 如果该代理方法是由拖拽self.scrollView而触发，说明self.scrollView已经在用户手指的拖拽下而发生偏移，此时不需要再用代码去设置偏移量，否则在跟踪模式为SPPageMenuTrackerFollowingModeHalf的情况下，滑到屏幕一半时会有闪跳现象。闪跳是因为外界设置的scrollView偏移和用户拖拽产生冲突
     if (!self.scrollView.isDragging) { // 判断用户是否在拖拽scrollView
@@ -119,15 +153,6 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - getter
 - (UIScrollView *)scrollView {
     if (!_scrollView) {

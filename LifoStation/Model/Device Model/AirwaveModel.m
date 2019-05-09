@@ -34,7 +34,7 @@
     //解析压力值
     if (self.currentPress) {
         [paramArray addObject:[NSString stringWithFormat:@"%@mmHg",self.currentPress]];
-        [paramArray addObject:[NSString stringWithFormat:@"%@min",self.backTime]];
+        [paramArray addObject:[NSString stringWithFormat:@"%@s",self.backTime]];
     } else {
         //求press数组中的最大值当做设置的压力值 因为梯度模式8个压力值不一致 高级参数模式 8个值都是自定义的
         int max = [[self.press valueForKeyPath:@"@max.intValue"]intValue];

@@ -35,8 +35,9 @@
     [self initAll];
     // Do any additional setup after loading the view.
 }
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];

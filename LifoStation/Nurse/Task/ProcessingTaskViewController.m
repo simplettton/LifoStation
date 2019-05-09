@@ -20,6 +20,7 @@
 #import "TaskParameterModel.h"
 @interface ProcessingTaskViewController ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) BaseSearchBar *searchBar;
+@property (nonatomic, strong) UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (weak, nonatomic) IBOutlet UIView *noDataView;
@@ -37,7 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
-    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
 }
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -48,9 +51,10 @@
     [self.tableView addGestureRecognizer:tapGestureRecognizer];
     
     TaskParentViewController *parentViewController = (TaskParentViewController *)self.parentViewController;
-    parentViewController.searchBar.delegate = self;
     datas = [[NSMutableArray alloc]initWithCapacity:20];
     self.searchBar = parentViewController.searchBar;
+    self.searchButton = parentViewController.searchButton;
+    [self.searchButton addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
     [self initTableHeaderAndFooter];
     
 }
@@ -86,9 +90,14 @@
 - (void)refresh {
     [self.searchBar resignFirstResponder];
     if ([self.searchBar.text length]>0) {
-        [self search:nil];
+        isFilteredList = YES;
+        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+        [paramDic setObject:self.searchBar.text forKey:@"Key"];
+        filterparam = paramDic;
+        [self refreshDataWithHeader:YES];
     }else{
         isFilteredList = NO;
+        [filterparam removeAllObjects];
         [self refreshDataWithHeader:YES];
     }
 }
@@ -199,6 +208,12 @@
                                                  NSInteger index = [datas indexOfObject:task];
                                                  [self getParamList:task atIndex:index];
                                              }
+                                             if (totalPage > 1) {
+                                                 //下拉多刷新一页
+                                                 if (isPullingDown) {
+                                                     [self getNetworkDataWithHeader:NO];
+                                                 }
+                                             }
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -235,6 +250,13 @@
     }
 }
 #pragma mark - SearchBar delegate
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSUInteger proposedNewLength = searchBar.text.length - range.length + text.length;
+    if (proposedNewLength > 30) {
+        return NO;//限制长度
+    }
+    return YES;
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchBar.text.length == 0) {
         [self refresh];
@@ -245,16 +267,7 @@
     [self search:nil];
 }
 - (IBAction)search:(id)sender {
-    if ([self.searchBar.text length] > 0) {
-        isFilteredList = YES;
-        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-        [paramDic setObject:self.searchBar.text forKey:@"Key"];
-        filterparam = paramDic;
-        [self refreshDataWithHeader:YES];
-    } else {
-        isFilteredList = NO;
-        [self.tableView.mj_header beginRefreshing];
-    }
+    [self refresh];
     
 }
 #pragma mark - tableview delegate
@@ -331,7 +344,12 @@
             cell.leftTimeLabel.textColor = UIColorFromHex(0x00935E);
         }
 
-        [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@分钟",task.solution.treatTime] forState:UIControlStateNormal];
+        //空气波持续治疗时间特殊处理
+        if ([task.solution.treatTime isEqualToString:@"601"]) {
+            [cell.treatmentButton setTitle:@"治疗时间：持续治疗" forState:UIControlStateNormal];
+        } else {
+            [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@min",task.solution.treatTime] forState:UIControlStateNormal];
+        }
     }
 
 
@@ -350,7 +368,7 @@
     self.selectedIndex = [self.tableView indexPathForCell:cell].row;
     [cell becomeFirstResponder];
     UIMenuController *menu = [UIMenuController sharedMenuController];
-    UIMenuItem *edit = [[UIMenuItem alloc] initWithTitle:@"编辑"
+    UIMenuItem *edit = [[UIMenuItem alloc] initWithTitle:@"病人替换"
                                                   action:@selector(edit:)];
     
     UIMenuItem *finish = [[UIMenuItem alloc] initWithTitle:@"完成"
@@ -368,7 +386,7 @@
         LxDBAnyVar(patientId);
         [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/TaskController/ChangePatient") params:@{@"TaskId":task.uuid,@"PatientId":patientId} hasToken:YES success:^(HttpResponse *responseObject) {
             if ([responseObject.result integerValue] == 1) {
-                [BEProgressHUD showMessage:@"已完成编辑信息"];
+                [BEProgressHUD showMessage:@"已完成病人替换"];
                 [self refresh];
             }
         } failure:nil];

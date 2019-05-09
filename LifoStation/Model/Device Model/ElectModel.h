@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+
 typedef NS_ENUM(NSInteger,ElectModulationWave) {
     ElectModulationWave_Zhengxianbo = 0,
     ElectModulationWave_Fangbo      = 1,
@@ -20,11 +21,30 @@ typedef NS_ENUM(NSInteger,ElectModulationWave) {
     ElectModulationWave_Shanxingbo  = 8
 };
 /** 电疗 */
+//模型包含模型时的使用, 被包含的模型需要声明protocol
+@protocol ElectChannelModel <NSObject>
+@end
+
+@interface ElectChannelModel :JSONModel
+@property (nonatomic, strong) NSString *state;
+@property (nonatomic, strong) NSString *treatTime;
+@property (nonatomic, strong) NSString *showTime;
+@property (nonatomic, strong) NSString *amplitude;
+@property (nonatomic, strong) NSString *modulationWaveIndex;
+
+@end
+
 @interface ElectModel : JSONModel
 @property (nonatomic, strong) NSString *state;
 @property (nonatomic, strong) NSString *treatTime;
 @property (nonatomic, strong) NSString *showTime;
+@property (nonatomic, strong) ElectChannelModel *currentChannel;
+@property (nonatomic, strong) NSArray<ElectChannelModel> * channelArray;
 
-@property (nonatomic, assign) NSInteger modulationWaveIndex;
+- (NSArray *)getParameterArray;
 - (NSString *)getGifName;
++ (NSString *)getShowingTimeWithRunningParameter:(ElectModel *)runningParameter treatParameter:(ElectModel *)treatParameter;
 @end
+
+
+

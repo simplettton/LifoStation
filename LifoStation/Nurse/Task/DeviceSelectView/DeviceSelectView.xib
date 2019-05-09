@@ -159,7 +159,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-Cm-7jd">
+                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-Cm-7jd">
                     <rect key="frame" x="0.0" y="123" width="588" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -257,9 +257,8 @@
                             <constraint firstAttribute="height" constant="33" id="8uf-y6-Nf9"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9E-xW-yZL">
-                        <rect key="frame" x="468" y="21" width="41" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n9E-xW-yZL">
+                        <rect key="frame" x="468" y="21" width="83" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -283,14 +282,17 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="n9E-xW-yZL" secondAttribute="trailing" constant="13" id="1x5-az-XcF"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HlR-hh-ssy" secondAttribute="bottom" constant="20.5" id="3kI-VD-oXQ"/>
                     <constraint firstItem="SbY-Xs-s0v" firstAttribute="leading" secondItem="HlR-hh-ssy" secondAttribute="trailing" constant="8" id="4Jg-HO-Mar"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SbY-Xs-s0v" secondAttribute="bottom" constant="20.5" id="5aS-PJ-XqJ"/>
                     <constraint firstItem="Qv8-Ae-nyP" firstAttribute="leading" secondItem="Tq7-GW-vfu" secondAttribute="leading" constant="20" id="8NN-cN-mgg"/>
                     <constraint firstItem="aGe-iL-3X1" firstAttribute="leading" secondItem="SbY-Xs-s0v" secondAttribute="trailing" constant="8" id="E5Z-7i-s6W"/>
                     <constraint firstItem="HlR-hh-ssy" firstAttribute="centerY" secondItem="Tq7-GW-vfu" secondAttribute="centerY" id="GS7-nN-Y3G"/>
+                    <constraint firstItem="n9E-xW-yZL" firstAttribute="leading" secondItem="SMO-E2-sXV" secondAttribute="trailing" constant="29" id="IPh-MO-eGt"/>
                     <constraint firstItem="SbY-Xs-s0v" firstAttribute="centerY" secondItem="Tq7-GW-vfu" secondAttribute="centerY" id="KTt-gx-2pT"/>
                     <constraint firstItem="HlR-hh-ssy" firstAttribute="leading" secondItem="Qv8-Ae-nyP" secondAttribute="trailing" constant="8" id="TNg-Ul-5Ri"/>
+                    <constraint firstItem="n9E-xW-yZL" firstAttribute="centerY" secondItem="Tq7-GW-vfu" secondAttribute="centerY" id="bhI-Rj-GrF"/>
                     <constraint firstItem="SMO-E2-sXV" firstAttribute="leading" secondItem="aGe-iL-3X1" secondAttribute="trailing" constant="43" id="jaS-vy-a9G"/>
                     <constraint firstItem="SMO-E2-sXV" firstAttribute="centerY" secondItem="Tq7-GW-vfu" secondAttribute="centerY" id="lmz-xE-6u2"/>
                     <constraint firstItem="aGe-iL-3X1" firstAttribute="centerY" secondItem="Tq7-GW-vfu" secondAttribute="centerY" id="rYZ-Tn-v2P"/>

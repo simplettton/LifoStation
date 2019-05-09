@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Task/ProcessingTaskViewController.m"
-            timestampString = "577857561.5087481"
+            timestampString = "579005866.22366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "-refreshDataWithHeader:"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577876559.07189"
+            timestampString = "579088995.419163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1225"
-            endingLineNumber = "1225"
+            startingLineNumber = "1214"
+            endingLineNumber = "1214"
             landmarkName = "-playAlertSoundsWithLevel:"
             landmarkType = "7">
             <Locations>
@@ -83,22 +83,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/DeviceViews/FourViews/FourViewsAirWaveCell.m"
-            timestampString = "577792743.851868"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "-configureCellStyle"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/DeviceViews/MiddleViews/BodyImageView.m"
             timestampString = "577361583.728857"
             startingColumnNumber = "9223372036854775807"
@@ -115,28 +99,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/DeviceViews/MiddleViews/AirWaveView.m"
-            timestampString = "577596252.53907"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-setFrame:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Monitor/Controller/MonitorViewController.m"
-            timestampString = "577876559.0720659"
+            timestampString = "579088995.41927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1050"
-            endingLineNumber = "1050"
+            startingLineNumber = "1039"
+            endingLineNumber = "1039"
             landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,27 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/RecordList/ReportTableViewController.m"
-            timestampString = "577876559.072122"
+            timestampString = "579088995.419327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "-getTreatInfomationData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/RecordList/ReportTableViewController.m"
-            timestampString = "577876559.072473"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-getReportData"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LifoStation/Nurse/Task/ProcessingTaskViewController.m"
-            timestampString = "577857561.5092601"
+            timestampString = "579005866.223961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,22 +154,6 @@
             startingLineNumber = "48"
             endingLineNumber = "48"
             landmarkName = "-getWidthWithText:height:font:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LifoStation/Nurse/Monitor/DeviceViews/FourViews/FourElectCell.m"
-            timestampString = "577853336.380738"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "-updateMachineState:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -51,7 +51,7 @@
                                             <constraint firstAttribute="height" constant="266" id="A3O-D9-NlX"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="4444" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="风扇异常" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqw-iX-egG">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="4444" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqw-iX-egG">
                                         <rect key="frame" x="0.0" y="265" width="400" height="35"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>

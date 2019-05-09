@@ -11,6 +11,7 @@
 #import "AddMachineViewController.h"
 #import "AddDepartmentView.h"
 #import "DepartmentModel.h"
+#import "MainViewController.h"
 #define NAME_LABEL_TAG 10
 #define EDIT_BUTTON_TAG 20
 
@@ -53,6 +54,9 @@
 }
 - (void)refresh {
     [_datas removeAllObjects];
+    //通过department 的name查找uuid的字典
+    NSMutableDictionary *oppositeDictionary = [[NSMutableDictionary alloc]init];
+    //key是科室名 value是uuid
     [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DepartmentController/List")
                                   params:@{}
                                 hasToken:YES
@@ -62,6 +66,7 @@
                                              for (NSDictionary *dic in responseObject.content) {
                                                  DepartmentModel *department = [[DepartmentModel alloc]initWithDictionary:dic error:nil];
                                                  [self.datas addObject:department];
+                                                 [oppositeDictionary setObject:department.uuid forKey:department.name];
                                                 
                                              }
                                              self.noDataView.hidden = YES;
@@ -69,6 +74,7 @@
                                              self.noDataView.hidden = NO;
                                          }
                                          [Constant sharedInstance].departmentList = self.datas;
+                                         [Constant sharedInstance].departmentOppositeDic = oppositeDictionary;
                                          [self.tableView reloadData];
                                      }
                                  }
@@ -237,5 +243,15 @@
         _datas = [[NSMutableArray alloc]init];
     }
     return _datas;
+}
+- (IBAction)routineButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:@"AdminToNurse2" sender:nil];
+    
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AdminToNurse2"]) {
+        MainViewController *vc = (MainViewController *)segue.destinationViewController;
+        vc.isAdminRole = YES;
+    }
 }
 @end

@@ -36,6 +36,14 @@
     [self initAll];
 
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+}
 - (void)initAll {
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.estimatedRowHeight = 56;

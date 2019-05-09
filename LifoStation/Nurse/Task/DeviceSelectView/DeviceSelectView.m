@@ -52,18 +52,7 @@
 - (IBAction)cancelAction:(id)sender {
     [self hideView];
 }
-- (IBAction)search:(id)sender {
-    if ([self.searchBar.text length] > 0) {
-        isFilteredList = YES;
-        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-        [paramDic setObject:self.searchBar.text forKey:@"Name"];
-        filterparam = paramDic;
-        [self refreshDataWithHeader:YES];
-    } else {
-        isFilteredList = NO;
-        [self.tableView.mj_header beginRefreshing];
-    }
-}
+
 - (void)endRefresh {
     if (page == 0) {
         [self.tableView.mj_header endRefreshing];
@@ -150,8 +139,12 @@
 }
 - (void)refresh {
     [self.searchBar resignFirstResponder];
-    if ([self.searchBar.text length]>0) {
-        [self search:nil];
+    if ([self.searchBar.text length] > 0) {
+        isFilteredList = YES;
+        NSMutableDictionary *paramDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+        [paramDic setObject:self.searchBar.text forKey:@"Name"];
+        filterparam = paramDic;
+        [self refreshDataWithHeader:YES];
     }else{
         isFilteredList = NO;
         [self refreshDataWithHeader:YES];
@@ -296,13 +289,21 @@
     [self endEditing:YES];
 }
 #pragma mark - SearchBar delegate
+- (IBAction)search:(id)sender {
+    [self refresh];
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchBar.text.length == 0) {
         [self refresh];
     }
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self search:nil];
+    [self refresh];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self refresh];
+    return YES;
 }
 #pragma mark - tableview datasource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

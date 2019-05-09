@@ -40,9 +40,15 @@
     [super awakeFromNib];
     self.layer.borderWidth = 0.5f;
     self.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
+
+
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
+//    CGFloat width = self.contentView.bounds.size.width;
+//    CGFloat height = self.bodyContentView.bounds.size.height;
+//    self.deviceView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
+   
 }
 
 
@@ -71,24 +77,19 @@
     if (machine.msg_treatParameter && ![machine.msg_treatParameter isKindOfClass:[NSNull class]]) {
         [self updateMachineState:machine];
     }
-    /** 更新当前deviceView */
+//    /** 更新当前deviceView */
     if (!self.deviceView) {
-        NSError *error;
-        AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:&error];
-        AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machineParameter];
+        AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machine];
         CGFloat width = self.contentView.bounds.size.width;
         CGFloat height = self.bodyContentView.bounds.size.height;
         bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
         [self.bodyContentView addSubview:bodyView];
         self.deviceView = bodyView;
-        
+
         //alertview置顶
         [self.bodyContentView bringSubviewToFront:self.alertView];
-    } else {
-        [self.deviceView resetBodyPartColor:machine];
-        [self.deviceView updateViewWithModel:machine];
     }
-    
+
     
     //信息展示
     /** 标题 */
@@ -111,12 +112,15 @@
                     }
                     /** 显示时间ShowTime 秒为单位 */
                     machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+                    [self.deviceView updateViewWithModel:machine];
+                    
                 } else {                //刚开始没有realtimedata 用参数信息顶替
                     NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
                     machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+                    [self.deviceView resetBodyPartColor:machine];
                 }
                 
                 break;
@@ -129,7 +133,6 @@
                     }
                 }
                 [self.deviceView resetBodyPartColor:machine];
-                [self.deviceView updateViewWithModel:machine];
                 /** 显示时间TreatTime分钟为单位 */
                 machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 break;
@@ -142,7 +145,7 @@
                     }
                 }
                 [self.deviceView resetBodyPartColor:machine];
-                [self.deviceView updateViewWithModel:machine];
+                
                 /** 显示时间 */
                 if(machine.msg_realTimeData) {
                     machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];

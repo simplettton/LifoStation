@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseSearchBar.h"
-@interface TaskParentViewController : UIViewController
+@interface TaskParentViewController : UIViewController<UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet BaseSearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 typedef enum _TaskListType
 {
     TaskListTypeWaiting = 0,

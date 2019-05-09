@@ -12,7 +12,7 @@
 #import "UIView+Tap.h"
 #import <BRPickerView.h>
 #import "NSDate+BRAdd.h"
-@interface AddPatientViewController ()<QRCodeReaderDelegate>
+@interface AddPatientViewController ()<QRCodeReaderDelegate,UITextFieldDelegate>
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *editViews;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *requiredTextFields;
 @property (weak, nonatomic) IBOutlet UIView *medicalNumView;
@@ -32,9 +32,13 @@
 @property (weak, nonatomic) IBOutlet UIView *treatDayView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *nameLabels;
 
+
 //条形码扫描
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *scanButton;
 @property (strong,nonatomic) QRCodeReaderViewController *reader;
+
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *limitTextFields;
+
 @end
 
 @implementation AddPatientViewController
@@ -52,13 +56,12 @@
     }
     //当前时间戳
     NSString *timestamp = [NSString stringWithFormat:@"%ld", time(NULL)];
-    self.birthdayLabel.text = [self stringFromTimeIntervalString:timestamp dateFormat:@"yyyy-MM-dd"];
+//    self.birthdayLabel.text = [self stringFromTimeIntervalString:timestamp dateFormat:@"yyyy-MM-dd"];
     NSArray *genderArray = @[@"男",@"女",@"其他"];
     if (self.patient == nil) {
         self.title = @"增加病历";
         self.treatDateLabel.text = [self stringFromTimeIntervalString:timestamp dateFormat:@"yyyy-MM-dd"];
 
-        
     } else {
         self.title = @"编辑病历";
         self.medicalNumView.layer.borderWidth = 0;
@@ -68,7 +71,8 @@
         self.nameTextField.text = self.patient.personName;
         self.treatAddressTextField.text = self.patient.treatAddress;
         self.phoneTextFiled.text = self.patient.phoneNumber;
-        if (self.patient.birthday) {
+        /** birthday服务器可为@""空字符串 */
+        if (self.patient.birthday.length > 0) {
             self.birthdayLabel.text = [self stringFromTimeIntervalString:self.patient.birthday dateFormat:@"yyyy-MM-dd"];
         }
 
@@ -81,10 +85,23 @@
         [self.segmentedControl setSelectedSegmentIndex:selectedIndex];
     } else {
         [self.segmentedControl setSelectedSegmentIndex:-1];
-        
     }
 
     [self initBirthdayPicker];
+    
+    for (UITextField *textField in self.limitTextFields) {
+        textField.delegate = self;
+    }
+}
+#pragma mark - TextFiledDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSArray *lengthLimitArray = @[@30,@10,@10,@11];
+    NSNumber *limit = [lengthLimitArray objectAtIndex:[self.limitTextFields indexOfObject:textField]];
+    NSUInteger proposedNewLength = textField.text.length - range.length + string.length;
+    if (proposedNewLength > [limit integerValue]) {
+        return NO;
+    }
+    return YES;
 }
 - (void)initBirthdayPicker {
     __weak typeof(self) weakSelf = self;
@@ -217,7 +234,7 @@
             if ([self.phoneTextFiled.text length] > 0) {
                 self.patient.phoneNumber = self.phoneTextFiled.text;
             }
-
+            self.patient.age = [self getAgeFromBirthday:self.birthdayLabel.text];
             self.patient.birthday = birthdayString;
             self.patient.personName = self.nameTextField.text;
             self.patient.gender = gender;
@@ -248,6 +265,28 @@
 }
 
 #pragma mark - Private Method
+- (NSString *)getAgeFromBirthday:(NSString *)dateStr {
+    NSString *year = [dateStr substringWithRange:NSMakeRange(0, 4)];
+    NSString *month = [dateStr substringWithRange:NSMakeRange(5, 2)];
+    NSString *day = [dateStr substringWithRange:NSMakeRange(dateStr.length-2, 2)];
+    NSLog(@"出生于%@年%@月%@日", year, month, day);
+    
+    NSDate *nowDate = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierISO8601];
+    NSDateComponents *compomemts = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitWeekday | NSCalendarUnitDay fromDate:nowDate];
+    NSInteger nowYear = compomemts.year;
+    NSInteger nowMonth = compomemts.month;
+    NSInteger nowDay = compomemts.day;
+    NSLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
+    
+    // 计算年龄
+    NSInteger userAge = nowYear - year.intValue - 1;
+    if ((nowMonth > month.intValue) || (nowMonth == month.intValue && nowDay >= day.intValue)) {
+        userAge++;
+    }
+    NSLog(@"用户年龄是%ld",userAge);
+    return [NSString stringWithFormat:@"%ld",userAge];
+}
 //时间戳字符串转化为日期或时间
 - (NSString *)stringFromTimeIntervalString:(NSString *)timeString dateFormat:(NSString*)dateFormat
 {

@@ -11,7 +11,7 @@
 #import "ChooseDepartmentView.h"
 #import "UIView+Tap.h"
 #import "DepartmentModel.h"
-@interface EditMachineViewController ()
+@interface EditMachineViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIView *departmentView;
 @property (weak, nonatomic) IBOutlet UILabel *departmentNameLabel;
@@ -36,8 +36,15 @@
         }];
         [view showInWindowWithBackgoundTapDismissEnable:YES];
     }];
+    self.nameTextField.delegate = self;
 }
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger proposedNewLength = textField.text.length - range.length + string.length;
+    if (proposedNewLength > 10) {
+        return NO;//限制长度
+    }
+    return YES;
+}
 /*
 #pragma mark - Navigation
 

@@ -10,7 +10,7 @@
 #import "UIView+TYAlertView.h"
 #import "TaskModel.h"
 #define LineHeight 52
-@interface TaskDetailView()
+@interface TaskDetailView()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *treatInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *patientInfoHeight;
 
@@ -36,6 +36,25 @@
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.noteTextView.delegate = self;
+    self.suggestTextView.delegate = self;
+}
+#pragma mark - Text View Delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if (textView == self.noteTextView) {
+        NSUInteger proposedNewLength = textView.text.length - range.length + text.length;
+        if (proposedNewLength >50) {
+            return NO;//限制长度
+        }
+        return YES;
+    } else if (textView == self.suggestTextView) {
+        NSUInteger proposedNewLength = textView.text.length - range.length + text.length;
+        if (proposedNewLength >200) {
+            return NO;//限制长度
+        }
+        return YES;
+    }
+    return YES;
 }
 - (IBAction)cancelAction:(id)sender {
     [self hideView];
@@ -45,7 +64,7 @@
 
     self.medicalNumLabel.text = medicalNumberString;
     self.nameLabel.text = [NSString stringWithFormat:@"姓名:%@",self.model.patient.personName];
-    NSString *address = (self.model.patient.treatAddress == nil) ? @"-":self.model.patient.treatAddress;
+    NSString *address = ([self.model.patient.treatAddress length] == 0) ? @"-":self.model.patient.treatAddress;
     self.treatAddressLabel.text = [NSString stringWithFormat:@"位置:%@",address];
     NSString *gender = (self.model.patient.gender == nil) ? @"-" :self.model.patient.gender;
     self.genderLabel.text = [NSString stringWithFormat:@"性别:%@",gender];
@@ -125,12 +144,17 @@
                 break;
             case TaskState_Treating:
                 [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:1];
-                [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:2];
+                if (self.model.machine.name) {
+                    [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:2];
+                }
                 break;
             case TaskState_Finished:
                 [paramList insertObject:@{@"showName":@"执行护士",@"value":self.model.operatorName} atIndex:1];
                 [paramList insertObject:@{@"showName":@"治疗设备",@"value":self.model.solution.machineTypeName} atIndex:2];
-                [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:3];
+                if (self.model.machine.name) {
+                    [paramList insertObject:@{@"showName":@"设备名称",@"value":self.model.machine.name} atIndex:3];
+                }
+
                 break;
             default:
                 break;
@@ -155,6 +179,7 @@
         UILabel *firstLabel = [[UILabel alloc]initWithFrame:CGRectMake(30, 16, 260, 21)];
         firstLabel.textColor = UIColorFromHex(0x212121);
         firstLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
+        firstLabel.adjustsFontSizeToFitWidth = YES;
         firstLabel.text = [NSString stringWithFormat:@"%@: %@",showName,value];
         [containView addSubview:firstLabel];
         
@@ -165,6 +190,7 @@
             UILabel *secondLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 16, 260, 21)];
             secondLabel.textColor = UIColorFromHex(0x212121);
             secondLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightThin];
+            secondLabel.adjustsFontSizeToFitWidth = YES;
             secondLabel.text = [NSString stringWithFormat:@"%@: %@",showName,value];
             [containView addSubview:secondLabel];
         }

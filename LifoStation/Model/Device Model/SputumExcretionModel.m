@@ -86,7 +86,6 @@
 - (NSString *)state {
     if (self.outPhlemState == MachineStateRunning || self.fuzzyState == MachineStateRunning || self.attractState == MachineStateRunning) {
         return [NSString stringWithFormat:@"%ld",MachineStateRunning];
-//        return @"0";
     } else if (self.outPhlemState == MachineStatePause || self.fuzzyState == MachineStatePause) {
         return [NSString stringWithFormat:@"%ld",MachineStatePause];
 

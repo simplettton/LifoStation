@@ -8,7 +8,7 @@
 
 #import "AddAdviceView.h"
 #import "UIView+TYAlertView.h"
-@interface AddAdviceView()
+@interface AddAdviceView()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
@@ -17,10 +17,7 @@
     if (self = [super init]) {
         AddAdviceView *view = [AddAdviceView createViewFromNib];
         if (content) {
-            view.titleLabel.text = @"编辑医嘱";
             view.textView.text = content;
-        } else {
-            view.titleLabel.text = @"添加医嘱";
         }
         view.returnEvent = returnEvent;
         return view;
@@ -33,8 +30,11 @@
 - (IBAction)saveAction:(id)sender {
     if (self.textView.text.length>0) {
         self.returnEvent(self.textView.text);
+        [self hideView];
+    } else {
+        [BEProgressHUD showMessage:@"输入信息不可为空"];
     }
-    [self hideView];
+
 }
 
 - (void)awakeFromNib {
@@ -44,8 +44,18 @@
 - (void)initAll {
     _textView.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     _textView.layer.borderWidth = 0.5f;
+    _textView.delegate = self;
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self endEditing:YES];
+}
+#pragma mark - TextView Delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    // Check for total length
+    NSUInteger proposedNewLength = textView.text.length - range.length + text.length;
+    if (proposedNewLength > 200) {
+        return NO;//限制长度
+    }
+    return YES;
 }
 @end

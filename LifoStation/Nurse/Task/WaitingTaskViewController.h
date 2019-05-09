@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WaitingTaskViewController : UIViewController
-
+@interface WaitingTaskViewController : UIViewController<UISearchBarDelegate>
+- (void)refresh;
 @end

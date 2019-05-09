@@ -93,6 +93,7 @@
     
 //    [self connectMQTT];
 
+
     if (self.machine) {
         [datas addObject:self.machine];
         [cpuids addObject:self.machine.cpuid];
@@ -104,6 +105,16 @@
     }
     self.manager.delegate = self;
     
+}
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    /** 关闭报警信息隐藏整个报警的tableview */
+    BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
+    if (!isAlertSwitchOn) {
+        //留下底边框横线
+        self.alertViewHeight.constant = 0.5;
+//        self.alertView.hidden = YES;
+    }
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -237,10 +248,15 @@
             [self updateCellAtIndex:index withModel:machine];
             
         } else if ([code integerValue] == 0x90) {
+            NSString *currentState = machine.state;
             machine.msg_treatParameter = content;
-            /** 收到参数包代表已授权 */
-            machine.hasLicense = YES;
-            [self reloadItemAtIndex:index];
+            NSString *newState = [[MachineParameterTool sharedInstance]getMachineState:machine];
+            //屏蔽电疗有实时包数据还发参数包
+            if (!([currentState integerValue] == MachineStateRunning && [newState integerValue] == MachineStateRunning)) {
+                /** 收到参数包代表已授权 */
+                machine.hasLicense = YES;
+                [self reloadItemAtIndex:index];
+            }
             
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
@@ -283,10 +299,7 @@
                 machine.msg_alertMessage = content[@"ErrMsg"];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
                 UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-                UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
-                UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
-                UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
-                alertLabel.text = machine.msg_alertMessage;
+
                 //边框橙色
                 cell.layer.borderWidth = 2;
                 cell.layer.borderColor =  UIColorFromHex(0xFBA526).CGColor;
@@ -332,10 +345,13 @@
     /** 获取alertView */
     NSDictionary *dataDic = timer.userInfo;
     NSInteger index = [dataDic[@"index"]integerValue];
+    MachineModel *machine = dataDic[@"machine"];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
+    alertLabel.text = machine.msg_alertMessage;
     
     /** 报警信息置顶 */
     [bodyContentView bringSubviewToFront:alertView];

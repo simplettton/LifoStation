@@ -8,7 +8,7 @@
 
 #import "AddLocationView.h"
 #import "UIView+TYAlertView.h"
-@interface AddLocationView()
+@interface AddLocationView()<UITextFieldDelegate>
 @property (nonatomic, assign) BOOL isAddMode;
 @property (nonatomic, strong) NSDictionary *dataDic;
 
@@ -29,7 +29,7 @@
     [self initAll];
 }
 - (void)initAll {
-
+    self.nameTextField.delegate = self;
 }
 - (instancetype)initWithDic:(NSDictionary *)dic return:(returnBlock)returnEvent {
     if (self = [super init]) {
@@ -48,4 +48,14 @@
     }
     return self;
 }
+#pragma mark - TextField Delegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+        // Check for total length
+        NSUInteger proposedNewLength = textField.text.length - range.length + string.length;
+        if (proposedNewLength > 8) {
+            return NO;//限制长度
+        }
+        return YES;
+}
+
 @end

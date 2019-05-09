@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger,MachineState) {
     MachineStatePause   = 1,    //暂停中
     MachineStateStop    = 2,    //空闲中
     MachineStateNull    = 3,    //空
-    MachineStateOffLine = 0xff      //离线
+    MachineStateOffLine = 0x7f127      //离线
 };
 typedef NS_ENUM(NSInteger,TaskState) {
     TaskState_WaittingQueue = 2,    //排队中
@@ -41,7 +41,8 @@ typedef NS_ENUM(NSInteger,MachineType)
     MachineType_HighEnergyInfrared = 0x1069,     //高能红外
     MachineType_NegativePressure = 17,   //负压吸引器
     MachineType_SputumExcretion = 43263,   //排痰
-    MachineType_Elect = 56833   //电疗
+    MachineType_Elect = 56833,   //电疗
+    MachineType_Magnetic = 538       //脉冲磁
 };
 
 @interface Constant : NSObject

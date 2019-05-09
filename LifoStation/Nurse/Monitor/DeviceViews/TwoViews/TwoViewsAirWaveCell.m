@@ -78,8 +78,8 @@
     /** 更新当前deviceView */
     if (!self.deviceView) {
         NSError *error;
-        AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:&error];
-        AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machineParameter];
+
+        AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machine];
         CGFloat width = self.contentView.bounds.size.width;
         bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
         [self.bodyContentView addSubview:bodyView];
@@ -87,10 +87,7 @@
         
         //alertview置顶
         [self.bodyContentView bringSubviewToFront:self.alertView];
-    } else {
-        [self.deviceView resetBodyPartColor:machine];
-        [self.deviceView updateViewWithModel:machine];
-    }
+    } 
     
     
     //信息展示
@@ -116,6 +113,7 @@
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
+                    [self.deviceView updateViewWithModel:machine];
                     /** 显示时间ShowTime 秒为单位 */
                     machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
                 } else {                //刚开始没有realtimedata 用参数信息顶替
@@ -124,6 +122,7 @@
                         [self configureParameterViewWithData:paramArray];
                     }
                     machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+                    [self.deviceView resetBodyPartColor:machine];
                 }
 
                 break;
@@ -136,7 +135,6 @@
                     }
                 }
                 [self.deviceView resetBodyPartColor:machine];
-                [self.deviceView updateViewWithModel:machine];
                 /** 显示时间TreatTime分钟为单位 */
                 machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 break;
@@ -149,7 +147,6 @@
                     }
                 }
                 [self.deviceView resetBodyPartColor:machine];
-                [self.deviceView updateViewWithModel:machine];
                 /** 显示时间 */
                 if(machine.msg_realTimeData) {
                     machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];

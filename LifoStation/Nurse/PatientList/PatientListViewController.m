@@ -19,6 +19,7 @@
 @interface PatientListViewController ()<GHDropMenuDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
 @end
 
 @implementation PatientListViewController
@@ -37,6 +38,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     if (datas) {
         if (self.patient) {
             for (PatientModel *patient in datas) {
@@ -164,20 +166,16 @@
                                          {
                                              self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
-//                                             [self hideNodataView];
+                                             self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
+                                            
+                                             
                                              self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
-                                             if (isFilteredList) {
-                                                 [BEProgressHUD showMessage:@"没有找到该病人"];
-                                             }else{
-//                                                 [self showNodataViewWithTitle:@"暂无记录"];
-                                                 [BEProgressHUD showMessage:@"暂无记录"];
-                                             }
-                                             
+                                             self.noDataView.hidden = NO;
                                          }
                                          
                                      }else{
@@ -255,6 +253,13 @@
     
 }
 #pragma mark - SearchBar delegate
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSUInteger proposedNewLength = searchBar.text.length - range.length + text.length;
+    if (proposedNewLength > 30) {
+        return NO;//限制长度
+    }
+    return YES;
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchBar.text.length == 0) {
         [self refresh];

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProcessingTaskViewController : UIViewController
-
+@interface ProcessingTaskViewController : UIViewController<UISearchBarDelegate>
+- (void)refresh;
 @end

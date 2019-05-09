@@ -54,8 +54,9 @@
     
     
     self.ageLabel.text = self.model.age;
-    self.treatAddressLabel.text = self.model.treatAddress;
-    self.phoneNumberLabel.text = self.model.phoneNumber;
+    self.treatAddressLabel.text = [self.model.treatAddress length] > 0 ? self.model.treatAddress : @"-";
+    
+    self.phoneNumberLabel.text = [self.model.phoneNumber length] > 0 ? self.model.phoneNumber : @"-";
     
     if([self.model.medicalNumber length] > 18 ) {
         self.firstLineHeight.constant = 75;
