@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSString *treatTime;
 @property (nonatomic, strong) NSString *showTime;
 
+@property (nonatomic, assign) BOOL isTemperatureOpen;//感应温度开关
+
 @property (nonatomic, strong) NSString *temperature;//实时包为人体温度，参数包为设定温度
 @property (nonatomic, strong) NSString *energyLevel;//能量
 @property (nonatomic, strong) NSString *dosage;//剂量

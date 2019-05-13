@@ -44,12 +44,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if ([Constant sharedInstance].manager) {
-        [[Constant sharedInstance].manager disconnectWithDisconnectHandler:nil];
+        MQTTSessionManager *manager =  [Constant sharedInstance].manager;
+        manager.subscriptions = nil;
+        [manager disconnectWithDisconnectHandler:nil];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

@@ -75,10 +75,8 @@
         if (self.patient.birthday.length > 0) {
             self.birthdayLabel.text = [self stringFromTimeIntervalString:self.patient.birthday dateFormat:@"yyyy-MM-dd"];
         }
-
         self.treatDateLabel.text = [self stringFromTimeIntervalString:self.patient.registeredDate dateFormat:@"yyyy-MM-dd"];
     }
-    
     
     if (self.patient.gender) {
         NSInteger selectedIndex = [genderArray indexOfObject:self.patient.gender];

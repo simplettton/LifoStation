@@ -95,6 +95,15 @@
 
 
     if (self.machine) {
+        if (self.machine.alertTimer) {
+            self.machine.msg_alertMessage = nil;
+            [self.machine.alertTimer invalidate];
+            self.machine.alertTimer = nil;
+        }
+        if (self.machine.outTimeTimer) {
+            [self.machine.outTimeTimer invalidate];
+            self.machine.outTimeTimer = nil;
+        }
         [datas addObject:self.machine];
         [cpuids addObject:self.machine.cpuid];
         [self.collectionView reloadData];
@@ -137,6 +146,13 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //mqtt
     [self.manager removeObserver:self forKeyPath:@"state" context:nil];
+    
+    //退出界面是关闭声音
+    if (self.soundTimer) {
+        //取消声音提示定时器
+        [self invalidateTimer:self.soundTimer];
+    }
+    [self closeSounds:nil];
 }
 #pragma mark - MQTT
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -245,6 +261,7 @@
         MachineModel *machine = [datas objectAtIndex:index];
         if ([code integerValue] == 0x91) {
             machine.msg_realTimeData = content;
+            machine.isonline = YES;
             [self updateCellAtIndex:index withModel:machine];
             
         } else if ([code integerValue] == 0x90) {
@@ -263,6 +280,11 @@
             NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
             machine.isonline = [isOnline boolValue];
             machine.hasLicense = [hasLicense boolValue];
+            if (machine.isonline) {
+                [BEProgressHUD showMessage:[NSString stringWithFormat:@"%@-%@-上线",machine.departmentName,machine.name]];
+            } else {
+                [BEProgressHUD showMessage:[NSString stringWithFormat:@"%@-%@-下线",machine.departmentName,machine.name]];
+            }
             [self reloadItemAtIndex:index];
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
@@ -380,7 +402,6 @@
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
     alertView.hidden = YES;
     
-    
 }
 - (void)closeSounds:(NSTimer *)timer {
     if ([_player isPlaying]) {
@@ -433,18 +454,20 @@
             break;
     }
     /** 左下 */
-//    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     UIView *focusView = [cell.contentView viewWithTag:FocusViewTag];
     UILabel *leftTimeLabel = [focusView viewWithTag:TimeLabelTag];
-//    leftTimeLabel.text = [self getHourAndMinuteFromSeconds:showTime];
     leftTimeLabel.text = [[MachineParameterTool sharedInstance]getTimeShowingText:machine];
     
     /** 图表 */
     NSString *machineType = machine.groupCode;
     if ([machineType integerValue] == MachineType_Light) {
-        [self refreshChartAtIndex:index withMachine:machine];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self refreshChartAtIndex:index withMachine:machine];
+        }
     }
     /** 中间视图 */
     if ([machineType integerValue] == MachineType_AirWave) {
@@ -501,63 +524,28 @@
 #pragma mark - chart
 - (void)refreshChartAtIndex:(NSInteger)index withMachine:(MachineModel *)machine {
     
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//    UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
-//    //    AAChartView *chartView = (AAChartView *)[bodyContentView viewWithTag:ChartViewTag
-//    //                              ];
-//    UIView *view = [bodyContentView viewWithTag:ChartViewTag];
-//    AAChartView *chartView;
-//    if (!machine.chartDataArray) {
-//        machine.chartDataArray = [[NSMutableArray alloc]initWithCapacity:20];
-//        chartView = [[AAChartView alloc]initWithFrame:view.frame];
-//        [bodyContentView addSubview:chartView];
-//        view = chartView;
-//        _aaview = chartView;
-//    }
-//    NSNumber *data = [[MachineParameterTool sharedInstance]getChartDataWithModel:machine];
-//    [machine.chartDataArray addObject:data];
-//    //已经有图表数据则更新，没有图标数据则新建
-//    if ([machine.chartDataArray count]>1) {
-//        if ([machine.chartDataArray count]>15) {
-//            [machine.chartDataArray removeObjectAtIndex:0];
-//        }
-//        NSArray *aaChartModelSeriesArray = @[@{
-//                                                 @"name":@"temperature",
-//                                                 @"type":@"spline",
-//                                                 @"data":machine.chartDataArray
-//                                                 },];
-//        //        [((AAChartView *)view) aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
-//        [_aaview aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
-//
-//    }
-//    else {
-//        if (data) {
-//            AAChartModel *chartModel= AAObject(AAChartModel)
-//            .chartTypeSet(AAChartTypeSpline)
-//            .titleSet(@"")
-//            .subtitleSet(@"")
-//            .yAxisLineWidthSet(@0)//Y轴轴线线宽为0即是隐藏Y轴轴线
-//            //            .colorsThemeSet(@[@"#fe117c",@"#ffc069",@"#06caf4",@"#7dffc0"])//设置主体颜色数组
-//            .markerRadiusSet(@0)    //圆点的大小
-//            .yAxisVisibleSet(NO)
-//            .xAxisVisibleSet(NO)
-//            .yAxisTitleSet(@"")//设置 Y 轴标题
-//            .tooltipValueSuffixSet(@"℃")//设置浮动提示框单位后缀
-//            .yAxisGridLineWidthSet(@0)//y轴横向分割线宽度为0(即是隐藏分割线)
-//
-//            .legendEnabledSet(NO)//下面按钮是否显示
-//            .seriesSet(@[@{
-//                             @"name":@"temperature",
-//                             @"data":machine.chartDataArray,
-//                             @"color":@"#f8b273"
-//                             },]);
-//            chartModel.animationType = AAChartAnimationBounce;
-//            /*图表视图对象调用图表模型对象,绘制最终图形*/
-//            //            [((AAChartView *)view) aa_drawChartWithChartModel:chartModel];
-//            [_aaview aa_drawChartWithChartModel:chartModel];
-//        }
-//    }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    if (!machine.chartDataArray) {
+        machine.chartDataArray = [[NSMutableArray alloc]initWithCapacity:20];;
+    }
+    NSNumber *data = [[MachineParameterTool sharedInstance]getChartDataWithModel:machine];
+    [machine.chartDataArray addObject:data];
+    //已经有图表数据则更新，没有图标数据则新建
+    if ([machine.chartDataArray count]>1) {
+        if ([machine.chartDataArray count]>15) {
+            [machine.chartDataArray removeObjectAtIndex:0];
+        }
+        NSArray *aaChartModelSeriesArray = @[@{
+                                                 @"name":@"temperature",
+                                                 @"type":@"spline",
+                                                 @"data":machine.chartDataArray
+                                                 },];
+        SingleElectCell *cell1 = (SingleElectCell *)cell;
+        [cell1.chartView aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
+
+    }
     
 }
 #pragma mark - AlertSounds
@@ -728,7 +716,10 @@
                                                  [cpuids addObject:machine.cpuid];
                                                  [self subcribeMachine:machine];
                                              }
-                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                             //等所有cell设置好再刷新数据？
+                                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                 [self refreshParam];
+                                             }); dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.collectionView reloadData];
                                              });
                                          }
@@ -736,6 +727,12 @@
                                      
                                  } failure:nil];
     
+}
+- (void)refreshParam {
+    /** 刷新设备参数 */
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/DevicesController/ReflashParam") params:@{} hasToken:YES success:^(HttpResponse *responseObject) {
+        
+    } failure:nil];
 }
 - (void)endRefresh {
     if (page == 0) {

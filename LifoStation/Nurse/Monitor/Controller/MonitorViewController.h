@@ -18,3 +18,4 @@ typedef  NS_ENUM(NSInteger,ShowViewType){
 @interface MonitorViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource>
 
 @end
+

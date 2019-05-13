@@ -100,7 +100,7 @@ typedef void(^funcBlock)(NSString *deviceName);
     
     if (machine.isonline) {
         /** 右上 */
-        /** 实时信息和lefttime更新 */
+        /** 实时信息 */
         switch ([machine.state integerValue]) {
             case MachineStateRunning:
                 
@@ -109,19 +109,23 @@ typedef void(^funcBlock)(NSString *deviceName);
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
-                    /** 显示时间ShowTime 秒为单位 */
-//                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
                 } else {                //刚开始没有realtimedata 用参数信息顶替
                     NSArray *paramArray = [[MachineParameterTool sharedInstance]getParameter:machine.msg_treatParameter machine:machine];
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
-//                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 }
                 if (![self.deviceView isAnimating]) {
                     [self.deviceView startAnimating];
                 }
-                self.chartView.hidden = NO;
+                if ([machine.groupCode integerValue] == MachineType_Light) {
+                    LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                    if (machineParameter.isTemperatureOpen) {
+                        self.chartView.hidden = NO;
+                    } else {
+                        self.chartView.hidden = YES;
+                    }
+                }
                 
                 break;
             case MachineStateStop:
@@ -136,9 +140,7 @@ typedef void(^funcBlock)(NSString *deviceName);
                     [self.deviceView stopAnimating];
                 }
                 self.chartView.hidden = YES;
-                
-                /** 显示时间TreatTime分钟为单位 */
-//                machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+
                 break;
             case MachineStatePause:
                 /** 参数修改信息 修改了state 多了treattime 和 state*/
@@ -151,11 +153,15 @@ typedef void(^funcBlock)(NSString *deviceName);
                 if ([self.deviceView isAnimating]) {
                     [self.deviceView stopAnimating];
                 }
-                /** 显示时间 */
-                if(machine.msg_realTimeData) {
-//                    machine.leftTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+
+                if ([machine.groupCode integerValue] == MachineType_Light) {
+                    LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                    if (machineParameter.isTemperatureOpen) {
+                        self.chartView.hidden = NO;
+                    } else {
+                        self.chartView.hidden = YES;
+                    }
                 }
-                self.chartView.hidden = NO;
                 
                 break;
             default:
@@ -348,7 +354,10 @@ typedef void(^funcBlock)(NSString *deviceName);
     
     /** 图表视图 */
     if ([self.machine.groupCode integerValue] == MachineType_Light) {
-        [self initChartView];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:self.machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self initChartView];
+        }
     } else {
         self.chartView = nil;
     }
@@ -365,7 +374,10 @@ typedef void(^funcBlock)(NSString *deviceName);
     
     /** 图表视图 */
     if ([self.machine.groupCode integerValue] == MachineType_Light) {
-        [self updateChartView];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:self.machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self updateChartView];
+        }
     } else {
         self.chartView = nil;
     }
@@ -417,7 +429,7 @@ typedef void(^funcBlock)(NSString *deviceName);
                                                  },];
         [self.chartView aa_onlyRefreshTheChartDataWithChartModelSeries:aaChartModelSeriesArray];
     } else {
-        [self initChartView];
+            [self initChartView];
     }
     
 }

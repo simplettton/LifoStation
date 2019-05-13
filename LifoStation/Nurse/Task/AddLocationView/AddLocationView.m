@@ -19,8 +19,12 @@
 }
 - (IBAction)saveAction:(id)sender {
     NSString *name = self.nameTextField.text;
-    self.returnEvent(name);
-    [self hideView];
+    if (name.length == 0) {
+        [BEProgressHUD showMessage:@"输入信息不可为空"];
+    } else {
+        self.returnEvent(name);
+        [self hideView];
+    }
 }
 
 - (void)awakeFromNib {

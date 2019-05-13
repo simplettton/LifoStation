@@ -19,7 +19,8 @@
               @"energyLevel":@"Power",
               @"dosage":@"PowerPercent",
               @"mainLightSource":@"MainLightSource",
-              @"appendLightSource":@"AppendLightSource"
+              @"appendLightSource":@"AppendLightSource",
+              @"isTemperatureOpen":@"IsTemperatureOpen"
               }];
 }
 + (BOOL)propertyIsOptional:(NSString *)propertyName {

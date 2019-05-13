@@ -111,7 +111,14 @@
                 if (![self.deviceView isAnimating]) {
                     [self.deviceView startAnimating];
                 }
-                self.chartView.hidden = NO;
+                if ([machine.groupCode integerValue] == MachineType_Light) {
+                    LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                    if (machineParameter.isTemperatureOpen) {
+                        self.chartView.hidden = NO;
+                    } else {
+                        self.chartView.hidden = YES;
+                    }
+                }
                 break;
             case MachineStateStop:
                 /** 参数修改信息 修改了state 多了treattime 和 state*/
@@ -126,7 +133,7 @@
                 }
                 /** 隐藏chartview */
                 self.chartView.hidden = YES;
-                
+    
 
                 break;
             case MachineStatePause:
@@ -141,7 +148,16 @@
                     [self.deviceView stopAnimating];
                 }
 
-                self.chartView.hidden = NO;
+               
+                
+                if ([machine.groupCode integerValue] == MachineType_Light) {
+                    LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                    if (machineParameter.isTemperatureOpen) {
+                        self.chartView.hidden = NO;
+                    } else {
+                        self.chartView.hidden = YES;
+                    }
+                }
                 break;
             default:
                 break;
@@ -333,7 +349,10 @@
     }
     /** 图表视图 */
     if ([self.machine.groupCode integerValue] == MachineType_Light) {
-        [self initChartView];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:self.machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self initChartView];
+        }
     } else {
         self.chartView = nil;
     }
@@ -350,7 +369,10 @@
     self.deviceView.animatedImage = image;
     /** 图表视图 */
     if ([self.machine.groupCode integerValue] == MachineType_Light) {
-        [self updateChartView];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:self.machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self updateChartView];
+        }
     } else {
         self.chartView = nil;
     }

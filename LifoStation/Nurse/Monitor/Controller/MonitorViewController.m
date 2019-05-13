@@ -556,7 +556,10 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     /** 图表 */
     NSString *machineType = machine.groupCode;
     if ([machineType integerValue] == MachineType_Light) {
-        [self refreshChartAtIndex:index withMachine:machine];
+        LightModel *machineParameter = [[LightModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+        if (machineParameter.isTemperatureOpen) {
+            [self refreshChartAtIndex:index withMachine:machine];
+        }
     }
     
     /** 中间视图 */
