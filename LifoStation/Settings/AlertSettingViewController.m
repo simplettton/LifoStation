@@ -17,11 +17,11 @@
 @property (weak, nonatomic) IBOutlet UIView *alertSwitchLine;
 @property (weak, nonatomic) IBOutlet UIView *soundSwitchLine;
 @property (weak, nonatomic) IBOutlet UIView *volumeLine;
-/// 系统提供的获取音量的控件
+// 系统提供的获取音量的控件
 @property (nonatomic, strong) MPVolumeView *volumeView;
-/// 从上一个控件遍历得到的 Slider
+// 从上一个控件遍历得到的 Slider
 @property (nonatomic, weak) UISlider *mpVolumeSlider;
-/// 自己的slider
+// 自己的slider
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 
 /**
@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
     /** 报警提示 */
     BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
     JTMaterialSwitchState state;
@@ -45,8 +46,8 @@
         state = JTMaterialSwitchStateOff;
     }
     JTMaterialSwitch *switch1 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:state];
-
-    switch1.center = CGPointMake(720, 20);
+    CGFloat width = 720 * kScreenWidth / 768;
+    switch1.center = CGPointMake(width, 20);
     [self.alertSwitchLine addSubview:switch1];
     self.alertSwitch = switch1;
 
@@ -61,7 +62,7 @@
         state = JTMaterialSwitchStateOff;
     }
     JTMaterialSwitch *switch2 = [[JTMaterialSwitch alloc]initWithSize:JTMaterialSwitchSizeNormal style:JTMaterialSwitchStyleDefault state:state];
-    switch2.center = CGPointMake(720, 20);
+    switch2.center = CGPointMake(width, 20);
     [self.soundSwitchLine addSubview:switch2];
     self.soundSwitch = switch2;
     [self.soundSwitch addTarget:self action:@selector(didChangeSwitch:) forControlEvents:UIControlEventAllEvents];

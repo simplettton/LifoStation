@@ -27,12 +27,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
     NSString *hospital = [UserDefault objectForKey:@"Hospital"];
     NSString *name = [UserDefault objectForKey:@"PersonName"];
     NSString *department = [NSString stringWithFormat:@" %@",[UserDefault objectForKey:@"Department"]];
     self.nameLabel.text = name;
     self.hospitalAndDepartmentLabel.text = AddStr(hospital,department );
     [self addTap];
+    
 }
 - (void)addTap {
     [self.changePasswordView addTapBlock:^(id obj) {
@@ -52,7 +54,7 @@
         [self performSegueWithIdentifier:@"ShowAlertSetting" sender:nil];
     }];
     [self.aboutView addTapBlock:^(id obj) {
-        [self performSegueWithIdentifier:@"ShowAboutInfomation" sender:nil];
+        [self performSegueWithIdentifier:@"ShowAboutInformation" sender:nil];
     }];
 }
 - (void)presentLogoutAlert {

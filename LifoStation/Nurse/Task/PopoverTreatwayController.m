@@ -49,7 +49,6 @@
 //                          @{@"showname":@"治疗模式",@"value":@"标准治疗"},
 //                          @{@"showname":@"治疗时间",@"value":@"01:20"}];
 //    datas = [testData mutableCopy];
-    NSMutableDictionary *noteDic = [[NSMutableDictionary alloc]initWithCapacity:20];
 
     self.type = self.treatParamDic[@"machinetype"];
     

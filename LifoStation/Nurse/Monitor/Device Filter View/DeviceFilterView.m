@@ -221,7 +221,7 @@
             cell.rightArrow.hidden = YES;
         }
         //类型是否打钩
-        NSString *typeName = self.types[indexPath.row];
+//        NSString *typeName = self.types[indexPath.row];
         cell.selectButton.hidden = YES;
 //        if ([self.selectedTypes containsObject:typeName]) {
 //            [cell.selectButton setImage:[UIImage imageNamed:@"selected_blue"] forState:UIControlStateNormal];
@@ -267,13 +267,13 @@
         //1.科室项
         [self.departments addObject:departmentName];
         [self.departmentIds addObject:model.departmentId];
-        BOOL isSelectedDepartment = YES;
-        for (FilterDeviceModel *device in model.devices) {
+//        BOOL isSelectedDepartment = YES;
+//        for (FilterDeviceModel *device in model.devices) {
 //            if (![self isArray:_selectedDevices contain:device.name]) {
 //                isSelectedDepartment = NO;
 //                break;
 //            }
-        }
+//        }
 //        if (isSelectedDepartment) {
 //            if (![_selectedDepartments containsObject:departmentName]) {
 //                [_selectedDepartments addObject:departmentName];
@@ -314,7 +314,7 @@
     
     NSString* departmentName = _departments[indexPath.row];
 
-    DepartmentDeviceModel *model = self.dataArray[indexPath.row];
+//    DepartmentDeviceModel *model = self.dataArray[indexPath.row];
 
     if (![_selectedDepartments containsObject:departmentName]){
         [_selectedDepartments addObject:departmentName];

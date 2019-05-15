@@ -14,8 +14,8 @@
 
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self initRootViewController];
     [self configureNetWorkSetting];
+    [self initRootViewController];
     return YES;
 }
 - (void)initRootViewController {

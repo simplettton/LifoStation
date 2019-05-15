@@ -104,14 +104,14 @@
     }
     //有正在运行的
     if ([stateArray containsObject:[NSString stringWithFormat:@"%ld",(long)MachineStateRunning]]) {
-        return [NSString stringWithFormat:@"%ld",MachineStateRunning];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateRunning];
     } else if ([stateArray containsObject:[NSString stringWithFormat:@"%ld",(long)MachineStatePause]]) {
-        return [NSString stringWithFormat:@"%ld",MachineStatePause];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStatePause];
     } else if ([stateArray containsObject:[NSString stringWithFormat:@"%ld",(long)MachineStateStop]]) {
-        return [NSString stringWithFormat:@"%ld",MachineStateStop];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateStop];
         
     } else {
-        return [NSString stringWithFormat:@"%ld",MachineStateNull];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateNull];
     }
 
 }

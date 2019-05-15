@@ -232,8 +232,13 @@
             if ([self.phoneTextFiled.text length] > 0) {
                 self.patient.phoneNumber = self.phoneTextFiled.text;
             }
-            self.patient.age = [self getAgeFromBirthday:self.birthdayLabel.text];
-            self.patient.birthday = birthdayString;
+            if ([self.birthdayLabel.text length] > 0) {
+                 self.patient.birthday = birthdayString;
+                 self.patient.age = [self getAgeFromBirthday:self.birthdayLabel.text];
+            } else {
+                self.patient.age = @"0";
+            }
+            
             self.patient.personName = self.nameTextField.text;
             self.patient.gender = gender;
         }

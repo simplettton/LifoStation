@@ -23,22 +23,20 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *myChildViewControllers;
 
-
-
 @end
 
 @implementation TaskParentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"任务列表";
      UITextField * searchField = [_searchBar valueForKey:@"_searchField"];
     searchField.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     searchField.layer.borderWidth = 1.0;
     searchField.layer.cornerRadius = 5.0f;
-    self.searchBar.returnKeyType = UIReturnKeySearch;
-    
+    _searchBar.returnKeyType = UIReturnKeySearch;
     _searchButton.layer.borderColor = UIColorFromHex(0xcdcdcd).CGColor;
     _searchButton.layer.borderWidth = 1.0;
 
@@ -60,6 +58,7 @@
         self.scrollView .contentSize = CGSizeMake(self.dataArr.count*kScreenWidth, 0);
         [self.view bringSubviewToFront:self.pageMenu];
     }
+
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -68,7 +67,6 @@
     self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
 }
 - (void)initPageMenu {
     self.dataArr = @[@"排队中",@"治疗中",@"已完成"];
@@ -126,9 +124,7 @@
         }
         
     }
-    
 
-    
     
     // 如果该代理方法是由拖拽self.scrollView而触发，说明self.scrollView已经在用户手指的拖拽下而发生偏移，此时不需要再用代码去设置偏移量，否则在跟踪模式为SPPageMenuTrackerFollowingModeHalf的情况下，滑到屏幕一半时会有闪跳现象。闪跳是因为外界设置的scrollView偏移和用户拖拽产生冲突
     if (!self.scrollView.isDragging) { // 判断用户是否在拖拽scrollView

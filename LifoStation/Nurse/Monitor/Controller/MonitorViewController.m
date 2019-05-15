@@ -45,7 +45,6 @@
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
 
-
 #define ParameterViewTag 9999
 #define TimeLabelTag 8888
 #define FocusViewTag 7777

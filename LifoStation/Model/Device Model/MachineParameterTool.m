@@ -279,7 +279,7 @@ static MachineParameterTool *_instance;
                         return [self getHourAndMinuteFromSeconds:showTime];
                     } else {
                         //没有实时包则返回设置包的时间设置参数treatTime
-                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%d",[treatParameter.treatTime intValue]*60]];
                     }
                     
                 }
@@ -300,7 +300,7 @@ static MachineParameterTool *_instance;
             {
                 //服务器返回了msg_treatParameter[@"OutPhlegmTime"] 特殊处理
                 SputumExcretionModel *treatParameter = [[SputumExcretionModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%d",[treatParameter.treatTime intValue]*60]];
             }
                 break;
             case MachineType_Magnetic:

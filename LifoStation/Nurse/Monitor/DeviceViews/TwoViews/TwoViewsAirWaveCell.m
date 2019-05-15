@@ -77,7 +77,6 @@
     }
     /** 更新当前deviceView */
     if (!self.deviceView) {
-        NSError *error;
 
         AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machine];
         CGFloat width = self.contentView.bounds.size.width;

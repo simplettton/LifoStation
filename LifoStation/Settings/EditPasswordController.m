@@ -122,7 +122,7 @@
     
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     
-    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+    CC_MD5( cStr, (uint32_t)strlen(cStr), digest ); // This is the md5 call
     
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     

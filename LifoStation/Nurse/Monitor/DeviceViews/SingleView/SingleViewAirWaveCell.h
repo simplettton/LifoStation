@@ -26,5 +26,4 @@
 @property (nonatomic, assign) CellStyle style;
 
 - (void)configureWithModel:(MachineModel *)machine;
-- (void)updateDeviceImage:(NSString *)name;
 @end

@@ -80,7 +80,7 @@ static CGRect oldframe;
 + (void) pinchView:(UIPinchGestureRecognizer *)pinchGestureRecognizer
 {
     UIView *view = pinchGestureRecognizer.view;
-    CGFloat scale = pinchGestureRecognizer.scale;
+//    CGFloat scale = pinchGestureRecognizer.scale;
     
 //    //放大情况
 //    if(scale > 1.0){

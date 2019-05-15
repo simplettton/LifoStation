@@ -21,12 +21,22 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *remenberNameSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NetWorkTool sharedNetWorkTool]POST:RequestUrl(@"api/SystemInfoController/GetVersion") params:@{} hasToken:YES success:^(HttpResponse *responseObject) {
+        if ([responseObject.result integerValue] == 1) {
+            NSDictionary *dic = responseObject.content;
+            NSString *version = [dic objectForKey:@"SoftWaveFullVersion"];
+            self.versionLabel.text = [NSString stringWithFormat:@"当前版本%@",version];
+            
+        }
+    } failure:nil];
     
     //编辑框下横线
     [self setBorderWithView:self.userView top:NO left:NO bottom:YES right:NO borderColor:UIColorFromHex(0Xbbbbbb) borderWidth:1.0];
@@ -129,8 +139,8 @@
                                                  [UserDefault setObject:department forKey:@"Department"];
                                                  [UserDefault synchronize];
                                                  [self getMachineTypeList];
-                                                 [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
                                                  
+                                                 [self performSelector:@selector(initRootViewController:) withObject:controller afterDelay:0.25];
                                              }
                                          }
                                      }
@@ -168,7 +178,7 @@
                                  failure:nil];
 }
 - (void)initRootViewController:(UINavigationController *)controller {
-
+    [BEProgressHUD showLoading:@"正在登陆中"];
     //登录成功后保存账户信息
     [self saveUserInfo];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -179,7 +189,11 @@
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
                             myDelegate.window.rootViewController = controller;
-                        } completion:nil];
+                        } completion:^(BOOL finished) {
+                            if (finished) {
+                                [BEProgressHUD hideHUD];
+                            }
+                        }];
         [myDelegate.window makeKeyAndVisible];
         [BEProgressHUD hideHUD];
     });
@@ -203,7 +217,7 @@
     
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     
-    CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
+    CC_MD5( cStr, (uint32_t)strlen(cStr), digest ); // This is the md5 call
     
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     

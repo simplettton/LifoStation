@@ -32,6 +32,7 @@
     [super viewDidLoad];
     [self addTap];
     self.backToAdminView.hidden = !self.isAdminRole;
+    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeAll exceptViews:nil];
 }
 
 #pragma mark - hide navigation bar

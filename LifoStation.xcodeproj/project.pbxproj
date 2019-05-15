@@ -52,6 +52,7 @@
 		043BF5E3224DD1A300EE674C /* tixingbo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DA224DD1A300EE674C /* tixingbo2.png */; };
 		043BF5E4224DD1A300EE674C /* zhengxianbo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DB224DD1A300EE674C /* zhengxianbo2.png */; };
 		043BF5E5224DD1A300EE674C /* zhishubo2.png in Resources */ = {isa = PBXBuildFile; fileRef = 043BF5DC224DD1A300EE674C /* zhishubo2.png */; };
+		043E6B54228BFE4400AEF6F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E6B53228BFE4400AEF6F9 /* AboutViewController.m */; };
 		04436E9F226EA75D008EC19B /* TaskParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04436E9E226EA75D008EC19B /* TaskParameterModel.m */; };
 		0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7D721E5A4AD00F35353 /* PersonalRecordViewController.m */; };
 		0445C7DB21E5A53C00F35353 /* BaseSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0445C7DA21E5A53C00F35353 /* BaseSearchBar.m */; };
@@ -66,6 +67,31 @@
 		04626F8E224C9BD9006B963C /* NineElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F8C224C9BD9006B963C /* NineElectCell.xib */; };
 		046354B32269C04200D010E3 /* blight2.png in Resources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
 		046354B42269C09400D010E3 /* blight2.png in Sources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
+		046458F6228ABD0200D31A6A /* AAChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442C225F461000FDE2C9 /* AAChartView.m */; };
+		046458F7228ABD2D00D31A6A /* AASpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445F225F461000FDE2C9 /* AASpline.m */; };
+		046458F8228ABF5700D31A6A /* AAChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442A225F461000FDE2C9 /* AAChartModel.m */; };
+		046458FC228ABF9100D31A6A /* AAOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054433225F461000FDE2C9 /* AAOptions.m */; };
+		046458FE228ABFA800D31A6A /* AAPie.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054455225F461000FDE2C9 /* AAPie.m */; };
+		04645900228ABFB100D31A6A /* AALine.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054451225F461000FDE2C9 /* AALine.m */; };
+		04645902228ABFBC00D31A6A /* AAArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443B225F461000FDE2C9 /* AAArea.m */; };
+		04645904228ABFBC00D31A6A /* AAAreaspline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443D225F461000FDE2C9 /* AAAreaspline.m */; };
+		04645906228ABFCE00D31A6A /* AAColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054443225F461000FDE2C9 /* AAColumn.m */; };
+		04645908228ABFDF00D31A6A /* AABar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443F225F461000FDE2C9 /* AABar.m */; };
+		0464590A228ABFEA00D31A6A /* AACrosshair.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054445225F461000FDE2C9 /* AACrosshair.m */; };
+		0464590C228ABFF200D31A6A /* AALabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405444D225F461000FDE2C9 /* AALabels.m */; };
+		0464590E228ABFFA00D31A6A /* AAXAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054469225F461100FDE2C9 /* AAXAxis.m */; };
+		04645910228AC00300D31A6A /* AASeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445D225F461000FDE2C9 /* AASeries.m */; };
+		04645912228AC00300D31A6A /* AAStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054461225F461000FDE2C9 /* AAStyle.m */; };
+		04645914228AC00300D31A6A /* AASubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054463225F461000FDE2C9 /* AASubtitle.m */; };
+		04645916228AC00D00D31A6A /* AAChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054441225F461000FDE2C9 /* AAChart.m */; };
+		04645919228AC03600D31A6A /* AAMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054453225F461000FDE2C9 /* AAMarker.m */; };
+		0464591B228AC03F00D31A6A /* AAYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405446B225F461100FDE2C9 /* AAYAxis.m */; };
+		0464591D228AC04700D31A6A /* AALegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405444F225F461000FDE2C9 /* AALegend.m */; };
+		0464591F228AC04F00D31A6A /* AAAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054439225F461000FDE2C9 /* AAAnimation.m */; };
+		04645921228AC05700D31A6A /* AATooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054467225F461000FDE2C9 /* AATooltip.m */; };
+		04645923228AC05D00D31A6A /* AATitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054465225F461000FDE2C9 /* AATitle.m */; };
+		04645925228AC06800D31A6A /* AAPlotOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445B225F461000FDE2C9 /* AAPlotOptions.m */; };
+		04645927228AC07500D31A6A /* AADataLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054447225F461000FDE2C9 /* AADataLabels.m */; };
 		0465248221E6F1E800362D08 /* ReportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248121E6F1E800362D08 /* ReportTableViewController.m */; };
 		0465248621E746AE00362D08 /* TimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248521E746AE00362D08 /* TimeLineModel.m */; };
 		0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465248921E74D9900362D08 /* AlertTimeLineCell.m */; };
@@ -78,9 +104,6 @@
 		0469CC2A21E472D800D0302C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469CC2921E472D800D0302C /* BaseViewController.m */; };
 		0469F7EC2265B79E0061F69B /* AirwaveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469F7EB2265B79E0061F69B /* AirwaveModel.m */; };
 		046CA20D2244E52C00F61509 /* DeviceItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CA20C2244E52C00F61509 /* DeviceItemCell.xib */; };
-		046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37621DEFC450067BCB0 /* MachineListViewController.m */; };
-		046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37921DF32850067BCB0 /* MachineCell.m */; };
-		046CD37D21DF43340067BCB0 /* EditMachineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD37C21DF43340067BCB0 /* EditMachineViewController.m */; };
 		046CD37F21DF60870067BCB0 /* ChooseDepartmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046CD37E21DF60870067BCB0 /* ChooseDepartmentView.xib */; };
 		046CD38221DF632C0067BCB0 /* DepartmentItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD38121DF632C0067BCB0 /* DepartmentItemCell.m */; };
 		046CD38521DF635C0067BCB0 /* ChooseDepartmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 046CD38421DF635C0067BCB0 /* ChooseDepartmentView.m */; };
@@ -145,7 +168,6 @@
 		048563D7223745D000708DF2 /* DepartmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048563D6223745D000708DF2 /* DepartmentModel.m */; };
 		048563DA22378EDE00708DF2 /* PatientModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048563D922378EDE00708DF2 /* PatientModel.m */; };
 		0486819F22602FB200DCD09F /* HumidifierModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486819E22602FB200DCD09F /* HumidifierModel.m */; };
-		0486FA4C2283D24500654AA0 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486FA4B2283D24500654AA0 /* AboutTableViewController.m */; };
 		04882B2F21F5A61500F8EEB6 /* CALayer+XibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */; };
 		0489A1872272B1F7000E8D8B /* maicongci2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0489A1862272B1F6000E8D8B /* maicongci2.png */; };
 		04909A01226D6D850021160B /* NegativePressureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04909A00226D6D850021160B /* NegativePressureModel.m */; };
@@ -196,67 +218,6 @@
 		04FE94612264355C00FA6730 /* rlight.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04FE945E2264355A00FA6730 /* rlight.gif */; };
 		04FE94632264355C00FA6730 /* blight.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04FE94602264355B00FA6730 /* blight.gif */; };
 		04FE946522643A5600FA6730 /* rblight.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04FE946422643A5600FA6730 /* rblight.gif */; };
-		04FE9466226479D300FA6730 /* AAGlobalMacro.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405442F225F461000FDE2C9 /* AAGlobalMacro.h */; };
-		04FE946722647A0800FA6730 /* AAChartModel.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054429225F461000FDE2C9 /* AAChartModel.h */; };
-		04FE946822647A0800FA6730 /* AAChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442A225F461000FDE2C9 /* AAChartModel.m */; };
-		04FE946922647A1B00FA6730 /* AASeriesElement.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054434225F461000FDE2C9 /* AASeriesElement.h */; };
-		04FE946A22647A1B00FA6730 /* AASeriesElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054435225F461000FDE2C9 /* AASeriesElement.m */; };
-		04FE946B2264807E00FA6730 /* AAChartView.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405442B225F461000FDE2C9 /* AAChartView.h */; };
-		04FE946C2264807E00FA6730 /* AAChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442C225F461000FDE2C9 /* AAChartView.m */; };
-		04FE946D226480DC00FA6730 /* AAOptions.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054432225F461000FDE2C9 /* AAOptions.h */; };
-		04FE946E226480DC00FA6730 /* AAOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054433225F461000FDE2C9 /* AAOptions.m */; };
-		04FE946F2264811600FA6730 /* AAAnimation.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054438225F461000FDE2C9 /* AAAnimation.h */; };
-		04FE94702264811600FA6730 /* AAAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054439225F461000FDE2C9 /* AAAnimation.m */; };
-		04FE94712264811600FA6730 /* AAArea.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405443A225F461000FDE2C9 /* AAArea.h */; };
-		04FE94722264811600FA6730 /* AAArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443B225F461000FDE2C9 /* AAArea.m */; };
-		04FE94732264811600FA6730 /* AAAreaspline.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405443C225F461000FDE2C9 /* AAAreaspline.h */; };
-		04FE94742264811600FA6730 /* AAAreaspline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443D225F461000FDE2C9 /* AAAreaspline.m */; };
-		04FE94752264811600FA6730 /* AABar.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405443E225F461000FDE2C9 /* AABar.h */; };
-		04FE94762264811600FA6730 /* AABar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405443F225F461000FDE2C9 /* AABar.m */; };
-		04FE94772264811600FA6730 /* AAChart.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054440225F461000FDE2C9 /* AAChart.h */; };
-		04FE94782264811600FA6730 /* AAChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054441225F461000FDE2C9 /* AAChart.m */; };
-		04FE94792264811600FA6730 /* AAColumn.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054442225F461000FDE2C9 /* AAColumn.h */; };
-		04FE947A2264811600FA6730 /* AAColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054443225F461000FDE2C9 /* AAColumn.m */; };
-		04FE947B2264811600FA6730 /* AACrosshair.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054444225F461000FDE2C9 /* AACrosshair.h */; };
-		04FE947C2264811600FA6730 /* AACrosshair.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054445225F461000FDE2C9 /* AACrosshair.m */; };
-		04FE947D2264811600FA6730 /* AADataLabels.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054446225F461000FDE2C9 /* AADataLabels.h */; };
-		04FE947E2264811600FA6730 /* AADataLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054447225F461000FDE2C9 /* AADataLabels.m */; };
-		04FE947F2264811600FA6730 /* AAItemStyle.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054448225F461000FDE2C9 /* AAItemStyle.h */; };
-		04FE94802264811600FA6730 /* AAItemStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054449225F461000FDE2C9 /* AAItemStyle.m */; };
-		04FE94812264811600FA6730 /* AALabel.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405444A225F461000FDE2C9 /* AALabel.h */; };
-		04FE94822264811600FA6730 /* AALabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405444B225F461000FDE2C9 /* AALabel.m */; };
-		04FE94832264811600FA6730 /* AALabels.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405444C225F461000FDE2C9 /* AALabels.h */; };
-		04FE94842264811600FA6730 /* AALabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405444D225F461000FDE2C9 /* AALabels.m */; };
-		04FE94852264811600FA6730 /* AALegend.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405444E225F461000FDE2C9 /* AALegend.h */; };
-		04FE94862264811600FA6730 /* AALegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405444F225F461000FDE2C9 /* AALegend.m */; };
-		04FE94872264811600FA6730 /* AALine.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054450225F461000FDE2C9 /* AALine.h */; };
-		04FE94882264811600FA6730 /* AALine.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054451225F461000FDE2C9 /* AALine.m */; };
-		04FE94892264811600FA6730 /* AAMarker.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054452225F461000FDE2C9 /* AAMarker.h */; };
-		04FE948A2264811600FA6730 /* AAMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054453225F461000FDE2C9 /* AAMarker.m */; };
-		04FE948B2264811600FA6730 /* AAPie.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054454225F461000FDE2C9 /* AAPie.h */; };
-		04FE948C2264811600FA6730 /* AAPie.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054455225F461000FDE2C9 /* AAPie.m */; };
-		04FE948D2264811600FA6730 /* AAPlotBandsElement.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054456225F461000FDE2C9 /* AAPlotBandsElement.h */; };
-		04FE948E2264811600FA6730 /* AAPlotBandsElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054457225F461000FDE2C9 /* AAPlotBandsElement.m */; };
-		04FE948F2264811600FA6730 /* AAPlotLinesElement.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054458225F461000FDE2C9 /* AAPlotLinesElement.h */; };
-		04FE94902264811600FA6730 /* AAPlotLinesElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054459225F461000FDE2C9 /* AAPlotLinesElement.m */; };
-		04FE94912264811600FA6730 /* AAPlotOptions.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405445A225F461000FDE2C9 /* AAPlotOptions.h */; };
-		04FE94922264811600FA6730 /* AAPlotOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445B225F461000FDE2C9 /* AAPlotOptions.m */; };
-		04FE94932264811600FA6730 /* AASeries.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405445C225F461000FDE2C9 /* AASeries.h */; };
-		04FE94942264811600FA6730 /* AASeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445D225F461000FDE2C9 /* AASeries.m */; };
-		04FE94952264811600FA6730 /* AASpline.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405445E225F461000FDE2C9 /* AASpline.h */; };
-		04FE94962264811600FA6730 /* AASpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445F225F461000FDE2C9 /* AASpline.m */; };
-		04FE94972264811600FA6730 /* AAStyle.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054460225F461000FDE2C9 /* AAStyle.h */; };
-		04FE94982264811600FA6730 /* AAStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054461225F461000FDE2C9 /* AAStyle.m */; };
-		04FE94992264811600FA6730 /* AASubtitle.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054462225F461000FDE2C9 /* AASubtitle.h */; };
-		04FE949A2264811600FA6730 /* AASubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054463225F461000FDE2C9 /* AASubtitle.m */; };
-		04FE949B2264811600FA6730 /* AATitle.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054464225F461000FDE2C9 /* AATitle.h */; };
-		04FE949C2264811600FA6730 /* AATitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054465225F461000FDE2C9 /* AATitle.m */; };
-		04FE949D2264811600FA6730 /* AATooltip.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054466225F461000FDE2C9 /* AATooltip.h */; };
-		04FE949E2264811600FA6730 /* AATooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054467225F461000FDE2C9 /* AATooltip.m */; };
-		04FE949F2264811600FA6730 /* AAXAxis.h in Sources */ = {isa = PBXBuildFile; fileRef = 04054468225F461000FDE2C9 /* AAXAxis.h */; };
-		04FE94A02264811600FA6730 /* AAXAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 04054469225F461100FDE2C9 /* AAXAxis.m */; };
-		04FE94A12264811600FA6730 /* AAYAxis.h in Sources */ = {isa = PBXBuildFile; fileRef = 0405446A225F461100FDE2C9 /* AAYAxis.h */; };
-		04FE94A22264811600FA6730 /* AAYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405446B225F461100FDE2C9 /* AAYAxis.m */; };
 		04FE94A322648A5800FA6730 /* AAJSFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04054436225F461000FDE2C9 /* AAJSFiles.bundle */; };
 		2DBD0248A9BFAEB11DF64F83 /* libPods-LifoStation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF48CE99356EE39B86DCEE2 /* libPods-LifoStation.a */; };
 /* End PBXBuildFile section */
@@ -406,6 +367,8 @@
 		043BF5DA224DD1A300EE674C /* tixingbo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tixingbo2.png; sourceTree = "<group>"; };
 		043BF5DB224DD1A300EE674C /* zhengxianbo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhengxianbo2.png; sourceTree = "<group>"; };
 		043BF5DC224DD1A300EE674C /* zhishubo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhishubo2.png; sourceTree = "<group>"; };
+		043E6B52228BFE4400AEF6F9 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		043E6B53228BFE4400AEF6F9 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		04436E9D226EA75D008EC19B /* TaskParameterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskParameterModel.h; sourceTree = "<group>"; };
 		04436E9E226EA75D008EC19B /* TaskParameterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskParameterModel.m; sourceTree = "<group>"; };
 		0445C7D621E5A4AD00F35353 /* PersonalRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalRecordViewController.h; sourceTree = "<group>"; };
@@ -449,12 +412,6 @@
 		0469F7EA2265B79E0061F69B /* AirwaveModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirwaveModel.h; sourceTree = "<group>"; };
 		0469F7EB2265B79E0061F69B /* AirwaveModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirwaveModel.m; sourceTree = "<group>"; };
 		046CA20C2244E52C00F61509 /* DeviceItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceItemCell.xib; sourceTree = "<group>"; };
-		046CD37521DEFC450067BCB0 /* MachineListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineListViewController.h; sourceTree = "<group>"; };
-		046CD37621DEFC450067BCB0 /* MachineListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MachineListViewController.m; sourceTree = "<group>"; };
-		046CD37821DF32850067BCB0 /* MachineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
-		046CD37921DF32850067BCB0 /* MachineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
-		046CD37B21DF43340067BCB0 /* EditMachineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditMachineViewController.h; sourceTree = "<group>"; };
-		046CD37C21DF43340067BCB0 /* EditMachineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditMachineViewController.m; sourceTree = "<group>"; };
 		046CD37E21DF60870067BCB0 /* ChooseDepartmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseDepartmentView.xib; sourceTree = "<group>"; };
 		046CD38021DF632C0067BCB0 /* DepartmentItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepartmentItemCell.h; sourceTree = "<group>"; };
 		046CD38121DF632C0067BCB0 /* DepartmentItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DepartmentItemCell.m; sourceTree = "<group>"; };
@@ -579,8 +536,6 @@
 		04866CCB21C9DE2900855230 /* LifoStation.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifoStation.pch; sourceTree = "<group>"; };
 		0486819D22602FB200DCD09F /* HumidifierModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HumidifierModel.h; sourceTree = "<group>"; };
 		0486819E22602FB200DCD09F /* HumidifierModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HumidifierModel.m; sourceTree = "<group>"; };
-		0486FA4A2283D24500654AA0 /* AboutTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutTableViewController.h; sourceTree = "<group>"; };
-		0486FA4B2283D24500654AA0 /* AboutTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewController.m; sourceTree = "<group>"; };
 		04882B2D21F5A61500F8EEB6 /* CALayer+XibBorderColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibBorderColor.h"; sourceTree = "<group>"; };
 		04882B2E21F5A61500F8EEB6 /* CALayer+XibBorderColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibBorderColor.m"; sourceTree = "<group>"; };
 		0489A1862272B1F6000E8D8B /* maicongci2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maicongci2.png; sourceTree = "<group>"; };
@@ -1040,6 +995,15 @@
 			path = Nurse;
 			sourceTree = "<group>";
 		};
+		046458F4228A4A8900D31A6A /* BEProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				04829C3E21CBBBE200A42FC0 /* BEProgressHUD.h */,
+				04829C3D21CBBBE200A42FC0 /* BEProgressHUD.m */,
+			);
+			path = BEProgressHUD;
+			sourceTree = "<group>";
+		};
 		0465248321E7444400362D08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1101,7 +1065,6 @@
 			isa = PBXGroup;
 			children = (
 				04B3976C21E339DA00C9C5F5 /* DepartmentList */,
-				04B3976721E307C100C9C5F5 /* MachineList */,
 				04B3976821E307D100C9C5F5 /* Add Machine */,
 				04B3976321E303BC00C9C5F5 /* Choose Department View */,
 			);
@@ -1225,8 +1188,8 @@
 				04B51D2721DCC6E300B9DF2D /* LanguageCell.m */,
 				0474945C2230CC9A00E8C8AA /* AlertSettingViewController.h */,
 				0474945D2230CC9A00E8C8AA /* AlertSettingViewController.m */,
-				0486FA4A2283D24500654AA0 /* AboutTableViewController.h */,
-				0486FA4B2283D24500654AA0 /* AboutTableViewController.m */,
+				043E6B52228BFE4400AEF6F9 /* AboutViewController.h */,
+				043E6B53228BFE4400AEF6F9 /* AboutViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1316,6 +1279,7 @@
 		04866CC921C9DBAC00855230 /* Supporting File */ = {
 			isa = PBXGroup;
 			children = (
+				046458F4228A4A8900D31A6A /* BEProgressHUD */,
 				04670A702252073E005E0BAF /* alertSounds */,
 				043BF5D3224DD1A300EE674C /* wavepng */,
 				042C745322425C3200FCA114 /* deviceGif */,
@@ -1332,8 +1296,6 @@
 				04866CCB21C9DE2900855230 /* LifoStation.pch */,
 				04769576223A03A800FDC7DB /* Constant.h */,
 				04769577223A03A800FDC7DB /* Constant.m */,
-				04829C3E21CBBBE200A42FC0 /* BEProgressHUD.h */,
-				04829C3D21CBBBE200A42FC0 /* BEProgressHUD.m */,
 			);
 			path = "Supporting File";
 			sourceTree = "<group>";
@@ -1500,19 +1462,6 @@
 				046CD38121DF632C0067BCB0 /* DepartmentItemCell.m */,
 			);
 			path = "Choose Department View";
-			sourceTree = "<group>";
-		};
-		04B3976721E307C100C9C5F5 /* MachineList */ = {
-			isa = PBXGroup;
-			children = (
-				046CD37521DEFC450067BCB0 /* MachineListViewController.h */,
-				046CD37621DEFC450067BCB0 /* MachineListViewController.m */,
-				046CD37821DF32850067BCB0 /* MachineCell.h */,
-				046CD37921DF32850067BCB0 /* MachineCell.m */,
-				046CD37B21DF43340067BCB0 /* EditMachineViewController.h */,
-				046CD37C21DF43340067BCB0 /* EditMachineViewController.m */,
-			);
-			path = MachineList;
 			sourceTree = "<group>";
 		};
 		04B3976821E307D100C9C5F5 /* Add Machine */ = {
@@ -1821,71 +1770,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04645927228AC07500D31A6A /* AADataLabels.m in Sources */,
+				04645925228AC06800D31A6A /* AAPlotOptions.m in Sources */,
+				04645923228AC05D00D31A6A /* AATitle.m in Sources */,
+				04645921228AC05700D31A6A /* AATooltip.m in Sources */,
+				0464591F228AC04F00D31A6A /* AAAnimation.m in Sources */,
+				0464591D228AC04700D31A6A /* AALegend.m in Sources */,
+				0464591B228AC03F00D31A6A /* AAYAxis.m in Sources */,
+				04645919228AC03600D31A6A /* AAMarker.m in Sources */,
+				04645916228AC00D00D31A6A /* AAChart.m in Sources */,
+				04645910228AC00300D31A6A /* AASeries.m in Sources */,
+				04645912228AC00300D31A6A /* AAStyle.m in Sources */,
+				04645914228AC00300D31A6A /* AASubtitle.m in Sources */,
+				0464590E228ABFFA00D31A6A /* AAXAxis.m in Sources */,
+				0464590C228ABFF200D31A6A /* AALabels.m in Sources */,
+				0464590A228ABFEA00D31A6A /* AACrosshair.m in Sources */,
+				04645908228ABFDF00D31A6A /* AABar.m in Sources */,
+				04645906228ABFCE00D31A6A /* AAColumn.m in Sources */,
+				04645902228ABFBC00D31A6A /* AAArea.m in Sources */,
+				04645904228ABFBC00D31A6A /* AAAreaspline.m in Sources */,
+				04645900228ABFB100D31A6A /* AALine.m in Sources */,
+				046458FE228ABFA800D31A6A /* AAPie.m in Sources */,
+				046458FC228ABF9100D31A6A /* AAOptions.m in Sources */,
+				046458F8228ABF5700D31A6A /* AAChartModel.m in Sources */,
+				046458F7228ABD2D00D31A6A /* AASpline.m in Sources */,
+				046458F6228ABD0200D31A6A /* AAChartView.m in Sources */,
 				04909A01226D6D850021160B /* NegativePressureModel.m in Sources */,
 				046354B42269C09400D010E3 /* blight2.png in Sources */,
-				04FE946F2264811600FA6730 /* AAAnimation.h in Sources */,
-				04FE94702264811600FA6730 /* AAAnimation.m in Sources */,
-				04FE94712264811600FA6730 /* AAArea.h in Sources */,
-				04FE94722264811600FA6730 /* AAArea.m in Sources */,
-				04FE94732264811600FA6730 /* AAAreaspline.h in Sources */,
-				04FE94742264811600FA6730 /* AAAreaspline.m in Sources */,
-				04FE94752264811600FA6730 /* AABar.h in Sources */,
-				04FE94762264811600FA6730 /* AABar.m in Sources */,
-				04FE94772264811600FA6730 /* AAChart.h in Sources */,
-				04FE94782264811600FA6730 /* AAChart.m in Sources */,
-				04FE94792264811600FA6730 /* AAColumn.h in Sources */,
-				0486FA4C2283D24500654AA0 /* AboutTableViewController.m in Sources */,
-				04FE947A2264811600FA6730 /* AAColumn.m in Sources */,
-				04FE947B2264811600FA6730 /* AACrosshair.h in Sources */,
-				04FE947C2264811600FA6730 /* AACrosshair.m in Sources */,
-				04FE947D2264811600FA6730 /* AADataLabels.h in Sources */,
-				04FE947E2264811600FA6730 /* AADataLabels.m in Sources */,
-				04FE947F2264811600FA6730 /* AAItemStyle.h in Sources */,
-				04FE94802264811600FA6730 /* AAItemStyle.m in Sources */,
-				04FE94812264811600FA6730 /* AALabel.h in Sources */,
-				04FE94822264811600FA6730 /* AALabel.m in Sources */,
-				04FE94832264811600FA6730 /* AALabels.h in Sources */,
-				04FE94842264811600FA6730 /* AALabels.m in Sources */,
-				04FE94852264811600FA6730 /* AALegend.h in Sources */,
-				04FE94862264811600FA6730 /* AALegend.m in Sources */,
-				04FE94872264811600FA6730 /* AALine.h in Sources */,
-				04FE94882264811600FA6730 /* AALine.m in Sources */,
-				04FE94892264811600FA6730 /* AAMarker.h in Sources */,
-				04FE948A2264811600FA6730 /* AAMarker.m in Sources */,
-				04FE948B2264811600FA6730 /* AAPie.h in Sources */,
-				04FE948C2264811600FA6730 /* AAPie.m in Sources */,
-				04FE948D2264811600FA6730 /* AAPlotBandsElement.h in Sources */,
-				04FE948E2264811600FA6730 /* AAPlotBandsElement.m in Sources */,
-				04FE948F2264811600FA6730 /* AAPlotLinesElement.h in Sources */,
-				04FE94902264811600FA6730 /* AAPlotLinesElement.m in Sources */,
-				04FE94912264811600FA6730 /* AAPlotOptions.h in Sources */,
-				04FE94922264811600FA6730 /* AAPlotOptions.m in Sources */,
-				04FE94932264811600FA6730 /* AASeries.h in Sources */,
-				04FE94942264811600FA6730 /* AASeries.m in Sources */,
-				04FE94952264811600FA6730 /* AASpline.h in Sources */,
-				04FE94962264811600FA6730 /* AASpline.m in Sources */,
-				04FE94972264811600FA6730 /* AAStyle.h in Sources */,
-				04FE94982264811600FA6730 /* AAStyle.m in Sources */,
-				04FE94992264811600FA6730 /* AASubtitle.h in Sources */,
-				04FE949A2264811600FA6730 /* AASubtitle.m in Sources */,
-				04FE949B2264811600FA6730 /* AATitle.h in Sources */,
-				04FE949C2264811600FA6730 /* AATitle.m in Sources */,
-				04FE949D2264811600FA6730 /* AATooltip.h in Sources */,
-				04FE949E2264811600FA6730 /* AATooltip.m in Sources */,
-				04FE949F2264811600FA6730 /* AAXAxis.h in Sources */,
-				04FE94A02264811600FA6730 /* AAXAxis.m in Sources */,
-				04FE94A12264811600FA6730 /* AAYAxis.h in Sources */,
-				04FE94A22264811600FA6730 /* AAYAxis.m in Sources */,
-				04FE946D226480DC00FA6730 /* AAOptions.h in Sources */,
-				04FE946E226480DC00FA6730 /* AAOptions.m in Sources */,
 				045C70BF2266B4AD000C6FDB /* HighEnergyInfraredModel.m in Sources */,
-				04FE946B2264807E00FA6730 /* AAChartView.h in Sources */,
-				04FE946C2264807E00FA6730 /* AAChartView.m in Sources */,
-				04FE946922647A1B00FA6730 /* AASeriesElement.h in Sources */,
-				04FE946A22647A1B00FA6730 /* AASeriesElement.m in Sources */,
-				04FE946722647A0800FA6730 /* AAChartModel.h in Sources */,
-				04FE946822647A0800FA6730 /* AAChartModel.m in Sources */,
-				04FE9466226479D300FA6730 /* AAGlobalMacro.h in Sources */,
 				04934775223F33250017EA73 /* SolutionModel.m in Sources */,
 				0472F5FD2238B6C500DD2658 /* QRCameraSwitchButton.m in Sources */,
 				0472F5FE2238B6C500DD2658 /* QRCodeReader.m in Sources */,
@@ -1948,7 +1860,6 @@
 				047494672231150100E8C8AA /* ProcessingTaskViewController.m in Sources */,
 				047494612231093500E8C8AA /* TaskParentViewController.m in Sources */,
 				0469CC2721E4288200D0302C /* AddDepartmentView.m in Sources */,
-				046CD37D21DF43340067BCB0 /* EditMachineViewController.m in Sources */,
 				046CD38521DF635C0067BCB0 /* ChooseDepartmentView.m in Sources */,
 				0465248D21E74D9900362D08 /* AlertTimeLineCell.m in Sources */,
 				04369EBE220054DD008F22E2 /* DeviceFilterView.m in Sources */,
@@ -1966,7 +1877,6 @@
 				042C74622242630C00FCA114 /* FourElectCell.m in Sources */,
 				0484274C21DDABF50071C177 /* EditDeviceView.m in Sources */,
 				04B51D2021DCA28C00B9DF2D /* GHDropMenu.m in Sources */,
-				046CD37721DEFC450067BCB0 /* MachineListViewController.m in Sources */,
 				04436E9F226EA75D008EC19B /* TaskParameterModel.m in Sources */,
 				0472F6072238DF8300DD2658 /* NSDictionary+Log.m in Sources */,
 				0480064321D1CB42004F7C73 /* EditPasswordController.m in Sources */,
@@ -1974,6 +1884,7 @@
 				0445C7D821E5A4AD00F35353 /* PersonalRecordViewController.m in Sources */,
 				0468160022013D9E004F9FBB /* FilterDeviceModel.m in Sources */,
 				04709B2821F03255000D4E12 /* TwoViewsAirWaveCell.m in Sources */,
+				043E6B54228BFE4400AEF6F9 /* AboutViewController.m in Sources */,
 				04626F88224C7E93006B963C /* TwoElectCell.m in Sources */,
 				0480064A21D21833004F7C73 /* AddPatientViewController.m in Sources */,
 				04A861872233543600475A01 /* EditTaskView.m in Sources */,
@@ -1988,7 +1899,6 @@
 				04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */,
 				04BB7FF822702FCC00C2C21F /* SputumExcretionModel.m in Sources */,
 				0473CEFF21D6261000E869A3 /* RecordItemCell.m in Sources */,
-				046CD37A21DF32860067BCB0 /* MachineCell.m in Sources */,
 				046D215A21D4C6E900A0D5AE /* DeviceItemCell.m in Sources */,
 				047D17B721F17A8C00B498E6 /* NineViewsAirWaveCell.m in Sources */,
 				0469F7EC2265B79E0061F69B /* AirwaveModel.m in Sources */,
