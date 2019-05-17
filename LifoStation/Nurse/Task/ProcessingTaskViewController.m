@@ -205,7 +205,7 @@
                                          NSArray *content = responseObject.content;
                                          
                                          if (content) {
-                                             LxDBAnyVar(content);
+                                             
                                              for (NSDictionary *dic in content) {
                                                  TaskModel *task = [[TaskModel alloc]initWithDictionary:dic error:nil];
                                                  [datas addObject:task];

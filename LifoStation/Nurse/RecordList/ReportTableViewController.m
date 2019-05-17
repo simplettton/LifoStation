@@ -60,8 +60,12 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self getReportData];
 }
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = UIColorFromHex(0x3A87C7);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 - (void)getReportData {
 

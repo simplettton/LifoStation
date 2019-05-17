@@ -104,7 +104,7 @@
                                      success:^(HttpResponse *responseObject) {
                                          if ([responseObject.result intValue] == 1) {
                                              NSDictionary *content = responseObject.content;
-                                             LxDBAnyVar(content);
+                                             
                                              NSInteger license = [[responseObject.content objectForKey:@"License"]integerValue];
 
 

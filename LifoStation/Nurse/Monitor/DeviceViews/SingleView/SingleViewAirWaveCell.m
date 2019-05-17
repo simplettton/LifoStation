@@ -82,8 +82,13 @@
 //        NSError *error;
 //        AirwaveModel *machineParameter = [[AirwaveModel alloc]initWithDictionary:machine.msg_treatParameter error:&error];
         AirWaveView *bodyView = [[AirWaveView alloc]initWithParameter:machine];
-        CGFloat width = self.contentView.bounds.size.width;
-        bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
+//        CGFloat width = self.contentView.bounds.size.width;
+//        bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, 55, kBodyViewWidth, kBodyViewHeight);
+        CGFloat heightScale = kScreenHeight / 960;
+        CGFloat widthScale = kScreenWidth / 768;
+        CGFloat width = self.contentView.bounds.size.width * widthScale;
+        CGFloat height = self.bodyContentView.bounds.size.height * heightScale;
+        bodyView.frame = CGRectMake((width-kBodyViewWidth)/2, (height-kBodyViewHeight)/2, kBodyViewWidth, kBodyViewHeight);
         [self.bodyContentView addSubview:bodyView];
         self.deviceView = bodyView;
         

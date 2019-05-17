@@ -328,8 +328,10 @@ typedef void(^funcBlock)(NSString *deviceName);
     FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
     
     //设置GIF图片
-    CGFloat width = self.contentView.bounds.size.width;
-    CGFloat height = self.bodyContentView.bounds.size.height;
+    CGFloat heightScale = kScreenHeight / 960;
+    CGFloat widthScale = kScreenWidth / 768;
+    CGFloat width = self.contentView.bounds.size.width * widthScale;
+    CGFloat height = self.bodyContentView.bounds.size.height * heightScale;
     //按比例缩放
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.animatedImage = image;
@@ -386,9 +388,10 @@ typedef void(^funcBlock)(NSString *deviceName);
 #pragma mark - 图表视图
 - (void)initChartView {
     if (!self.chartView) {
-
-        CGFloat width = self.contentView.bounds.size.width;
-        CGFloat height = self.bodyContentView.bounds.size.height;
+        CGFloat heightScale = kScreenHeight / 960;
+        CGFloat widthScale = kScreenWidth / 768;
+        CGFloat width = self.contentView.bounds.size.width * widthScale;
+        CGFloat height = self.bodyContentView.bounds.size.height * heightScale;
         AAChartView *chartView = [[AAChartView alloc]initWithFrame:CGRectMake(width - kChartViewWidth, height - kChartViewHeight,kChartViewWidth, kChartViewHeight)];
         chartView.backgroundColor = [UIColor clearColor];
         [self.bodyContentView addSubview:chartView];

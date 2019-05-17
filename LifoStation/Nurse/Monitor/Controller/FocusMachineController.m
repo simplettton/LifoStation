@@ -766,7 +766,9 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(728, 680);
+    CGFloat heightScale = kScreenHeight / 960;
+    CGFloat widthScale = kScreenWidth / 768;
+    return CGSizeMake(728 * widthScale, 680 * heightScale);
 }
 
 //设置每个item水平间距

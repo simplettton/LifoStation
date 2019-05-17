@@ -38,7 +38,6 @@
 #pragma mark - hide navigation bar
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }

@@ -1059,24 +1059,26 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat heightScale = kScreenHeight / 960;
+    CGFloat widthScale = kScreenWidth / 768;
     /** 一宫格 */
     switch (self.showViewType) {
         case SingleViewType:
-            return CGSizeMake(728, 680);
+            return CGSizeMake(728 * widthScale, 680 * heightScale);
             break;
         case TwoViewsType:
-            return CGSizeMake(700, 352);
+            return CGSizeMake(700 * widthScale, 352 * heightScale);
             break;
         case FourViewsType:
-            return CGSizeMake(342, 306);
+            return CGSizeMake(342 * widthScale, 306 * heightScale);
             break;
         case NineViewsType:
-            return CGSizeMake(232, 206);
+            return CGSizeMake(232 * widthScale, 206 * heightScale);
             break;
         default:
             break;
     }
-    return CGSizeMake(728, 680);
+    return CGSizeMake(728 * widthScale, 680 * heightScale);
 }
 
 //设置每个item水平间距

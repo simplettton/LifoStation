@@ -230,7 +230,7 @@
                                      
                                      if ([responseObject.result intValue] == 1) {
                                          NSArray *content = responseObject.content;
-                                         LxDBAnyVar(content);
+                                         
                                          if (content) {
                                              for (NSDictionary *dic in content) {
                                                  PatientModel *patient = [[PatientModel alloc]initWithDictionary:dic error:nil];

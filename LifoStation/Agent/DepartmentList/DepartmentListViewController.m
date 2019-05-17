@@ -25,7 +25,8 @@
 
 @implementation DepartmentListViewController
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated]; 
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

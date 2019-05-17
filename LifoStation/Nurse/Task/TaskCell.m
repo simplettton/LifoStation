@@ -12,6 +12,23 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+}
+- (void)didAddSubview:(UIView *)subview {
+    [super didAddSubview:subview];
+    
+}
+- (void)layoutMarginsDidChange {
+    [super layoutMarginsDidChange];
+}
+- (void)setNeedsDisplay {
+    [super setNeedsDisplay];
+}
+- (void)drawRect:(CGRect)rect {
+    //autolayout之后改变cell中viewframe时调用函数
+    [super drawRect:rect];
+    [self updateButtonMask];
+}
+- (void)updateButtonMask {
     //设置治疗方案按钮的样式
     [self.treatmentButton setBackgroundColor:UIColorFromHex(0xf0f0f0)];
     [self.treatmentButton.layer setMasksToBounds:YES];
@@ -22,11 +39,12 @@
     maskLayer.path = maskPath.CGPath;
     self.treatmentButton.layer.mask = maskLayer;
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+- (void)layoutSubviews {
+    [super layoutSubviews];
 
-    // Configure the view for the selected state
 }
 - (BOOL)canBecomeFirstResponder {
     return YES;

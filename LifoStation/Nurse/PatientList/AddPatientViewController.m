@@ -45,9 +45,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
     [self initAll];
 }
-
 - (void)initAll {
     for (UIView *view in self.editViews) {
         view.layer.borderWidth = 0.5f;
@@ -61,7 +61,6 @@
     if (self.patient == nil) {
         self.title = @"增加病历";
         self.treatDateLabel.text = [self stringFromTimeIntervalString:timestamp dateFormat:@"yyyy-MM-dd"];
-
     } else {
         self.title = @"编辑病历";
         self.medicalNumView.layer.borderWidth = 0;
@@ -84,7 +83,6 @@
     } else {
         [self.segmentedControl setSelectedSegmentIndex:-1];
     }
-
     [self initBirthdayPicker];
     
     for (UITextField *textField in self.limitTextFields) {
@@ -131,10 +129,7 @@
 - (IBAction)scanAction:(id)sender {
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
-    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
-        
-        
-        
+    if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"相机启用权限未开启"
                                                                        message:[NSString stringWithFormat:@"请在iPhone的“设置”-“隐私”-“相机”功能中，找到“%@”打开相机访问权限",[[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleDisplayName"]]
                                                                 preferredStyle:UIAlertControllerStyleAlert];

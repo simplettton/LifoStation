@@ -20,6 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
 @property (weak, nonatomic) IBOutlet UILabel *leftTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *finishDateLabel;
-
+- (void)updateButtonMask;
 
 @end

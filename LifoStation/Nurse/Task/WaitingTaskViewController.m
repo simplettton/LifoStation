@@ -40,8 +40,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
+//    [self.view adaptScreenWidthWithType:AdaptScreenWidthTypeConstraint exceptViews:nil];
     [self initAll];
+}
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -208,7 +212,7 @@
                                      
                                      if ([responseObject.result intValue] == 1) {
                                          NSArray *content = responseObject.content;
-                                         LxDBAnyVar(content);
+                                        
                                          if (content) {
                                              for (NSDictionary *dic in content) {
                                                  NSError *error;
@@ -288,8 +292,16 @@
     return YES;
 }
 #pragma mark - tableview delegate
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [datas count];
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if ([datas count] > 0) {
+//        TaskCell *taskCell = (TaskCell *)cell;
+//        [taskCell updateButtonMask];
+//        LxDBAnyVar(taskCell.treatmentButton.frame.size.width);
+//    }
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 56;
@@ -304,7 +316,7 @@
     if (cell == nil) {
         cell = [[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    LxDBAnyVar(cell.treatmentButton.frame.size.width);
     TaskModel *task = datas[indexPath.row];
     cell.personNameLabel.text = task.patient.personName;
     cell.machineTypeLabel.text = task.solution.machineTypeName;
