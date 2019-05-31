@@ -35,9 +35,9 @@ typedef NS_ENUM(NSInteger,machineState) {
 //消息订阅模型
 @property (nonatomic, strong) NSDictionary *msg_treatParameter;
 @property (nonatomic, strong) NSDictionary *msg_realTimeData;
+@property (nonatomic, strong) NSString *msg_alertMessage;/** 报警文字 ErrMsg*/
 
-@property (nonatomic, strong) NSString *msg_alertMessage;
-
+@property (nonatomic, strong) NSDictionary *msg_alertDictionary;/** 完成报警信息包括ErrMsg Level WarnningTime  */
 //报警信息超时定时器 3s取消报警信息
 @property (nonatomic, strong) NSTimer *outTimeTimer;
 

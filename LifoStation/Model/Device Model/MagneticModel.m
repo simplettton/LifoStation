@@ -25,11 +25,11 @@
 
 - (NSString *)state {
     if ([self.stateArray containsObject:[NSNumber numberWithInteger:MachineStateRunning]]) {
-        return [NSString stringWithFormat:@"%ld",MachineStateRunning];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateRunning];
     } else if ([self.stateArray containsObject:[NSNumber numberWithInteger:MachineStatePause]]) {
-        return [NSString stringWithFormat:@"%ld",MachineStatePause];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStatePause];
     } else {
-        return [NSString stringWithFormat:@"%ld",MachineStateStop];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateStop];
     }
 }
 

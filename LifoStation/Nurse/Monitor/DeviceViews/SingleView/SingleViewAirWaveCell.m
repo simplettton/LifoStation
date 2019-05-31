@@ -132,7 +132,7 @@
                     if ([paramArray count] > 0) {
                         [self configureParameterViewWithData:paramArray];
                     }
-                    machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+                    machine.leftTime = [NSString stringWithFormat:@"%ld",(long)[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                     [self.deviceView resetBodyPartColor:machine];
                 }
                 
@@ -148,7 +148,7 @@
                 }
                 [self.deviceView resetBodyPartColor:machine];
                 /** 显示时间TreatTime分钟为单位 */
-                machine.leftTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+                machine.leftTime = [NSString stringWithFormat:@"%ld",(long)[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 break;
             case MachineStatePause:
                 /** 参数修改信息 修改了state 多了treattime 和 state*/
@@ -225,15 +225,19 @@
             break;
             /** 有报警信息的设备 */
         case CellStyleAlert:
+        {
+            NSNumber *level = self.machine.msg_alertDictionary[@"Level"];
             self.statusImageView.hidden = NO;
             self.layer.borderWidth = 2.0f;
-            self.layer.borderColor = UIColorFromHex(0xFBA526).CGColor;
+            self.layer.borderColor = [[Constant sharedInstance]getAlertColorWithLevel:level].CGColor;
             self.deviceView.hidden = NO;
             self.leftTimeLabel.hidden = NO;
             self.unauthorizedView.hidden = YES;
             for (UIView* view in self.bodyContents) {
                 view.hidden = NO;
             }
+        }
+
             break;
         case CellStyleUnauthorized:
             
@@ -274,9 +278,9 @@
     NSInteger seconds = [totalTime integerValue];
     
     //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",(long)seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",((long)seconds % 3600)/60];
+    NSString *secondString = [NSString stringWithFormat:@"%02ld",(long)seconds%60];
     NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
     return formatTime;
 }

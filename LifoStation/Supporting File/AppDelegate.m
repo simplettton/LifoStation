@@ -39,9 +39,9 @@
 }
 - (void)configureNetWorkSetting {
     NSDictionary *defaultNetworkConfiguration = @{
-                                                  @"HTTPServerIP":@"192.168.2.127",
-                                                  @"HTTPServerPort":@"80",
-                                                  @"MQTTPort":@"2921"
+                                                  @"HTTPServerIP":@"api.lifotronic.com",
+                                                  @"HTTPServerPort":@"8088",
+                                                  @"MQTTPort":@"18888"
                                                   };
     
     if (![UserDefault objectForKey:@"HTTPServerIP"]) {
@@ -55,7 +55,8 @@
     }
     
     if (![UserDefault objectForKey:@"HTTPServerURLString"]) {
-        [UserDefault setObject:[NSString stringWithFormat:@"http://192.168.2.127:80/"] forKey:@"HTTPServerURLString"];
+//        [UserDefault setObject:[NSString stringWithFormat:@"http://192.168.2.127:80/"] forKey:@"HTTPServerURLString"];
+        [UserDefault setObject:@"http://api.lifotronic.com:8088/" forKey:@"HTTPServerURLString"];
     }
 //    /** 报警配置 */
 //    if (![UserDefault boolForKey:@"IsAlertSwitchOn"]) {

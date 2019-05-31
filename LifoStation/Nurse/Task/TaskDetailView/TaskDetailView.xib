@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,10 +59,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBc-3C-xeV">
                     <rect key="frame" x="0.0" y="46" width="630" height="100"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="位置：8L32床" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvT-JT-0km">
-                            <rect key="frame" x="237" y="12" width="150" height="19.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="治疗位置：8L32床" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvT-JT-0km">
+                            <rect key="frame" x="237" y="12" width="205" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="150" id="TKd-1x-mGF"/>
+                                <constraint firstAttribute="width" constant="205" id="TKd-1x-mGF"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                             <color key="textColor" red="0.38823529410000002" green="0.36470588240000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,7 +87,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="年龄：22岁" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51f-x2-liw">
-                            <rect key="frame" x="395" y="58" width="143" height="19.5"/>
+                            <rect key="frame" x="450" y="58" width="143" height="19.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="143" id="10F-bC-kL1"/>
                             </constraints>
@@ -95,7 +95,7 @@
                             <color key="textColor" red="0.38823529410000002" green="0.36470588240000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="病历号:0020190" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlf-FK-ZNt">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" text="病历号:0020190" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlf-FK-ZNt" customClass="TopLeftLabel">
                             <rect key="frame" x="28" y="12" width="201" height="19.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="201" id="lDp-q1-1ul"/>
@@ -105,7 +105,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="就诊时间：2019.03.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQG-kI-0zM">
-                            <rect key="frame" x="395" y="12" width="163" height="19.5"/>
+                            <rect key="frame" x="450" y="12" width="163" height="19.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="163" id="i4B-D5-NDi"/>
                             </constraints>
@@ -127,7 +127,6 @@
                         <constraint firstItem="k8v-Vi-XaY" firstAttribute="top" secondItem="rlf-FK-ZNt" secondAttribute="bottom" constant="26" id="WXM-GD-dt5"/>
                         <constraint firstItem="a1o-ta-DGR" firstAttribute="leading" secondItem="bvT-JT-0km" secondAttribute="leading" id="ZPk-fi-Hgr"/>
                         <constraint firstItem="oQG-kI-0zM" firstAttribute="leading" secondItem="bvT-JT-0km" secondAttribute="trailing" constant="8" id="Zup-PZ-4Uh"/>
-                        <constraint firstItem="bvT-JT-0km" firstAttribute="top" secondItem="rlf-FK-ZNt" secondAttribute="top" id="b6I-7T-4ga"/>
                         <constraint firstItem="rlf-FK-ZNt" firstAttribute="leading" secondItem="lBc-3C-xeV" secondAttribute="leading" constant="28" id="gdz-fp-blD"/>
                         <constraint firstItem="rlf-FK-ZNt" firstAttribute="top" secondItem="lBc-3C-xeV" secondAttribute="top" constant="12" id="jc5-gS-Aaw"/>
                         <constraint firstItem="k8v-Vi-XaY" firstAttribute="leading" secondItem="rlf-FK-ZNt" secondAttribute="leading" id="lX6-ZW-PVn"/>
@@ -211,7 +210,7 @@
                     <rect key="frame" x="0.0" y="404" width="630" height="70"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oMS-Kf-LNM">
-                            <rect key="frame" x="25" y="13" width="580" height="45"/>
+                            <rect key="frame" x="25" y="13" width="580" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="580" id="BOJ-cS-icV"/>
@@ -270,7 +269,7 @@
                 <outlet property="ageLabel" destination="51f-x2-liw" id="BZ7-nh-UAt"/>
                 <outlet property="creatDateLabel" destination="oQG-kI-0zM" id="rfO-1v-TSh"/>
                 <outlet property="genderLabel" destination="a1o-ta-DGR" id="ObC-f1-kXK"/>
-                <outlet property="medicalNumLabel" destination="rlf-FK-ZNt" id="hin-6r-zzR"/>
+                <outlet property="medicalNumLabel" destination="rlf-FK-ZNt" id="ODP-Yc-kvR"/>
                 <outlet property="nameLabel" destination="k8v-Vi-XaY" id="OzL-ij-adF"/>
                 <outlet property="noteTextView" destination="oMS-Kf-LNM" id="rhr-kj-cSo"/>
                 <outlet property="patientInfoHeight" destination="8ov-0R-Ibq" id="dvk-Ua-XP5"/>
@@ -279,7 +278,7 @@
                 <outlet property="treatInfoView" destination="U77-hS-pAU" id="31i-7K-mjO"/>
                 <outlet property="treatInfoViewHeight" destination="BPI-W1-Lji" id="St5-pH-iYe"/>
             </connections>
-            <point key="canvasLocation" x="209" y="-3.5"/>
+            <point key="canvasLocation" x="208.59375" y="-3.8085937499999996"/>
         </view>
     </objects>
     <resources>

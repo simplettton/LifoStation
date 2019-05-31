@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopLeftLabel.h"
 #import "TaskModel.h"
 @interface TaskDetailView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
-
+@property (weak, nonatomic) IBOutlet TopLeftLabel *medicalNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *treatAddressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *medicalNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creatDateLabel;

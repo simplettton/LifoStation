@@ -85,12 +85,12 @@
 //根据 排痰、雾化、吸痰三个状态判断当前机器总状态
 - (NSString *)state {
     if (self.outPhlemState == MachineStateRunning || self.fuzzyState == MachineStateRunning || self.attractState == MachineStateRunning) {
-        return [NSString stringWithFormat:@"%ld",MachineStateRunning];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateRunning];
     } else if (self.outPhlemState == MachineStatePause || self.fuzzyState == MachineStatePause) {
-        return [NSString stringWithFormat:@"%ld",MachineStatePause];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStatePause];
 
     } else {
-        return [NSString stringWithFormat:@"%ld",MachineStateStop];
+        return [NSString stringWithFormat:@"%ld",(long)MachineStateStop];
     }
 }
 @end

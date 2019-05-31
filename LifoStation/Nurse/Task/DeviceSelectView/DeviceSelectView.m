@@ -186,7 +186,6 @@
                                          {
                                              self.noDataView.hidden = YES;
                                              self.tableTitleView.hidden = NO;
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              if (self.isOnline) {
                                                  self.downloadButton.hidden = NO;
                                              }
@@ -199,7 +198,6 @@
                                              if (self.isOnline) {
                                                  self.downloadButton.hidden = YES;
                                              }
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -320,7 +318,7 @@
     DeviceItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceItemCell" forIndexPath:indexPath];
     
     //离线隐藏
-    cell.usageLabel.hidden = (self.selectedMachineType == offline);
+    cell.usageLabel.hidden = (self.selectedMachineType == offline); 
     cell.usageLabel.hidden = (self.selectedMachineType == offline);
     cell.leftTimeLabel.hidden = (self.selectedMachineType == offline);
     cell.selectionImageView.hidden = (self.selectedMachineType == offline);
@@ -352,8 +350,6 @@
 //    cell.leftTimeLabel.text = [self changeSecondToTimeString:machine.leftTime];
     cell.bellButton.tag = indexPath.row;
     [cell.bellButton addTarget:self action:@selector(ringAction:) forControlEvents:UIControlEventTouchUpInside];
-
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -384,7 +380,7 @@
         }
     }
 
-    NSString *timeString = [NSString stringWithFormat:@"%ld min",minute];
+    NSString *timeString = [NSString stringWithFormat:@"%ld min",(long)minute];
     return timeString;
 }
 @end

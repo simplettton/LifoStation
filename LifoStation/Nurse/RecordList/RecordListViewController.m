@@ -118,12 +118,10 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              //                                             [self hideNodataView];
                                          }else{
                                              [datas removeAllObjects];
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });

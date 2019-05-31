@@ -138,12 +138,10 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -318,7 +316,7 @@
                                                  }
                                                  failure:nil];
                 }];
-                view.titleLabel.text = @"编辑位置";
+                view.titleLabel.text = @"编辑治疗位置";
                 [view showInWindowWithBackgoundTapDismissEnable:YES];
             }];
         } else {
@@ -336,7 +334,7 @@
                                                  failure:nil];
                 }];
                 
-                view.titleLabel.text = @"添加位置";
+                view.titleLabel.text = @"添加治疗位置";
                 [view showInWindowWithBackgoundTapDismissEnable:YES];
             }];
         }
@@ -348,15 +346,13 @@
             cell.leftTimeLabel.textColor = UIColorFromHex(0x00935E);
         }
 
-        //空气波持续治疗时间特殊处理
-        if ([task.solution.treatTime isEqualToString:@"601"]) {
+        //空气波和负压持续治疗时间特殊处理
+        if ([task.solution.treatTime isEqualToString:@"601"]|| [task.solution.treatTime isEqualToString:@"0"]) {
             [cell.treatmentButton setTitle:@"治疗时间：持续治疗" forState:UIControlStateNormal];
         } else {
             [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@min",task.solution.treatTime] forState:UIControlStateNormal];
         }
     }
-
-
     return cell;
 }
 
@@ -520,8 +516,8 @@
     NSInteger seconds = [totalTime integerValue];
     
     //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",(long)seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",((long)seconds % 3600)/60];
     NSString *fomatTime = [NSString stringWithFormat:@"%@:%@",HourString,minuterString];
     return fomatTime;
 }

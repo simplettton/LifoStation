@@ -253,9 +253,11 @@ typedef void(^funcBlock)(NSString *deviceName);
             break;
             /** 有报警信息的设备 */
         case CellStyleAlert:
+        {
+            NSNumber *level = self.machine.msg_alertDictionary[@"Level"];
             self.statusImageView.hidden = NO;
             self.layer.borderWidth = 2.0f;
-            self.layer.borderColor = UIColorFromHex(0xFBA526).CGColor;
+            self.layer.borderColor = [[Constant sharedInstance]getAlertColorWithLevel:level].CGColor;
             self.deviceView.hidden = NO;
             self.staticDeviceView.hidden = NO;
             self.leftTimeLabel.hidden = NO;
@@ -268,6 +270,8 @@ typedef void(^funcBlock)(NSString *deviceName);
             } else {
                 self.chartView.hidden = YES;
             }
+        }
+
             break;
         case CellStyleUnauthorized:
             
@@ -441,9 +445,9 @@ typedef void(^funcBlock)(NSString *deviceName);
     NSInteger seconds = [totalTime integerValue];
     
     //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",(long)seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",((long)seconds % 3600)/60];
+    NSString *secondString = [NSString stringWithFormat:@"%02ld",(long)seconds%60];
     NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
     return formatTime;
 }

@@ -61,11 +61,10 @@
 }
 - (void)initAll {
     NSString *medicalNumberString = [NSString stringWithFormat:@"病历号:%@",self.model.patient.medicalNumber];
-
     self.medicalNumLabel.text = medicalNumberString;
     self.nameLabel.text = [NSString stringWithFormat:@"姓名:%@",self.model.patient.personName];
     NSString *address = ([self.model.patient.treatAddress length] == 0) ? @"-":self.model.patient.treatAddress;
-    self.treatAddressLabel.text = [NSString stringWithFormat:@"位置:%@",address];
+    self.treatAddressLabel.text = [NSString stringWithFormat:@"治疗位置:%@",address];
     NSString *gender = (self.model.patient.gender == nil) ? @"-" :self.model.patient.gender;
     self.genderLabel.text = [NSString stringWithFormat:@"性别:%@",gender];
     NSString *age = (self.model.patient.age == nil) ? @"-":self.model.patient.age;

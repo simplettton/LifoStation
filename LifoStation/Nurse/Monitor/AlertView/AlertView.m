@@ -39,7 +39,12 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+    if ([self.dataArray count] == 0) {
+        return 1;
+    } else {
+        return [self.dataArray count];
+    }
+
 //    return 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -47,15 +52,23 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-
-    cell.textLabel.text = _dataArray[indexPath.row][@"error"];
-
+    if ([self.dataArray count] == 0) {
+        cell.textLabel.text = @"暂时没有数据哦~";
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    } else {
+        cell.textLabel.text = _dataArray[indexPath.row][@"error"];
+        cell.selectionStyle =UITableViewCellSelectionStyleDefault;
+    }
+    
     cell.textLabel.textColor = UIColorFromHex(0x787878);
     cell.textLabel.font = [UIFont systemFontOfSize:16];
 
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.dataArray count] == 0) {
+        return;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *cpuid = _dataArray[indexPath.row][@"cpuid"];
     self.returnEvent(cpuid);

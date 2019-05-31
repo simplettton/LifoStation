@@ -187,9 +187,14 @@
             [alertDatas addObject:model];
         }
         CGRect frame = self.alertContentView.frame;
-        //每一个cell的高度固定为150
-        frame.size.height = 150 * [alertDatas count];
+        if ([alertDatas count] == 0) {
+            frame.size.height = 150;
+        } else {
+            //每一个cell的高度固定为150
+            frame.size.height = 150 * [alertDatas count];
+        }
         self.alertContentView.frame = frame;
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -255,7 +260,7 @@
         if (self.hasAlertMessage) {
             return 44 + [alertDatas count]*150;
         }
-        return 0;
+        return 44 + 88;
 
     }
     else if (indexPath.row == 3) {

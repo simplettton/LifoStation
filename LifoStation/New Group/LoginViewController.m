@@ -103,11 +103,8 @@
                                     hasToken:NO
                                      success:^(HttpResponse *responseObject) {
                                          if ([responseObject.result intValue] == 1) {
-                                             NSDictionary *content = responseObject.content;
                                              
                                              NSInteger license = [[responseObject.content objectForKey:@"License"]integerValue];
-
-
                                              if (license == NurseLicense || license == DoctorAndNurseLicense) {
                                                  roleString = @"Nurse";
                                                  controller =  [mainStoryBoard instantiateViewControllerWithIdentifier:@"NurseNavigation"];

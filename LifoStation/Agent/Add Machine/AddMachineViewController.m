@@ -34,6 +34,7 @@
     NSInteger selectedDeviceTag;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAll];
@@ -43,6 +44,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    if ([self.datas count] > 0) {
+        [self refresh];
+    }
 
 }
 - (void)getMachineTypeList {
@@ -172,7 +176,6 @@
     CGFloat contentsizeWidth = TYPE_ITEM_ORIGIN_X;
     for (MachineTypeModel *type in typeList) {
         [typeModelArray addObject:type];
-
     }
 
     self.scrollView.contentSize = CGSizeMake(contentsizeWidth, self.scrollView.bounds.size.height);

@@ -70,7 +70,6 @@
                                                  DepartmentModel *department = [[DepartmentModel alloc]initWithDictionary:dic error:nil];
                                                  [self.datas addObject:department];
                                                  [oppositeDictionary setObject:department.uuid forKey:department.name];
-                                                
                                              }
                                              self.noDataView.hidden = YES;
                                          } else {
@@ -115,8 +114,6 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-
-    
     UILabel *nameLabel = [cell viewWithTag:NAME_LABEL_TAG];
     DepartmentModel *department = _datas[indexPath.row];
     nameLabel.text = department.name;

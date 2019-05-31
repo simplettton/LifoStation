@@ -132,24 +132,18 @@
     if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"相机启用权限未开启"
                                                                        message:[NSString stringWithFormat:@"请在iPhone的“设置”-“隐私”-“相机”功能中，找到“%@”打开相机访问权限",[[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleDisplayName"]]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
+                                                            preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {
-                                                                  
                                                                   NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                                                                  [[UIApplication sharedApplication] openURL:url];
-                                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=Privacy&path=CAMERA"]];
-                                                                  
-                                                                  
+                                                                  if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                                                                      [[UIApplication sharedApplication] openURL:url];
+                                                                  }
                                                               }];
-        
         [alert addAction:defaultAction];
         [self presentViewController:alert animated:YES completion:nil];
-        
-        
         return;
-        
     }
     NSArray *types = @[
                        AVMetadataObjectTypeQRCode,
@@ -161,10 +155,8 @@
                        AVMetadataObjectTypeCode93Code,
                        AVMetadataObjectTypeCode128Code,
                        AVMetadataObjectTypePDF417Code];
-    
-    _reader = [QRCodeReaderViewController readerWithMetadataObjectTypes:types];
+    _reader = [QRCodeReaderViewController readerWithCancelButtonTitle:@"取消" metadataObjectTypes:types];
     _reader.delegate = self;
-    
     [self presentViewController:_reader animated:YES completion:NULL];
 }
 #pragma mark - QRCodeReader Delegate Methods
@@ -275,15 +267,15 @@
     NSInteger nowYear = compomemts.year;
     NSInteger nowMonth = compomemts.month;
     NSInteger nowDay = compomemts.day;
-    NSLog(@"今天是%ld年%ld月%ld日", nowYear, nowMonth, nowDay);
+    NSLog(@"今天是%ld年%ld月%ld日", (long)nowYear, (long)nowMonth, (long)nowDay);
     
     // 计算年龄
     NSInteger userAge = nowYear - year.intValue - 1;
     if ((nowMonth > month.intValue) || (nowMonth == month.intValue && nowDay >= day.intValue)) {
         userAge++;
     }
-    NSLog(@"用户年龄是%ld",userAge);
-    return [NSString stringWithFormat:@"%ld",userAge];
+    NSLog(@"用户年龄是%ld",(long)userAge);
+    return [NSString stringWithFormat:@"%ld",(long)userAge];
 }
 //时间戳字符串转化为日期或时间
 - (NSString *)stringFromTimeIntervalString:(NSString *)timeString dateFormat:(NSString*)dateFormat
@@ -315,7 +307,7 @@
     //日期转时间戳
     NSDate *date = [formatter dateFromString:timeString];
     NSInteger timeSp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] integerValue];
-    NSString* timeStamp = [NSString stringWithFormat:@"%ld",timeSp];
+    NSString* timeStamp = [NSString stringWithFormat:@"%ld",(long)timeSp];
     return timeStamp;
 }
 //仅输入字母或数字 正则

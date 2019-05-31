@@ -40,11 +40,11 @@
         AddLocationView *view = [AddLocationView createViewFromNib];
         view.dataDic = dic;
         if (dic) {
-            view.titleLabel.text = @"编辑位置";
+            view.titleLabel.text = @"编辑治疗位置";
             view.nameTextField.text = [dic objectForKey:@"name"];
         }
         else {
-            view.titleLabel.text = @"添加位置";
+            view.titleLabel.text = @"添加治疗位置";
             view.isAddMode = YES;
         }
         view.returnEvent = returnEvent;

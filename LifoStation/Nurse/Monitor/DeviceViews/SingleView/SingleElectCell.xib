@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="728" height="65"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="疼痛科 22床 空气波1号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="421-1q-DF7">
-                                <rect key="frame" x="47" y="19" width="606" height="26.5"/>
+                                <rect key="frame" x="47" y="19.5" width="606" height="26.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="606" id="UGu-L4-dMz"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                             <view hidden="YES" tag="5555" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4u-KN-zzO">
                                 <rect key="frame" x="244" y="207.5" width="240" height="200"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warm" translatesAutoresizingMaskIntoConstraints="NO" id="h5C-eZ-vwY">
+                                    <imageView userInteractionEnabled="NO" tag="2222" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warm" translatesAutoresizingMaskIntoConstraints="NO" id="h5C-eZ-vwY">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="178"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="178" id="QiR-EE-lyG"/>
@@ -82,7 +82,7 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unauthorized" translatesAutoresizingMaskIntoConstraints="NO" id="TEJ-nJ-ErT">
-                                <rect key="frame" x="66.5" y="250.5" width="595" height="114"/>
+                                <rect key="frame" x="356" y="299.5" width="16" height="16"/>
                             </imageView>
                             <view tag="7777" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Loa-G2-V2x">
                                 <rect key="frame" x="39" y="527" width="234" height="49"/>
@@ -122,16 +122,18 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olb-U7-bQm">
-                                <rect key="frame" x="39" y="29" width="198" height="49"/>
+                                <rect key="frame" x="39" y="29" width="400" height="49"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFt-3w-zKb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFt-3w-zKb">
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="55" id="3Ca-mg-iqs"/>
+                                            <constraint firstAttribute="height" constant="49" id="cMf-Ee-Zat"/>
+                                        </constraints>
                                         <state key="normal" image="idcard"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="张三-治疗中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2R-y5-u5p">
-                                        <rect key="frame" x="63" y="14" width="135" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三-治疗中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2R-y5-u5p">
+                                        <rect key="frame" x="63" y="12.5" width="329" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -139,8 +141,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="JFt-3w-zKb" secondAttribute="bottom" id="CiF-bH-T4B"/>
+                                    <constraint firstItem="JFt-3w-zKb" firstAttribute="top" secondItem="Olb-U7-bQm" secondAttribute="top" id="DFh-ah-fjh"/>
                                     <constraint firstAttribute="height" constant="49" id="T5a-gJ-pfH"/>
-                                    <constraint firstAttribute="width" constant="198" id="zIu-jc-b0F"/>
+                                    <constraint firstItem="JFt-3w-zKb" firstAttribute="leading" secondItem="Olb-U7-bQm" secondAttribute="leading" id="TmQ-3B-4MX"/>
+                                    <constraint firstAttribute="trailing" secondItem="t2R-y5-u5p" secondAttribute="trailing" constant="8" id="bBE-WN-8wW"/>
+                                    <constraint firstItem="t2R-y5-u5p" firstAttribute="leading" secondItem="JFt-3w-zKb" secondAttribute="trailing" constant="8" id="tfT-Tc-PwM"/>
+                                    <constraint firstAttribute="width" constant="400" id="zIu-jc-b0F"/>
+                                    <constraint firstItem="t2R-y5-u5p" firstAttribute="centerY" secondItem="Olb-U7-bQm" secondAttribute="centerY" id="zqD-Tj-FXA"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" tag="9999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wfi-Nz-IMs">

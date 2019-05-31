@@ -126,7 +126,7 @@
         
         return runningChannelModel.showTime;
     } else {
-        return [NSString stringWithFormat:@"%ld",[currentChannel.treatTime integerValue]*60];
+        return [NSString stringWithFormat:@"%ld",(long)[currentChannel.treatTime integerValue]*60];
     }
 }
 @end

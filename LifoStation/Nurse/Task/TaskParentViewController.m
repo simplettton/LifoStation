@@ -90,11 +90,11 @@
 #pragma mark - SPPageMenu的代理方法
 
 - (void)pageMenu:(SPPageMenu *)pageMenu itemSelectedAtIndex:(NSInteger)index {
-    NSLog(@"%zd",index);
+    NSLog(@"%ld",(long)index);
 }
 
 - (void)pageMenu:(SPPageMenu *)pageMenu itemSelectedFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-    NSLog(@"%zd------->%zd",fromIndex,toIndex);
+    NSLog(@"%ld------->%ld",(long)fromIndex,(long)toIndex);
 
     //切换任务tab的时候隐藏键盘
     [self.searchBar resignFirstResponder];

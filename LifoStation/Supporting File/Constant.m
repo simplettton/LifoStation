@@ -30,4 +30,14 @@
         return sharedInstance;
     }
 }
+- (UIColor *)getAlertColorWithLevel:(NSNumber *)level {
+    if ([level integerValue] == MachineAlertLevel_High) {
+        /** 一级报警红色 */
+        return UIColorFromHex(0xe8535f);
+    } else {
+        /** 二级三级报警黄色 */
+        return UIColorFromHex(0xE69723);
+        //        return UIColorFromHex(0xFB6E26);
+    }
+}
 @end

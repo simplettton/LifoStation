@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="728" height="65"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="疼痛科 22床 空气波1号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mxc-UK-6zi">
-                                <rect key="frame" x="32" y="17" width="621" height="30"/>
+                                <rect key="frame" x="32" y="17.666666666666671" width="621" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                 <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                             <view hidden="YES" tag="5555" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raO-fq-RvQ">
                                 <rect key="frame" x="164" y="157.66666666666663" width="400" height="300"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warm" translatesAutoresizingMaskIntoConstraints="NO" id="mxc-tg-qkG">
+                                    <imageView userInteractionEnabled="NO" tag="2222" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warm" translatesAutoresizingMaskIntoConstraints="NO" id="mxc-tg-qkG">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="266"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="266" id="A3O-D9-NlX"/>
@@ -79,10 +79,10 @@
                                 </constraints>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unauthorized" translatesAutoresizingMaskIntoConstraints="NO" id="uws-RU-HAy">
-                                <rect key="frame" x="66.666666666666686" y="250.66666666666669" width="595" height="114"/>
+                                <rect key="frame" x="356" y="299.66666666666669" width="16" height="16"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lzE-9m-fuq">
-                                <rect key="frame" x="39" y="29" width="273" height="49"/>
+                                <rect key="frame" x="39" y="29" width="400" height="49"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHo-Wg-cvf">
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="49"/>
@@ -93,7 +93,7 @@
                                         <state key="normal" image="idcard"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三-治疗中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajm-Pj-a7J">
-                                        <rect key="frame" x="63" y="13" width="202" height="23"/>
+                                        <rect key="frame" x="63" y="13" width="329" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -101,7 +101,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="273" id="D9S-yG-MpP"/>
+                                    <constraint firstAttribute="width" constant="400" id="D9S-yG-MpP"/>
                                     <constraint firstItem="PHo-Wg-cvf" firstAttribute="top" secondItem="lzE-9m-fuq" secondAttribute="top" id="V43-U7-Cab"/>
                                     <constraint firstItem="ajm-Pj-a7J" firstAttribute="centerY" secondItem="lzE-9m-fuq" secondAttribute="centerY" id="X52-yH-MJx"/>
                                     <constraint firstAttribute="bottom" secondItem="PHo-Wg-cvf" secondAttribute="bottom" id="agN-zx-yoP"/>

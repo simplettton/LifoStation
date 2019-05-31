@@ -146,12 +146,10 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -252,8 +250,6 @@
                         if (![taskParameter.showName isEqualToString:@"计时方式"]) {
                             [paramArray addObject:[taskParameter getParamDictionary]];
                         }
-
-
                     }
                 }
                 task.solution.paramList = paramArray;
@@ -296,13 +292,7 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [datas count];
 }
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([datas count] > 0) {
-//        TaskCell *taskCell = (TaskCell *)cell;
-//        [taskCell updateButtonMask];
-//        LxDBAnyVar(taskCell.treatmentButton.frame.size.width);
-//    }
-}
+
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 56;
 }
@@ -316,7 +306,6 @@
     if (cell == nil) {
         cell = [[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    LxDBAnyVar(cell.treatmentButton.frame.size.width);
     TaskModel *task = datas[indexPath.row];
     cell.personNameLabel.text = task.patient.personName;
     cell.machineTypeLabel.text = task.solution.machineTypeName;
@@ -335,7 +324,7 @@
                                              }
                                              failure:nil];
             }];
-            view.titleLabel.text = @"编辑位置";
+            view.titleLabel.text = @"编辑治疗位置";
             [view showInWindowWithBackgoundTapDismissEnable:YES];
         }];
     } else {
@@ -353,18 +342,16 @@
                                              failure:nil];
             }];
             
-            view.titleLabel.text = @"添加位置";
+            view.titleLabel.text = @"添加治疗位置";
             [view showInWindowWithBackgoundTapDismissEnable:YES];
         }];
     }
-    //空气波持续治疗时间特殊处理
-    if ([task.solution.treatTime isEqualToString:@"601"]) {
+    //空气波和负压持续治疗时间特殊处理
+    if ([task.solution.treatTime isEqualToString:@"601"] || [task.solution.treatTime isEqualToString:@"0"]) {
         [cell.treatmentButton setTitle:@"治疗时间：持续治疗" forState:UIControlStateNormal];
     } else {
         [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@min",task.solution.treatTime] forState:UIControlStateNormal];
     }
-
-
     [cell.sendButton addTarget:self action:@selector(showDeviceSelectView:) forControlEvents:UIControlEventTouchUpInside];
     [cell.treatmentButton addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -474,7 +461,7 @@
         }
     }
     
-    NSString *timeString = [NSString stringWithFormat:@"%ld分钟",minute];
+    NSString *timeString = [NSString stringWithFormat:@"%ld分钟",(long)minute];
     return timeString;
 }
 @end

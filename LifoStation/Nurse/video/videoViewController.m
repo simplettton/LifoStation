@@ -48,7 +48,7 @@ static NSString *kVideoCover = @"https://timgsa.baidu.com/timg?image&quality=80&
         [self.player.currentPlayerManager replay];
         [self.player playTheNext];
         if (!self.player.isLastAssetURL) {
-            NSString *title = [NSString stringWithFormat:@"视频标题%zd",self.player.currentPlayIndex];
+            NSString *title = [NSString stringWithFormat:@"视频标题%ld",(long)self.player.currentPlayIndex];
             [self.controlView showTitle:title coverURLString:kVideoCover fullScreenMode:ZFFullScreenModeLandscape];
         } else {
             [self.player stop];

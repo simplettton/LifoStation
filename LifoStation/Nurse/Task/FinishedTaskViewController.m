@@ -141,13 +141,11 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              self.noDataView.hidden = YES;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                             
                                          }else{
                                              [datas removeAllObjects];
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -323,7 +321,7 @@
                                                  }
                                                  failure:nil];
                 }];
-                view.titleLabel.text = @"编辑位置";
+                view.titleLabel.text = @"编辑治疗位置";
                 [view showInWindowWithBackgoundTapDismissEnable:YES];
             }];
         } else {
@@ -341,13 +339,13 @@
                                                  failure:nil];
                 }];
                 
-                view.titleLabel.text = @"添加位置";
+                view.titleLabel.text = @"添加治疗位置";
                 [view showInWindowWithBackgoundTapDismissEnable:YES];
             }];
         }
         cell.finishDateLabel.text = [self stringFromTimeIntervalString:task.finishTime dateFormat:@"yyyy-MM-dd"];
-        //空气波持续治疗时间特殊处理
-        if ([task.solution.treatTime isEqualToString:@"601"]) {
+        //空气波和负压持续治疗时间特殊处理
+        if ([task.solution.treatTime isEqualToString:@"601"] || [task.solution.treatTime isEqualToString:@"0"]) {
             [cell.treatmentButton setTitle:@"治疗时间：持续治疗" forState:UIControlStateNormal];
         } else {
             [cell.treatmentButton setTitle:[NSString stringWithFormat:@"治疗时间：%@min",task.solution.treatTime] forState:UIControlStateNormal];

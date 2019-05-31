@@ -29,14 +29,6 @@
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
 
-#define ParameterViewTag 9999
-#define TimeLabelTag 8888
-#define FocusViewTag 7777
-#define BodyContentViewTag 6666
-#define AlertViewTag 5555
-#define AlertLabelTag 4444
-#define ChartViewTag 3333
-
 @interface FocusMachineController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource,MQTTSessionManagerDelegate, MQTTSessionDelegate,AVAudioPlayerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -86,13 +78,11 @@
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleViewAirWaveCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleViewAirWaveCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SingleElectCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"SingleElectCell"];
     
-    /** 默认不展示alertview */
-    _isShowAlertMessage = NO;
+    /** 默认展示alertview */
+    _isShowAlertMessage = YES;
+    self.tableView.tableFooterView = [[UIView alloc]init];
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
-    
-//    [self connectMQTT];
-
 
     if (self.machine) {
         if (self.machine.alertTimer) {
@@ -189,7 +179,7 @@
                            auth:true
                            user:@"admin"
                            pass:@"pwd321"
-                           will:nil
+                           will:false
                       willTopic:nil
                         willMsg:nil
                         willQos:MQTTQosLevelExactlyOnce
@@ -274,7 +264,6 @@
                 machine.hasLicense = YES;
                 [self reloadItemAtIndex:index];
             }
-            
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
             NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
@@ -292,53 +281,43 @@
             
             /** 打开了报警提示开关 */
             if (isAlertSwitchOn) {
-                /** 报警信息栏添加信息 */
-                NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-                NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,content[@"ErrMsg"]];
-                
-                [dataDic setObject:errorString forKey:@"error"];
-                [dataDic setObject:machine.cpuid forKey:@"cpuid"];
-                [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
+                NSNumber *level = content[@"Level"];
+                NSString *oldAlertMessage = machine.msg_alertMessage;
+                NSString *newAlertMessage = content[@"ErrMsg"];
                 if (machine.msg_alertMessage) {
                     //如果当前信息与之前保存的报警信息不一致则添加到报警信息栏（之前的报警信息可以维持3s）
-                    if (![machine.msg_alertMessage isEqualToString:content[@"ErrMsg"]]) {
-                        if ([alertArray count] == 0) {
-                            [self showBottomAlertView];
-                        }
-                        [alertArray insertObject:dataDic atIndex:0];
-                        
-                        [self.tableView reloadData];
+                    if (![oldAlertMessage isEqualToString:newAlertMessage]) {
+                        [self refleshAlertArrayDataWithMachine:machine data:content];
                     }
                 } else {
-                    if ([alertArray count] == 0) {
-                        [self showBottomAlertView];
-                    }
-                    [alertArray insertObject:dataDic atIndex:0];
-                    [self.tableView reloadData];
+                     [self refleshAlertArrayDataWithMachine:machine data:content];
                 }
                 
                 /** 更新报警文字 */
-                machine.msg_alertMessage = content[@"ErrMsg"];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-                UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+                machine.msg_alertMessage = newAlertMessage;
+                machine.msg_alertDictionary = content;
 
-                //边框橙色
-                cell.layer.borderWidth = 2;
-                cell.layer.borderColor =  UIColorFromHex(0xFBA526).CGColor;
-                
                 //取消3秒关闭报警提示
                 [self invalidateTimer:machine.outTimeTimer];
                 //开启3秒关闭报警提示
                 machine.outTimeTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(closeAlert:) userInfo:@{
                                                                                                                                         @"machine":machine,
                                                                                                                                         @"index":[NSNumber numberWithInteger:index]} repeats:NO];
-                if (!machine.alertTimer) {
-                    machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                if ((machine.alertTimer && (![oldAlertMessage isEqualToString:newAlertMessage])) || machine.alertTimer == nil) {
+                    if (machine.alertTimer) {
+                        [machine.alertTimer invalidate];
+                        machine.alertTimer = nil;
+                    }
+                    //新的报警信息更新刷新频率
+                    
+                    machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:[self getAlertTimeIntervalWithLevel:level]
                                                                           target:self
                                                                         selector:@selector(startFlashingAlertView:)
                                                                         userInfo:@{
                                                                                    @"machine":machine,
-                                                                                   @"index":[NSNumber numberWithInteger:index]}
+                                                                                   @"index":[NSNumber numberWithInteger:index],
+                                                                                   @"level":level
+                                                                                   }
                                                                          repeats:YES];
                 }
                 
@@ -357,6 +336,67 @@
 }
 
 #pragma mark - 报警控制
+- (void)refleshAlertArrayDataWithMachine:(MachineModel *)machine data:(NSDictionary *)content {
+    /** 报警信息栏添加信息 */
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+    NSNumber *level = content[@"Level"];
+    NSString *rankLevelString = [[NSString alloc]init];
+    switch ([level integerValue]) {
+        case MachineAlertLevel_Low:
+            rankLevelString = @"*";
+            break;
+        case MachineAlertLevel_Middle:
+            rankLevelString = @"**";
+            break;
+        case MachineAlertLevel_High:
+            rankLevelString = @"***";
+            break;
+        default:
+            rankLevelString = @"";
+            break;
+    }
+    NSString *showTime = [[NSString alloc]init];
+    NSString *alertLockTime = content[@"WarnningTime"];
+    if ([alertLockTime length] > 0) {
+        showTime = alertLockTime;
+    } else {
+        showTime = [self getCurrentTimeString];
+    }
+    NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@%@",showTime,(machine.departmentName == nil)?@"":machine.departmentName,machine.name,rankLevelString,content[@"ErrMsg"]];
+    [dataDic setObject:errorString forKey:@"error"];
+    [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+    [dataDic setObject:level forKey:@"level"];
+    
+    if ([alertArray count] == 0) {
+        [self showBottomAlertView];
+    }
+    [alertArray insertObject:dataDic atIndex:0];
+    [self.tableView reloadData];
+}
+- (NSTimeInterval)getAlertTimeIntervalWithLevel:(NSNumber *)level {
+    switch ([level integerValue]) {
+        case MachineAlertLevel_High:
+            return 0.5;
+            break;
+        case MachineAlertLevel_Middle:
+            return 1;
+            break;
+        case MachineAlertLevel_Low:
+            return 0;
+        default:
+            return 0;
+            break;
+    }
+}
+- (NSString *)getAlertImageViewWithLevelWithLevel:(NSNumber *)level {
+    if ([level integerValue] == MachineAlertLevel_High) {
+        /** 一级报警红色图标 */
+        return @"warm_red";
+    } else {
+        /** 二级三级报警黄色图标 */
+        return @"warm";
+    }
+}
 - (void)showBottomAlertView {
     self.isShowAlertMessage = YES;
     self.alertViewHeight.constant = 184;
@@ -368,21 +408,34 @@
     NSDictionary *dataDic = timer.userInfo;
     NSInteger index = [dataDic[@"index"]integerValue];
     MachineModel *machine = dataDic[@"machine"];
+    NSInteger level = [dataDic[@"level"]integerValue];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    //边框橙色或者红色
+    cell.layer.borderWidth = 2;
+    cell.layer.borderColor =  [[Constant sharedInstance]getAlertColorWithLevel:dataDic[@"level"]].CGColor;
+    
     UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    UIImageView *alertImageView = [alertView viewWithTag:AlertImageTag];
+    alertImageView.image = [UIImage imageNamed:[self getAlertImageViewWithLevelWithLevel:dataDic[@"level"]]];
     UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
+    alertLabel.textColor = [[Constant sharedInstance]getAlertColorWithLevel:dataDic[@"level"]];
     alertLabel.text = machine.msg_alertMessage;
     
     /** 报警信息置顶 */
     [bodyContentView bringSubviewToFront:alertView];
-    
-    /** 显示与隐藏alertView */
-    if (alertView.isHidden) {
+    if (level == MachineAlertLevel_Low) {
+        //三级报警一直显示
         alertView.hidden = NO;
     } else {
-        alertView.hidden = YES;
+        /** 一二级报警显示与隐藏alertView */
+        if (alertView.isHidden) {
+            alertView.hidden = NO;
+        } else {
+            alertView.hidden = YES;
+        }
     }
 }
 - (void)closeAlert:(NSTimer *)timer {
@@ -390,6 +443,7 @@
     MachineModel *machine = dataDic[@"machine"];
     NSInteger index = [dataDic[@"index"]integerValue];
     machine.msg_alertMessage = nil;
+    machine.msg_alertDictionary = nil;
     [machine.alertTimer invalidate];
     machine.alertTimer = nil;
     /** 恢复边框颜色 */
@@ -688,6 +742,7 @@
                                      isRefreshing = NO;
                                      if (page == 0) {
                                          [datas removeAllObjects];
+                                         [cpuids removeAllObjects];
                                      }
                                      
                                      if (isRefreshing) {
@@ -788,8 +843,11 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isShowAlertMessage) {
-//        return 3;
-        return [alertArray count];
+        if ([alertArray count] == 0) {
+            return 1;
+        } else {
+            return [alertArray count];
+        }
     } else {
         return 0;
     }
@@ -797,6 +855,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //选中报警信息滚动到设备视图可见
+    if ([alertArray count] == 0) {
+        return;
+    }
     NSString *cpuid = alertArray[indexPath.row][@"cpuid"];
     if ([cpuids containsObject:cpuid]) {
         NSInteger index = [cpuids indexOfObject:cpuid];
@@ -807,8 +868,13 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.textLabel.textColor = UIColorFromHex(0x787878);
-    
-    cell.textLabel.text = alertArray[indexPath.row][@"error"];
+    if ([alertArray count] == 0) {
+        cell.textLabel.text = @"暂时没有数据哦~";
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    } else {
+        cell.textLabel.text = alertArray[indexPath.row][@"error"];
+        cell.selectionStyle =UITableViewCellSelectionStyleDefault;
+    }
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -921,16 +987,7 @@
     NSDate *dateNow = [NSDate date];
     return [formatter stringFromDate:dateNow];
 }
-- (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
-    NSInteger seconds = [totalTime integerValue];
-    
-    //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
-    NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
-    return formatTime;
-}
+
 #pragma mark - getter
 - (NSMutableDictionary *)subscriptions {
     if (!_subscriptions) {

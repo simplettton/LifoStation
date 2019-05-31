@@ -242,7 +242,7 @@ static MachineParameterTool *_instance;
                         }
                     } else {
                         //没有实时包则返回设置包的时间设置参数treatTime
-                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",(long)[treatParameter.treatTime integerValue]*60]];
                     }
                 }
                     
@@ -257,7 +257,7 @@ static MachineParameterTool *_instance;
                         return [self getHourAndMinuteFromSeconds:showTime];
                     } else {
                         //没有实时包则返回设置包的时间设置参数treatTime
-                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                        return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",(long)[treatParameter.treatTime integerValue]*60]];
                     }
                 }
                     
@@ -307,7 +307,18 @@ static MachineParameterTool *_instance;
             {
                 //服务器返回treatTime数组要另外计算
                 MagneticModel *treatParameter = [[MagneticModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
-                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",(long)[treatParameter.treatTime integerValue]*60]];
+            }
+                break;
+            case MachineType_NegativePressure:
+            {
+                NegativePressureModel *treatParamter = [[NegativePressureModel alloc]initWithDictionary:machine.msg_treatParameter error:nil];
+                if (treatParamter.hasLeftTime) {
+                    NSString *showTime = [NSString stringWithFormat:@"%@",machine.msg_realTimeData[@"ShowTime"]];
+                    return [self getHourAndMinuteFromSeconds:showTime];
+                } else {
+                    return [treatParamter getTimeShowingText];
+                }
             }
                 break;
             case MachineType_Elect:
@@ -316,13 +327,13 @@ static MachineParameterTool *_instance;
                 if (machine.msg_treatParameter) {
                     treatParameter= [[ElectModel alloc]initWithDictionary:@{@"channelArray":machine.msg_treatParameter} error:nil];
                 }
-                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",[treatParameter.treatTime integerValue]*60]];
+                return [self getHourAndMinuteFromSeconds:[NSString stringWithFormat:@"%ld",(long)[treatParameter.treatTime integerValue]*60]];
                 
             }
                 break;
             default:
             {
-                NSString *treatTime = [NSString stringWithFormat:@"%ld",[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
+                NSString *treatTime = [NSString stringWithFormat:@"%ld",(long)[machine.msg_treatParameter[@"TreatTime"]integerValue]*60];
                 return [self getHourAndMinuteFromSeconds:treatTime];
             }
                 
@@ -335,9 +346,9 @@ static MachineParameterTool *_instance;
     NSInteger seconds = [totalTime integerValue];
     
     //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",(long)seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",((long)seconds%3600)/60];
+    NSString *secondString = [NSString stringWithFormat:@"%02ld",(long)seconds%60];
     NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
     return formatTime;
 }
@@ -433,17 +444,16 @@ static MachineParameterTool *_instance;
 #pragma mark - 设备状态文字获取
 - (NSString *)getStateShowingText:(MachineModel *)machine {
     NSDictionary *machineStateDic = @{
-                                      @"0":@"运行中",
-                                      @"1":@"暂停中",
-                                      @"2":@"空闲中",
-                                      @"3":@"空",
-                                      @"127":@"离线"
+                                      @"0":@"治疗中",
+                                      @"1":@"暂停治疗",
+                                      @"2":@"待治疗",
+                                      @"3":@"待治疗",  /** 电疗专用，四个通道无方案时显示 */
+                                      @"127":@"设备离线"
                                       };
     if (machine.state) {
         return machineStateDic[machine.state];
     } else {
         return @"未知状态";
     }
-
 }
 @end

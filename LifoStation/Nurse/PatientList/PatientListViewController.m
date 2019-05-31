@@ -164,14 +164,12 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
                                             
                                              
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -483,7 +481,7 @@
     //日期转时间戳
     NSDate *date = [formatter dateFromString:timeString];
     NSInteger timeSp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] integerValue];
-    NSString* timeStamp = [NSString stringWithFormat:@"%ld",timeSp];
+    NSString* timeStamp = [NSString stringWithFormat:@"%ld",(long)timeSp];
     return timeStamp;
 }
 @end

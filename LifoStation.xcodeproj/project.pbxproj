@@ -13,14 +13,12 @@
 		0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419233521D76E8D00CE8F91 /* DeviceCell.m */; };
 		0419846E21DDEFEA00C1713E /* RecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419846D21DDEFEA00C1713E /* RecordListViewController.m */; };
 		0419847121DDF1CD00C1713E /* RecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419847021DDF1CD00C1713E /* RecordCell.m */; };
+		0419955E2296A17000308E00 /* TopLeftLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419955D2296A17000308E00 /* TopLeftLabel.m */; };
 		0422F0DC221D5F4E00673649 /* videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422F0DB221D5F4E00673649 /* videoViewController.m */; };
 		04236CCC21D371E800C848C9 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04236CCB21D371E800C848C9 /* TaskCell.m */; };
 		04261E2321FAE0CE0043776D /* BodyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2221FAE0CE0043776D /* BodyImageView.m */; };
 		04261E2621FAE6050043776D /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */; };
 		04261E2921FAFB1A0043776D /* FocusMachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04261E2821FAFB1A0043776D /* FocusMachineController.m */; };
-		04281DA8225B2C63008B111B /* warninglow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA5225B2C61008B111B /* warninglow.wav */; };
-		04281DA9225B2C63008B111B /* warningmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA6225B2C62008B111B /* warningmed.wav */; };
-		04281DAA225B2C63008B111B /* warninghigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04281DA7225B2C63008B111B /* warninghigh.wav */; };
 		042C744A224259CF00FCA114 /* sanjiaobo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7441224259CF00FCA114 /* sanjiaobo.gif */; };
 		042C744B224259CF00FCA114 /* jianbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7442224259CF00FCA114 /* jianbo.gif */; };
 		042C744C224259CF00FCA114 /* sanxingbo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 042C7443224259CF00FCA114 /* sanxingbo.gif */; };
@@ -66,7 +64,6 @@
 		04626F8D224C9BD9006B963C /* NineElectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04626F8B224C9BD9006B963C /* NineElectCell.m */; };
 		04626F8E224C9BD9006B963C /* NineElectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04626F8C224C9BD9006B963C /* NineElectCell.xib */; };
 		046354B32269C04200D010E3 /* blight2.png in Resources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
-		046354B42269C09400D010E3 /* blight2.png in Sources */ = {isa = PBXBuildFile; fileRef = 046354B22269C04100D010E3 /* blight2.png */; };
 		046458F6228ABD0200D31A6A /* AAChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442C225F461000FDE2C9 /* AAChartView.m */; };
 		046458F7228ABD2D00D31A6A /* AASpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405445F225F461000FDE2C9 /* AASpline.m */; };
 		046458F8228ABF5700D31A6A /* AAChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0405442A225F461000FDE2C9 /* AAChartModel.m */; };
@@ -181,6 +178,9 @@
 		049534F821C8D14600C567D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 049534F721C8D14600C567D8 /* main.m */; };
 		0495350221C8D14600C567D8 /* LifoStationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350121C8D14600C567D8 /* LifoStationTests.m */; };
 		0495350D21C8D14600C567D8 /* LifoStationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495350C21C8D14600C567D8 /* LifoStationUITests.m */; };
+		0495A854229CE25D00DE4487 /* warninglow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0495A851229CE25D00DE4487 /* warninglow.wav */; };
+		0495A855229CE25D00DE4487 /* warninghigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0495A852229CE25D00DE4487 /* warninghigh.wav */; };
+		0495A856229CE25D00DE4487 /* warningmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0495A853229CE25D00DE4487 /* warningmed.wav */; };
 		04980F4C2236541E00A69920 /* HttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04980F49223652A400A69920 /* HttpResponse.m */; };
 		04980F4D2236541E00A69920 /* NetWorkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04980F4B223652A400A69920 /* NetWorkTool.m */; };
 		04A030CB22768B0D00A16A08 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A030C922768B0D00A16A08 /* AlertView.m */; };
@@ -319,6 +319,8 @@
 		0419846D21DDEFEA00C1713E /* RecordListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordListViewController.m; sourceTree = "<group>"; };
 		0419846F21DDF1CD00C1713E /* RecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordCell.h; sourceTree = "<group>"; };
 		0419847021DDF1CD00C1713E /* RecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordCell.m; sourceTree = "<group>"; };
+		0419955C2296A17000308E00 /* TopLeftLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopLeftLabel.h; sourceTree = "<group>"; };
+		0419955D2296A17000308E00 /* TopLeftLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopLeftLabel.m; sourceTree = "<group>"; };
 		0422F0DA221D5F4E00673649 /* videoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = videoViewController.h; sourceTree = "<group>"; };
 		0422F0DB221D5F4E00673649 /* videoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = videoViewController.m; sourceTree = "<group>"; };
 		04236CCA21D371E800C848C9 /* TaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
@@ -329,9 +331,6 @@
 		04261E2521FAE6050043776D /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
 		04261E2721FAFB1A0043776D /* FocusMachineController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FocusMachineController.h; sourceTree = "<group>"; };
 		04261E2821FAFB1A0043776D /* FocusMachineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FocusMachineController.m; sourceTree = "<group>"; };
-		04281DA5225B2C61008B111B /* warninglow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninglow.wav; sourceTree = "<group>"; };
-		04281DA6225B2C62008B111B /* warningmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warningmed.wav; sourceTree = "<group>"; };
-		04281DA7225B2C63008B111B /* warninghigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninghigh.wav; sourceTree = "<group>"; };
 		042C7441224259CF00FCA114 /* sanjiaobo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sanjiaobo.gif; sourceTree = "<group>"; };
 		042C7442224259CF00FCA114 /* jianbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = jianbo.gif; sourceTree = "<group>"; };
 		042C7443224259CF00FCA114 /* sanxingbo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sanxingbo.gif; sourceTree = "<group>"; };
@@ -559,6 +558,9 @@
 		0495350821C8D14600C567D8 /* LifoStationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifoStationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0495350C21C8D14600C567D8 /* LifoStationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifoStationUITests.m; sourceTree = "<group>"; };
 		0495350E21C8D14600C567D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0495A851229CE25D00DE4487 /* warninglow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninglow.wav; sourceTree = "<group>"; };
+		0495A852229CE25D00DE4487 /* warninghigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warninghigh.wav; sourceTree = "<group>"; };
+		0495A853229CE25D00DE4487 /* warningmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warningmed.wav; sourceTree = "<group>"; };
 		04980F48223652A400A69920 /* HttpResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpResponse.h; sourceTree = "<group>"; };
 		04980F49223652A400A69920 /* HttpResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpResponse.m; sourceTree = "<group>"; };
 		04980F4A223652A400A69920 /* NetWorkTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkTool.h; sourceTree = "<group>"; };
@@ -1043,9 +1045,9 @@
 		04670A702252073E005E0BAF /* alertSounds */ = {
 			isa = PBXGroup;
 			children = (
-				04281DA7225B2C63008B111B /* warninghigh.wav */,
-				04281DA5225B2C61008B111B /* warninglow.wav */,
-				04281DA6225B2C62008B111B /* warningmed.wav */,
+				0495A852229CE25D00DE4487 /* warninghigh.wav */,
+				0495A851229CE25D00DE4487 /* warninglow.wav */,
+				0495A853229CE25D00DE4487 /* warningmed.wav */,
 			);
 			path = alertSounds;
 			sourceTree = "<group>";
@@ -1170,6 +1172,8 @@
 				0472F6032238DF6F00DD2658 /* NSArray+Log.m */,
 				0472F6052238DF8300DD2658 /* NSDictionary+Log.h */,
 				0472F6062238DF8300DD2658 /* NSDictionary+Log.m */,
+				0419955C2296A17000308E00 /* TopLeftLabel.h */,
+				0419955D2296A17000308E00 /* TopLeftLabel.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -1639,6 +1643,7 @@
 				046D215121D4B29700A0D5AE /* DeviceSelectView.xib in Resources */,
 				047D17B821F17A8C00B498E6 /* NineViewsAirWaveCell.xib in Resources */,
 				04357DC821F2F1BF00A5B45C /* AirWaveSetParameterView.xib in Resources */,
+				0495A854229CE25D00DE4487 /* warninglow.wav in Resources */,
 				042C744F224259CF00FCA114 /* tixingbo.gif in Resources */,
 				042C7450224259CF00FCA114 /* zhengxianbo.gif in Resources */,
 				046354B32269C04200D010E3 /* blight2.png in Resources */,
@@ -1656,7 +1661,6 @@
 				04FE94632264355C00FA6730 /* blight.gif in Resources */,
 				04626F89224C7E93006B963C /* TwoElectCell.xib in Resources */,
 				043BF5E0224DD1A300EE674C /* maicongbo2.png in Resources */,
-				04281DA9225B2C63008B111B /* warningmed.wav in Resources */,
 				0465248E21E74D9900362D08 /* AlertTimeLineCell.xib in Resources */,
 				0472A04321ED75AD007D1252 /* SingleViewAirWaveCell.xib in Resources */,
 				043BF5E2224DD1A300EE674C /* sanxingbo2.png in Resources */,
@@ -1669,8 +1673,10 @@
 				04A8619A2233645000475A01 /* AddAdviceView.xib in Resources */,
 				0474F23E224B590E00C40E0E /* paitan.gif in Resources */,
 				042C7452224259CF00FCA114 /* juchibo.gif in Resources */,
+				0495A856229CE25D00DE4487 /* warningmed.wav in Resources */,
 				042C7451224259CF00FCA114 /* maicongbo.gif in Resources */,
 				04A86184223350E500475A01 /* EditTaskView.xib in Resources */,
+				0495A855229CE25D00DE4487 /* warninghigh.wav in Resources */,
 				049534F221C8D14600C567D8 /* Assets.xcassets in Resources */,
 				042C744E224259CF00FCA114 /* fangbo.gif in Resources */,
 				046D214C21D4767000A0D5AE /* TaskDetailView.xib in Resources */,
@@ -1683,7 +1689,6 @@
 				0473CEFC21D622AD00E869A3 /* LostRecordView.xib in Resources */,
 				047D17B221F16F5C00B498E6 /* FourViewsAirWaveCell.xib in Resources */,
 				046CE1B92217F4DE00ED6BF1 /* SelectDateView.xib in Resources */,
-				04281DA8225B2C63008B111B /* warninglow.wav in Resources */,
 				04A030DB227700AE00A16A08 /* PrinterCell.xib in Resources */,
 				042C746422426AA800FCA114 /* shihua.gif in Resources */,
 				043BF5DE224DD1A300EE674C /* jianbo2.png in Resources */,
@@ -1691,7 +1696,6 @@
 				04A030D32276F94F00A16A08 /* PrinterListView.xib in Resources */,
 				043BF5D2224DD10500EE674C /* gnhw2.png in Resources */,
 				049534F021C8D14200C567D8 /* Main.storyboard in Resources */,
-				04281DAA225B2C63008B111B /* warninghigh.wav in Resources */,
 				0474F242224B9ADD00C40E0E /* shihua2.png in Resources */,
 				04369EBB220054AE008F22E2 /* DeviceFilterView.xib in Resources */,
 				04909A04226DA4D90021160B /* negativePressure2.png in Resources */,
@@ -1796,7 +1800,6 @@
 				046458F7228ABD2D00D31A6A /* AASpline.m in Sources */,
 				046458F6228ABD0200D31A6A /* AAChartView.m in Sources */,
 				04909A01226D6D850021160B /* NegativePressureModel.m in Sources */,
-				046354B42269C09400D010E3 /* blight2.png in Sources */,
 				045C70BF2266B4AD000C6FDB /* HighEnergyInfraredModel.m in Sources */,
 				04934775223F33250017EA73 /* SolutionModel.m in Sources */,
 				0472F5FD2238B6C500DD2658 /* QRCameraSwitchButton.m in Sources */,
@@ -1844,6 +1847,7 @@
 				0473CF0221D6283700E869A3 /* LostRecordView.m in Sources */,
 				04141F81226092C10021A31D /* MachineParameterTool.m in Sources */,
 				0419233621D76E8D00CE8F91 /* DeviceCell.m in Sources */,
+				0419955E2296A17000308E00 /* TopLeftLabel.m in Sources */,
 				0472A04221ED75AD007D1252 /* SingleViewAirWaveCell.m in Sources */,
 				0472F6042238DF6F00DD2658 /* NSArray+Log.m in Sources */,
 				04A8619F22336E5C00475A01 /* AddLocationView.m in Sources */,
@@ -2096,7 +2100,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -2116,7 +2120,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lifotronic.LifoStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

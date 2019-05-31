@@ -120,12 +120,10 @@
                                          
                                          if([count intValue] > 0)
                                          {
-                                             self.tableView.tableHeaderView.hidden = NO;
                                              [self getNetworkDataWithHeader:isPullingDown];
                                              self.noDataView.hidden = YES;
                                          } else {
                                              [datas removeAllObjects];
-                                             self.tableView.tableHeaderView.hidden = YES;
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  [self.tableView reloadData];
                                              });
@@ -349,8 +347,8 @@
     NSInteger seconds = [totalTime integerValue];
     
     //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
+    NSString *HourString = [NSString stringWithFormat:@"%02ld",(long)seconds/3600];
+    NSString *minuterString = [NSString stringWithFormat:@"%02ld",((long)seconds % 3600)/60];
     NSString *formatTime = [NSString stringWithFormat:@"%@:%@",HourString,minuterString];
     return formatTime;
 }

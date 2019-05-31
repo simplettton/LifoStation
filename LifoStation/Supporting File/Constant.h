@@ -9,11 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <MQTTClient/MQTTClient.h>
 #import <MQTTClient/MQTTSessionManager.h>
+#define ParameterViewTag 9999
+#define TimeLabelTag 8888
+#define FocusViewTag 7777
+#define BodyContentViewTag 6666
+#define AlertViewTag 5555
+#define AlertLabelTag 4444
+#define ChartViewTag 3333
+#define AlertImageTag 2222
 typedef NS_ENUM(NSInteger,CellStyle) {
     CellStyleOnline,
     CellStyleOffLine,
     CellStyleAlert,
     CellStyleUnauthorized
+};
+typedef NS_ENUM(NSInteger,MachineAlertLevel) {
+        MachineAlertLevel_High       = 1,
+        MachineAlertLevel_Middle     = 2,
+        MachineAlertLevel_Low        = 3
 };
 typedef NS_ENUM(NSInteger,MachineState) {
     MachineStateRunning = 0,    //运行中
@@ -63,5 +76,5 @@ typedef NS_ENUM(NSInteger,MachineType)
 
 /** mqtt */
 @property (strong, nonatomic) MQTTSessionManager *manager;
-
+- (UIColor *)getAlertColorWithLevel:(NSNumber *)level;
 @end

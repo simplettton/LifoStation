@@ -45,14 +45,6 @@
 #define MQTTIP @"HTTPServerIP"
 #define MQTTPORT @"MQTTPort"
 
-#define ParameterViewTag 9999
-#define TimeLabelTag 8888
-#define FocusViewTag 7777
-#define BodyContentViewTag 6666
-#define AlertViewTag 5555
-#define AlertLabelTag 4444
-#define ChartViewTag 3333
-
 typedef NS_ENUM(NSInteger, PlaySoundType) {
     PlaySoundTypeNormal = 0,
     PlaySoundTypeShake,
@@ -141,8 +133,9 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     self.showViewType = FourViewsType;
     [self changeShowViewType:[self.typeSwitchView viewWithTag:FourViewsType]];
     
-    /** 默认不显示alertview */
-    _isShowAlertMessage = NO;
+    /** 默认显示alertview */
+    _isShowAlertMessage = YES;
+    self.tableView.tableFooterView = [[UIView alloc]init];
     self.alertView.layer.borderWidth = 0.5f;
     self.alertView.layer.borderColor = UIColorFromHex(0xbbbbbb).CGColor;
     
@@ -180,7 +173,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     if ([datas count]>0) {
         [self refresh];
     }
-    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -234,7 +227,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                            auth:true
                            user:@"admin"
                            pass:@"lifotronic.com"
-                           will:nil
+                           will:false
                       willTopic:nil
                         willMsg:nil
                         willQos:MQTTQosLevelExactlyOnce
@@ -326,7 +319,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 machine.hasLicense = YES;
                 [self reloadItemAtIndex:index];
             }
-
         } else if ([code integerValue] == 0x94) {
             NSNumber *isOnline = jsonDict[@"Data"][@"IsOnline"];
             NSNumber *hasLicense = jsonDict[@"Data"][@"HasLicense"];
@@ -338,47 +330,26 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 [BEProgressHUD showMessage:[NSString stringWithFormat:@"%@-%@-下线",machine.departmentName,machine.name]];
             }
             [self reloadItemAtIndex:index];
-            
         } else if ([code integerValue] == 0x95) {
             BOOL isAlertSwitchOn = [UserDefault boolForKey:@"IsAlertSwitchOn"];
             BOOL isSoundSwitchOn = [UserDefault boolForKey:@"IsSoundSwitchOn"];
             /** 打开了报警提示开关 */
             if (isAlertSwitchOn) {
-                /** 报警信息栏添加信息 */
-                NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
-                NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@",[self getCurrentTimeString],(machine.departmentName == nil)?@"":machine.departmentName,machine.name,content[@"ErrMsg"]];
-                
-                [dataDic setObject:errorString forKey:@"error"];
-                [dataDic setObject:machine.cpuid forKey:@"cpuid"];
-                [dataDic setObject:jsonDict[@"Data"][@"Level"] forKey:@"level"];
-                
+                NSNumber *level = content[@"Level"];
+                NSString *oldAlertMessage = machine.msg_alertMessage;
+                NSString *newAlertMessage = content[@"ErrMsg"];
                 if (machine.msg_alertMessage) {
                     //如果当前信息与之前保存的报警信息不一致则添加到报警信息栏（之前的报警信息可以维持3s）
-                    if (![machine.msg_alertMessage isEqualToString:content[@"ErrMsg"]]) {
-                        if ([alertArray count] == 0) {
-                            [self showBottomAlertView];
-                        }
-                        [alertArray insertObject:dataDic atIndex:0];
-                        
-                        [self.tableView reloadData];
+                    if (![oldAlertMessage isEqualToString:newAlertMessage]) {
+                        [self refleshAlertArrayDataWithMachine:machine data:content];
                     }
                 } else {
-                    if ([alertArray count] == 0) {
-                        [self showBottomAlertView];
-                    }
-                    [alertArray insertObject:dataDic atIndex:0];
-                    [self.tableView reloadData];
+                    [self refleshAlertArrayDataWithMachine:machine data:content];
                 }
-                
                
                 /** 更新报警文字 */
-                machine.msg_alertMessage = content[@"ErrMsg"];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-                UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-
-                //边框橙色
-                cell.layer.borderWidth = 2;
-                cell.layer.borderColor =  UIColorFromHex(0xFBA526).CGColor;
+                machine.msg_alertMessage = newAlertMessage;
+                machine.msg_alertDictionary = content;
             
                 //取消3秒关闭报警提示
                 [self invalidateTimer:machine.outTimeTimer];
@@ -387,16 +358,24 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                                                                       selector:@selector(closeAlert:)
                                                                       userInfo:@{
                                                                                  @"machine":machine,
-                                                                                 @"index":[NSNumber numberWithInteger:index]}
+                                                                                 @"index":[NSNumber numberWithInteger:index]
+                                                                                 }
                                                                        repeats:NO];
-                if (!machine.alertTimer) {
+                if ((machine.alertTimer && (![oldAlertMessage isEqualToString:newAlertMessage])) || machine.alertTimer == nil) {
+                    if (machine.alertTimer) {
+                        [machine.alertTimer invalidate];
+                        machine.alertTimer = nil;
+                    }
+                    //新的报警信息更新刷新频率
                     
-                    machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                    machine.alertTimer = [NSTimer scheduledTimerWithTimeInterval:[self getAlertTimeIntervalWithLevel:level]
                                                                           target:self
                                                                         selector:@selector(startFlashingAlertView:)
                                                                         userInfo:@{
                                                                                    @"machine":machine,
-                                                                                   @"index":[NSNumber numberWithInteger:index]}
+                                                                                   @"index":[NSNumber numberWithInteger:index],
+                                                                                   @"level":level
+                                                                                   }
                                                                          repeats:YES];
                 }
             
@@ -414,7 +393,69 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     }
 }
 
+
 #pragma mark - 报警控制
+- (void)refleshAlertArrayDataWithMachine:(MachineModel *)machine data:(NSDictionary *)content {
+    /** 报警信息栏添加信息 */
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithCapacity:20];
+    NSNumber *level = content[@"Level"];
+    NSString *rankLevelString = [[NSString alloc]init];
+    switch ([level integerValue]) {
+        case MachineAlertLevel_Low:
+            rankLevelString = @"*";
+            break;
+        case MachineAlertLevel_Middle:
+            rankLevelString = @"**";
+            break;
+        case MachineAlertLevel_High:
+            rankLevelString = @"***";
+            break;
+        default:
+            rankLevelString = @"";
+            break;
+    }
+    NSString *showTime = [[NSString alloc]init];
+    NSString *alertLockTime = content[@"WarnningTime"];
+    if ([alertLockTime length] > 0) {
+        showTime = alertLockTime;
+    } else {
+        showTime = [self getCurrentTimeString];
+    }
+    NSString *errorString = [NSString stringWithFormat:@"%@ %@ [%@] %@%@",showTime,(machine.departmentName == nil)?@"":machine.departmentName,machine.name,rankLevelString,content[@"ErrMsg"]];
+    [dataDic setObject:errorString forKey:@"error"];
+    [dataDic setObject:machine.cpuid forKey:@"cpuid"];
+    [dataDic setObject:level forKey:@"level"];
+    
+    if ([alertArray count] == 0) {
+        [self showBottomAlertView];
+    }
+    [alertArray insertObject:dataDic atIndex:0];
+    [self.tableView reloadData];
+}
+- (NSTimeInterval)getAlertTimeIntervalWithLevel:(NSNumber *)level {
+    switch ([level integerValue]) {
+        case MachineAlertLevel_High:
+            return 0.5;
+            break;
+        case MachineAlertLevel_Middle:
+            return 1;
+            break;
+        case MachineAlertLevel_Low:
+            return 0;
+        default:
+            return 0;
+            break;
+    }
+}
+- (NSString *)getAlertImageViewWithLevelWithLevel:(NSNumber *)level {
+    if ([level integerValue] == MachineAlertLevel_High) {
+        /** 一级报警红色图标 */
+        return @"warm_red";
+    } else {
+        /** 二级三级报警黄色图标 */
+        return @"warm";
+    }
+}
 - (void)showBottomAlertView {
     self.isShowAlertMessage = YES;
     self.alertViewHeight.constant = 184;
@@ -426,21 +467,34 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     NSDictionary *dataDic = timer.userInfo;
     NSInteger index = [dataDic[@"index"]integerValue];
     MachineModel *machine = dataDic[@"machine"];
+    NSInteger level = [dataDic[@"level"]integerValue];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    //边框橙色或者红色
+    cell.layer.borderWidth = 2;
+    cell.layer.borderColor =  [[Constant sharedInstance]getAlertColorWithLevel:dataDic[@"level"]].CGColor;
+    
     UIView *bodyContentView = [cell.contentView viewWithTag:BodyContentViewTag];
     UIView *alertView = [bodyContentView viewWithTag:AlertViewTag];
+    UIImageView *alertImageView = [alertView viewWithTag:AlertImageTag];
+    alertImageView.image = [UIImage imageNamed:[self getAlertImageViewWithLevelWithLevel:dataDic[@"level"]]];
     UILabel *alertLabel = [alertView viewWithTag:AlertLabelTag];
+    alertLabel.textColor = [[Constant sharedInstance]getAlertColorWithLevel:dataDic[@"level"]];
     alertLabel.text = machine.msg_alertMessage;
     
     /** 报警信息置顶 */
     [bodyContentView bringSubviewToFront:alertView];
-
-    /** 显示与隐藏alertView */
-    if (alertView.isHidden) {
+    if (level == MachineAlertLevel_Low) {
+        //三级报警一直显示
         alertView.hidden = NO;
     } else {
-        alertView.hidden = YES;
+        /** 一二级报警显示与隐藏alertView */
+        if (alertView.isHidden) {
+            alertView.hidden = NO;
+        } else {
+            alertView.hidden = YES;
+        }
     }
 }
 - (void)closeAlert:(NSTimer *)timer {
@@ -448,6 +502,7 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     MachineModel *machine = dataDic[@"machine"];
     NSInteger index = [dataDic[@"index"]integerValue];
     machine.msg_alertMessage = nil;
+    machine.msg_alertDictionary = nil;
     [machine.alertTimer invalidate];
     machine.alertTimer = nil;
     /** 恢复边框颜色 */
@@ -676,62 +731,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
                 break;
         }
     }
-//    else {
-//        if (data) {
-//            AAChartModel *chartModel= AAObject(AAChartModel)
-//            .chartTypeSet(AAChartTypeSpline)
-//            .titleSet(@"")
-//            .subtitleSet(@"")
-//            .yAxisLineWidthSet(@0)//Y轴轴线线宽为0即是隐藏Y轴轴线
-//            .markerRadiusSet(@0)    //圆点的大小
-//            .yAxisVisibleSet(NO)
-//            .xAxisVisibleSet(NO)
-//            .yAxisTitleSet(@"")//设置 Y 轴标题
-//            .tooltipValueSuffixSet(@"℃")//设置浮动提示框单位后缀
-//            .yAxisGridLineWidthSet(@0)//y轴横向分割线宽度为0(即是隐藏分割线)
-//            .legendEnabledSet(NO)//下面按钮是否显示
-//            .seriesSet(@[@{
-//                             @"name":@"temperature",
-//                             @"data":machine.chartDataArray,
-//                             @"color":@"#f8b273"
-//                             },]);
-//            chartModel.animationType = AAChartAnimationBounce;
-//            /*图表视图对象调用图表模型对象,绘制最终图形*/
-//            switch (self.showViewType) {
-//                case SingleViewType:
-//                {
-//                    SingleElectCell *cell1 = (SingleElectCell *)cell;
-//                    [cell1.chartView aa_drawChartWithChartModel:chartModel];
-//                }
-//
-//                    break;
-//                case TwoViewsType:
-//                {
-//                    TwoElectCell *cell1 = (TwoElectCell *)cell;
-//                    [cell1.chartView aa_drawChartWithChartModel:chartModel];
-//                }
-//
-//                    break;
-//                case FourViewsType:
-//                {
-//                    FourElectCell *cell1 = (FourElectCell *)cell;
-//                    [cell1.chartView aa_drawChartWithChartModel:chartModel];
-//                }
-//
-//                    break;
-//                case NineViewsType:
-//                {
-//                    NineElectCell *cell1 = (NineElectCell *)cell;
-//                    [cell1.chartView aa_drawChartWithChartModel:chartModel];
-//                }
-//
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    }
-
 }
 #pragma mark - refresh
 - (void)initTableHeaderAndFooter {
@@ -959,7 +958,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     switch (self.showViewType) {
         case SingleViewType:
         {
-
             if ([machine.groupCode integerValue] == MachineType_AirWave) {
                 SingleViewAirWaveCell *cell = (SingleViewAirWaveCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SingleViewAirWaveCell" forIndexPath:indexPath];
                 [cell configureWithModel:machine];
@@ -1104,7 +1102,12 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isShowAlertMessage) {
-        return [alertArray count];
+        if ([alertArray count] == 0) {
+            return 1;
+        } else {
+            return [alertArray count];
+        }
+
     } else {
         return 0;
     }
@@ -1112,6 +1115,9 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //选中报警信息滚动到设备视图可见
+    if ([alertArray count] == 0) {
+        return;
+    }
     NSString *cpuid = alertArray[indexPath.row][@"cpuid"];
     if ([cpuids containsObject:cpuid]) {
         NSInteger index = [cpuids indexOfObject:cpuid];
@@ -1128,8 +1134,14 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.textLabel.textColor = UIColorFromHex(0x787878);
-    
-    cell.textLabel.text = alertArray[indexPath.row][@"error"];
+    if ([alertArray count] == 0) {
+        cell.textLabel.text = @"暂时没有数据哦~";
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    } else {
+        cell.textLabel.text = alertArray[indexPath.row][@"error"];
+        cell.selectionStyle =UITableViewCellSelectionStyleDefault;
+    }
+
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -1240,7 +1252,6 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
 - (void)playSoundWithName:(NSString *)name soundtype:(NSString *)soundtype level:(NSInteger)level
 {
     [self playerInitialize:name soundtype:soundtype];
-    LxDBAnyVar(@"--------------------------------------");
     self.playingAlertLevel = level;
 }
 - (void)playerInitialize:(NSString *)musicName soundtype:(NSString *)soundtype {
@@ -1319,14 +1330,5 @@ typedef NS_ENUM(NSInteger, PlaySoundType) {
     NSDate *dateNow = [NSDate date];
     return [formatter stringFromDate:dateNow];
 }
-- (NSString *)getHourAndMinuteFromSeconds:(NSString *)totalTime {
-    NSInteger seconds = [totalTime integerValue];
-    
-    //format of hour
-    NSString *HourString = [NSString stringWithFormat:@"%02ld",seconds/3600];
-    NSString *minuterString = [NSString stringWithFormat:@"%02ld",(seconds % 3600)/60];
-    NSString *secondString = [NSString stringWithFormat:@"%02ld",seconds%60];
-    NSString *formatTime = [NSString stringWithFormat:@"%@:%@:%@",HourString,minuterString,secondString];
-    return formatTime;
-}
+
 @end

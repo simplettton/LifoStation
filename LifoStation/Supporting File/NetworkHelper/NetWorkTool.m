@@ -46,7 +46,7 @@ static NetWorkTool *_instance;
     _instance.requestSerializer = [AFJSONRequestSerializer serializer];
     _instance.responseSerializer = [AFJSONResponseSerializer serializer];
     //设置请求的超时时间
-    _instance.requestSerializer.timeoutInterval = 3.f;
+    _instance.requestSerializer.timeoutInterval = 5.f;
     
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     
@@ -136,7 +136,6 @@ static NetWorkTool *_instance;
                [self endTableViewRefreshing:YES];
                
                [BEProgressHUD showMessage:@"网络请求失败，请检查网络连接"];
-//               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                
                NSLog(@"ERROR = %@",error.localizedDescription);
            });
